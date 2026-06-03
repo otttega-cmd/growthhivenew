@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Growthhive — Work. Play. Grow.</title>
+  <title>Growthhive — Work. Play. Grow. 🐝</title>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="/styles/index_style.css">
+  <!-- Styles: shared first, then page-specific -->
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="styles/index_page.css">
 
-  <!-- Vendor scripts (loaded before our code) -->
+  <!-- Vendor scripts -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -177,7 +178,12 @@
 </section>
 
 <!-- Main script — deferred so DOM is ready -->
-<script src="/scripts/index_script.js" defer></script>
+
+<!-- growthhive.js first: sets window.onLoaderComplete -->
+<!-- shared.js second: cursor + loader, calls onLoaderComplete when done -->
+<!-- Both deferred — browser runs them in document order -->
+<script src="/scripts/index_page.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
 
 </body>
 </html>
