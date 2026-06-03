@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work — Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;1,9..40,200;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    :root {
+      --ch: #D4F53C;
+      --navy: #0B0B1F;
+      --white: #F2F2EA;
+      --dim: rgba(242,242,234,0.45);
+      --faint: rgba(242,242,234,0.08);
+      --ease: cubic-bezier(0.16,1,0.3,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--navy); overflow-x: hidden; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); cursor: none; overflow-x: hidden; }
+
+    /* Grain */
+    body::after { content:''; position:fixed; inset:0; z-index:3; pointer-events:none; opacity:.028;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size:180px 180px; }
+
+    /* Cursor */
+    #cur { position:fixed; width:10px; height:10px; background:var(--ch); border-radius:50%; pointer-events:none; z-index:9999; transform:translate(-50%,-50%); transition:width .4s var(--ease),height .4s var(--ease),background .3s; mix-blend-mode:difference; }
+    #cur.big { width:64px; height:64px; }
+    #cur.view::before { content:'VIEW'; position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-size:.38rem; letter-spacing:.1em; color:var(--navy); font-weight:700; }
+    #curR { position:fixed; width:38px; height:38px; border:1px solid rgba(212,245,60,.28); border-radius:50%; pointer-events:none; z-index:9998; transform:translate(-50%,-50%); transition:opacity .3s; }
+
+    /* Nav */
+    nav { position:fixed; top:0; left:0; right:0; z-index:200; display:flex; align-items:center; justify-content:space-between; padding:2rem 3rem; mix-blend-mode:difference; }
+    .nlogo { font-family:'Space Mono',monospace; font-size:.82rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--white); text-decoration:none; }
+    .nlogo em { color:var(--ch); font-style:normal; }
+    .nlinks { display:flex; gap:2.5rem; list-style:none; }
+    .nlinks a { font-family:'Space Mono',monospace; font-size:.63rem; letter-spacing:.14em; text-transform:uppercase; color:var(--dim); text-decoration:none; transition:color .3s; position:relative; }
+    .nlinks a::after { content:''; position:absolute; bottom:-2px; left:0; width:0; height:1px; background:var(--ch); transition:width .4s var(--ease); }
+    .nlinks a:hover { color:var(--white); }
+    .nlinks a:hover::after { width:100%; }
+    .nlinks a.active { color:var(--white); }
+    .nlinks a.active::after { width:100%; }
+    .ncta { font-family:'Space Mono',monospace; font-size:.63rem; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); background:var(--ch); padding:.6rem 1.25rem; text-decoration:none; transition:opacity .3s; }
+    .ncta:hover { opacity:.82; }
+
+    /* ── INTRO HEADER ── */
+    .work-intro {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 3rem 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #intro-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .intro-content { position: relative; z-index: 1; }
+    .intro-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: .63rem; letter-spacing: .24em; text-transform: uppercase;
+      color: var(--ch); margin-bottom: 1.6rem; overflow: hidden;
+    }
+    .intro-eyebrow span { display: block; transform: translateY(110%); }
+    .intro-title {
+      font-size: clamp(4rem, 11vw, 11rem);
+      font-weight: 200; line-height: .86; letter-spacing: -.05em;
+      margin-bottom: 3rem;
+    }
+    .intro-title .line { overflow: hidden; display: block; }
+    .intro-title .word { display: inline-block; transform: translateY(115%); }
+    .intro-title .acc { color: var(--ch); font-style: italic; }
+    .intro-meta {
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem;
+    }
+    .intro-desc {
+      font-size: .93rem; line-height: 1.68; color: var(--dim); max-width: 300px;
+      overflow: hidden;
+    }
+    .intro-desc span { display: block; transform: translateY(110%); }
+    .intro-count {
+      font-family: 'Space Mono', monospace;
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--dim);
+      opacity: 0;
+    }
+    .intro-count em { color: var(--ch); font-style: normal; }
+
+    /* ── CASE PANELS ── */
+    .cases-track {
+      position: relative;
+    }
+
+    .case-panel {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+
+    /* Each case gets its colour world via data attribute + CSS vars */
+    .case-panel[data-case="0"] { --c1: #1a0a00; --c2: #3d1200; --acc: #FF6B1A; --acc2: #ff9a5c; }
+    .case-panel[data-case="1"] { --c1: #00100a; --c2: #001a0f; --acc: #00E676; --acc2: #69f0ae; }
+    .case-panel[data-case="2"] { --c1: #0a0010; --c2: #160020; --acc: #CE93D8; --acc2: #f3e5f5; }
+    .case-panel[data-case="3"] { --c1: #001020; --c2: #002040; --acc: #00B0FF; --acc2: #80d8ff; }
+    .case-panel[data-case="4"] { --c1: #1a1500; --c2: #2e2500; --acc: #FFD600; --acc2: #fff176; }
+    .case-panel[data-case="5"] { --c1: #100010; --c2: #1a0020; --acc: #FF4081; --acc2: #ff80ab; }
+
+    .case-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, var(--c1) 0%, var(--c2) 100%);
+      transform: scale(1.04);
+      transition: transform 1.2s var(--ease);
+    }
+    .case-panel.is-active .case-bg { transform: scale(1); }
+
+    /* Geometric texture layer unique to each case */
+    .case-texture {
+      position: absolute; inset: 0;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    .case-panel.is-active .case-texture { opacity: 1; }
+
+    .case-panel[data-case="0"] .case-texture {
+      background:
+        repeating-linear-gradient(45deg, rgba(255,107,26,.06) 0, rgba(255,107,26,.06) 1px, transparent 0, transparent 40px),
+        repeating-linear-gradient(-45deg, rgba(255,107,26,.04) 0, rgba(255,107,26,.04) 1px, transparent 0, transparent 80px);
+    }
+    .case-panel[data-case="1"] .case-texture {
+      background: radial-gradient(circle at 70% 30%, rgba(0,230,118,.08) 0%, transparent 55%),
+        repeating-linear-gradient(0deg, rgba(0,230,118,.04) 0, rgba(0,230,118,.04) 1px, transparent 0, transparent 36px);
+    }
+    .case-panel[data-case="2"] .case-texture {
+      background: radial-gradient(ellipse at 30% 60%, rgba(206,147,216,.1) 0%, transparent 50%),
+        repeating-linear-gradient(60deg, rgba(206,147,216,.05) 0, rgba(206,147,216,.05) 1px, transparent 0, transparent 44px);
+    }
+    .case-panel[data-case="3"] .case-texture {
+      background:
+        repeating-linear-gradient(90deg, rgba(0,176,255,.05) 0, rgba(0,176,255,.05) 1px, transparent 0, transparent 50px),
+        repeating-linear-gradient(0deg, rgba(0,176,255,.05) 0, rgba(0,176,255,.05) 1px, transparent 0, transparent 50px);
+    }
+    .case-panel[data-case="4"] .case-texture {
+      background: radial-gradient(circle at 60% 40%, rgba(255,214,0,.1) 0%, transparent 50%),
+        repeating-linear-gradient(30deg, rgba(255,214,0,.04) 0, rgba(255,214,0,.04) 1px, transparent 0, transparent 38px);
+    }
+    .case-panel[data-case="5"] .case-texture {
+      background: radial-gradient(ellipse at 20% 70%, rgba(255,64,129,.08) 0%, transparent 55%),
+        repeating-linear-gradient(-30deg, rgba(255,64,129,.05) 0, rgba(255,64,129,.05) 1px, transparent 0, transparent 42px);
+    }
+
+    /* Large decorative number */
+    .case-num {
+      position: absolute;
+      top: 50%;
+      right: 3rem;
+      transform: translateY(-50%);
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(12rem, 25vw, 22rem);
+      font-weight: 700;
+      color: var(--acc);
+      opacity: .04;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      transition: opacity 1.2s;
+    }
+    .case-panel.is-active .case-num { opacity: .065; }
+
+    /* Big visual element — abstract shape */
+    .case-visual {
+      position: absolute;
+      right: 8%;
+      top: 50%;
+      transform: translateY(-50%) scale(0.88) translateX(60px);
+      opacity: 0;
+      transition: transform 1.1s var(--ease), opacity 1.1s var(--ease);
+      width: clamp(220px, 30vw, 420px);
+      aspect-ratio: 1;
+      pointer-events: none;
+    }
+    .case-panel.is-active .case-visual {
+      transform: translateY(-50%) scale(1) translateX(0);
+      opacity: 1;
+    }
+
+    /* SVG shapes per case */
+    .case-visual svg { width: 100%; height: 100%; }
+
+    /* Case content */
+    .case-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 3rem 5rem;
+      width: 100%;
+    }
+
+    .case-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: .6rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--acc); margin-bottom: 1.4rem;
+      overflow: hidden; opacity: 0; transform: translateY(12px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
+    }
+    .case-panel.is-active .case-tag { opacity: 1; transform: translateY(0); transition-delay: .1s; }
+
+    .case-title {
+      font-size: clamp(3rem, 8vw, 8rem);
+      font-weight: 200; line-height: .88; letter-spacing: -.045em;
+      margin-bottom: 2rem;
+      overflow: hidden;
+    }
+    .case-title .tline { overflow: hidden; display: block; }
+    .case-title .tword {
+      display: inline-block;
+      transform: translateY(110%);
+      transition: transform 1.1s var(--ease);
+    }
+    .case-panel.is-active .case-title .tword { transform: translateY(0); }
+    .case-panel.is-active .case-title .tword:nth-child(2) { transition-delay: .06s; }
+    .case-panel.is-active .case-title .tword:nth-child(3) { transition-delay: .12s; }
+
+    .case-meta-row {
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem;
+    }
+
+    .case-desc {
+      font-size: .92rem; line-height: 1.65; color: var(--dim);
+      max-width: 380px; opacity: 0; transform: translateY(10px);
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
+    }
+    .case-panel.is-active .case-desc { opacity: 1; transform: translateY(0); transition-delay: .25s; }
+
+    .case-cta {
+      display: flex; align-items: center; gap: 1rem;
+      font-family: 'Space Mono', monospace; font-size: .62rem;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--acc); text-decoration: none;
+      opacity: 0; transform: translateX(10px);
+      transition: opacity .9s var(--ease), transform .9s var(--ease), color .3s;
+      white-space: nowrap;
+    }
+    .case-panel.is-active .case-cta { opacity: 1; transform: translateX(0); transition-delay: .35s; }
+    .case-cta:hover { color: var(--white); }
+    .cta-line {
+      width: 0; height: 1px; background: var(--acc);
+      transition: width .6s var(--ease), background .3s;
+    }
+    .case-panel.is-active .cta-line { width: 36px; transition-delay: .5s; }
+    .case-cta:hover .cta-line { width: 54px; background: var(--white); }
+
+    /* Stats strip */
+    .case-stats {
+      position: absolute;
+      top: 2.5rem; left: 3rem;
+      display: flex; gap: 3rem;
+      z-index: 2;
+      opacity: 0; transform: translateY(-8px);
+      transition: opacity .9s var(--ease), transform .9s var(--ease);
+    }
+    .case-panel.is-active .case-stats { opacity: 1; transform: translateY(0); transition-delay: .4s; }
+    .cs-item {}
+    .cs-val {
+      font-size: 1.6rem; font-weight: 200; letter-spacing: -.03em;
+      color: var(--acc); line-height: 1; margin-bottom: .2rem;
+    }
+    .cs-key {
+      font-family: 'Space Mono', monospace; font-size: .55rem;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--dim);
+    }
+
+    /* Progress indicator */
+    .progress-rail {
+      position: fixed; right: 3rem; top: 50%; transform: translateY(-50%);
+      z-index: 100; display: flex; flex-direction: column; gap: .6rem;
+    }
+    .prog-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--faint); border: 1px solid rgba(242,242,234,.2);
+      transition: background .4s, transform .4s var(--ease);
+      cursor: none;
+    }
+    .prog-dot.active { background: var(--ch); transform: scale(1.5); }
+
+    /* Scroll hint */
+    .scroll-hint {
+      position: fixed; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 100; display: flex; flex-direction: column; align-items: center; gap: .5rem;
+      opacity: 1; transition: opacity .5s;
+    }
+    .scroll-hint.hidden { opacity: 0; pointer-events: none; }
+    .sh-text { font-family: 'Space Mono', monospace; font-size: .55rem; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); }
+    .sh-arrow { width: 1px; height: 28px; background: linear-gradient(to bottom, var(--ch), transparent); animation: shpulse 1.8s ease-in-out infinite; }
+    @keyframes shpulse { 0%,100% { opacity:.3; transform:scaleY(.6); } 50% { opacity:1; transform:scaleY(1); } }
+
+    /* ── OUTRO ── */
+    .work-outro {
+      height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative; overflow: hidden; gap: 0;
+    }
+    .outro-bg {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(212,245,60,.07) 0%, transparent 65%);
+    }
+    .outro-label {
+      font-family: 'Space Mono', monospace; font-size: .6rem;
+      letter-spacing: .24em; text-transform: uppercase; color: var(--ch);
+      margin-bottom: 2rem; overflow: hidden;
+    }
+    .outro-label span { display: block; transform: translateY(110%); }
+    .outro-title {
+      font-size: clamp(3rem, 7vw, 7rem); font-weight: 200;
+      letter-spacing: -.045em; line-height: .88; text-align: center;
+      margin-bottom: 4rem;
+    }
+    .outro-title .line { overflow: hidden; display: block; }
+    .outro-title .inner { display: block; transform: translateY(110%); }
+    .outro-title .acc { color: var(--ch); font-style: italic; }
+    .outro-btns { display: flex; gap: 1.2rem; opacity: 0; transform: translateY(14px); }
+    .btn-fill { font-family:'Space Mono',monospace; font-size:.63rem; letter-spacing:.12em; text-transform:uppercase; color:var(--navy); background:var(--ch); padding:1rem 2.2rem; text-decoration:none; transition:opacity .3s; }
+    .btn-fill:hover { opacity:.82; }
+    .btn-out { font-family:'Space Mono',monospace; font-size:.63rem; letter-spacing:.12em; text-transform:uppercase; color:var(--white); border:1px solid var(--faint); padding:1rem 2.2rem; text-decoration:none; transition:border-color .3s,color .3s; }
+    .btn-out:hover { border-color:var(--ch); color:var(--ch); }
+
+    /* Loader */
+    .ldr { position:fixed; inset:0; background:var(--navy); z-index:1000; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.8rem; }
+    .ldr-logo { font-family:'Space Mono',monospace; font-size:.82rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+    .ldr-logo em { color:var(--ch); font-style:normal; }
+    .ldr-track { width:180px; height:1px; background:var(--faint); }
+    .ldr-fill { height:100%; width:0%; background:var(--ch); }
+    .ldr-pct { font-family:'Space Mono',monospace; font-size:.56rem; letter-spacing:.16em; color:var(--dim); }
+
+    @media (max-width: 768px) {
+      nav { padding:1.5rem; }
+      .nlinks,.ncta { display:none; }
+      .work-intro { padding:0 1.5rem 3.5rem; }
+      .case-content { padding:0 1.5rem 3.5rem; }
+      .case-stats { left:1.5rem; gap:1.8rem; }
+      .case-num { right:1rem; font-size:8rem; }
+      .case-visual { display:none; }
+      .progress-rail { right:1rem; }
+      .case-meta-row { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="ldr" id="ldr">
+  <div class="ldr-logo">Growthhive<em>.</em></div>
+  <div class="ldr-track"><div class="ldr-fill" id="lFill"></div></div>
+  <div class="ldr-pct" id="lPct">0%</div>
+</div>
+
+<div id="cur"></div>
+<div id="curR"></div>
+
+<nav>
+  <a href="growthhive.html" class="nlogo">Growthhive<em>.</em></a>
+  <ul class="nlinks">
+    <li><a href="work.html" class="active">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="#" class="ncta">Start a project</a>
+</nav>
+
+<!-- Progress dots -->
+<div class="progress-rail" id="progRail"></div>
+
+<!-- Scroll hint -->
+<div class="scroll-hint" id="scrollHint">
+  <div class="sh-text">Scroll</div>
+  <div class="sh-arrow"></div>
+</div>
+
+<!-- ── INTRO ── -->
+<section class="work-intro" id="workIntro">
+  <canvas id="intro-canvas"></canvas>
+  <div class="intro-content">
+    <div class="intro-eyebrow"><span>Selected Work — 2022–2026</span></div>
+    <h1 class="intro-title">
+      <span class="line"><span class="word">The</span></span>
+      <span class="line"><span class="word acc">work.</span></span>
+    </h1>
+    <div class="intro-meta">
+      <div class="intro-desc"><span>Six brands. Six stories. Every campaign built to move people and move markets.</span></div>
+      <div class="intro-count" id="introCount"><em>06</em> cases</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CASES ── -->
+<div class="cases-track" id="casesTrack">
+
+  <!-- 0: Russian Bear Vodka -->
+  <div class="case-panel" data-case="0" id="case0">
+    <div class="case-bg"></div>
+    <div class="case-texture"></div>
+    <div class="case-num">01</div>
+    <div class="case-visual">
+      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="200" cy="200" r="160" stroke="#FF6B1A" stroke-width="1" stroke-dasharray="8 6" opacity=".3"/>
+        <circle cx="200" cy="200" r="120" stroke="#FF6B1A" stroke-width="1.5" opacity=".2"/>
+        <circle cx="200" cy="200" r="80" stroke="#FF6B1A" stroke-width="2" opacity=".35"/>
+        <circle cx="200" cy="200" r="40" fill="#FF6B1A" opacity=".12"/>
+        <circle cx="200" cy="200" r="20" fill="#FF6B1A" opacity=".25"/>
+        <!-- Bear silhouette simplified -->
+        <ellipse cx="200" cy="195" rx="45" ry="55" fill="#FF6B1A" opacity=".18"/>
+        <ellipse cx="200" cy="145" rx="30" ry="28" fill="#FF6B1A" opacity=".2"/>
+        <circle cx="185" cy="132" r="10" fill="#FF6B1A" opacity=".22"/>
+        <circle cx="215" cy="132" r="10" fill="#FF6B1A" opacity=".22"/>
+        <line x1="20" y1="200" x2="380" y2="200" stroke="#FF6B1A" stroke-width=".5" opacity=".15"/>
+        <line x1="200" y1="20" x2="200" y2="380" stroke="#FF6B1A" stroke-width=".5" opacity=".15"/>
+      </svg>
+    </div>
+    <div class="case-stats">
+      <div class="cs-item"><div class="cs-val">+340%</div><div class="cs-key">Brand recall lift</div></div>
+      <div class="cs-item"><div class="cs-val">2.4M</div><div class="cs-key">Impressions</div></div>
+      <div class="cs-item"><div class="cs-val">Nigeria</div><div class="cs-key">Market</div></div>
+    </div>
+    <div class="case-content">
+      <div class="case-tag">Spirits · Brand Strategy · OOH · Digital</div>
+      <h2 class="case-title">
+        <span class="tline"><span class="tword">Russian</span></span>
+        <span class="tline"><span class="tword">Bear</span></span>
+      </h2>
+      <div class="case-meta-row">
+        <div class="case-desc">Repositioning a heritage vodka brand for a younger, urban Nigerian audience. We rebuilt the brand's visual language and launched a campaign that made Russian Bear the most talked-about spirit in Lagos for six consecutive weeks.</div>
+        <a href="case-russian-bear.html" class="case-cta"><div class="cta-line"></div>View case study</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 1: Chicken Republic -->
+  <div class="case-panel" data-case="1" id="case1">
+    <div class="case-bg"></div>
+    <div class="case-texture"></div>
+    <div class="case-num">02</div>
+    <div class="case-visual">
+      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="40" y="40" width="320" height="320" stroke="#00E676" stroke-width="1" opacity=".15"/>
+        <rect x="80" y="80" width="240" height="240" stroke="#00E676" stroke-width="1" stroke-dasharray="4 4" opacity=".2"/>
+        <rect x="120" y="120" width="160" height="160" stroke="#00E676" stroke-width="1.5" opacity=".25"/>
+        <rect x="160" y="160" width="80" height="80" fill="#00E676" opacity=".08"/>
+        <!-- 20 years mark -->
+        <text x="200" y="215" text-anchor="middle" font-family="Space Mono" font-size="42" fill="#00E676" opacity=".22" font-weight="700">20</text>
+        <circle cx="200" cy="200" r="180" stroke="#00E676" stroke-width=".5" opacity=".08"/>
+        <line x1="40" y1="40" x2="360" y2="360" stroke="#00E676" stroke-width=".5" opacity=".1"/>
+        <line x1="360" y1="40" x2="40" y2="360" stroke="#00E676" stroke-width=".5" opacity=".1"/>
+      </svg>
+    </div>
+    <div class="case-stats">
+      <div class="cs-item"><div class="cs-val">20 yrs</div><div class="cs-key">Anniversary campaign</div></div>
+      <div class="cs-item"><div class="cs-val">8.1M</div><div class="cs-key">Campaign reach</div></div>
+      <div class="cs-item"><div class="cs-val">National</div><div class="cs-key">Market</div></div>
+    </div>
+    <div class="case-content">
+      <div class="case-tag">QSR · Brand Campaign · Social · OOH</div>
+      <h2 class="case-title">
+        <span class="tline"><span class="tword">Chicken</span></span>
+        <span class="tline"><span class="tword">Republic</span></span>
+      </h2>
+      <div class="case-meta-row">
+        <div class="case-desc">"Still Yours. Twenty Years." A brand anniversary campaign that turned two decades of fast food into an emotional love letter to Nigeria. Full art direction, OOH placements, and a social campaign that broke the internet for a week.</div>
+        <a href="case-chicken-republic.html" class="case-cta"><div class="cta-line"></div>View case study</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2: Domino's -->
+  <div class="case-panel" data-case="2" id="case2">
+    <div class="case-bg"></div>
+    <div class="case-texture"></div>
+    <div class="case-num">03</div>
+    <div class="case-visual">
+      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Domino tile motif -->
+        <rect x="120" y="80" width="160" height="240" rx="12" stroke="#CE93D8" stroke-width="2" opacity=".3"/>
+        <line x1="120" y1="200" x2="280" y2="200" stroke="#CE93D8" stroke-width="1.5" opacity=".3"/>
+        <!-- Dots top -->
+        <circle cx="170" cy="145" r="8" fill="#CE93D8" opacity=".35"/>
+        <circle cx="230" cy="145" r="8" fill="#CE93D8" opacity=".35"/>
+        <circle cx="200" cy="170" r="8" fill="#CE93D8" opacity=".25"/>
+        <!-- Dots bottom -->
+        <circle cx="160" cy="228" r="7" fill="#CE93D8" opacity=".3"/>
+        <circle cx="200" cy="228" r="7" fill="#CE93D8" opacity=".3"/>
+        <circle cx="240" cy="228" r="7" fill="#CE93D8" opacity=".3"/>
+        <circle cx="160" cy="260" r="7" fill="#CE93D8" opacity=".2"/>
+        <circle cx="240" cy="260" r="7" fill="#CE93D8" opacity=".2"/>
+        <rect x="60" y="60" width="280" height="280" stroke="#CE93D8" stroke-width=".5" stroke-dasharray="6 8" opacity=".12"/>
+      </svg>
+    </div>
+    <div class="case-stats">
+      <div class="cs-item"><div class="cs-val">+62%</div><div class="cs-key">Delivery orders</div></div>
+      <div class="cs-item"><div class="cs-val">₦12M</div><div class="cs-key">Revenue attributed</div></div>
+      <div class="cs-item"><div class="cs-val">Lagos</div><div class="cs-key">Market</div></div>
+    </div>
+    <div class="case-content">
+      <div class="case-tag">QSR · Paid Acquisition · Meta · Performance</div>
+      <h2 class="case-title">
+        <span class="tline"><span class="tword">Domino's</span></span>
+        <span class="tline"><span class="tword">Nigeria</span></span>
+      </h2>
+      <div class="case-meta-row">
+        <div class="case-desc">A performance-first paid acquisition campaign that turned late-night cravings into conversions. We rebuilt Domino's Nigeria Meta funnel from the ground up — new creative, new targeting, new retargeting sequences — and drove a 62% lift in delivery orders within 60 days.</div>
+        <a href="case-dominos.html" class="case-cta"><div class="cta-line"></div>View case study</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3: Heineken -->
+  <div class="case-panel" data-case="3" id="case3">
+    <div class="case-bg"></div>
+    <div class="case-texture"></div>
+    <div class="case-num">04</div>
+    <div class="case-visual">
+      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Star / brand mark abstraction -->
+        <polygon points="200,30 235,120 330,120 255,175 285,270 200,215 115,270 145,175 70,120 165,120" stroke="#00B0FF" stroke-width="1.5" fill="#00B0FF" fill-opacity=".05" opacity=".4"/>
+        <polygon points="200,70 224,138 296,138 240,180 262,250 200,208 138,250 160,180 104,138 176,138" stroke="#00B0FF" stroke-width="1" fill="none" opacity=".25"/>
+        <circle cx="200" cy="200" r="150" stroke="#00B0FF" stroke-width=".5" stroke-dasharray="3 5" opacity=".2"/>
+        <circle cx="200" cy="200" r="10" fill="#00B0FF" opacity=".4"/>
+        <circle cx="200" cy="200" r="4" fill="#00B0FF" opacity=".7"/>
+      </svg>
+    </div>
+    <div class="case-stats">
+      <div class="cs-item"><div class="cs-val">STANDARD</div><div class="cs-key">Brand platform</div></div>
+      <div class="cs-item"><div class="cs-val">3 mkts</div><div class="cs-key">Nigeria · UK · US</div></div>
+      <div class="cs-item"><div class="cs-val">+28%</div><div class="cs-key">Premium perception</div></div>
+    </div>
+    <div class="case-content">
+      <div class="case-tag">Beer · Brand Platform · Campaign Strategy · Comms</div>
+      <h2 class="case-title">
+        <span class="tline"><span class="tword">Heineken</span></span>
+        <span class="tline"><span class="tword">Nigeria</span></span>
+      </h2>
+      <div class="case-meta-row">
+        <div class="case-desc">"Some things don't need explaining." We built the STANDARD platform — a brand communications strategy and campaign that repositioned Heineken Nigeria from a premium lager to a cultural standard-bearer. Rolled out across Nigeria, the UK diaspora market, and the US.</div>
+        <a href="case-heineken.html" class="case-cta"><div class="cta-line"></div>View case study</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4: Moniepoint -->
+  <div class="case-panel" data-case="4" id="case4">
+    <div class="case-bg"></div>
+    <div class="case-texture"></div>
+    <div class="case-num">05</div>
+    <div class="case-visual">
+      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Growth chart abstraction -->
+        <polyline points="40,340 100,280 160,300 220,200 280,150 360,60" stroke="#FFD600" stroke-width="2.5" opacity=".35" stroke-linecap="round" stroke-linejoin="round"/>
+        <polyline points="40,340 100,280 160,300 220,200 280,150 360,60" stroke="#FFD600" stroke-width=".5" opacity=".1"/>
+        <!-- Grid -->
+        <line x1="40" y1="340" x2="360" y2="340" stroke="#FFD600" stroke-width=".5" opacity=".15"/>
+        <line x1="40" y1="260" x2="360" y2="260" stroke="#FFD600" stroke-width=".5" opacity=".1"/>
+        <line x1="40" y1="180" x2="360" y2="180" stroke="#FFD600" stroke-width=".5" opacity=".1"/>
+        <line x1="40" y1="100" x2="360" y2="100" stroke="#FFD600" stroke-width=".5" opacity=".1"/>
+        <!-- Data points -->
+        <circle cx="100" cy="280" r="5" fill="#FFD600" opacity=".5"/>
+        <circle cx="160" cy="300" r="5" fill="#FFD600" opacity=".5"/>
+        <circle cx="220" cy="200" r="6" fill="#FFD600" opacity=".6"/>
+        <circle cx="280" cy="150" r="6" fill="#FFD600" opacity=".65"/>
+        <circle cx="360" cy="60"  r="8" fill="#FFD600" opacity=".8"/>
+        <!-- Area fill -->
+        <polyline points="40,340 100,280 160,300 220,200 280,150 360,60 360,340 40,340" fill="#FFD600" fill-opacity=".04"/>
+      </svg>
+    </div>
+    <div class="case-stats">
+      <div class="cs-item"><div class="cs-val">+190%</div><div class="cs-key">SME acquisition</div></div>
+      <div class="cs-item"><div class="cs-val">₦800M</div><div class="cs-key">Pipeline influenced</div></div>
+      <div class="cs-item"><div class="cs-val">National</div><div class="cs-key">Market</div></div>
+    </div>
+    <div class="case-content">
+      <div class="case-tag">Fintech · Product Marketing · Paid Media · GTM</div>
+      <h2 class="case-title">
+        <span class="tline"><span class="tword">Moniepoint</span></span>
+      </h2>
+      <div class="case-meta-row">
+        <div class="case-desc">Product marketing and paid acquisition for Moniepoint's SME banking push. We built the go-to-market playbook, produced the creative, ran the Meta and Google campaigns, and helped Moniepoint become the number one business banking app in Nigeria by downloads.</div>
+        <a href="case-moniepoint.html" class="case-cta"><div class="cta-line"></div>View case study</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5: PiggyVest -->
+  <div class="case-panel" data-case="5" id="case5">
+    <div class="case-bg"></div>
+    <div class="case-texture"></div>
+    <div class="case-num">06</div>
+    <div class="case-visual">
+      <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Piggy bank abstraction -->
+        <circle cx="200" cy="210" r="120" stroke="#FF4081" stroke-width="1.5" opacity=".25"/>
+        <circle cx="200" cy="210" r="90"  fill="#FF4081" opacity=".05"/>
+        <!-- Coin slot -->
+        <rect x="180" y="105" width="40" height="8" rx="4" fill="#FF4081" opacity=".4"/>
+        <!-- Eye -->
+        <circle cx="240" cy="195" r="8" fill="#FF4081" opacity=".35"/>
+        <circle cx="242" cy="193" r="3" fill="#FF4081" opacity=".6"/>
+        <!-- Snout -->
+        <ellipse cx="265" cy="220" rx="18" ry="13" stroke="#FF4081" stroke-width="1.5" opacity=".3"/>
+        <circle cx="259" cy="220" r="3" fill="#FF4081" opacity=".3"/>
+        <circle cx="270" cy="220" r="3" fill="#FF4081" opacity=".3"/>
+        <!-- Legs -->
+        <rect x="145" y="305" width="22" height="35" rx="6" fill="#FF4081" opacity=".2"/>
+        <rect x="175" y="310" width="22" height="30" rx="6" fill="#FF4081" opacity=".2"/>
+        <rect x="210" y="310" width="22" height="30" rx="6" fill="#FF4081" opacity=".2"/>
+        <rect x="240" y="305" width="22" height="35" rx="6" fill="#FF4081" opacity=".2"/>
+        <!-- Coin sparkles -->
+        <circle cx="100" cy="120" r="6" stroke="#FF4081" stroke-width="1" opacity=".3"/>
+        <circle cx="310" cy="100" r="4" stroke="#FF4081" stroke-width="1" opacity=".25"/>
+        <circle cx="80"  cy="280" r="5" stroke="#FF4081" stroke-width="1" opacity=".2"/>
+        <circle cx="330" cy="300" r="7" stroke="#FF4081" stroke-width="1" opacity=".22"/>
+        <text x="200" y="230" text-anchor="middle" font-family="Space Mono" font-size="16" fill="#FF4081" opacity=".2" font-weight="700">SAVE</text>
+      </svg>
+    </div>
+    <div class="case-stats">
+      <div class="cs-item"><div class="cs-val">+220%</div><div class="cs-key">App installs</div></div>
+      <div class="cs-item"><div class="cs-val">18–34</div><div class="cs-key">Target demographic</div></div>
+      <div class="cs-item"><div class="cs-val">₦2.1B</div><div class="cs-key">Deposits driven</div></div>
+    </div>
+    <div class="case-content">
+      <div class="case-tag">Fintech · Brand Strategy · Social · Influencer</div>
+      <h2 class="case-title">
+        <span class="tline"><span class="tword">Piggy</span><span class="tword">Vest</span></span>
+      </h2>
+      <div class="case-meta-row">
+        <div class="case-desc">Making saving money feel like a personality. We developed PiggyVest's brand voice, social strategy, and influencer programme targeting Nigeria's under-35 professionals. The result: PiggyVest became synonymous with financial discipline for a generation that refuses to be broke.</div>
+        <a href="case-piggyvest.html" class="case-cta"><div class="cta-line"></div>View case study</a>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /cases-track -->
+
+<!-- ── OUTRO ── -->
+<section class="work-outro" id="workOutro">
+  <div class="outro-bg"></div>
+  <div class="outro-label"><span>Have a project in mind?</span></div>
+  <h2 class="outro-title">
+    <span class="line"><span class="inner">Let's build</span></span>
+    <span class="line"><span class="inner acc">something</span></span>
+    <span class="line"><span class="inner">remarkable.</span></span>
+  </h2>
+  <div class="outro-btns" id="outroBtns">
+    <a href="#" class="btn-fill">Start a project</a>
+    <a href="growthhive.html" class="btn-out">Back to home</a>
+  </div>
+</section>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// ═══════════════════════════════════════════════════════════════
+// INTRO CANVAS — honeycomb mini scene
+// ═══════════════════════════════════════════════════════════════
+(function() {
+  const cvs = document.getElementById('intro-canvas');
+  const rdr = new THREE.WebGLRenderer({ canvas: cvs, antialias: true, alpha: true });
+  rdr.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  rdr.setSize(window.innerWidth, window.innerHeight);
+  rdr.setClearColor(0,0);
+
+  const sc  = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 100);
+  cam.position.z = 8;
+
+  const clk = new THREE.Clock();
+  const mRaw = new THREE.Vector2(0,0);
+  const mSm  = new THREE.Vector2(0,0);
+
+  document.addEventListener('mousemove', e => {
+    mRaw.x =  (e.clientX / window.innerWidth  - 0.5) * 2;
+    mRaw.y = -(e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  function hexShapeGeo(o, i) {
+    const s = new THREE.Shape();
+    for (let j = 0; j < 6; j++) { const a = (Math.PI/3)*j - Math.PI/6; j===0 ? s.moveTo(o*Math.cos(a),o*Math.sin(a)) : s.lineTo(o*Math.cos(a),o*Math.sin(a)); }
+    s.closePath();
+    const h = new THREE.Path();
+    for (let j = 0; j < 6; j++) { const a = (Math.PI/3)*j - Math.PI/6; j===0 ? h.moveTo(i*Math.cos(a),i*Math.sin(a)) : h.lineTo(i*Math.cos(a),i*Math.sin(a)); }
+    h.closePath(); s.holes.push(h);
+    return new THREE.ShapeGeometry(s, 1);
+  }
+
+  const geo = hexShapeGeo(0.46, 0.36);
+  const CH  = new THREE.Color(0xD4F53C);
+  const COLS=10, ROWS=7, HS=0.5;
+  const HW=HS*Math.sqrt(3), HH=HS*2;
+  const TW=COLS*HW, TH=ROWS*HH*0.75;
+
+  const hexes = [];
+  const grp = new THREE.Group();
+  sc.add(grp);
+
+  for (let r=0;r<ROWS;r++) for (let c=0;c<COLS;c++) {
+    const bx=c*HW+(r%2)*HW*.5-TW/2;
+    const by=r*HH*.75-TH/2;
+    const mat=new THREE.MeshBasicMaterial({ color:CH.clone(), transparent:true, opacity:0, side:THREE.DoubleSide, depthWrite:false });
+    const m=new THREE.Mesh(geo,mat);
+    m.position.set(bx,by,0);
+    grp.add(m);
+    hexes.push({ m, bx, by, ph:Math.random()*Math.PI*2, dx:0,dy:0,vx:0,vy:0 });
+  }
+
+  const ray=new THREE.Raycaster();
+  const pl=new THREE.Plane(new THREE.Vector3(0,0,1),0);
+  const tw=new THREE.Vector3(0,0,0), wm=new THREE.Vector3(0,0,0);
+
+  function loop() {
+    requestAnimationFrame(loop);
+    const t=clk.getElapsedTime();
+    mSm.x+=(mRaw.x-mSm.x)*.04; mSm.y+=(mRaw.y-mSm.y)*.04;
+    ray.setFromCamera(mRaw,cam);
+    ray.ray.intersectPlane(pl,tw);
+    wm.x+=(tw.x-wm.x)*.03; wm.y+=(tw.y-wm.y)*.03;
+
+    grp.rotation.y=mSm.x*.08; grp.rotation.x=mSm.y*.06;
+
+    hexes.forEach(h => {
+      const wx=h.bx, wy=h.by;
+      const dx=wm.x-wx, dy=wm.y-wy;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      let tdx=0,tdy=0;
+      if (dist<1.8&&dist>.001) { const s=0.5*(1-dist/1.8); tdx=-dx/dist*s; tdy=-dy/dist*s; }
+      else if (dist<3.8&&dist>1.8) { const t2=(dist-1.8)/2; const s=0.16*(1-t2)*Math.sin(t2*Math.PI); tdx=dx/dist*s; tdy=dy/dist*s; }
+      const fx=0.018*(tdx-h.dx)-(1-.72)*h.vx;
+      const fy=0.018*(tdy-h.dy)-(1-.72)*h.vy;
+      h.vx=(h.vx+fx)*.72; h.vy=(h.vy+fy)*.72;
+      h.dx+=h.vx; h.dy+=h.vy;
+      h.m.position.x=h.bx+h.dx;
+      h.m.position.y=h.by+h.dy;
+      h.m.position.z=Math.sin(t*.8+h.ph)*.05;
+      const w=.5+.5*Math.sin(t*.6+h.ph);
+      h.m.material.opacity=.13*(0.5+0.5*w);
+      h.m.scale.setScalar(1+.03*Math.sin(t*1.1+h.ph));
+    });
+
+    cam.position.x=mSm.x*.1; cam.position.y=mSm.y*.08; cam.lookAt(sc.position);
+    rdr.render(sc,cam);
+  }
+  loop();
+
+  window.addEventListener('resize',()=>{
+    cam.aspect=window.innerWidth/window.innerHeight;
+    cam.updateProjectionMatrix();
+    rdr.setSize(window.innerWidth,window.innerHeight);
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════════
+// CURSOR
+// ═══════════════════════════════════════════════════════════════
+const curEl=document.getElementById('cur');
+const curR =document.getElementById('curR');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; gsap.to(curEl,{x:mx,y:my,duration:.07}); });
+(function rl(){ rx+=(mx-rx)*.09; ry+=(my-ry)*.09; curR.style.left=rx+'px'; curR.style.top=ry+'px'; requestAnimationFrame(rl); })();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ curEl.classList.add('big'); curEl.classList.add('view'); });
+  el.addEventListener('mouseleave',()=>{ curEl.classList.remove('big'); curEl.classList.remove('view'); });
+});
+document.querySelectorAll('.case-panel').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ curEl.classList.add('big'); curEl.classList.add('view'); });
+  el.addEventListener('mouseleave',()=>{ curEl.classList.remove('big'); curEl.classList.remove('view'); });
+});
+
+// ═══════════════════════════════════════════════════════════════
+// LOADER
+// ═══════════════════════════════════════════════════════════════
+const ldr=document.getElementById('ldr');
+const lFill=document.getElementById('lFill');
+const lPct=document.getElementById('lPct');
+let prog=0;
+const iv=setInterval(()=>{
+  prog+=Math.random()*16;
+  if(prog>=100){prog=100;clearInterval(iv);}
+  lFill.style.width=Math.min(prog,100)+'%';
+  lPct.textContent=Math.floor(Math.min(prog,100))+'%';
+  if(prog>=100){
+    setTimeout(()=>{
+      gsap.to(ldr,{yPercent:-100,duration:1.1,ease:'power4.inOut',onComplete:()=>{ ldr.style.display='none'; initPage(); }});
+    },280);
+  }
+},80);
+
+// ═══════════════════════════════════════════════════════════════
+// PAGE INIT
+// ═══════════════════════════════════════════════════════════════
+const CASES = ['case0','case1','case2','case3','case4','case5'];
+
+function buildProgressDots() {
+  const rail=document.getElementById('progRail');
+  // Intro dot + 6 cases + outro = 8 stops; just track cases + intro
+  ['intro',...CASES].forEach((id,i)=>{
+    const d=document.createElement('div');
+    d.className='prog-dot'+(i===0?' active':'');
+    d.dataset.idx=i;
+    rail.appendChild(d);
+  });
+}
+
+function setActiveDot(idx) {
+  document.querySelectorAll('.prog-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+}
+
+function initPage() {
+  buildProgressDots();
+
+  // Intro animations
+  gsap.to('.intro-eyebrow span',{ y:0, duration:1, ease:'power4.out', delay:.1 });
+  gsap.to('.intro-title .word', { y:0, duration:1.3, ease:'power4.out', stagger:.08, delay:.2 });
+  gsap.to('.intro-desc span',   { y:0, duration:1, ease:'power4.out', delay:.45 });
+  gsap.to('#introCount',        { opacity:1, duration:1, delay:.7 });
+
+  // Intro scrolls away → hide scroll hint
+  ScrollTrigger.create({
+    trigger:'#workIntro', start:'bottom 80%',
+    onEnter:()=>document.getElementById('scrollHint').classList.add('hidden'),
+    onLeaveBack:()=>document.getElementById('scrollHint').classList.remove('hidden'),
+  });
+
+  // Each case panel
+  CASES.forEach((id,i)=>{
+    const panel=document.getElementById(id);
+
+    ScrollTrigger.create({
+      trigger: panel,
+      start: 'top 55%',
+      end: 'bottom 45%',
+      onEnter: ()=>{ panel.classList.add('is-active'); setActiveDot(i+1); },
+      onLeave: ()=>{ panel.classList.remove('is-active'); },
+      onEnterBack: ()=>{ panel.classList.add('is-active'); setActiveDot(i+1); },
+      onLeaveBack: ()=>{
+        panel.classList.remove('is-active');
+        setActiveDot(i>0?i:0);
+      },
+    });
+  });
+
+  // Intro dot activation
+  ScrollTrigger.create({
+    trigger:'#workIntro', start:'top 55%', end:'bottom 45%',
+    onEnterBack:()=>setActiveDot(0),
+  });
+
+  // Outro
+  ScrollTrigger.create({
+    trigger:'#workOutro', start:'top 75%', once:true, onEnter:()=>{
+      gsap.to('.outro-label span',{ y:0, duration:.9, ease:'power4.out' });
+      gsap.to('.outro-title .inner',{ y:0, duration:1.1, ease:'power4.out', stagger:.1 });
+      gsap.to('#outroBtns',{ opacity:1, y:0, duration:.8, ease:'power3.out', delay:.25 });
+    }
+  });
+}
+</script>
+</body>
+</html>
