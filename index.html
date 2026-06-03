@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Growthhive — Work. Play. Grow.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    :root {
+      --ch: #D4F53C;
+      --ch2: #b8d930;
+      --navy: #0B0B1F;
+      --navy2: #111128;
+      --white: #F2F2EA;
+      --dim: rgba(242,242,234,0.45);
+      --faint: rgba(242,242,234,0.08);
+      --ease: cubic-bezier(0.16,1,0.3,1);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { background: var(--navy); overflow-x: hidden; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--white); cursor: none; overflow-x: hidden; }
+
+    /* CANVAS — fixed, full viewport, behind everything */
+    #c { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+    /* GRAIN overlay for filmic texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      opacity: .032;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* CURSOR */
+    #cur { position: fixed; width: 10px; height: 10px; background: var(--ch); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .35s var(--ease), height .35s var(--ease); mix-blend-mode: difference; }
+    #cur.big { width: 52px; height: 52px; }
+    #curR { position: fixed; width: 38px; height: 38px; border: 1px solid rgba(212,245,60,.3); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 2rem 3rem; }
+    .nlogo { font-family: 'Space Mono', monospace; font-size: .82rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--white); text-decoration: none; }
+    .nlogo em { color: var(--ch); font-style: normal; }
+    .nlinks { display: flex; gap: 2.5rem; list-style: none; }
+    .nlinks a { font-family: 'Space Mono', monospace; font-size: .63rem; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color .3s; position: relative; }
+    .nlinks a::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 1px; background: var(--ch); transition: width .4s var(--ease); }
+    .nlinks a:hover { color: var(--white); }
+    .nlinks a:hover::after { width: 100%; }
+    .ncta { font-family: 'Space Mono', monospace; font-size: .63rem; letter-spacing: .12em; text-transform: uppercase; color: var(--navy); background: var(--ch); padding: .6rem 1.25rem; text-decoration: none; transition: opacity .3s; }
+    .ncta:hover { opacity: .82; }
+
+    /* SECTIONS */
+    section { position: relative; z-index: 1; }
+
+    /* HERO */
+    .hero { height: 100vh; min-height: 700px; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 3rem 5rem; }
+    .h-eye { font-family: 'Space Mono', monospace; font-size: .63rem; letter-spacing: .24em; text-transform: uppercase; color: var(--ch); margin-bottom: 1.6rem; overflow: hidden; }
+    .h-eye span { display: block; transform: translateY(110%); }
+    .h-title { font-size: clamp(4rem, 10vw, 10rem); font-weight: 300; line-height: .88; letter-spacing: -.04em; margin-bottom: 3.2rem; }
+    .h-title .line { overflow: hidden; display: block; }
+    .h-title .word { display: inline-block; transform: translateY(115%); }
+    .h-title .acc { color: var(--ch); font-style: italic; }
+    .h-foot { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; }
+    .h-desc { font-size: .93rem; line-height: 1.68; color: var(--dim); max-width: 310px; overflow: hidden; }
+    .h-desc span { display: block; transform: translateY(110%); }
+    .h-scr { font-family: 'Space Mono', monospace; font-size: .58rem; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); display: flex; align-items: center; gap: .8rem; opacity: 0; }
+    .scr-line { width: 38px; height: 1px; background: var(--dim); transform: scaleX(0); transform-origin: left; }
+
+    /* MARQUEE */
+    .mq { position: relative; z-index: 1; padding: 2.2rem 0; border-top: 1px solid var(--faint); border-bottom: 1px solid var(--faint); overflow: hidden; background: rgba(11,11,31,.6); backdrop-filter: blur(4px); }
+    .mq-track { display: flex; gap: 2.8rem; animation: tick 24s linear infinite; width: max-content; }
+    .mq-item { font-family: 'Space Mono', monospace; font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); white-space: nowrap; display: flex; align-items: center; gap: 1rem; }
+    .mq-b { color: var(--ch); font-size: .9rem; }
+    @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* INTRO */
+    .intro { padding: 10rem 3rem; display: grid; grid-template-columns: 1.15fr .85fr; gap: 5rem; align-items: center; }
+    .i-label { font-family: 'Space Mono', monospace; font-size: .6rem; letter-spacing: .24em; text-transform: uppercase; color: var(--ch); margin-bottom: 2rem; overflow: hidden; }
+    .i-label span { display: block; transform: translateY(110%); }
+    .i-txt { font-size: clamp(1.75rem, 3.3vw, 2.9rem); font-weight: 300; line-height: 1.18; letter-spacing: -.025em; }
+    .i-txt .line { overflow: hidden; display: block; }
+    .i-txt .inner { display: block; transform: translateY(110%); }
+    .stats { display: flex; flex-direction: column; }
+    .stat { border-top: 1px solid var(--faint); padding: 1.9rem 0; opacity: 0; transform: translateY(16px); }
+    .stat:last-child { border-bottom: 1px solid var(--faint); }
+    .s-num { font-size: 2.9rem; font-weight: 300; letter-spacing: -.045em; color: var(--ch); line-height: 1; margin-bottom: .3rem; }
+    .s-lbl { font-family: 'Space Mono', monospace; font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); }
+
+    /* WORK */
+    .work { padding: 0 3rem 10rem; }
+    .sec-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 3.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--faint); }
+    .sec-lbl { font-family: 'Space Mono', monospace; font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ch); }
+    .sec-lnk { font-family: 'Space Mono', monospace; font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color .3s; }
+    .sec-lnk:hover { color: var(--ch); }
+    .wgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .wcard { position: relative; overflow: hidden; background: var(--navy2); aspect-ratio: 4/3; cursor: none; }
+    .wcard:first-child { grid-column: span 2; aspect-ratio: 16/7; }
+    .card-bg { position: absolute; inset: 0; transform: scale(1.07); transition: transform .9s var(--ease); }
+    .wcard:hover .card-bg { transform: scale(1); }
+    .wcard:nth-child(1) .card-bg { background: linear-gradient(135deg, #0c1f10 0%, #182b0c 100%); }
+    .wcard:nth-child(2) .card-bg { background: linear-gradient(135deg, #1e0e08 0%, #130820 100%); }
+    .wcard:nth-child(3) .card-bg { background: linear-gradient(135deg, #080e1e 0%, #0e1a0c 100%); }
+    .card-pat { position: absolute; inset: 0; }
+    .wcard:nth-child(1) .card-pat { background: repeating-linear-gradient(60deg, rgba(212,245,60,.07) 0, rgba(212,245,60,.07) 1px, transparent 0, transparent 26px); background-size: 26px 26px; }
+    .wcard:nth-child(2) .card-pat { background: radial-gradient(circle, rgba(212,245,60,.08) 1px, transparent 1px); background-size: 20px 20px; }
+    .wcard:nth-child(3) .card-pat { background: repeating-linear-gradient(0deg, rgba(212,245,60,.06) 0, rgba(212,245,60,.06) 1px, transparent 0, transparent 34px); }
+    .card-ov { position: absolute; inset: 0; background: linear-gradient(to top, rgba(11,11,31,.94) 0%, rgba(11,11,31,.2) 55%, transparent 100%); }
+    .card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 2.2rem; transform: translateY(5px); transition: transform .55s var(--ease); }
+    .wcard:hover .card-info { transform: translateY(0); }
+    .c-tag { font-family: 'Space Mono', monospace; font-size: .57rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ch); margin-bottom: .5rem; }
+    .c-name { font-size: clamp(1.2rem, 2.5vw, 2.1rem); font-weight: 300; letter-spacing: -.025em; line-height: 1.1; }
+    .wcard:first-child .c-name { font-size: clamp(2.2rem, 4.5vw, 3.8rem); }
+    .c-arr { position: absolute; top: 1.5rem; right: 1.5rem; width: 34px; height: 34px; border: 1px solid rgba(212,245,60,.28); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--ch); font-size: .82rem; opacity: 0; transform: translate(5px,-5px); transition: opacity .4s, transform .45s var(--ease); }
+    .wcard:hover .c-arr { opacity: 1; transform: translate(0,0); }
+
+    /* SERVICES */
+    .svc { padding: 10rem 3rem; background: var(--navy2); }
+    .svc-grid { margin-top: 3.5rem; display: grid; grid-template-columns: repeat(3,1fr); }
+    .svc-item { padding: 2.6rem; border: 1px solid var(--faint); border-right: none; border-bottom: none; position: relative; overflow: hidden; opacity: 0; transform: translateY(18px); }
+    .svc-item:nth-child(3n) { border-right: 1px solid var(--faint); }
+    .svc-item:nth-child(4), .svc-item:nth-child(5), .svc-item:nth-child(6) { border-bottom: 1px solid var(--faint); }
+    .svc-item::before { content: ''; position: absolute; inset: 0; background: rgba(212,245,60,.07); transform: translateY(101%); transition: transform .55s var(--ease); }
+    .svc-item:hover::before { transform: translateY(0); }
+    .sv-n { font-family: 'Space Mono', monospace; font-size: .57rem; letter-spacing: .16em; color: var(--ch); margin-bottom: 1.8rem; position: relative; }
+    .sv-name { font-size: 1.28rem; font-weight: 300; letter-spacing: -.02em; margin-bottom: .9rem; position: relative; }
+    .sv-desc { font-size: .82rem; line-height: 1.72; color: var(--dim); position: relative; }
+
+    /* FOOTER */
+    .foot { padding: 10rem 3rem 4.5rem; position: relative; overflow: hidden; }
+    .foot-glow { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 90%; height: 500px; background: radial-gradient(ellipse at bottom, rgba(212,245,60,.06) 0%, transparent 68%); pointer-events: none; }
+    .f-hl { font-size: clamp(3.2rem, 8vw, 8rem); font-weight: 300; letter-spacing: -.04em; line-height: .88; margin-bottom: 4.5rem; max-width: 900px; }
+    .f-hl .line { overflow: hidden; display: block; }
+    .f-hl .inner { display: block; transform: translateY(110%); }
+    .f-hl .acc { color: var(--ch); font-style: italic; }
+    .f-btns { display: flex; gap: 1.2rem; margin-bottom: 9rem; opacity: 0; transform: translateY(14px); }
+    .btn-fill { font-family: 'Space Mono', monospace; font-size: .63rem; letter-spacing: .12em; text-transform: uppercase; color: var(--navy); background: var(--ch); padding: 1rem 2.2rem; text-decoration: none; transition: opacity .3s; }
+    .btn-fill:hover { opacity: .82; }
+    .btn-out { font-family: 'Space Mono', monospace; font-size: .63rem; letter-spacing: .12em; text-transform: uppercase; color: var(--white); border: 1px solid var(--faint); padding: 1rem 2.2rem; text-decoration: none; transition: border-color .3s, color .3s; }
+    .btn-out:hover { border-color: var(--ch); color: var(--ch); }
+    .f-bot { display: flex; align-items: center; justify-content: space-between; padding-top: 2rem; border-top: 1px solid var(--faint); }
+    .f-logo { font-family: 'Space Mono', monospace; font-size: .78rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+    .f-logo em { color: var(--ch); font-style: normal; }
+    .f-nav { display: flex; gap: 2rem; list-style: none; }
+    .f-nav a { font-family: 'Space Mono', monospace; font-size: .56rem; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color .3s; }
+    .f-nav a:hover { color: var(--ch); }
+    .f-copy { font-family: 'Space Mono', monospace; font-size: .56rem; letter-spacing: .1em; color: var(--dim); }
+
+    /* LOADER */
+    .ldr { position: fixed; inset: 0; background: var(--navy); z-index: 1000; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.8rem; }
+    .ldr-logo { font-family: 'Space Mono', monospace; font-size: .82rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+    .ldr-logo em { color: var(--ch); font-style: normal; }
+    .ldr-track { width: 180px; height: 1px; background: var(--faint); }
+    .ldr-fill { height: 100%; width: 0%; background: var(--ch); transition: width .08s linear; }
+    .ldr-pct { font-family: 'Space Mono', monospace; font-size: .56rem; letter-spacing: .16em; color: var(--dim); }
+
+    @media (max-width: 768px) {
+      nav { padding: 1.5rem; }
+      .nlinks, .ncta { display: none; }
+      .hero { padding: 0 1.5rem 3.5rem; }
+      .intro { grid-template-columns: 1fr; gap: 3rem; padding: 6rem 1.5rem; }
+      .work { padding: 0 1.5rem 6rem; }
+      .wgrid { grid-template-columns: 1fr; }
+      .wcard:first-child { grid-column: span 1; aspect-ratio: 4/3; }
+      .svc { padding: 6rem 1.5rem; }
+      .svc-grid { grid-template-columns: 1fr; }
+      .svc-item { border-right: 1px solid var(--faint) !important; border-bottom: none !important; }
+      .svc-item:last-child { border-bottom: 1px solid var(--faint) !important; }
+      .foot { padding: 6rem 1.5rem 3rem; }
+      .f-bot { flex-direction: column; gap: 1.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="ldr" id="ldr">
+  <div class="ldr-logo">Growthhive<em>.</em></div>
+  <div class="ldr-track"><div class="ldr-fill" id="lFill"></div></div>
+  <div class="ldr-pct" id="lPct">0%</div>
+</div>
+
+<div id="cur"></div>
+<div id="curR"></div>
+<canvas id="c"></canvas>
+
+<nav>
+  <a href="#" class="nlogo">Growthhive<em>.</em></a>
+  <ul class="nlinks">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="#" class="ncta">Start a project</a>
+</nav>
+
+<section class="hero" id="s0">
+  <div class="h-eye"><span>Brand Strategy & Growth Marketing — Lagos · London · New York</span></div>
+  <h1 class="h-title">
+    <span class="line"><span class="word">We make</span></span>
+    <span class="line"><span class="word">brands</span>&nbsp;<span class="word acc">grow.</span></span>
+  </h1>
+  <div class="h-foot">
+    <div class="h-desc"><span>A brand strategy and marketing agency built for businesses ready to scale across Nigeria, the UK, and the US.</span></div>
+    <div class="h-scr"><div class="scr-line"></div><span>Scroll</span></div>
+  </div>
+</section>
+
+<div class="mq">
+  <div class="mq-track">
+    <div class="mq-item"><span class="mq-b">🐝</span>Paid Acquisition</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Brand Strategy</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Creative Production</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Go-to-Market</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Product Marketing</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>PR & Comms</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Analytics</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Work. Play. Grow.</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Paid Acquisition</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Brand Strategy</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Creative Production</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Go-to-Market</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Product Marketing</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>PR & Comms</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Analytics</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Work. Play. Grow.</div>
+  </div>
+</div>
+
+<section class="intro" id="s1">
+  <div>
+    <div class="i-label"><span>About the hive</span></div>
+    <p class="i-txt">
+      <span class="line"><span class="inner">We approach every brief</span></span>
+      <span class="line"><span class="inner">with sharp strategy and</span></span>
+      <span class="line"><span class="inner">restless creative energy.</span></span>
+    </p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="s-num">3×</div><div class="s-lbl">Markets — Nigeria · UK · US</div></div>
+    <div class="stat"><div class="s-num">50+</div><div class="s-lbl">Brands scaled</div></div>
+    <div class="stat"><div class="s-num">₦→$</div><div class="s-lbl">Cross-market growth expertise</div></div>
+  </div>
+</section>
+
+<section class="work" id="s2">
+  <div class="sec-head"><div class="sec-lbl">Selected Work</div><a href="#" class="sec-lnk">View all →</a></div>
+  <div class="wgrid">
+    <div class="wcard"><div class="card-bg"></div><div class="card-pat"></div><div class="card-ov"></div><div class="c-arr">↗</div><div class="card-info"><div class="c-tag">F&B · Brand Strategy · Paid Media</div><div class="c-name">Smoke & Salt</div></div></div>
+    <div class="wcard"><div class="card-bg"></div><div class="card-pat"></div><div class="card-ov"></div><div class="c-arr">↗</div><div class="card-info"><div class="c-tag">Hospitality · Go-to-Market</div><div class="c-name">Julirose Hotel & Suites</div></div></div>
+    <div class="wcard"><div class="card-bg"></div><div class="card-pat"></div><div class="card-ov"></div><div class="c-arr">↗</div><div class="card-info"><div class="c-tag">Fintech · Product Marketing</div><div class="c-name">Moniepoint</div></div></div>
+  </div>
+</section>
+
+<section class="svc" id="s3">
+  <div class="sec-head"><div class="sec-lbl">What we do</div><a href="#" class="sec-lnk">All services →</a></div>
+  <div class="svc-grid">
+    <div class="svc-item"><div class="sv-n">01</div><div class="sv-name">Brand Strategy</div><div class="sv-desc">Positioning, identity systems, and messaging architecture built for markets that move fast.</div></div>
+    <div class="svc-item"><div class="sv-n">02</div><div class="sv-name">Paid Acquisition</div><div class="sv-desc">Meta, TikTok, Google — performance campaigns that convert across Lagos, London, and New York.</div></div>
+    <div class="svc-item"><div class="sv-n">03</div><div class="sv-name">Creative Production</div><div class="sv-desc">Art direction, copywriting, and visual assets that stop the scroll and earn the click.</div></div>
+    <div class="svc-item"><div class="sv-n">04</div><div class="sv-name">Go-to-Market</div><div class="sv-desc">End-to-end launch strategy for new products entering competitive African and diaspora markets.</div></div>
+    <div class="svc-item"><div class="sv-n">05</div><div class="sv-name">PR & Comms</div><div class="sv-desc">Earned media, influencer strategy, and narrative building that shapes how your brand is seen.</div></div>
+    <div class="svc-item"><div class="sv-n">06</div><div class="sv-name">Analytics</div><div class="sv-desc">Attribution modelling, performance reporting, and data infrastructure that drives decisions.</div></div>
+  </div>
+</section>
+
+<section class="foot" id="s4">
+  <div class="foot-glow"></div>
+  <h2 class="f-hl">
+    <span class="line"><span class="inner">Ready to</span></span>
+    <span class="line"><span class="inner acc">grow?</span></span>
+  </h2>
+  <div class="f-btns">
+    <a href="#" class="btn-fill">Start a project</a>
+    <a href="#" class="btn-out">See our work</a>
+  </div>
+  <div class="f-bot">
+    <div class="f-logo">Growthhive<em>.</em></div>
+    <ul class="f-nav">
+      <li><a href="#">Work</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#">@thegrowthhive</a></li>
+    </ul>
+    <div class="f-copy">©2026 Growthhive. Lagos · London · New York</div>
+  </div>
+</section>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+// THREE.JS SCENE — Honeycomb + Bees + Pollen
+// ═══════════════════════════════════════════════════════════════
+const canvas = document.getElementById('c');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setClearColor(0x000000, 0);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 0.1, 200);
+camera.position.set(0, 0, 9);
+
+const clock = new THREE.Clock();
+const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+document.addEventListener('mousemove', e => {
+  mouse.tx = (e.clientX / window.innerWidth - 0.5) * 2;
+  mouse.ty = -(e.clientY / window.innerHeight - 0.5) * 2;
+});
+
+// ── Colours ──────────────────────────────────────────────────
+const CH  = new THREE.Color(0xD4F53C);
+const CH2 = new THREE.Color(0xb8d424);
+const AMBER = new THREE.Color(0xf0a020);
+const GOLD  = new THREE.Color(0xffe066);
+
+// ── Hex ring geometry (flat outline) ─────────────────────────
+function makeHexShape(outer, inner) {
+  const shape = new THREE.Shape();
+  for (let i = 0; i < 6; i++) {
+    const a = (Math.PI / 3) * i - Math.PI / 6;
+    i === 0 ? shape.moveTo(outer * Math.cos(a), outer * Math.sin(a))
+             : shape.lineTo(outer * Math.cos(a), outer * Math.sin(a));
+  }
+  shape.closePath();
+  const hole = new THREE.Path();
+  for (let i = 0; i < 6; i++) {
+    const a = (Math.PI / 3) * i - Math.PI / 6;
+    i === 0 ? hole.moveTo(inner * Math.cos(a), inner * Math.sin(a))
+             : hole.lineTo(inner * Math.cos(a), inner * Math.sin(a));
+  }
+  hole.closePath();
+  shape.holes.push(hole);
+  return new THREE.ShapeGeometry(shape, 1);
+}
+
+// Solid hex (for pollen dots)
+function makeSolidHex(r) {
+  const shape = new THREE.Shape();
+  for (let i = 0; i < 6; i++) {
+    const a = (Math.PI / 3) * i - Math.PI / 6;
+    i === 0 ? shape.moveTo(r * Math.cos(a), r * Math.sin(a))
+             : shape.lineTo(r * Math.cos(a), r * Math.sin(a));
+  }
+  shape.closePath();
+  return new THREE.ShapeGeometry(shape, 1);
+}
+
+const hexRingGeo  = makeHexShape(0.46, 0.36);
+const hexSolidGeo = makeSolidHex(0.08);
+
+// ── Honeycomb grid — split into independent clusters ─────────
+const COLS = 11, ROWS = 8;
+const HEX_SIZE = 0.5;
+const HW = HEX_SIZE * Math.sqrt(3);
+const HH = HEX_SIZE * 2;
+const TOTAL_W = COLS * HW;
+const TOTAL_H = ROWS * HH * 0.75;
+
+// Each hex belongs to a "zone" (0–3) for independent movement
+const hexData = [];
+const masterGroup = new THREE.Group();
+scene.add(masterGroup);
+
+// Zone groups — each drifts independently
+const zones = [0,1,2,3].map(() => new THREE.Group());
+zones.forEach(z => masterGroup.add(z));
+
+const zonePhase  = zones.map((_, i) => (Math.PI / 2) * i);
+const zoneAmpX   = [0.18, 0.12, 0.22, 0.14];
+const zoneAmpY   = [0.10, 0.20, 0.08, 0.18];
+const zoneSpeed  = [0.28, 0.22, 0.35, 0.18];
+
+for (let row = 0; row < ROWS; row++) {
+  for (let col = 0; col < COLS; col++) {
+    const x = col * HW + (row % 2) * HW * 0.5 - TOTAL_W / 2;
+    const y = row * HH * 0.75 - TOTAL_H / 2;
+    const zone = (Math.floor(col / 3) + Math.floor(row / 2)) % 4;
+    const phase = Math.random() * Math.PI * 2;
+    const mat = new THREE.MeshBasicMaterial({
+      color: CH.clone(),
+      transparent: true,
+      opacity: 0.0,
+      side: THREE.DoubleSide,
+      depthWrite: false,
+    });
+    const mesh = new THREE.Mesh(hexRingGeo, mat);
+    mesh.position.set(x, y, 0);
+    zones[zone].add(mesh);
+    hexData.push({ mesh, x, y, zone, phase, baseOpacity: 0.14 + Math.random() * 0.1 });
+  }
+}
+
+// ── Pollen particles ──────────────────────────────────────────
+const pollenGroup = new THREE.Group();
+scene.add(pollenGroup);
+const pollenData = [];
+const NUM_POLLEN = 60;
+
+for (let i = 0; i < NUM_POLLEN; i++) {
+  const isSolid = Math.random() > 0.5;
+  const geo = isSolid ? hexSolidGeo : makeHexShape(0.065, 0.045);
+  const mat = new THREE.MeshBasicMaterial({
+    color: Math.random() > 0.5 ? GOLD.clone() : AMBER.clone(),
+    transparent: true,
+    opacity: 0.0,
+    side: THREE.DoubleSide,
+    depthWrite: false,
+  });
+  const mesh = new THREE.Mesh(geo, mat);
+  const angle = Math.random() * Math.PI * 2;
+  const radius = 2.5 + Math.random() * 5;
+  mesh.position.set(
+    Math.cos(angle) * radius,
+    Math.sin(angle) * radius,
+    -1 + Math.random() * 2
+  );
+  mesh.rotation.z = Math.random() * Math.PI * 2;
+  pollenGroup.add(mesh);
+  pollenData.push({
+    mesh,
+    angle,
+    radius,
+    speed: 0.008 + Math.random() * 0.015,
+    drift: Math.random() * Math.PI * 2,
+    driftAmp: 0.08 + Math.random() * 0.15,
+    driftSpeed: 0.3 + Math.random() * 0.5,
+    baseOpacity: 0.35 + Math.random() * 0.4,
+    zBase: mesh.position.z,
+    zAmp: 0.1 + Math.random() * 0.3,
+    zSpd: 0.2 + Math.random() * 0.4,
+    rotSpd: (Math.random() - 0.5) * 0.02,
+  });
+}
+
+// ── Bee geometry (simple stylised body + wings from shapes) ───
+function makeBee() {
+  const g = new THREE.Group();
+
+  // Body — elongated oval using scaled sphere geometry
+  const bodyGeo = new THREE.SphereGeometry(0.08, 8, 5);
+  bodyGeo.scale(1, 0.55, 0.55);
+  const bodyMat = new THREE.MeshBasicMaterial({ color: AMBER, transparent: true, opacity: 0 });
+  const body = new THREE.Mesh(bodyGeo, bodyMat);
+  g.add(body);
+
+  // Stripes — thin torus rings
+  const stripeGeo = new THREE.TorusGeometry(0.055, 0.012, 4, 10);
+  [-0.025, 0.025].forEach((xOff, i) => {
+    const mat = new THREE.MeshBasicMaterial({ color: i === 0 ? 0x0B0B1F : AMBER, transparent: true, opacity: 0 });
+    const t = new THREE.Mesh(stripeGeo, mat);
+    t.position.x = xOff;
+    t.rotation.y = Math.PI / 2;
+    t.scale.set(0.7, 1, 0.5);
+    g.add(t);
+  });
+
+  // Wings — flat ellipses
+  const wingShape = new THREE.Shape();
+  wingShape.ellipse(0, 0, 0.1, 0.055, 0, Math.PI * 2, false, 0);
+  const wingGeo = new THREE.ShapeGeometry(wingShape, 8);
+  const wingMat = new THREE.MeshBasicMaterial({ color: 0xD4F53C, transparent: true, opacity: 0, side: THREE.DoubleSide });
+  const wL = new THREE.Mesh(wingGeo, wingMat.clone());
+  const wR = new THREE.Mesh(wingGeo, wingMat.clone());
+  wL.position.set(-0.03, 0.07, 0.02);
+  wR.position.set(-0.03, -0.07, 0.02);
+  wL.rotation.x = 0.3; wR.rotation.x = -0.3;
+  g.add(wL, wR);
+
+  return { group: g, body, wL, wR, stripes: g.children.filter((_, i) => i > 0 && i < 3) };
+}
+
+const beeGroup = new THREE.Group();
+scene.add(beeGroup);
+const beeData = [];
+const NUM_BEES = 12;
+
+for (let i = 0; i < NUM_BEES; i++) {
+  const bee = makeBee();
+  beeGroup.add(bee.group);
+  const angle = (Math.PI * 2 / NUM_BEES) * i;
+  const r = 3.5 + Math.random() * 2.5;
+  bee.group.position.set(Math.cos(angle) * r, Math.sin(angle) * r, -0.5 + Math.random());
+  beeData.push({
+    ...bee,
+    angle,
+    r,
+    orbitSpeed: (0.12 + Math.random() * 0.1) * (Math.random() > 0.5 ? 1 : -1),
+    bobPhase: Math.random() * Math.PI * 2,
+    bobAmp: 0.08 + Math.random() * 0.12,
+    bobSpd: 1.5 + Math.random() * 1.5,
+    wingPhase: Math.random() * Math.PI * 2,
+    baseOpacity: 0.55 + Math.random() * 0.35,
+    zBase: bee.group.position.z,
+  });
+}
+
+// ── Scene state system ────────────────────────────────────────
+const STATES = [
+  // hero
+  { hexOp: 0.15, pollenOp: 0.6,  beeOp: 0.75, hexScale: 1.0,  hexRot: [0,0,0],         groupZ: 0,    pollenSpread: 1, beeR: 1.0 },
+  // intro
+  { hexOp: 0.08, pollenOp: 0.3,  beeOp: 0.4,  hexScale: 1.15, hexRot: [0.25,-0.18,0],  groupZ: -0.8, pollenSpread: 1.3, beeR: 1.3 },
+  // work
+  { hexOp: 0.20, pollenOp: 0.7,  beeOp: 0.85, hexScale: 0.88, hexRot: [-0.18,0.25,0],  groupZ: 0.4,  pollenSpread: 0.85, beeR: 0.85 },
+  // services
+  { hexOp: 0.06, pollenOp: 0.18, beeOp: 0.25, hexScale: 1.3,  hexRot: [0.12,0.12,0],   groupZ: -1.2, pollenSpread: 1.5, beeR: 1.5 },
+  // footer
+  { hexOp: 0.28, pollenOp: 0.9,  beeOp: 1.0,  hexScale: 0.92, hexRot: [-0.08,-0.08,0], groupZ: 0.6,  pollenSpread: 0.8, beeR: 0.8 },
+];
+
+let cur_s  = { ...STATES[0] };
+let tgt_s  = { ...STATES[0] };
+let tgt_si = 0;
+
+function setScene(i) { tgt_si = i; tgt_s = { ...STATES[i] }; }
+
+function lerpState(a, b, t) {
+  return {
+    hexOp:      a.hexOp      + (b.hexOp - a.hexOp) * t,
+    pollenOp:   a.pollenOp   + (b.pollenOp - a.pollenOp) * t,
+    beeOp:      a.beeOp      + (b.beeOp - a.beeOp) * t,
+    hexScale:   a.hexScale   + (b.hexScale - a.hexScale) * t,
+    groupZ:     a.groupZ     + (b.groupZ - a.groupZ) * t,
+    pollenSpread: a.pollenSpread + (b.pollenSpread - a.pollenSpread) * t,
+    beeR:       a.beeR       + (b.beeR - a.beeR) * t,
+    hexRot: [
+      a.hexRot[0] + (b.hexRot[0] - a.hexRot[0]) * t,
+      a.hexRot[1] + (b.hexRot[1] - a.hexRot[1]) * t,
+      a.hexRot[2] + (b.hexRot[2] - a.hexRot[2]) * t,
+    ],
+  };
+}
+
+// ── Render loop ───────────────────────────────────────────────
+function render() {
+  requestAnimationFrame(render);
+  const t = clock.getElapsedTime();
+
+  // Smooth mouse
+  mouse.x += (mouse.tx - mouse.x) * 0.04;
+  mouse.y += (mouse.ty - mouse.y) * 0.04;
+
+  // Lerp state
+  cur_s = lerpState(cur_s, tgt_s, 0.022);
+
+  // Master group: rotation from state + mouse parallax
+  masterGroup.rotation.x = cur_s.hexRot[0] + mouse.y * 0.12;
+  masterGroup.rotation.y = cur_s.hexRot[1] + mouse.x * 0.12;
+  masterGroup.rotation.z = cur_s.hexRot[2];
+  masterGroup.position.z = cur_s.groupZ;
+  masterGroup.scale.setScalar(cur_s.hexScale);
+
+  // Zone drift — each zone moves independently
+  zones.forEach((zone, zi) => {
+    const ph = zonePhase[zi] + t * zoneSpeed[zi];
+    zone.position.x = Math.sin(ph) * zoneAmpX[zi];
+    zone.position.y = Math.cos(ph * 0.7) * zoneAmpY[zi];
+    zone.rotation.z = Math.sin(ph * 0.4) * 0.04;
+  });
+
+  // Individual hex pulse
+  hexData.forEach(h => {
+    const wave = 0.5 + 0.5 * Math.sin(t * 0.7 + h.phase);
+    h.mesh.material.opacity = cur_s.hexOp * (0.55 + 0.45 * wave);
+    h.mesh.position.z = Math.sin(t * 0.9 + h.phase) * 0.05;
+    const sc = 1 + 0.035 * Math.sin(t * 1.1 + h.phase);
+    h.mesh.scale.setScalar(sc);
+  });
+
+  // Pollen — orbit + drift
+  pollenData.forEach(p => {
+    p.angle += p.speed;
+    const drift = Math.sin(t * p.driftSpeed + p.drift) * p.driftAmp;
+    const r = p.radius * cur_s.pollenSpread + drift;
+    p.mesh.position.x = Math.cos(p.angle) * r;
+    p.mesh.position.y = Math.sin(p.angle) * r * 0.7;
+    p.mesh.position.z = p.zBase + Math.sin(t * p.zSpd + p.drift) * p.zAmp;
+    p.mesh.rotation.z += p.rotSpd;
+    const glow = 0.6 + 0.4 * Math.sin(t * 1.8 + p.drift);
+    p.mesh.material.opacity = cur_s.pollenOp * p.baseOpacity * glow;
+  });
+
+  // Bees — orbit, bob, wing flap
+  beeData.forEach(b => {
+    b.angle += b.orbitSpeed * 0.016;
+    const r = b.r * cur_s.beeR;
+    const bx = Math.cos(b.angle) * r;
+    const by = Math.sin(b.angle) * r * 0.6 + Math.sin(t * b.bobSpd + b.bobPhase) * b.bobAmp;
+    b.group.position.x = bx + mouse.x * 0.08;
+    b.group.position.y = by + mouse.y * 0.05;
+    // Face direction of travel
+    const dx = -Math.sin(b.angle) * Math.sign(b.orbitSpeed);
+    const dy = Math.cos(b.angle) * 0.6 * Math.sign(b.orbitSpeed);
+    b.group.rotation.z = Math.atan2(dy, dx) - Math.PI / 2;
+    // Wing flap
+    const flap = Math.sin(t * 18 + b.wingPhase) * 0.35;
+    b.wL.rotation.x = 0.3 + flap;
+    b.wR.rotation.x = -0.3 - flap;
+    // Opacity
+    const op = cur_s.beeOp * b.baseOpacity;
+    b.body.material.opacity = op;
+    b.wL.material.opacity = op * 0.7;
+    b.wR.material.opacity = op * 0.7;
+    b.group.children.forEach((c, i) => {
+      if (c.material) c.material.opacity = op * (i === 0 ? 1 : i <= 2 ? 0.9 : 0.65);
+    });
+  });
+
+  // Camera subtle float
+  camera.position.x = mouse.x * 0.15;
+  camera.position.y = mouse.y * 0.1;
+  camera.lookAt(scene.position);
+
+  renderer.render(scene, camera);
+}
+render();
+
+// ── Resize ────────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// ═══════════════════════════════════════════════════════════════
+// CURSOR
+// ═══════════════════════════════════════════════════════════════
+const curEl  = document.getElementById('cur');
+const curREl = document.getElementById('curR');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  gsap.to(curEl, { x: mx, y: my, duration: 0.07 });
+});
+(function rl() {
+  rx += (mx - rx) * 0.09;
+  ry += (my - ry) * 0.09;
+  curREl.style.left = rx + 'px';
+  curREl.style.top  = ry + 'px';
+  requestAnimationFrame(rl);
+})();
+document.querySelectorAll('a, .wcard, button').forEach(el => {
+  el.addEventListener('mouseenter', () => curEl.classList.add('big'));
+  el.addEventListener('mouseleave', () => curEl.classList.remove('big'));
+});
+
+// ═══════════════════════════════════════════════════════════════
+// LOADER
+// ═══════════════════════════════════════════════════════════════
+const ldr   = document.getElementById('ldr');
+const lFill = document.getElementById('lFill');
+const lPct  = document.getElementById('lPct');
+let prog = 0;
+const iv = setInterval(() => {
+  prog += Math.random() * 14;
+  if (prog >= 100) {
+    prog = 100;
+    clearInterval(iv);
+  }
+  lFill.style.width = Math.min(prog, 100) + '%';
+  lPct.textContent  = Math.floor(Math.min(prog, 100)) + '%';
+  if (prog >= 100) {
+    setTimeout(() => {
+      gsap.to(ldr, {
+        yPercent: -100, duration: 1.1, ease: 'power4.inOut',
+        onComplete: () => { ldr.style.display = 'none'; initPage(); }
+      });
+    }, 300);
+  }
+}, 85);
+
+// ═══════════════════════════════════════════════════════════════
+// PAGE ANIMATIONS
+// ═══════════════════════════════════════════════════════════════
+function initPage() {
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero
+  gsap.to('.h-eye span',   { y: 0, duration: 1,   ease: 'power4.out', delay: 0.1 });
+  gsap.to('.h-title .word',{ y: 0, duration: 1.3, ease: 'power4.out', stagger: 0.08, delay: 0.2 });
+  gsap.to('.h-desc span',  { y: 0, duration: 1,   ease: 'power4.out', delay: 0.48 });
+  gsap.to('.h-scr',        { opacity: 1, duration: 1, delay: 1.1 });
+  gsap.to('.scr-line',     { scaleX: 1, duration: 1.5, ease: 'power4.out', delay: 1.1 });
+
+  // ScrollTrigger → scene transitions
+  [['#s0',0],['#s1',1],['#s2',2],['#s3',3],['#s4',4]].forEach(([id, si]) => {
+    ScrollTrigger.create({
+      trigger: id, start: 'top 58%',
+      onEnter: () => setScene(si),
+      onEnterBack: () => setScene(si),
+    });
+  });
+
+  // Intro
+  ScrollTrigger.create({ trigger: '.intro', start: 'top 76%', once: true, onEnter: () => {
+    gsap.to('.i-label span', { y: 0, duration: 0.9, ease: 'power4.out' });
+    gsap.to('.i-txt .inner', { y: 0, duration: 1,   ease: 'power4.out', stagger: 0.09 });
+    gsap.to('.stat',         { opacity: 1, y: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out' });
+  }});
+
+  // Services
+  ScrollTrigger.create({ trigger: '.svc-grid', start: 'top 80%', once: true, onEnter: () => {
+    gsap.to('.svc-item', { opacity: 1, y: 0, duration: 0.7, stagger: 0.07, ease: 'power3.out' });
+  }});
+
+  // Footer
+  ScrollTrigger.create({ trigger: '.foot', start: 'top 76%', once: true, onEnter: () => {
+    gsap.to('.f-hl .inner', { y: 0, duration: 1.1, ease: 'power4.out', stagger: 0.1 });
+    gsap.to('.f-btns',      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.2 });
+  }});
+}
+</script>
+</body>
+</html>
