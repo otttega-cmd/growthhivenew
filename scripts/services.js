@@ -335,49 +335,78 @@ window.addEventListener('resize',()=>{ camera.aspect=window.innerWidth/window.in
 window.onLoaderComplete = function() {
   gsap.registerPlugin(ScrollTrigger);
 
-  const PANELS = document.querySelectorAll('.svc-panel');
+  const PANELS      = document.querySelectorAll('.svc-panel');
+  const INDEX_EL    = document.querySelector('.services-index');
   const INDEX_ITEMS = document.querySelectorAll('.svc-index-item');
 
+  // ── Active index item ───────────────────────────────────────
+  // Smoothly moves a highlight indicator to the active item
   function setActiveIndex(idx) {
-    INDEX_ITEMS.forEach((item, i) => item.classList.toggle('active', i === idx));
+    INDEX_ITEMS.forEach((item, i) => {
+      item.classList.toggle('active', i === idx);
+    });
   }
 
-  // Intro reveals
-  gsap.to('.svc-eyebrow span',   { y:0, duration:1,   ease:'power4.out', delay:0.1 });
-  gsap.to('.svc-title .word',    { y:0, duration:1.3, ease:'power4.out', stagger:0.08, delay:0.2 });
-  gsap.to('.svc-intro-desc span',{ y:0, duration:1,   ease:'power4.out', delay:0.45 });
-  gsap.to('#svcCount',           { opacity:1, duration:1, delay:0.7 });
+  // ── Show/hide index rail ────────────────────────────────────
+  // Index slides in once user scrolls past intro, hides at outro
+  ScrollTrigger.create({
+    trigger: '#svcIntro',
+    start: 'bottom 60%',
+    onEnter:     () => INDEX_EL.classList.add('visible'),
+    onLeaveBack: () => INDEX_EL.classList.remove('visible'),
+  });
+  ScrollTrigger.create({
+    trigger: '#svcOutro',
+    start: 'top 40%',
+    onEnter:     () => INDEX_EL.classList.remove('visible'),
+    onLeaveBack: () => INDEX_EL.classList.add('visible'),
+  });
+
+  // ── Intro reveals ───────────────────────────────────────────
+  gsap.to('.svc-eyebrow span',    { y:0, duration:1,   ease:'power4.out', delay:0.1 });
+  gsap.to('.svc-title .word',     { y:0, duration:1.3, ease:'power4.out', stagger:0.08, delay:0.2 });
+  gsap.to('.svc-intro-desc span', { y:0, duration:1,   ease:'power4.out', delay:0.45 });
+  gsap.to('#svcCount',            { opacity:1, duration:1, delay:0.7 });
 
   // Hide scroll hint once past intro
   ScrollTrigger.create({
-    trigger:'#svcIntro', start:'bottom 80%',
+    trigger: '#svcIntro', start: 'bottom 80%',
     onEnter:     () => document.getElementById('scrollHint').classList.add('hidden'),
     onLeaveBack: () => document.getElementById('scrollHint').classList.remove('hidden'),
   });
 
-  // Each service panel
+  // ── Service panels ──────────────────────────────────────────
   PANELS.forEach((panel, i) => {
     ScrollTrigger.create({
       trigger: panel,
-      start: 'top 55%', end: 'bottom 45%',
+      start: 'top 50%',
+      end:   'bottom 50%',
       onEnter:     () => { panel.classList.add('is-active');    setActiveIndex(i); setScene(i + 1); },
       onLeave:     () => { panel.classList.remove('is-active'); },
       onEnterBack: () => { panel.classList.add('is-active');    setActiveIndex(i); setScene(i + 1); },
-      onLeaveBack: () => { panel.classList.remove('is-active'); setActiveIndex(i > 0 ? i-1 : 0); setScene(i > 0 ? i : 0); },
+      onLeaveBack: () => {
+        panel.classList.remove('is-active');
+        // Activate the previous panel's index item
+        if (i > 0) setActiveIndex(i - 1);
+        setScene(i > 0 ? i : 0);
+      },
     });
   });
 
-  // Intro — reset index on scroll back
+  // Reset index highlight when scrolling back above all panels
   ScrollTrigger.create({
-    trigger:'#svcIntro', start:'top 55%', end:'bottom 45%',
+    trigger: '#svcIntro', start: 'top 50%', end: 'bottom 50%',
     onEnterBack: () => { setActiveIndex(-1); setScene(0); },
   });
 
-  // Outro
-  ScrollTrigger.create({ trigger:'#svcOutro', start:'top 75%', once:true, onEnter:() => {
-    setScene(10);
-    gsap.to('.svc-outro-label span', { y:0, duration:.9, ease:'power4.out' });
-    gsap.to('.svc-outro-title .inner',{ y:0, duration:1.1, ease:'power4.out', stagger:.1 });
-    gsap.to('#svcOutroBtns',          { opacity:1, y:0, duration:.8, ease:'power3.out', delay:.25 });
-  }});
+  // ── Outro ───────────────────────────────────────────────────
+  ScrollTrigger.create({
+    trigger: '#svcOutro', start: 'top 75%', once: true,
+    onEnter: () => {
+      setScene(10);
+      gsap.to('.svc-outro-label span',  { y:0, duration:.9, ease:'power4.out' });
+      gsap.to('.svc-outro-title .inner',{ y:0, duration:1.1, ease:'power4.out', stagger:.1 });
+      gsap.to('#svcOutroBtns',          { opacity:1, y:0, duration:.8, ease:'power3.out', delay:.25 });
+    }
+  });
 };

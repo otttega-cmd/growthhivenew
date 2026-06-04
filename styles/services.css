@@ -41,26 +41,41 @@
 .svc-intro-count { font-family: 'Space Mono', monospace; font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); opacity: 0; }
 .svc-intro-count em { color: var(--ch); font-style: normal; }
 
-/* ── Layout: sticky left index + scrolling panels ──────────── */
+/* ── Layout: fixed left index + scrolling panels ───────────── */
 .services-layout {
-  display: flex;
+  display: block; /* panels stack normally, index is fixed out of flow */
   position: relative;
   z-index: 1;
 }
 
-/* Sticky left index rail */
+/* Fixed left index rail — always visible, driven by ScrollTrigger */
 .services-index {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   height: 100vh;
   width: 280px;
-  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 0 0 0 3rem;
-  z-index: 10;
+  z-index: 50;
   border-right: 1px solid var(--faint);
+  /* Hidden until past intro */
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity .6s var(--ease), transform .6s var(--ease);
+  pointer-events: none;
+}
+.services-index.visible {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* Panels shifted right to make room for fixed index */
+.services-panels {
+  margin-left: 280px;
 }
 .svc-index-label {
   font-family: 'Space Mono', monospace;
@@ -100,7 +115,7 @@
 .svc-index-item.active .svc-index-bar { width: 20px; }
 
 /* ── Service panels ────────────────────────────────────────── */
-.services-panels { flex: 1; }
+/* .services-panels margin-left set in layout block above */
 
 .svc-panel {
   height: 100vh; min-height: 700px;
@@ -264,11 +279,13 @@
 /* ── Responsive ────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .services-index { width: 220px; }
+  .services-panels { margin-left: 220px; }
   .svc-content { max-width: 58%; }
 }
 @media (max-width: 768px) {
   .svc-intro { padding: 0 1.5rem 3.5rem; }
   .services-index { display: none; }
+  .services-panels { margin-left: 0; }
   .svc-content { padding: 0 1.5rem 4rem; max-width: 100%; }
   .svc-visual { display: none; }
   .svc-dec-num { font-size: 7rem; }
