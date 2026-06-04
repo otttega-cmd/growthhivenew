@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Domino's Nigeria — Your Pizza. Your Wahala. | Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;1,9..40,200;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/case-dominos.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="case-dominos">
+
+<!-- Loader -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail" class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="YOUR_ICON.png" alt="Growthhive icon">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html" class="active">Work</a></li>
+    <li><a href="/services.html">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="ncta">Start a project</a>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO — the billboard
+══════════════════════════════════════════════════════════ -->
+<header class="cs-hero">
+  <div class="cs-hero-top" id="heroTop">
+    <div class="cs-client-badge"><span class="cs-client-dot"></span>Domino's Nigeria</div>
+    <div class="cs-tag-divider"></div>
+    <div class="cs-client-badge"><span class="cs-client-dot blue"></span>Eat'n'Go Africa</div>
+    <div class="cs-tag-divider"></div>
+    <div class="cs-client-badge">2025</div>
+  </div>
+
+  <div class="cs-hero-mid">
+    <div class="cs-kicker" id="heroKicker">Multimedia Campaign · Build-Your-Own Pizza</div>
+    <h1 class="cs-hero-title">
+      <span class="l"><span class="w your">Your</span> <span class="w">Pizza.</span></span>
+      <span class="l"><span class="w your">Your</span> <span class="w red">Wahala.</span></span>
+    </h1>
+    <p class="cs-sub" id="heroSub">Build it your way. We'll bake it. A campaign that handed Lagos millennials the one thing they value most — <em>the final say.</em></p>
+  </div>
+
+  <div class="cs-hero-foot">
+    <div class="cs-hero-meta">
+      <div class="cs-meta-item">
+        <div class="cs-meta-label">Client</div>
+        <div class="cs-meta-value">Domino's Pizza Nigeria</div>
+      </div>
+      <div class="cs-meta-item">
+        <div class="cs-meta-label">Scope</div>
+        <div class="cs-meta-value">Brand Platform · Social · OOH · Paid</div>
+      </div>
+      <div class="cs-meta-item">
+        <div class="cs-meta-label">Market</div>
+        <div class="cs-meta-value">Lagos, Nigeria</div>
+      </div>
+    </div>
+    <div class="cs-scroll-cue" id="heroScroll"><span class="cs-scroll-line"></span>Scroll</div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     THE INSIGHT
+══════════════════════════════════════════════════════════ -->
+<section class="cs-section cs-insight">
+  <div class="cs-section-num">01 — The Insight</div>
+  <div class="cs-insight-grid">
+    <h2 class="cs-insight-statement reveal">
+      Winning a market and <span class="hl">owning its culture</span> are not the <span class="hl-blue">same thing.</span>
+    </h2>
+    <div class="cs-insight-body reveal">
+      <p>After 13 years in Nigeria, Domino's had achieved total market dominance — over 70% pizza market share, 534K Instagram followers, 100,000 customers a day. By every commercial metric, they had won.</p>
+      <p>But they marketed like a brand afraid of losing: "Number 1 Pizza Company," promotional pricing, product-led creative. Meanwhile, the one feature that mirrors exactly how Lagos thinks — opinionated, decisive, personal — had never been the centrepiece of a campaign.</p>
+      <div class="cs-pullquote">
+        "The Build-Your-Own Pizza offering is the most Nigerian thing Domino's has ever had on the menu. It just doesn't know it yet."
+      </div>
+    </div>
+  </div>
+
+  <div class="cs-stat-band">
+    <div class="cs-stat reveal">
+      <div class="cs-stat-value">70%+</div>
+      <div class="cs-stat-label">Pizza market share</div>
+    </div>
+    <div class="cs-stat reveal">
+      <div class="cs-stat-value">78+</div>
+      <div class="cs-stat-label">Stores nationwide</div>
+    </div>
+    <div class="cs-stat reveal">
+      <div class="cs-stat-value">100K+</div>
+      <div class="cs-stat-label">Daily customers</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     PLATFORM
+══════════════════════════════════════════════════════════ -->
+<section class="cs-section cs-platform">
+  <div class="cs-eyebrow">The Campaign Platform</div>
+  <div class="cs-platform-line reveal">
+    <span class="your">Your</span> Pizza.<br><span class="your">Your</span> <span class="wahala">Wahala.</span>
+  </div>
+  <p class="cs-platform-sub reveal">Build it your way. We'll bake it.</p>
+  <div class="cs-platform-pillars">
+    <div class="cs-pillar reveal">
+      <div class="cs-pillar-title">Culturally Native</div>
+      <div class="cs-pillar-body">Wahala is the most loaded word in street Yoruba-Pidgin. Owning it signals the brand understands Lagos — not just Nigeria.</div>
+    </div>
+    <div class="cs-pillar reveal">
+      <div class="cs-pillar-title">Audience-First</div>
+      <div class="cs-pillar-body">Puts the customer in the creative director's seat. Domino's role is execution — baking what they design.</div>
+    </div>
+    <div class="cs-pillar reveal">
+      <div class="cs-pillar-title">Product-Accurate</div>
+      <div class="cs-pillar-body">A literal description of the Build-Your-Own offering, dressed in language Lagos millennials already own.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CREATIVE SHOWCASE
+══════════════════════════════════════════════════════════ -->
+<section class="cs-section cs-showcase">
+  <div class="cs-showcase-head">
+    <div>
+      <div class="cs-section-num blue">02 — The Work</div>
+      <h2 class="cs-showcase-title">Creative across every<br>touchpoint.</h2>
+    </div>
+  </div>
+
+  <!-- Featured hero creative -->
+  <div class="cs-media cs-feature reveal" style="aspect-ratio:16/9;">
+    <div class="cs-media-placeholder">
+      <div class="cs-media-icon">▶</div>
+      <div class="cs-media-label">Hero Film — "No Two Are The Same"</div>
+      <div class="cs-media-spec">16:9 · 15s & 30s · Drop campaign film here</div>
+    </div>
+    <div class="cs-media-caption">
+      <div class="cs-caption-phase">Phase 01 · Awareness</div>
+      <div class="cs-caption-title">Split-screen hero film</div>
+      <div class="cs-caption-desc">Two colleagues, same VI office, radically different orders. The contrast is the message.</div>
+    </div>
+  </div>
+
+  <!-- Grid row 1 -->
+  <div class="cs-grid">
+    <div class="cs-media col-7 reveal">
+      <div class="cs-media-placeholder">
+        <div class="cs-media-icon">▦</div>
+        <div class="cs-media-label">Split-Panel Billboard</div>
+        <div class="cs-media-spec">Landscape · OOH · Drop billboard mockup here</div>
+      </div>
+      <div class="cs-media-caption">
+        <div class="cs-caption-phase">Phase 01 · Out-of-Home</div>
+        <div class="cs-caption-title">"We don't have a favourite. You do."</div>
+        <div class="cs-caption-desc">Lekki-Epe · Maryland · Ikeja Along</div>
+      </div>
+    </div>
+    <div class="cs-media col-5 reveal">
+      <div class="cs-media-placeholder">
+        <div class="cs-media-icon">▢</div>
+        <div class="cs-media-label">Instagram Launch Post</div>
+        <div class="cs-media-spec">1:1 · Social · Drop key visual here</div>
+      </div>
+      <div class="cs-media-caption">
+        <div class="cs-caption-phase">Phase 01 · Social</div>
+        <div class="cs-caption-title">Campaign launch creative</div>
+        <div class="cs-caption-desc">Same store. Same menu. Zero same pizza.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid row 2 -->
+  <div class="cs-grid">
+    <div class="cs-media col-4 tall reveal">
+      <div class="cs-media-placeholder">
+        <div class="cs-media-icon">♪</div>
+        <div class="cs-media-label">#MyPizzaMyWahala</div>
+        <div class="cs-media-spec">9:16 · TikTok · Drop UGC frame here</div>
+      </div>
+      <div class="cs-media-caption">
+        <div class="cs-caption-phase">Phase 02 · Engagement</div>
+        <div class="cs-caption-title">TikTok challenge</div>
+        <div class="cs-caption-desc">Branded Afropop jingle. UGC as the engine.</div>
+      </div>
+    </div>
+    <div class="cs-media col-8 reveal">
+      <div class="cs-media-placeholder">
+        <div class="cs-media-icon">▦</div>
+        <div class="cs-media-label">The Build Bar — Stories Series</div>
+        <div class="cs-media-spec">9:16 set · IG Stories · Drop poll frames here</div>
+      </div>
+      <div class="cs-media-caption">
+        <div class="cs-caption-phase">Phase 02 · Instagram Stories</div>
+        <div class="cs-caption-title">Weekly topping debates</div>
+        <div class="cs-caption-desc">"Suya chicken vs pepperoni?" Audience as co-creators.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grid row 3 — conversion carousel -->
+  <div class="cs-grid">
+    <div class="cs-media col-12 reveal" style="min-height:340px;">
+      <div class="cs-media-placeholder">
+        <div class="cs-media-icon">▭▭▭▭</div>
+        <div class="cs-media-label">Meta Carousel — 4 Cards: Crust · Sauce · Toppings · CTA</div>
+        <div class="cs-media-spec">1:1 ×4 · Paid Social · Drop carousel set here</div>
+      </div>
+      <div class="cs-media-caption">
+        <div class="cs-caption-phase">Phase 03 · Conversion</div>
+        <div class="cs-caption-title">"Pick wrong and own it."</div>
+        <div class="cs-caption-desc">Each card walks one decision in the build. Performance creative carrying the platform into hard conversion.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     PHASES
+══════════════════════════════════════════════════════════ -->
+<section class="cs-section cs-phases">
+  <div class="cs-section-num ch">03 — Campaign Architecture</div>
+  <h2 class="cs-showcase-title reveal" style="margin-bottom:3rem;">Three phases. One platform.</h2>
+
+  <div class="cs-phase reveal">
+    <div class="cs-phase-num">01</div>
+    <div class="cs-phase-head">
+      <div class="cs-phase-stage">Awareness</div>
+      <div class="cs-phase-name">No Two Are The Same</div>
+      <div class="cs-phase-channels">Instagram · TikTok · Out-of-Home</div>
+    </div>
+    <div class="cs-phase-body">
+      Launch by celebrating Lagos individuality. A split-screen contrast format shows two Lagosians — same occasion, radically different builds. With Build-Your-Own, no two Nigerians eat the same pizza.
+      <div class="cs-phase-duration">2 Weeks</div>
+    </div>
+  </div>
+
+  <div class="cs-phase reveal">
+    <div class="cs-phase-num">02</div>
+    <div class="cs-phase-head">
+      <div class="cs-phase-stage">Engagement</div>
+      <div class="cs-phase-name">Show Us Your Wahala</div>
+      <div class="cs-phase-channels">TikTok · Stories · WhatsApp</div>
+    </div>
+    <div class="cs-phase-body">
+      Hand the campaign to the audience. The #MyPizzaMyWahala challenge invites Nigerians to share their builds — their combinations, their logic, their conviction. Seeded with Lagos food and lifestyle micro-influencers.
+      <div class="cs-phase-duration">3 Weeks</div>
+    </div>
+  </div>
+
+  <div class="cs-phase reveal">
+    <div class="cs-phase-num">03</div>
+    <div class="cs-phase-head">
+      <div class="cs-phase-stage">Conversion</div>
+      <div class="cs-phase-name">Build It. Own It.</div>
+      <div class="cs-phase-channels">Meta Ads · Google · In-App</div>
+    </div>
+    <div class="cs-phase-body">
+      Performance creative carrying the platform into hard conversion. Carousel ads walk the build card-by-card, search captures high intent, and the dominos.ng build flow is skinned with campaign language so the UX feels like brand extension.
+      <div class="cs-phase-duration">Ongoing</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     DOWNLOAD
+══════════════════════════════════════════════════════════ -->
+<section class="cs-section cs-download">
+  <div class="cs-download-inner">
+    <div>
+      <div class="cs-section-num">04 — The Deck</div>
+      <h2 class="cs-download-title reveal">The full campaign,<br><span class="acc">start to finish.</span></h2>
+      <p class="cs-download-body reveal">Every phase, every execution, the copy bank, and the success metrics — assembled into a single presentation. The same document we'd walk a client through in the room.</p>
+    </div>
+    <div class="cs-download-card reveal">
+      <div class="cs-deck-icon">📊</div>
+      <div class="cs-deck-name">Your Pizza. Your Wahala.</div>
+      <div class="cs-deck-meta">PowerPoint · 10 slides · Campaign Brief</div>
+      <a href="/assets/dominos_campaign_presentation.pptx" download class="cs-download-btn">
+        <span>Download presentation</span>
+        <span class="arr">↓</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CLOSER
+══════════════════════════════════════════════════════════ -->
+<section class="cs-closer">
+  <div class="cs-closer-glow"></div>
+  <div class="cs-closer-label">Ready to build</div>
+  <h2 class="cs-closer-title reveal">Let's make your market<br><span class="acc">feel seen.</span></h2>
+  <div class="cs-closer-btns reveal">
+    <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="btn-fill">Book a free consultation</a>
+    <a href="/work.html" class="btn-out">See more work</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="cs-footer">
+  <div class="cs-footer-logo">Growthhive<em>.</em></div>
+  <div class="cs-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+  <div class="cs-footer-meta">© 2025 Growthhive · Confidential Case Study</div>
+</footer>
+
+<script src="/scripts/case-dominos.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>

@@ -17,34 +17,13 @@
 
 <!-- Loader -->
 <div class="ldr" id="ldr">
-  <div class="ldr-bee">
-    <svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <ellipse class="bee-wing-l" cx="18" cy="36" rx="14" ry="9" fill="#D4F53C" fill-opacity=".18" stroke="#D4F53C" stroke-width="1" transform="rotate(-15 18 36)"/>
-      <ellipse class="bee-wing-r" cx="70" cy="36" rx="14" ry="9" fill="#D4F53C" fill-opacity=".18" stroke="#D4F53C" stroke-width="1" transform="rotate(15 70 36)"/>
-      <ellipse cx="44" cy="48" rx="13" ry="22" fill="#0B0B1F" stroke="#D4F53C" stroke-width="1.5"/>
-      <clipPath id="bodyClip"><ellipse cx="44" cy="48" rx="13" ry="22"/></clipPath>
-      <g clip-path="url(#bodyClip)">
-        <rect class="bee-stripe" x="31" y="32" width="26" height="6" fill="#D4F53C" opacity=".75"/>
-        <rect class="bee-stripe" x="31" y="43" width="26" height="6" fill="#D4F53C" opacity=".6" style="animation-delay:.2s"/>
-        <rect class="bee-stripe" x="31" y="54" width="26" height="6" fill="#D4F53C" opacity=".4" style="animation-delay:.4s"/>
-      </g>
-      <circle cx="44" cy="18" r="9" fill="#0B0B1F" stroke="#D4F53C" stroke-width="1.3"/>
-      <circle cx="40" cy="16" r="1.8" fill="#D4F53C" opacity=".9"/>
-      <circle cx="48" cy="16" r="1.8" fill="#D4F53C" opacity=".9"/>
-      <rect x="40" y="24" width="8" height="5" rx="2" fill="#0B0B1F" stroke="#D4F53C" stroke-width="1"/>
-      <g class="bee-antenna">
-        <path d="M40,10 Q35,4 31,1" stroke="#D4F53C" stroke-width="1" stroke-linecap="round" fill="none"/>
-        <circle cx="30.5" cy="1" r="2" fill="#D4F53C" opacity=".85"/>
-        <path d="M48,10 Q53,4 57,1" stroke="#D4F53C" stroke-width="1" stroke-linecap="round" fill="none"/>
-        <circle cx="57.5" cy="1" r="2" fill="#D4F53C" opacity=".85"/>
-      </g>
-      <path d="M38,69 Q44,80 50,69" fill="#D4F53C" opacity=".55"/>
-      <line x1="44" y1="80" x2="44" y2="86" stroke="#D4F53C" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>
-    </svg>
-  </div>
-  <div class="ldr-wordmark">Growthhive<em>.</em></div>
-  <div class="ldr-track"><div class="ldr-fill" id="lFill"></div></div>
-  <div class="ldr-pct" id="lPct">0%</div>
+  <!-- SVG trail overlay — drawn in screen space by the hero bee -->
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail" class="intro-trail"/>
+  </svg>
+  <!-- Percentage readout — follows the bee -->
+  <div class="intro-pct" id="introPct">0%</div>
 </div>
 
 <canvas id="c"></canvas>

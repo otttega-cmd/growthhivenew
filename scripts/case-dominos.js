@@ -1,6 +1,6 @@
 /* ================================================================
-   Growthhive — About Page Script
-   about.js
+   Growthhive — Domino's Nigeria Case Study Script
+   case-dominos.js
    Depends on: shared.css, shared.js, three.js, gsap, ScrollTrigger
    Work. Play. Grow. 🐝
 ================================================================ */
@@ -208,12 +208,12 @@ function buildTrailPath(points) {
 
 // About page scene states — hex colour shifts per section
 const SECTION_ACCENTS = [
-  CH.clone(),                    // hero — chartreuse
-  new THREE.Color(0x5BB8F5),    // conviction — sky blue
-  new THREE.Color(0xD4F53C),    // numbers — chartreuse
-  new THREE.Color(0xFF8C42),    // hive — amber
-  new THREE.Color(0xC77DFF),    // founder — violet
-  new THREE.Color(0xD4F53C),    // closer — chartreuse
+  new THREE.Color(0x0B6FB4),    // hero — Domino's blue
+  new THREE.Color(0xE03A3E),    // insight — Domino's red
+  new THREE.Color(0xD4F53C),    // platform — chartreuse (Growthhive signature)
+  new THREE.Color(0x0B6FB4),    // showcase — blue
+  new THREE.Color(0xE03A3E),    // phases — red
+  new THREE.Color(0xD4F53C),    // download/closer — chartreuse
 ];
 
 const STATES = [
@@ -492,65 +492,40 @@ window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.inn
 window.onLoaderComplete = function() {
   gsap.registerPlugin(ScrollTrigger);
 
-  // ── Hero ──────────────────────────────────────────────────
-  gsap.to('.ah-eyebrow span',  {y:0,duration:1,  ease:'power4.out',delay:.1});
-  gsap.to('.ah-title .word',   {y:0,duration:1.4,ease:'power4.out',stagger:.07,delay:.2});
-  gsap.to('.ah-sub span',      {y:0,duration:1,  ease:'power4.out',delay:.5});
-  gsap.to('.ah-scroll',        {opacity:1,duration:1,delay:1.1});
-  gsap.to('.ah-scroll-line',   {scaleX:1,duration:1.5,ease:'power4.out',delay:1.1});
+  // ── Hero reveals ──────────────────────────────────────────
+  gsap.to('#heroTop',    { opacity:1, y:0, duration:1,   ease:'power3.out', delay:.1 });
+  gsap.to('#heroKicker', { opacity:1, y:0, duration:1,   ease:'power3.out', delay:.3 });
+  gsap.to('.cs-hero-title .w', { y:0, duration:1.3, ease:'power4.out', stagger:.08, delay:.45 });
+  gsap.to('#heroSub',    { opacity:1, y:0, duration:1,   ease:'power3.out', delay:.7 });
+  gsap.to('.cs-meta-item', { opacity:1, y:0, duration:.9, ease:'power3.out', stagger:.12, delay:.85 });
+  gsap.to('#heroScroll', { opacity:1, duration:1, delay:1.2 });
+  gsap.to('.cs-scroll-line', { scaleX:1, duration:1.4, ease:'power4.out', delay:1.2 });
 
-  // ── Section ScrollTriggers → scene states ─────────────────
-  const sections = [
-    ['#aboutHero',       0],
-    ['#conviction',      1],
-    ['#numbers',         2],
-    ['#hive',            3],
-    ['#founder',         4],
-    ['#closer',          5],
-  ];
-  sections.forEach(([id, si]) => {
+  // ── Scroll-triggered section reveals ──────────────────────
+  gsap.utils.toArray('.reveal').forEach((el) => {
     ScrollTrigger.create({
-      trigger: id, start: 'top 55%',
+      trigger: el, start: 'top 85%', once: true,
+      onEnter: () => gsap.to(el, { opacity:1, y:0, duration:1, ease:'power3.out' }),
+    });
+  });
+
+  // ── Scene accent shifts per section ───────────────────────
+  const sections = [
+    ['.cs-hero',     0],
+    ['.cs-insight',  1],
+    ['.cs-platform', 2],
+    ['.cs-showcase', 3],
+    ['.cs-phases',   4],
+    ['.cs-download', 5],
+    ['.cs-closer',   5],
+  ];
+  sections.forEach(([sel, si]) => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    ScrollTrigger.create({
+      trigger: el, start: 'top 55%',
       onEnter:     () => setScene(si),
       onEnterBack: () => setScene(si),
     });
   });
-
-  // ── Conviction ────────────────────────────────────────────
-  ScrollTrigger.create({ trigger:'#conviction', start:'top 75%', once:true, onEnter:()=>{
-    gsap.to('.conv-label span',  {y:0,duration:.9,ease:'power4.out'});
-    gsap.to('.conv-statement .inner',{y:0,duration:1.2,ease:'power4.out',stagger:.08});
-    gsap.to('.conv-col',{opacity:1,y:0,duration:.8,stagger:.15,ease:'power3.out',delay:.4});
-  }});
-
-  // ── Numbers ───────────────────────────────────────────────
-  ScrollTrigger.create({ trigger:'#numbers', start:'top 78%', once:true, onEnter:()=>{
-    gsap.to('.num-item',{opacity:1,y:0,duration:.9,stagger:.12,ease:'power3.out'});
-  }});
-
-  // ── Hive ──────────────────────────────────────────────────
-  ScrollTrigger.create({ trigger:'#hive', start:'top 75%', once:true, onEnter:()=>{
-    gsap.to('.hive-label span',   {y:0,duration:.9,ease:'power4.out'});
-    gsap.to('.hive-headline .inner',{y:0,duration:1.1,ease:'power4.out',stagger:.08});
-    gsap.to('.hive-body',         {opacity:1,y:0,duration:.9,ease:'power3.out',delay:.3});
-    gsap.to('.hive-trait',        {opacity:1,x:0,duration:.8,stagger:.1,ease:'power3.out',delay:.2});
-  }});
-
-  // ── Founder ───────────────────────────────────────────────
-  ScrollTrigger.create({ trigger:'#founder', start:'top 75%', once:true, onEnter:()=>{
-    gsap.to('.founder-label span', {y:0,duration:.9,ease:'power4.out'});
-    gsap.to('.founder-name .inner',{y:0,duration:1.1,ease:'power4.out',stagger:.08});
-    gsap.to('.founder-title span', {y:0,duration:.9,ease:'power4.out',delay:.2});
-    gsap.to('.founder-quote',      {opacity:1,y:0,duration:.9,ease:'power3.out',delay:.35});
-    gsap.to('.founder-links',      {opacity:1,y:0,duration:.8,ease:'power3.out',delay:.5});
-    gsap.to('.founder-img-placeholder',{opacity:1,scale:1,duration:1.2,ease:'power3.out',delay:.1});
-  }});
-
-  // ── Closer ────────────────────────────────────────────────
-  ScrollTrigger.create({ trigger:'#closer', start:'top 75%', once:true, onEnter:()=>{
-    gsap.to('.closer-label span',   {y:0,duration:.9,ease:'power4.out'});
-    gsap.to('.closer-headline .inner',{y:0,duration:1.2,ease:'power4.out',stagger:.08});
-    gsap.to('.closer-sub',          {opacity:1,y:0,duration:.9,ease:'power3.out',delay:.3});
-    gsap.to('.closer-btns',         {opacity:1,y:0,duration:.8,ease:'power3.out',delay:.4});
-  }});
 };

@@ -1,0 +1,487 @@
+/* ================================================================
+   Growthhive — Domino's Nigeria Case Study
+   case-dominos.css
+   Campaign: "Your Pizza. Your Wahala."
+   Depends on: shared.css (loaded first)
+   Co-brand: Domino's blue/red × Growthhive navy/chartreuse
+================================================================ */
+
+/* ── Domino's palette, deepened to sit on dark navy ────────── */
+:root {
+  --dom-blue:   #0B6FB4;   /* Domino's blue, slightly deepened */
+  --dom-blue-d: #064A7A;   /* darker blue for gradients */
+  --dom-red:    #E03A3E;   /* Domino's red, kept vivid */
+  --dom-red-d:  #A31D2B;   /* deep red */
+  --dom-cream:  #FBF7F0;   /* warm off-white for Domino's warmth */
+  --dom-ink:    #071A2C;   /* near-black blue, page base for this case */
+}
+
+/* This page leans into a Domino's-blue-tinted dark base,
+   bridging to Growthhive navy. */
+body.case-dominos {
+  background: var(--dom-ink);
+}
+body.case-dominos html { background: var(--dom-ink); }
+
+/* ── WebGL canvas ──────────────────────────────────────────── */
+#c { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+/* ════════════════════════════════════════════════════════════
+   HERO — the billboard moment. Sell the feeling first.
+════════════════════════════════════════════════════════════ */
+.cs-hero {
+  position: relative; z-index: 1;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  padding: 8rem 3rem 3rem;
+  overflow: hidden;
+}
+/* Diagonal Domino's colour field bleeding from corner */
+.cs-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 85% 10%, rgba(224,58,62,.22) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 70% at 10% 90%, rgba(11,111,180,.28) 0%, transparent 60%);
+  pointer-events: none; z-index: -1;
+}
+
+.cs-hero-top {
+  display: flex; align-items: center; gap: 1.4rem;
+  opacity: 0; transform: translateY(-10px);
+}
+.cs-client-badge {
+  display: flex; align-items: center; gap: .7rem;
+  font-family: 'Space Mono', monospace;
+  font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--dom-cream);
+}
+.cs-client-dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--dom-red);
+  box-shadow: 0 0 0 3px rgba(224,58,62,.25);
+}
+.cs-client-dot.blue { background: var(--dom-blue); box-shadow: 0 0 0 3px rgba(11,111,180,.25); }
+.cs-tag-divider { width: 1px; height: 14px; background: rgba(251,247,240,.2); }
+
+.cs-hero-mid { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 3rem 0; }
+.cs-kicker {
+  font-family: 'Space Mono', monospace;
+  font-size: .68rem; letter-spacing: .28em; text-transform: uppercase;
+  color: var(--ch); margin-bottom: 2rem;
+  opacity: 0; transform: translateY(12px);
+}
+.cs-hero-title {
+  font-size: clamp(3.5rem, 12vw, 12rem);
+  font-weight: 200; line-height: .82; letter-spacing: -.05em;
+  color: var(--dom-cream); margin-bottom: 2.5rem;
+}
+.cs-hero-title .l { display: block; overflow: hidden; }
+.cs-hero-title .w { display: inline-block; transform: translateY(115%); }
+.cs-hero-title .your { color: var(--dom-cream); font-style: italic; }
+.cs-hero-title .red  { color: var(--dom-red); }
+.cs-hero-title .blue { color: var(--dom-blue); }
+.cs-sub {
+  font-size: clamp(1rem, 2vw, 1.4rem);
+  font-weight: 300; line-height: 1.5; color: rgba(251,247,240,.7);
+  max-width: 600px;
+  opacity: 0; transform: translateY(12px);
+}
+.cs-sub em { color: var(--ch); font-style: normal; }
+
+.cs-hero-foot {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: 2rem; flex-wrap: wrap;
+}
+.cs-hero-meta { display: flex; gap: 3rem; }
+.cs-meta-item { opacity: 0; transform: translateY(10px); }
+.cs-meta-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .54rem; letter-spacing: .16em; text-transform: uppercase;
+  color: rgba(251,247,240,.4); margin-bottom: .5rem;
+}
+.cs-meta-value {
+  font-size: .92rem; font-weight: 300; color: var(--dom-cream);
+  line-height: 1.4; max-width: 200px;
+}
+.cs-scroll-cue {
+  display: flex; align-items: center; gap: .8rem;
+  font-family: 'Space Mono', monospace;
+  font-size: .56rem; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(251,247,240,.4);
+  opacity: 0;
+}
+.cs-scroll-line { width: 36px; height: 1px; background: var(--ch); transform: scaleX(0); transform-origin: left; }
+
+/* ════════════════════════════════════════════════════════════
+   SECTION SCAFFOLD
+════════════════════════════════════════════════════════════ */
+.cs-section { position: relative; z-index: 1; padding: 8rem 3rem; }
+.cs-section-num {
+  font-family: 'Space Mono', monospace;
+  font-size: .6rem; letter-spacing: .2em; color: var(--dom-red);
+  margin-bottom: 1.5rem;
+}
+.cs-section-num.blue { color: var(--dom-blue); }
+.cs-section-num.ch { color: var(--ch); }
+.cs-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--ch); margin-bottom: 2rem;
+}
+
+/* ── Reveal helper ─────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(24px); }
+
+/* ════════════════════════════════════════════════════════════
+   THE INSIGHT — big editorial statement
+════════════════════════════════════════════════════════════ */
+.cs-insight {
+  border-top: 1px solid rgba(251,247,240,.1);
+  background: linear-gradient(180deg, transparent 0%, rgba(11,111,180,.05) 100%);
+}
+.cs-insight-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+}
+.cs-insight-statement {
+  font-size: clamp(1.8rem, 3.5vw, 3.2rem);
+  font-weight: 200; line-height: 1.12; letter-spacing: -.03em;
+  color: var(--dom-cream);
+}
+.cs-insight-statement .hl { color: var(--dom-red); font-style: italic; }
+.cs-insight-statement .hl-blue { color: var(--dom-blue); font-style: italic; }
+.cs-insight-body { padding-top: 1rem; }
+.cs-insight-body p {
+  font-size: .98rem; line-height: 1.8; color: rgba(251,247,240,.65);
+  margin-bottom: 1.5rem;
+}
+.cs-pullquote {
+  margin-top: 2.5rem; padding: 1.8rem 2rem;
+  border-left: 3px solid var(--ch);
+  background: rgba(212,245,60,.05);
+  font-size: 1.1rem; line-height: 1.5; font-style: italic;
+  color: var(--dom-cream);
+}
+
+/* Stat band */
+.cs-stat-band {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2px; margin-top: 5rem;
+  border-top: 1px solid rgba(251,247,240,.1);
+}
+.cs-stat {
+  padding: 3rem 2rem;
+  border-right: 1px solid rgba(251,247,240,.1);
+  position: relative; overflow: hidden;
+}
+.cs-stat:last-child { border-right: none; }
+.cs-stat::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(224,58,62,.06); transform: translateY(101%);
+  transition: transform .6s var(--ease);
+}
+.cs-stat:hover::before { transform: translateY(0); }
+.cs-stat-value {
+  font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 200;
+  letter-spacing: -.04em; line-height: .9; margin-bottom: .6rem;
+  position: relative;
+}
+.cs-stat:nth-child(1) .cs-stat-value { color: var(--dom-red); }
+.cs-stat:nth-child(2) .cs-stat-value { color: var(--dom-blue); }
+.cs-stat:nth-child(3) .cs-stat-value { color: var(--ch); }
+.cs-stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .58rem; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(251,247,240,.5); position: relative;
+}
+
+/* ════════════════════════════════════════════════════════════
+   PLATFORM — the campaign line, full bleed
+════════════════════════════════════════════════════════════ */
+.cs-platform {
+  text-align: center;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%, rgba(224,58,62,.12) 0%, transparent 65%);
+  border-top: 1px solid rgba(251,247,240,.1);
+  border-bottom: 1px solid rgba(251,247,240,.1);
+}
+.cs-platform-line {
+  font-size: clamp(2.5rem, 8vw, 8rem); font-weight: 200;
+  letter-spacing: -.045em; line-height: .92; margin: 2rem 0;
+  color: var(--dom-cream);
+}
+.cs-platform-line .your { font-style: italic; }
+.cs-platform-line .wahala { color: var(--dom-red); }
+.cs-platform-sub {
+  font-size: 1.2rem; font-weight: 300; color: rgba(251,247,240,.7);
+  margin-bottom: 3rem;
+}
+.cs-platform-pillars {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem;
+  max-width: 900px; margin: 4rem auto 0; text-align: left;
+}
+.cs-pillar { padding-top: 1.5rem; border-top: 1px solid rgba(251,247,240,.15); }
+.cs-pillar-title {
+  font-family: 'Space Mono', monospace;
+  font-size: .62rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ch); margin-bottom: 1rem;
+}
+.cs-pillar-body { font-size: .85rem; line-height: 1.65; color: rgba(251,247,240,.6); }
+
+/* ════════════════════════════════════════════════════════════
+   CREATIVE SHOWCASE — generous space for the work
+════════════════════════════════════════════════════════════ */
+.cs-showcase { border-top: 1px solid rgba(251,247,240,.1); }
+.cs-showcase-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  margin-bottom: 4rem; flex-wrap: wrap; gap: 1rem;
+}
+.cs-showcase-title {
+  font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 200;
+  letter-spacing: -.03em; color: var(--dom-cream);
+}
+
+/* Featured hero creative — large */
+.cs-feature {
+  position: relative; width: 100%;
+  aspect-ratio: 16/9; border-radius: 4px; overflow: hidden;
+  background: linear-gradient(135deg, var(--dom-blue-d) 0%, var(--dom-ink) 100%);
+  border: 1px solid rgba(251,247,240,.1);
+  margin-bottom: 2px;
+  display: flex; align-items: center; justify-content: center;
+}
+/* Placeholder treatment + image layering */
+.cs-media {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--dom-blue-d) 0%, var(--dom-ink) 100%);
+  border: 1px solid rgba(251,247,240,.08);
+  display: flex; align-items: center; justify-content: center;
+}
+.cs-media img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; display: none;
+}
+.cs-media img.loaded { display: block; }
+.cs-media-placeholder {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1rem; padding: 2rem; text-align: center;
+  position: relative; z-index: 1;
+}
+.cs-media-icon {
+  width: 48px; height: 48px;
+  border: 1px solid rgba(251,247,240,.25); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(251,247,240,.5); font-size: 1.1rem;
+}
+.cs-media-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .58rem; letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(251,247,240,.45); line-height: 1.5;
+}
+.cs-media-spec {
+  font-family: 'Space Mono', monospace;
+  font-size: .5rem; letter-spacing: .1em;
+  color: rgba(251,247,240,.3);
+}
+/* Domino's tile motif overlay on placeholders */
+.cs-media::after {
+  content: ''; position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(251,247,240,.04) 1px, transparent 1px);
+  background-size: 22px 22px;
+  pointer-events: none;
+}
+
+/* Creative grid — varied sizes */
+.cs-grid {
+  display: grid; grid-template-columns: repeat(12, 1fr);
+  gap: 2px; margin-bottom: 2px;
+}
+.cs-grid .cs-media { min-height: 280px; }
+.col-7 { grid-column: span 7; }
+.col-5 { grid-column: span 5; }
+.col-6 { grid-column: span 6; }
+.col-4 { grid-column: span 4; }
+.col-8 { grid-column: span 8; }
+.col-12 { grid-column: span 12; }
+.tall { min-height: 480px !important; }
+
+.cs-media-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.5rem; z-index: 2;
+  background: linear-gradient(to top, rgba(7,26,44,.95) 0%, transparent 100%);
+  transform: translateY(8px); opacity: .85;
+  transition: transform .5s var(--ease), opacity .5s;
+}
+.cs-media:hover .cs-media-caption { transform: translateY(0); opacity: 1; }
+.cs-caption-phase {
+  font-family: 'Space Mono', monospace;
+  font-size: .52rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ch); margin-bottom: .4rem;
+}
+.cs-caption-title { font-size: 1.05rem; font-weight: 300; color: var(--dom-cream); margin-bottom: .3rem; }
+.cs-caption-desc { font-size: .78rem; line-height: 1.5; color: rgba(251,247,240,.55); }
+
+/* ════════════════════════════════════════════════════════════
+   PHASES — the campaign architecture
+════════════════════════════════════════════════════════════ */
+.cs-phases { border-top: 1px solid rgba(251,247,240,.1); }
+.cs-phase {
+  display: grid; grid-template-columns: 100px 1fr 1.2fr;
+  gap: 3rem; padding: 4rem 0;
+  border-bottom: 1px solid rgba(251,247,240,.1);
+  align-items: start;
+}
+.cs-phase:last-child { border-bottom: none; }
+.cs-phase-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 2.5rem; font-weight: 700; line-height: 1;
+  color: rgba(251,247,240,.15);
+}
+.cs-phase:nth-child(1) .cs-phase-num { color: rgba(224,58,62,.4); }
+.cs-phase:nth-child(2) .cs-phase-num { color: rgba(11,111,180,.5); }
+.cs-phase:nth-child(3) .cs-phase-num { color: rgba(212,245,60,.4); }
+.cs-phase-head {}
+.cs-phase-stage {
+  font-family: 'Space Mono', monospace;
+  font-size: .58rem; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ch); margin-bottom: 1rem;
+}
+.cs-phase-name {
+  font-size: 1.8rem; font-weight: 200; letter-spacing: -.02em;
+  color: var(--dom-cream); margin-bottom: .8rem; line-height: 1.1;
+}
+.cs-phase-channels {
+  font-family: 'Space Mono', monospace;
+  font-size: .58rem; letter-spacing: .1em; color: rgba(251,247,240,.4);
+}
+.cs-phase-body { font-size: .92rem; line-height: 1.75; color: rgba(251,247,240,.65); }
+.cs-phase-duration {
+  display: inline-block; margin-top: 1.2rem;
+  font-family: 'Space Mono', monospace;
+  font-size: .54rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--dom-cream);
+  padding: .4rem .9rem; border: 1px solid rgba(251,247,240,.15);
+}
+
+/* ════════════════════════════════════════════════════════════
+   DOWNLOAD — the deck
+════════════════════════════════════════════════════════════ */
+.cs-download {
+  border-top: 1px solid rgba(251,247,240,.1);
+  background:
+    radial-gradient(ellipse 70% 80% at 50% 0%, rgba(11,111,180,.15) 0%, transparent 60%);
+}
+.cs-download-inner {
+  display: grid; grid-template-columns: 1.3fr 1fr;
+  gap: 5rem; align-items: center;
+}
+.cs-download-title {
+  font-size: clamp(2.2rem, 5vw, 4.5rem); font-weight: 200;
+  letter-spacing: -.04em; line-height: .95; color: var(--dom-cream);
+  margin-bottom: 1.5rem;
+}
+.cs-download-title .acc { color: var(--ch); font-style: italic; }
+.cs-download-body {
+  font-size: .98rem; line-height: 1.75; color: rgba(251,247,240,.65);
+  max-width: 440px; margin-bottom: 2.5rem;
+}
+.cs-download-card {
+  position: relative; padding: 2.5rem;
+  background: linear-gradient(135deg, rgba(11,111,180,.12) 0%, rgba(224,58,62,.08) 100%);
+  border: 1px solid rgba(251,247,240,.12); border-radius: 6px;
+  overflow: hidden;
+}
+.cs-download-card::before {
+  content: ''; position: absolute; top: -50%; right: -20%;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,245,60,.1) 0%, transparent 70%);
+}
+.cs-deck-icon {
+  width: 56px; height: 56px; border-radius: 8px;
+  background: var(--dom-red);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.6rem; margin-bottom: 1.5rem;
+  box-shadow: 0 10px 30px rgba(224,58,62,.3);
+}
+.cs-deck-name { font-size: 1.2rem; font-weight: 400; color: var(--dom-cream); margin-bottom: .4rem; }
+.cs-deck-meta {
+  font-family: 'Space Mono', monospace;
+  font-size: .56rem; letter-spacing: .12em; text-transform: uppercase;
+  color: rgba(251,247,240,.45); margin-bottom: 2rem;
+}
+.cs-download-btn {
+  display: inline-flex; align-items: center; gap: 1rem;
+  width: 100%; justify-content: space-between;
+  font-family: 'Space Mono', monospace;
+  font-size: .64rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--dom-ink); background: var(--ch);
+  padding: 1.1rem 1.6rem; text-decoration: none; border-radius: 4px;
+  transition: transform .3s var(--ease), box-shadow .3s;
+}
+.cs-download-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(212,245,60,.25); }
+.cs-download-btn .arr { font-size: 1rem; }
+
+/* ════════════════════════════════════════════════════════════
+   CLOSER / NEXT
+════════════════════════════════════════════════════════════ */
+.cs-closer {
+  border-top: 1px solid rgba(251,247,240,.1);
+  text-align: center; padding: 9rem 3rem;
+  position: relative; overflow: hidden;
+}
+.cs-closer-glow {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 80%; height: 500px;
+  background: radial-gradient(ellipse at bottom, rgba(212,245,60,.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+.cs-closer-label {
+  font-family: 'Space Mono', monospace;
+  font-size: .6rem; letter-spacing: .24em; text-transform: uppercase;
+  color: var(--ch); margin-bottom: 2rem;
+}
+.cs-closer-title {
+  font-size: clamp(2.5rem, 6vw, 6rem); font-weight: 200;
+  letter-spacing: -.04em; line-height: .92; color: var(--dom-cream);
+  margin-bottom: 3rem;
+}
+.cs-closer-title .acc { color: var(--ch); font-style: italic; }
+.cs-closer-btns { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+
+/* ── Footer ────────────────────────────────────────────────── */
+.cs-footer {
+  position: relative; z-index: 1;
+  padding: 3rem; display: flex; align-items: center;
+  justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
+  border-top: 1px solid rgba(251,247,240,.1);
+}
+.cs-footer-logo {
+  font-family: 'Space Mono', monospace; font-size: .78rem;
+  font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--dom-cream);
+}
+.cs-footer-logo em { color: var(--ch); font-style: normal; }
+.cs-footer-meta {
+  font-family: 'Space Mono', monospace; font-size: .56rem;
+  letter-spacing: .1em; color: rgba(251,247,240,.4);
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .cs-insight-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .cs-download-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  .cs-platform-pillars { grid-template-columns: 1fr; gap: 2rem; }
+  .cs-phase { grid-template-columns: 60px 1fr; gap: 1.5rem; }
+  .cs-phase-body { grid-column: 2; }
+}
+@media (max-width: 768px) {
+  .cs-hero { padding: 7rem 1.5rem 2rem; }
+  .cs-section { padding: 5rem 1.5rem; }
+  .cs-hero-meta { flex-direction: column; gap: 1.5rem; }
+  .cs-stat-band { grid-template-columns: 1fr; }
+  .cs-stat { border-right: none; border-bottom: 1px solid rgba(251,247,240,.1); }
+  .cs-grid { grid-template-columns: 1fr; }
+  .cs-grid [class*="col-"] { grid-column: span 1; }
+  .cs-footer { flex-direction: column; text-align: center; }
+}
