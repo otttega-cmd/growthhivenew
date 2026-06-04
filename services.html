@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — Growthhive</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;1,9..40,200;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Styles: shared first, then page-specific -->
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/services.css">
+
+  <!-- Vendor scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+<!-- Loader -->
+<div class="ldr" id="ldr">
+  <div class="ldr-bee">
+    <svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse class="bee-wing-l" cx="18" cy="36" rx="14" ry="9" fill="#D4F53C" fill-opacity=".18" stroke="#D4F53C" stroke-width="1" transform="rotate(-15 18 36)"/>
+      <ellipse class="bee-wing-r" cx="70" cy="36" rx="14" ry="9" fill="#D4F53C" fill-opacity=".18" stroke="#D4F53C" stroke-width="1" transform="rotate(15 70 36)"/>
+      <ellipse cx="44" cy="48" rx="13" ry="22" fill="#0B0B1F" stroke="#D4F53C" stroke-width="1.5"/>
+      <clipPath id="bodyClip"><ellipse cx="44" cy="48" rx="13" ry="22"/></clipPath>
+      <g clip-path="url(#bodyClip)">
+        <rect class="bee-stripe" x="31" y="32" width="26" height="6" fill="#D4F53C" opacity=".75"/>
+        <rect class="bee-stripe" x="31" y="43" width="26" height="6" fill="#D4F53C" opacity=".6" style="animation-delay:.2s"/>
+        <rect class="bee-stripe" x="31" y="54" width="26" height="6" fill="#D4F53C" opacity=".4" style="animation-delay:.4s"/>
+      </g>
+      <circle cx="44" cy="18" r="9" fill="#0B0B1F" stroke="#D4F53C" stroke-width="1.3"/>
+      <circle cx="40" cy="16" r="1.8" fill="#D4F53C" opacity=".9"/>
+      <circle cx="48" cy="16" r="1.8" fill="#D4F53C" opacity=".9"/>
+      <rect x="40" y="24" width="8" height="5" rx="2" fill="#0B0B1F" stroke="#D4F53C" stroke-width="1"/>
+      <g class="bee-antenna">
+        <path d="M40,10 Q35,4 31,1" stroke="#D4F53C" stroke-width="1" stroke-linecap="round" fill="none"/>
+        <circle cx="30.5" cy="1" r="2" fill="#D4F53C" opacity=".85"/>
+        <path d="M48,10 Q53,4 57,1" stroke="#D4F53C" stroke-width="1" stroke-linecap="round" fill="none"/>
+        <circle cx="57.5" cy="1" r="2" fill="#D4F53C" opacity=".85"/>
+      </g>
+      <path d="M38,69 Q44,80 50,69" fill="#D4F53C" opacity=".55"/>
+      <line x1="44" y1="80" x2="44" y2="86" stroke="#D4F53C" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>
+    </svg>
+  </div>
+  <div class="ldr-wordmark">Growthhive<em>.</em></div>
+  <div class="ldr-track"><div class="ldr-fill" id="lFill"></div></div>
+  <div class="ldr-pct" id="lPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="index.html" class="nlogo">
+    <img class="nlogo-icon" src="YOUR_ICON.png" alt="Growthhive icon">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="work.html">Work</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="ncta">Start a project</a>
+</nav>
+
+<!-- Scroll hint -->
+<div class="scroll-hint" id="scrollHint">
+  <div class="sh-text">Scroll</div>
+  <div class="sh-arrow"></div>
+</div>
+
+<!-- ── INTRO ── -->
+<section class="svc-intro" id="svcIntro">
+  <div class="svc-intro-content">
+    <div class="svc-eyebrow"><span>What we do — 9 Disciplines</span></div>
+    <h1 class="svc-title">
+      <span class="line"><span class="word">Our</span></span>
+      <span class="line"><span class="word acc">expertise.</span></span>
+    </h1>
+    <div class="svc-intro-meta">
+      <div class="svc-intro-desc"><span>A 360° approach to growth. From brand positioning to performance analytics — every discipline working together, none in isolation.</span></div>
+      <div class="svc-intro-count" id="svcCount"><em>09</em> services</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES LAYOUT ── -->
+<div class="services-layout">
+
+  <!-- Sticky left index -->
+  <aside class="services-index">
+    <div class="svc-index-label">Services</div>
+    <ul class="svc-index-list">
+      <li class="svc-index-item"><span class="svc-index-num">01</span><span class="svc-index-name">Brand Strategy & Identity</span><span class="svc-index-bar"></span></li>
+      <li class="svc-index-item"><span class="svc-index-num">02</span><span class="svc-index-name">PR & Communications</span><span class="svc-index-bar"></span></li>
+      <li class="svc-index-item"><span class="svc-index-num">03</span><span class="svc-index-name">Paid & Owned Media</span><span class="svc-index-bar"></span></li>
+      <li class="svc-index-item"><span class="svc-index-num">04</span><span class="svc-index-name">Creative Production</span><span class="svc-index-bar"></span></li>
+      <li class="svc-index-item"><span class="svc-index-num">05</span><span class="svc-index-name">Product Marketing</span><span class="svc-index-bar"></span></li>
+      <li class="svc-index-item"><span class="svc-index-num">06</span><span class="svc-index-name">Go-to-Market Strategy</span><span class="svc-index-bar"></span></li>
+      <li class="svc-index-item"><span class="svc-index-num">07</span><span class="svc-index-name">Growth Analytics</span><span class="svc-index-bar"></span></li>
+      <li class="svc-index-item"><span class="svc-index-num">08</span><span class="svc-index-name">Audience Intelligence</span><span class="svc-index-bar"></span></li>
+      <li class="svc-index-item"><span class="svc-index-num">09</span><span class="svc-index-name">Customer Activation & UX</span><span class="svc-index-bar"></span></li>
+    </ul>
+  </aside>
+
+  <!-- Scrolling panels -->
+  <div class="services-panels">
+
+    <!-- 01 Brand Strategy & Identity -->
+    <div class="svc-panel" data-svc="0" id="svc0">
+      <div class="svc-bg"></div>
+      <div class="svc-texture"></div>
+      <div class="svc-dec-num">01</div>
+      <div class="svc-visual">
+        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Geometric brand mark / identity system abstraction -->
+          <circle cx="200" cy="200" r="150" stroke="#5BB8F5" stroke-width="1" opacity=".2"/>
+          <circle cx="200" cy="200" r="100" stroke="#5BB8F5" stroke-width="1.5" opacity=".25"/>
+          <!-- Golden ratio spiral approximation -->
+          <path d="M200,200 Q280,120 320,200 Q280,280 200,300 Q120,280 80,200 Q120,120 200,100 Q280,80 360,200" stroke="#5BB8F5" stroke-width="1.5" fill="none" opacity=".35"/>
+          <!-- Grid lines — brand system structure -->
+          <line x1="200" y1="50" x2="200" y2="350" stroke="#5BB8F5" stroke-width=".5" opacity=".18"/>
+          <line x1="50" y1="200" x2="350" y2="200" stroke="#5BB8F5" stroke-width=".5" opacity=".18"/>
+          <line x1="94" y1="94" x2="306" y2="306" stroke="#5BB8F5" stroke-width=".5" opacity=".12"/>
+          <line x1="306" y1="94" x2="94" y2="306" stroke="#5BB8F5" stroke-width=".5" opacity=".12"/>
+          <!-- Core mark -->
+          <circle cx="200" cy="200" r="18" fill="#5BB8F5" opacity=".15"/>
+          <circle cx="200" cy="200" r="8"  fill="#5BB8F5" opacity=".4"/>
+          <!-- Outer nodes — brand touchpoints -->
+          <circle cx="200" cy="80"  r="6" stroke="#5BB8F5" stroke-width="1.5" opacity=".5"/>
+          <circle cx="200" cy="320" r="6" stroke="#5BB8F5" stroke-width="1.5" opacity=".5"/>
+          <circle cx="80"  cy="200" r="6" stroke="#5BB8F5" stroke-width="1.5" opacity=".5"/>
+          <circle cx="320" cy="200" r="6" stroke="#5BB8F5" stroke-width="1.5" opacity=".5"/>
+          <line x1="200" y1="86" x2="200" y2="192" stroke="#5BB8F5" stroke-width=".8" opacity=".25"/>
+          <line x1="200" y1="208" x2="200" y2="314" stroke="#5BB8F5" stroke-width=".8" opacity=".25"/>
+          <line x1="86" y1="200" x2="192" y2="200" stroke="#5BB8F5" stroke-width=".8" opacity=".25"/>
+          <line x1="208" y1="200" x2="314" y2="200" stroke="#5BB8F5" stroke-width=".8" opacity=".25"/>
+        </svg>
+      </div>
+      <div class="svc-content">
+        <div class="svc-tag">01 — Brand Strategy & Identity</div>
+        <h2 class="svc-name">
+          <span class="nline"><span class="nword">Brand</span></span>
+          <span class="nline"><span class="nword">Strategy</span></span>
+          <span class="nline"><span class="nword">&amp; Identity</span></span>
+        </h2>
+        <p class="svc-desc">We build brands that earn belief before the pitch. Positioning, visual identity, messaging architecture, and the strategic frameworks that make every touchpoint coherent — and every competitor irrelevant.</p>
+        <div class="svc-deliverables">
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Brand positioning & competitive mapping</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Visual identity systems & brand guidelines</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Messaging architecture & brand voice</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Brand audits & repositioning</div>
+        </div>
+        <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="svc-cta"><span class="svc-cta-line"></span>Get a consultation</a>
+      </div>
+    </div>
+
+    <!-- 02 PR & Communications -->
+    <div class="svc-panel" data-svc="1" id="svc1">
+      <div class="svc-bg"></div>
+      <div class="svc-texture"></div>
+      <div class="svc-dec-num">02</div>
+      <div class="svc-visual">
+        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Signal / broadcast wave abstraction -->
+          <circle cx="200" cy="220" r="20" fill="#C77DFF" opacity=".25"/>
+          <circle cx="200" cy="220" r="50" stroke="#C77DFF" stroke-width="1.2" opacity=".3"/>
+          <circle cx="200" cy="220" r="85" stroke="#C77DFF" stroke-width="1" opacity=".22"/>
+          <circle cx="200" cy="220" r="125" stroke="#C77DFF" stroke-width=".8" opacity=".15"/>
+          <circle cx="200" cy="220" r="168" stroke="#C77DFF" stroke-width=".6" stroke-dasharray="4 6" opacity=".1"/>
+          <!-- Microphone stem -->
+          <rect x="193" y="100" width="14" height="80" rx="7" fill="#C77DFF" opacity=".2" stroke="#C77DFF" stroke-width="1.2"/>
+          <!-- Mic head -->
+          <ellipse cx="200" cy="95" rx="22" ry="28" stroke="#C77DFF" stroke-width="1.5" opacity=".4"/>
+          <ellipse cx="200" cy="95" rx="14" ry="18" fill="#C77DFF" opacity=".1"/>
+          <!-- Stand -->
+          <path d="M170,185 Q200,210 230,185" stroke="#C77DFF" stroke-width="1.2" fill="none" opacity=".3"/>
+          <line x1="200" y1="185" x2="200" y2="220" stroke="#C77DFF" stroke-width="1.2" opacity=".3"/>
+        </svg>
+      </div>
+      <div class="svc-content">
+        <div class="svc-tag">02 — PR & Communications</div>
+        <h2 class="svc-name">
+          <span class="nline"><span class="nword">PR &amp;</span></span>
+          <span class="nline"><span class="nword">Communi&shy;cations</span></span>
+        </h2>
+        <p class="svc-desc">Earned media, narrative building, and crisis communications that shape how your brand is seen — not just by customers, but by press, investors, and the culture at large. We put your story in the rooms that matter.</p>
+        <div class="svc-deliverables">
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Media relations & press strategy</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Influencer strategy & partnerships</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Crisis communications & reputation management</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Content & thought leadership programmes</div>
+        </div>
+        <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="svc-cta"><span class="svc-cta-line"></span>Get a consultation</a>
+      </div>
+    </div>
+
+    <!-- 03 Paid & Owned Media Marketing -->
+    <div class="svc-panel" data-svc="2" id="svc2">
+      <div class="svc-bg"></div>
+      <div class="svc-texture"></div>
+      <div class="svc-dec-num">03</div>
+      <div class="svc-visual">
+        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Multi-channel network diagram -->
+          <circle cx="200" cy="200" r="14" fill="#D4F53C" opacity=".3"/>
+          <!-- Channel nodes -->
+          <circle cx="200" cy="90"  r="10" stroke="#D4F53C" stroke-width="1.5" opacity=".5" fill="#D4F53C" fill-opacity=".08"/>
+          <circle cx="310" cy="155" r="10" stroke="#D4F53C" stroke-width="1.5" opacity=".5" fill="#D4F53C" fill-opacity=".08"/>
+          <circle cx="310" cy="245" r="10" stroke="#D4F53C" stroke-width="1.5" opacity=".5" fill="#D4F53C" fill-opacity=".08"/>
+          <circle cx="200" cy="310" r="10" stroke="#D4F53C" stroke-width="1.5" opacity=".5" fill="#D4F53C" fill-opacity=".08"/>
+          <circle cx="90"  cy="245" r="10" stroke="#D4F53C" stroke-width="1.5" opacity=".5" fill="#D4F53C" fill-opacity=".08"/>
+          <circle cx="90"  cy="155" r="10" stroke="#D4F53C" stroke-width="1.5" opacity=".5" fill="#D4F53C" fill-opacity=".08"/>
+          <!-- Connections from centre -->
+          <line x1="200" y1="186" x2="200" y2="100" stroke="#D4F53C" stroke-width=".8" opacity=".3"/>
+          <line x1="212" y1="192" x2="301" y2="160" stroke="#D4F53C" stroke-width=".8" opacity=".3"/>
+          <line x1="212" y1="208" x2="301" y2="240" stroke="#D4F53C" stroke-width=".8" opacity=".3"/>
+          <line x1="200" y1="214" x2="200" y2="300" stroke="#D4F53C" stroke-width=".8" opacity=".3"/>
+          <line x1="188" y1="208" x2="99"  y2="240" stroke="#D4F53C" stroke-width=".8" opacity=".3"/>
+          <line x1="188" y1="192" x2="99"  y2="160" stroke="#D4F53C" stroke-width=".8" opacity=".3"/>
+          <!-- Labels as small rects -->
+          <rect x="172" y="68" width="56" height="14" rx="2" fill="#D4F53C" opacity=".12"/>
+          <rect x="318" y="143" width="48" height="14" rx="2" fill="#D4F53C" opacity=".12"/>
+          <rect x="318" y="233" width="48" height="14" rx="2" fill="#D4F53C" opacity=".12"/>
+          <rect x="172" y="318" width="56" height="14" rx="2" fill="#D4F53C" opacity=".12"/>
+          <rect x="34" y="233" width="48" height="14" rx="2" fill="#D4F53C" opacity=".12"/>
+          <rect x="34" y="143" width="48" height="14" rx="2" fill="#D4F53C" opacity=".12"/>
+          <!-- Outer orbit ring -->
+          <circle cx="200" cy="200" r="130" stroke="#D4F53C" stroke-width=".5" stroke-dasharray="3 8" opacity=".15"/>
+        </svg>
+      </div>
+      <div class="svc-content">
+        <div class="svc-tag">03 — Paid & Owned Media Marketing</div>
+        <h2 class="svc-name">
+          <span class="nline"><span class="nword">Paid &amp;</span></span>
+          <span class="nline"><span class="nword">Owned</span></span>
+          <span class="nline"><span class="nword">Media</span></span>
+        </h2>
+        <p class="svc-desc">Multi-channel acquisition and retention — Meta, TikTok, Google, YouTube, email, SEO and beyond. We build funnels that work across Lagos, London, and New York simultaneously, with the data to prove every naira and dollar spent.</p>
+        <div class="svc-deliverables">
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Paid social — Meta, TikTok, Snapchat</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Search — Google, YouTube</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>SEO, email & owned channel strategy</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Cross-market campaign management</div>
+        </div>
+        <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="svc-cta"><span class="svc-cta-line"></span>Get a consultation</a>
+      </div>
+    </div>
+
+    <!-- 04 Creative Production -->
+    <div class="svc-panel" data-svc="3" id="svc3">
+      <div class="svc-bg"></div>
+      <div class="svc-texture"></div>
+      <div class="svc-dec-num">04</div>
+      <div class="svc-visual">
+        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Pencil / art direction mark -->
+          <rect x="160" y="60" width="40" height="200" rx="6" stroke="#FF8C42" stroke-width="1.5" opacity=".35" transform="rotate(15 180 160)"/>
+          <polygon points="152,268 188,296 172,308" fill="#FF8C42" opacity=".3" transform="rotate(15 180 288)"/>
+          <!-- Colour swatches -->
+          <rect x="230" y="120" width="30" height="30" rx="3" fill="#FF8C42" opacity=".2" stroke="#FF8C42" stroke-width="1"/>
+          <rect x="268" y="120" width="30" height="30" rx="3" fill="#FF8C42" opacity=".12" stroke="#FF8C42" stroke-width="1"/>
+          <rect x="230" y="158" width="30" height="30" rx="3" fill="#FF8C42" opacity=".08" stroke="#FF8C42" stroke-width="1"/>
+          <rect x="268" y="158" width="30" height="30" rx="3" fill="#FF8C42" opacity=".15" stroke="#FF8C42" stroke-width="1"/>
+          <!-- Frame / canvas -->
+          <rect x="80" y="240" width="160" height="110" rx="4" stroke="#FF8C42" stroke-width="1.2" opacity=".25"/>
+          <line x1="80" y1="260" x2="240" y2="260" stroke="#FF8C42" stroke-width=".6" opacity=".15"/>
+          <!-- Abstract composition inside frame -->
+          <circle cx="130" cy="290" r="20" stroke="#FF8C42" stroke-width="1" opacity=".2"/>
+          <rect x="155" y="272" width="60" height="8" rx="2" fill="#FF8C42" opacity=".15"/>
+          <rect x="155" y="286" width="45" height="6" rx="2" fill="#FF8C42" opacity=".1"/>
+          <rect x="155" y="298" width="52" height="6" rx="2" fill="#FF8C42" opacity=".1"/>
+          <!-- Orbit -->
+          <circle cx="200" cy="200" r="160" stroke="#FF8C42" stroke-width=".4" stroke-dasharray="2 10" opacity=".1"/>
+        </svg>
+      </div>
+      <div class="svc-content">
+        <div class="svc-tag">04 — Creative Production</div>
+        <h2 class="svc-name">
+          <span class="nline"><span class="nword">Creative</span></span>
+          <span class="nline"><span class="nword">Production</span></span>
+        </h2>
+        <p class="svc-desc">The work that stops the scroll and earns the click. Art direction, copywriting, video, motion, and social assets — produced at the standard of global agencies, priced for ambitious African businesses scaling internationally.</p>
+        <div class="svc-deliverables">
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Art direction & campaign concepting</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Copywriting & brand voice execution</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Social & digital asset production</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Video & motion content</div>
+        </div>
+        <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="svc-cta"><span class="svc-cta-line"></span>Get a consultation</a>
+      </div>
+    </div>
+
+    <!-- 05 Product Marketing -->
+    <div class="svc-panel" data-svc="4" id="svc4">
+      <div class="svc-bg"></div>
+      <div class="svc-texture"></div>
+      <div class="svc-dec-num">05</div>
+      <div class="svc-visual">
+        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Product / device abstraction -->
+          <rect x="130" y="80" width="140" height="240" rx="16" stroke="#52D68A" stroke-width="1.5" opacity=".35"/>
+          <rect x="140" y="100" width="120" height="180" rx="8" stroke="#52D68A" stroke-width="1" opacity=".2" fill="#52D68A" fill-opacity=".04"/>
+          <!-- Screen content — growth bars -->
+          <rect x="155" y="230" width="14" height="35" rx="2" fill="#52D68A" opacity=".3"/>
+          <rect x="175" y="210" width="14" height="55" rx="2" fill="#52D68A" opacity=".35"/>
+          <rect x="195" y="195" width="14" height="70" rx="2" fill="#52D68A" opacity=".4"/>
+          <rect x="215" y="175" width="14" height="90" rx="2" fill="#52D68A" opacity=".45"/>
+          <!-- Upward arrow -->
+          <path d="M170,155 L200,120 L230,155" stroke="#52D68A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".5"/>
+          <line x1="200" y1="120" x2="200" y2="170" stroke="#52D68A" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+          <!-- Home indicator -->
+          <circle cx="200" cy="302" r="8" stroke="#52D68A" stroke-width="1" opacity=".3"/>
+          <!-- Feature orbit -->
+          <circle cx="200" cy="200" r="170" stroke="#52D68A" stroke-width=".4" stroke-dasharray="3 9" opacity=".1"/>
+        </svg>
+      </div>
+      <div class="svc-content">
+        <div class="svc-tag">05 — Product Marketing</div>
+        <h2 class="svc-name">
+          <span class="nline"><span class="nword">Product</span></span>
+          <span class="nline"><span class="nword">Marketing</span></span>
+        </h2>
+        <p class="svc-desc">Boost visibility, gain more users, keep them. We take your product to market with positioning that cuts through, campaigns that acquire, and retention strategies that compound. We've done this for fintechs, QSRs, and everything in between.</p>
+        <div class="svc-deliverables">
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Product positioning & feature launches</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>User acquisition campaigns</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Retention & lifecycle marketing</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>App store optimisation (ASO)</div>
+        </div>
+        <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="svc-cta"><span class="svc-cta-line"></span>Get a consultation</a>
+      </div>
+    </div>
+
+    <!-- 06 Go-to-Market Strategy -->
+    <div class="svc-panel" data-svc="5" id="svc5">
+      <div class="svc-bg"></div>
+      <div class="svc-texture"></div>
+      <div class="svc-dec-num">06</div>
+      <div class="svc-visual">
+        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Target / precision mark -->
+          <circle cx="200" cy="200" r="160" stroke="#FFD166" stroke-width=".8" opacity=".15"/>
+          <circle cx="200" cy="200" r="120" stroke="#FFD166" stroke-width="1"   opacity=".2"/>
+          <circle cx="200" cy="200" r="80"  stroke="#FFD166" stroke-width="1.2" opacity=".28"/>
+          <circle cx="200" cy="200" r="45"  stroke="#FFD166" stroke-width="1.5" opacity=".38"/>
+          <circle cx="200" cy="200" r="18"  fill="#FFD166" opacity=".15"/>
+          <circle cx="200" cy="200" r="7"   fill="#FFD166" opacity=".55"/>
+          <!-- Arrow hitting target -->
+          <line x1="320" y1="80" x2="215" y2="195" stroke="#FFD166" stroke-width="2" stroke-linecap="round" opacity=".5"/>
+          <polygon points="320,80 300,90 310,70" fill="#FFD166" opacity=".5"/>
+          <!-- Crosshairs -->
+          <line x1="200" y1="38"  x2="200" y2="72"  stroke="#FFD166" stroke-width=".8" opacity=".25"/>
+          <line x1="200" y1="328" x2="200" y2="362" stroke="#FFD166" stroke-width=".8" opacity=".25"/>
+          <line x1="38"  y1="200" x2="72"  y2="200" stroke="#FFD166" stroke-width=".8" opacity=".25"/>
+          <line x1="328" y1="200" x2="362" y2="200" stroke="#FFD166" stroke-width=".8" opacity=".25"/>
+        </svg>
+      </div>
+      <div class="svc-content">
+        <div class="svc-tag">06 — Go-to-Market Strategy</div>
+        <h2 class="svc-name">
+          <span class="nline"><span class="nword">Go-to-</span></span>
+          <span class="nline"><span class="nword">Market</span></span>
+          <span class="nline"><span class="nword">Strategy</span></span>
+        </h2>
+        <p class="svc-desc">Seize the market with precision. We build end-to-end launch strategies for new products, new markets, and new audiences — from competitive intelligence and pricing to channel selection, launch sequencing, and 90-day execution roadmaps.</p>
+        <div class="svc-deliverables">
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Market entry & competitive analysis</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Pricing & channel strategy</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Launch sequencing & 90-day roadmaps</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Cross-market expansion (NG · UK · US)</div>
+        </div>
+        <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="svc-cta"><span class="svc-cta-line"></span>Get a consultation</a>
+      </div>
+    </div>
+
+    <!-- 07 Growth Analytics -->
+    <div class="svc-panel" data-svc="6" id="svc6">
+      <div class="svc-bg"></div>
+      <div class="svc-texture"></div>
+      <div class="svc-dec-num">07</div>
+      <div class="svc-visual">
+        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Data / analytics abstraction -->
+          <line x1="60" y1="340" x2="360" y2="340" stroke="#00E5CC" stroke-width="1" opacity=".3"/>
+          <line x1="60" y1="340" x2="60"  y2="60"  stroke="#00E5CC" stroke-width="1" opacity=".3"/>
+          <!-- Grid -->
+          <line x1="60" y1="260" x2="360" y2="260" stroke="#00E5CC" stroke-width=".4" opacity=".12"/>
+          <line x1="60" y1="180" x2="360" y2="180" stroke="#00E5CC" stroke-width=".4" opacity=".12"/>
+          <line x1="60" y1="100" x2="360" y2="100" stroke="#00E5CC" stroke-width=".4" opacity=".12"/>
+          <line x1="140" y1="60"  x2="140" y2="340" stroke="#00E5CC" stroke-width=".4" opacity=".12"/>
+          <line x1="220" y1="60"  x2="220" y2="340" stroke="#00E5CC" stroke-width=".4" opacity=".12"/>
+          <line x1="300" y1="60"  x2="300" y2="340" stroke="#00E5CC" stroke-width=".4" opacity=".12"/>
+          <!-- Two data lines — cohort comparison -->
+          <polyline points="60,300 140,260 220,200 300,140 360,90" stroke="#00E5CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".5"/>
+          <polyline points="60,320 140,300 220,280 300,230 360,180" stroke="#00E5CC" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity=".25" stroke-dasharray="5 4"/>
+          <!-- Data points on primary line -->
+          <circle cx="60"  cy="300" r="4" fill="#00E5CC" opacity=".6"/>
+          <circle cx="140" cy="260" r="4" fill="#00E5CC" opacity=".6"/>
+          <circle cx="220" cy="200" r="5" fill="#00E5CC" opacity=".7"/>
+          <circle cx="300" cy="140" r="5" fill="#00E5CC" opacity=".75"/>
+          <circle cx="360" cy="90"  r="6" fill="#00E5CC" opacity=".85"/>
+          <!-- Area fill -->
+          <polyline points="60,300 140,260 220,200 300,140 360,90 360,340 60,340" fill="#00E5CC" fill-opacity=".05"/>
+        </svg>
+      </div>
+      <div class="svc-content">
+        <div class="svc-tag">07 — Growth Analytics</div>
+        <h2 class="svc-name">
+          <span class="nline"><span class="nword">Growth</span></span>
+          <span class="nline"><span class="nword">Analytics</span></span>
+        </h2>
+        <p class="svc-desc">Data that drives decisions, not dashboards that gather dust. We build attribution models, run cohort experiments, analyse product funnels, and tell you exactly what's working, what's wasting budget, and what to do next.</p>
+        <div class="svc-deliverables">
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Attribution modelling & measurement frameworks</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Cohort analysis & A/B experimentation</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Funnel analysis & drop-off identification</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Performance reporting & data infrastructure</div>
+        </div>
+        <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="svc-cta"><span class="svc-cta-line"></span>Get a consultation</a>
+      </div>
+    </div>
+
+    <!-- 08 Audience Intelligence -->
+    <div class="svc-panel" data-svc="7" id="svc7">
+      <div class="svc-bg"></div>
+      <div class="svc-texture"></div>
+      <div class="svc-dec-num">08</div>
+      <div class="svc-visual">
+        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Identity graph / audience network -->
+          <!-- Central user node -->
+          <circle cx="200" cy="200" r="22" fill="#FF6B9D" opacity=".15" stroke="#FF6B9D" stroke-width="1.5"/>
+          <circle cx="200" cy="200" r="10" fill="#FF6B9D" opacity=".4"/>
+          <!-- Cluster nodes -->
+          <circle cx="120" cy="130" r="14" stroke="#FF6B9D" stroke-width="1.2" opacity=".45" fill="#FF6B9D" fill-opacity=".08"/>
+          <circle cx="280" cy="130" r="14" stroke="#FF6B9D" stroke-width="1.2" opacity=".45" fill="#FF6B9D" fill-opacity=".08"/>
+          <circle cx="100" cy="260" r="12" stroke="#FF6B9D" stroke-width="1"   opacity=".38" fill="#FF6B9D" fill-opacity=".06"/>
+          <circle cx="300" cy="260" r="12" stroke="#FF6B9D" stroke-width="1"   opacity=".38" fill="#FF6B9D" fill-opacity=".06"/>
+          <circle cx="200" cy="310" r="10" stroke="#FF6B9D" stroke-width="1"   opacity=".32" fill="#FF6B9D" fill-opacity=".05"/>
+          <!-- Secondary nodes -->
+          <circle cx="80"  cy="185" r="7" stroke="#FF6B9D" stroke-width=".8" opacity=".28"/>
+          <circle cx="320" cy="185" r="7" stroke="#FF6B9D" stroke-width=".8" opacity=".28"/>
+          <circle cx="155" cy="315" r="7" stroke="#FF6B9D" stroke-width=".8" opacity=".22"/>
+          <circle cx="245" cy="315" r="7" stroke="#FF6B9D" stroke-width=".8" opacity=".22"/>
+          <!-- Connection lines -->
+          <line x1="188" y1="183" x2="130" y2="140" stroke="#FF6B9D" stroke-width=".8" opacity=".3"/>
+          <line x1="212" y1="183" x2="270" y2="140" stroke="#FF6B9D" stroke-width=".8" opacity=".3"/>
+          <line x1="183" y1="212" x2="110" y2="255" stroke="#FF6B9D" stroke-width=".8" opacity=".25"/>
+          <line x1="217" y1="212" x2="290" y2="255" stroke="#FF6B9D" stroke-width=".8" opacity=".25"/>
+          <line x1="200" y1="222" x2="200" y2="300" stroke="#FF6B9D" stroke-width=".8" opacity=".22"/>
+          <line x1="106" y1="255" x2="85"  y2="192" stroke="#FF6B9D" stroke-width=".5" opacity=".18"/>
+          <line x1="294" y1="255" x2="315" y2="192" stroke="#FF6B9D" stroke-width=".5" opacity=".18"/>
+          <!-- Outer orbit -->
+          <circle cx="200" cy="200" r="165" stroke="#FF6B9D" stroke-width=".4" stroke-dasharray="2 10" opacity=".1"/>
+        </svg>
+      </div>
+      <div class="svc-content">
+        <div class="svc-tag">08 — Audience Intelligence</div>
+        <h2 class="svc-name">
+          <span class="nline"><span class="nword">Audience</span></span>
+          <span class="nline"><span class="nword">Intelligence</span></span>
+        </h2>
+        <p class="svc-desc">Resolve user identity across channels. Solve attribution problems. We map how your audience moves across touchpoints — from first impression to conversion — and use that intelligence to make every campaign smarter than the last.</p>
+        <div class="svc-deliverables">
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Cross-channel identity resolution</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Multi-touch attribution modelling</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Audience segmentation & persona building</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Social listening & sentiment analysis</div>
+        </div>
+        <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="svc-cta"><span class="svc-cta-line"></span>Get a consultation</a>
+      </div>
+    </div>
+
+    <!-- 09 Customer Activation & UX -->
+    <div class="svc-panel" data-svc="8" id="svc8">
+      <div class="svc-bg"></div>
+      <div class="svc-texture"></div>
+      <div class="svc-dec-num">09</div>
+      <div class="svc-visual">
+        <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- UX wireframe / heatmap abstraction -->
+          <rect x="80"  y="80"  width="240" height="240" rx="8" stroke="#B5EAD7" stroke-width="1.2" opacity=".25"/>
+          <!-- Header bar -->
+          <rect x="80"  y="80"  width="240" height="32"  rx="8" fill="#B5EAD7" opacity=".08"/>
+          <circle cx="100" cy="96" r="6" fill="#B5EAD7" opacity=".3"/>
+          <circle cx="118" cy="96" r="6" fill="#B5EAD7" opacity=".2"/>
+          <circle cx="136" cy="96" r="6" fill="#B5EAD7" opacity=".15"/>
+          <!-- Content blocks -->
+          <rect x="96"  y="128" width="100" height="60" rx="4" stroke="#B5EAD7" stroke-width="1" opacity=".2" fill="#B5EAD7" fill-opacity=".05"/>
+          <rect x="208" y="128" width="96"  height="60" rx="4" stroke="#B5EAD7" stroke-width="1" opacity=".2" fill="#B5EAD7" fill-opacity=".05"/>
+          <rect x="96"  y="204" width="208" height="24" rx="4" fill="#B5EAD7" opacity=".1"/>
+          <rect x="96"  y="236" width="160" height="14" rx="3" fill="#B5EAD7" opacity=".08"/>
+          <rect x="96"  y="256" width="130" height="14" rx="3" fill="#B5EAD7" opacity=".06"/>
+          <!-- Heatmap overlay — warm spots -->
+          <circle cx="146" cy="158" r="28" fill="#B5EAD7" opacity=".12"/>
+          <circle cx="146" cy="158" r="14" fill="#B5EAD7" opacity=".12"/>
+          <circle cx="256" cy="155" r="22" fill="#B5EAD7" opacity=".1"/>
+          <!-- CTA button highlight -->
+          <rect x="116" y="285" width="80" height="22" rx="4" fill="#B5EAD7" opacity=".2" stroke="#B5EAD7" stroke-width="1"/>
+          <!-- Click cursor -->
+          <path d="M235,260 L235,290 L242,283 L248,296 L252,294 L246,281 L255,281 Z" fill="#B5EAD7" opacity=".4"/>
+        </svg>
+      </div>
+      <div class="svc-content">
+        <div class="svc-tag">09 — Customer Activation & UX</div>
+        <h2 class="svc-name">
+          <span class="nline"><span class="nword">Customer</span></span>
+          <span class="nline"><span class="nword">Activation</span></span>
+          <span class="nline"><span class="nword">&amp; UX</span></span>
+        </h2>
+        <p class="svc-desc">Getting users in the door is only half the job. We activate specific user behaviours through targeted campaigns, in-product experiences, and UX optimisation — using heatmaps, session data, and experimentation to remove every barrier between your user and your goal.</p>
+        <div class="svc-deliverables">
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Onboarding & activation campaign design</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Heatmap & session recording analysis</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>UX audit & conversion rate optimisation</div>
+          <div class="svc-del-item"><span class="svc-del-dot"></span>Feature adoption & testimonial programmes</div>
+        </div>
+        <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="svc-cta"><span class="svc-cta-line"></span>Get a consultation</a>
+      </div>
+    </div>
+
+  </div><!-- /services-panels -->
+</div><!-- /services-layout -->
+
+<!-- ── OUTRO ── -->
+<section class="svc-outro" id="svcOutro">
+  <div class="svc-outro-bg"></div>
+  <div class="svc-outro-label"><span>Ready to grow?</span></div>
+  <h2 class="svc-outro-title">
+    <span class="line"><span class="inner">Every discipline.</span></span>
+    <span class="line"><span class="inner acc">One hive.</span></span>
+  </h2>
+  <div class="svc-outro-btns" id="svcOutroBtns">
+    <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="btn-fill">Book a free consultation</a>
+    <a href="work.html" class="btn-out">See our work</a>
+  </div>
+</section>
+
+<!-- services.js first: sets onLoaderComplete + Three.js scene -->
+<!-- shared.js second: cursor + loader, calls onLoaderComplete -->
+<script src="/scripts/services.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>

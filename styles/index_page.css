@@ -8,22 +8,6 @@
 /* ── WebGL canvas — fixed full viewport ────────────────────── */
 #c { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
-/* ── Loader bee icon ───────────────────────────────────────── */
-.ldr-bee { width: 72px; height: 72px; position: relative; animation: beeFloat 2.4s ease-in-out infinite; }
-.ldr-bee svg { width: 100%; height: 100%; overflow: visible; }
-.ldr-wordmark { font-family: 'Space Mono', monospace; font-size: .72rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); }
-.ldr-wordmark em { color: var(--ch); font-style: normal; }
-
-/* Wing animations */
-.bee-wing-l { transform-origin: 30px 36px; animation: wingL 0.42s ease-in-out infinite alternate; }
-.bee-wing-r { transform-origin: 58px 36px; animation: wingR 0.42s ease-in-out infinite alternate; }
-@keyframes wingL { from { transform: rotate(-12deg) scaleY(1); opacity: .7; } to { transform: rotate(12deg) scaleY(0.8); opacity: 1; } }
-@keyframes wingR { from { transform: rotate(12deg) scaleY(1); opacity: .7; } to { transform: rotate(-12deg) scaleY(0.8); opacity: 1; } }
-.bee-antenna { animation: antPulse 1.8s ease-in-out infinite; }
-@keyframes antPulse { 0%,100% { opacity: .5; } 50% { opacity: 1; } }
-@keyframes beeFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-.bee-stripe { animation: stripeGlow 1.4s ease-in-out infinite alternate; }
-@keyframes stripeGlow { from { opacity: .55; } to { opacity: .95; } }
 
 /* ── Hero ──────────────────────────────────────────────────── */
 .hero { height: 100vh; min-height: 700px; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 3rem 5rem; }
