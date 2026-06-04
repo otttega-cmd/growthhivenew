@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;1,9..40,200;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/about.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+<!-- Loader -->
+<div class="ldr" id="ldr">
+  <div class="ldr-bee">
+    <svg viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse class="bee-wing-l" cx="18" cy="36" rx="14" ry="9" fill="#D4F53C" fill-opacity=".18" stroke="#D4F53C" stroke-width="1" transform="rotate(-15 18 36)"/>
+      <ellipse class="bee-wing-r" cx="70" cy="36" rx="14" ry="9" fill="#D4F53C" fill-opacity=".18" stroke="#D4F53C" stroke-width="1" transform="rotate(15 70 36)"/>
+      <ellipse cx="44" cy="48" rx="13" ry="22" fill="#0B0B1F" stroke="#D4F53C" stroke-width="1.5"/>
+      <clipPath id="bodyClip"><ellipse cx="44" cy="48" rx="13" ry="22"/></clipPath>
+      <g clip-path="url(#bodyClip)">
+        <rect class="bee-stripe" x="31" y="32" width="26" height="6" fill="#D4F53C" opacity=".75"/>
+        <rect class="bee-stripe" x="31" y="43" width="26" height="6" fill="#D4F53C" opacity=".6" style="animation-delay:.2s"/>
+        <rect class="bee-stripe" x="31" y="54" width="26" height="6" fill="#D4F53C" opacity=".4" style="animation-delay:.4s"/>
+      </g>
+      <circle cx="44" cy="18" r="9" fill="#0B0B1F" stroke="#D4F53C" stroke-width="1.3"/>
+      <circle cx="40" cy="16" r="1.8" fill="#D4F53C" opacity=".9"/>
+      <circle cx="48" cy="16" r="1.8" fill="#D4F53C" opacity=".9"/>
+      <rect x="40" y="24" width="8" height="5" rx="2" fill="#0B0B1F" stroke="#D4F53C" stroke-width="1"/>
+      <g class="bee-antenna">
+        <path d="M40,10 Q35,4 31,1" stroke="#D4F53C" stroke-width="1" stroke-linecap="round" fill="none"/>
+        <circle cx="30.5" cy="1" r="2" fill="#D4F53C" opacity=".85"/>
+        <path d="M48,10 Q53,4 57,1" stroke="#D4F53C" stroke-width="1" stroke-linecap="round" fill="none"/>
+        <circle cx="57.5" cy="1" r="2" fill="#D4F53C" opacity=".85"/>
+      </g>
+      <path d="M38,69 Q44,80 50,69" fill="#D4F53C" opacity=".55"/>
+      <line x1="44" y1="80" x2="44" y2="86" stroke="#D4F53C" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>
+    </svg>
+  </div>
+  <div class="ldr-wordmark">Growthhive<em>.</em></div>
+  <div class="ldr-track"><div class="ldr-fill" id="lFill"></div></div>
+  <div class="ldr-pct" id="lPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="index.html" class="nlogo">
+    <img class="nlogo-icon" src="YOUR_ICON.png" alt="Growthhive icon">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="work.html">Work</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="ncta">Start a project</a>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO
+══════════════════════════════════════════════════════════ -->
+<section class="about-hero" id="aboutHero">
+  <!-- <div class="ah-eyebrow"><span>Growthhive — Lagos · London · New York</span></div> -->
+  <h1 class="ah-title">
+    <span class="line"><span class="word">Growth</span></span>
+    <span class="line"><span class="word">can be</span></span>
+    <span class="line"><span class="word acc">engineered.</span></span>
+  </h1>
+  <div class="ah-foot">
+    <div class="ah-sub"><span>We are not a full-service agency. We are a precision instrument — built to make brands grow with intent, with data, and with a level of creative conviction most agencies don't dare.</span></div>
+    <div class="ah-scroll"><div class="ah-scroll-line"></div><span>Read on</span></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CONVICTION
+══════════════════════════════════════════════════════════ -->
+<section class="conviction-section" id="conviction">
+  <div class="conv-label"><span>What we believe</span></div>
+  <h2 class="conv-statement">
+    <span class="line"><span class="inner str">Creativity without strategy</span></span>
+    <span class="line"><span class="inner dim">is art.</span></span>
+    <span class="line"><span class="inner str">Strategy without creativity</span></span>
+    <span class="line"><span class="inner acc">is admin.</span></span>
+  </h2>
+  <div class="conv-cols">
+    <div class="conv-col">
+      <div class="conv-col-num">01</div>
+      <div class="conv-col-title">We refuse to do either alone.</div>
+      <div class="conv-col-body">Every brief that comes through our door gets the full treatment — strategic thinking that sets the direction, and creative execution that makes people feel something. One without the other isn't marketing. It's noise.</div>
+    </div>
+    <div class="conv-col">
+      <div class="conv-col-num">02</div>
+      <div class="conv-col-title">Growth is not a department. It's a discipline.</div>
+      <div class="conv-col-body">We don't bolt marketing on at the end. We embed it from the brief — into the positioning, the product, the customer journey, and every channel that touches your audience. That's the difference between growth that compounds and campaigns that flatline.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     NUMBERS
+══════════════════════════════════════════════════════════ -->
+<section class="numbers-section" id="numbers">
+  <div class="numbers-inner">
+    <div class="num-item">
+      <span class="num-value">3</span>
+      <div class="num-label">Years in operation</div>
+      <div class="num-sub">Founded in Lagos, 2022</div>
+    </div>
+    <div class="num-item">
+      <span class="num-value">50+</span>
+      <div class="num-label">Brands scaled</div>
+      <div class="num-sub">F&B · Fintech · Hospitality · Real estate</div>
+    </div>
+    <div class="num-item">
+      <span class="num-value">3×</span>
+      <div class="num-label">Markets</div>
+      <div class="num-sub">Nigeria · United Kingdom · United States</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     THE HIVE
+══════════════════════════════════════════════════════════ -->
+<section class="hive-section" id="hive">
+  <div class="hive-grid">
+    <div class="hive-left">
+      <div class="hive-label"><span>The team</span></div>
+      <h2 class="hive-headline">
+        <span class="line"><span class="inner">A hive of</span></span>
+        <span class="line"><span class="inner">super-creatives</span></span>
+        <span class="line"><span class="inner acc">unlike any other.</span></span>
+      </h2>
+      <p class="hive-body">A hive doesn't have passengers. Every person at Growthhive has a role, a craft, and a reason to be here. We are strategists who make things, makers who think strategically, and analysts who understand that data without creativity is just a spreadsheet. You won't find this combination elsewhere. We've looked.</p>
+    </div>
+    <div class="hive-right">
+      <div class="hive-trait">
+        <div class="hive-trait-icon">🎯</div>
+        <div class="hive-trait-content">
+          <div class="hive-trait-title">Strategists who make</div>
+          <div class="hive-trait-desc">Every strategist at Growthhive can produce. No briefs that gather dust — ideas that become campaigns.</div>
+        </div>
+      </div>
+      <div class="hive-trait">
+        <div class="hive-trait-icon">⚡</div>
+        <div class="hive-trait-content">
+          <div class="hive-trait-title">Makers who think</div>
+          <div class="hive-trait-desc">Our creatives aren't hired to execute briefs. They're hired to challenge them — and then execute beautifully.</div>
+        </div>
+      </div>
+      <div class="hive-trait">
+        <div class="hive-trait-icon">📊</div>
+        <div class="hive-trait-content">
+          <div class="hive-trait-title">Analysts who feel</div>
+          <div class="hive-trait-desc">Our data people understand that the number is just the starting point. The story behind it is what drives action.</div>
+        </div>
+      </div>
+      <div class="hive-trait">
+        <div class="hive-trait-icon">🌍</div>
+        <div class="hive-trait-content">
+          <div class="hive-trait-title">Built for cross-market growth</div>
+          <div class="hive-trait-desc">Three years building campaigns that work in Lagos and land in London. That cultural fluency is not taught — it's lived.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     FOUNDER
+══════════════════════════════════════════════════════════ -->
+<section class="founder-section" id="founder">
+  <div class="founder-inner">
+    <!-- Left: photo — replace src when ready -->
+    <div class="founder-img">
+      <!-- Swap this img src for your actual photo -->
+      <img class="founder-photo" src="YOUR_PHOTO.jpg" alt="Tega, Founder of Growthhive"
+           onload="this.classList.add('loaded')" onerror="this.style.display='none'">
+      <!-- Geometric placeholder shown until photo loads -->
+      <div class="founder-img-placeholder" id="founderPlaceholder">
+        <svg viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="90" cy="90" r="88" stroke="#D4F53C" stroke-width="1" opacity=".2"/>
+          <circle cx="90" cy="90" r="60" stroke="#D4F53C" stroke-width="1" opacity=".15"/>
+          <!-- Stylised person -->
+          <circle cx="90" cy="65" r="22" stroke="#D4F53C" stroke-width="1.5" opacity=".4"/>
+          <path d="M48,145 Q48,108 90,108 Q132,108 132,145" stroke="#D4F53C" stroke-width="1.5" fill="none" opacity=".4"/>
+          <!-- Bee mark -->
+          <circle cx="90" cy="65" r="8" fill="#D4F53C" opacity=".2"/>
+          <!-- Grid lines -->
+          <line x1="90" y1="2"   x2="90"  y2="38"  stroke="#D4F53C" stroke-width=".5" opacity=".15"/>
+          <line x1="90" y1="142" x2="90"  y2="178" stroke="#D4F53C" stroke-width=".5" opacity=".15"/>
+          <line x1="2"  y1="90"  x2="38"  y2="90"  stroke="#D4F53C" stroke-width=".5" opacity=".15"/>
+          <line x1="142" y1="90" x2="178" y2="90"  stroke="#D4F53C" stroke-width=".5" opacity=".15"/>
+        </svg>
+      </div>
+      <div class="founder-img-upload">Replace src="YOUR_PHOTO.jpg" with your image</div>
+    </div>
+    <!-- Right: bio -->
+    <div class="founder-bio">
+      <div class="founder-label"><span>The founder</span></div>
+      <h2 class="founder-name">
+        <span class="line"><span class="inner">Tega</span></span>
+      </h2>
+      <div class="founder-title"><span>Founder & Creative Director</span></div>
+      <blockquote class="founder-quote">
+        "I started Growthhive because I believed African brands deserved the same level of strategic rigour and creative ambition that global brands take for granted. Three years in — I still believe that. The work proves it."
+      </blockquote>
+      <ul class="founder-links">
+        <li><a href="https://www.linkedin.com/in/ayomide-adeosun/" target="_blank">LinkedIn →</a></li>
+        <li><a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank">Book a call →</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CLOSER
+══════════════════════════════════════════════════════════ -->
+<section class="closer-section" id="closer">
+  <div class="closer-glow"></div>
+  <div class="closer-label"><span>The only question</span></div>
+  <h2 class="closer-headline">
+    <span class="line"><span class="inner">Is your brand</span></span>
+    <span class="line"><span class="inner acc">next?</span></span>
+  </h2>
+  <div class="closer-foot">
+    <p class="closer-sub">The brands growing fastest right now all have one thing in common — they stopped treating marketing as a cost centre and started treating it as an engine. We build the engine.</p>
+    <div class="closer-btns">
+      <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="btn-fill">Book a free consultation</a>
+      <a href="work.html" class="btn-out">See our work</a>
+    </div>
+  </div>
+</section>
+
+<script src="/scripts/about.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>
