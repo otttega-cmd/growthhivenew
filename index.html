@@ -22,68 +22,13 @@
 <body>
 
 <div class="ldr" id="ldr">
-  <svg class="bee-flight-svg" id="beeFlightSvg" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
-    <defs>
-      <!-- Reveal mask — grows left-to-right following the bee -->
-      <clipPath id="trailReveal">
-        <rect id="trailRevealRect" x="0" y="0" width="0" height="600"/>
-      </clipPath>
-      <!-- Bee body gradient -->
-      <linearGradient id="beeBodyGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#FFC857"/>
-        <stop offset="100%" stop-color="#E8820A"/>
-      </linearGradient>
-      <!-- Wing gradient -->
-      <linearGradient id="beeWingGrad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#EAFB8A"/>
-        <stop offset="100%" stop-color="#D4F53C"/>
-      </linearGradient>
-    </defs>
-
-    <!-- Trail glow (under) -->
-    <path id="beeTrailGlow" class="bee-trail-glow" clip-path="url(#trailReveal)"/>
-    <!-- Dashed trail -->
-    <path id="beeTrail" class="bee-trail" clip-path="url(#trailReveal)"/>
-
-    <!-- The flight bee — drawn at origin, positioned via transform -->
-    <g id="flightBee">
-      <!-- Wings (behind body) -->
-      <g id="fbWingL" style="transform-origin:0px -8px">
-        <ellipse cx="-2" cy="-16" rx="20" ry="11" fill="url(#beeWingGrad)" fill-opacity="0.45" stroke="#D4F53C" stroke-width="1.2"/>
-        <ellipse cx="-2" cy="-16" rx="20" ry="11" fill="none" stroke="#EAFB8A" stroke-width="0.5" opacity="0.6"/>
-      </g>
-      <g id="fbWingR" style="transform-origin:0px 8px">
-        <ellipse cx="-2" cy="16" rx="20" ry="11" fill="url(#beeWingGrad)" fill-opacity="0.45" stroke="#D4F53C" stroke-width="1.2"/>
-        <ellipse cx="-2" cy="16" rx="20" ry="11" fill="none" stroke="#EAFB8A" stroke-width="0.5" opacity="0.6"/>
-      </g>
-
-      <!-- Body — rounded, tapered, pointing along +X (direction of travel) -->
-      <ellipse cx="0" cy="0" rx="26" ry="15" fill="url(#beeBodyGrad)" stroke="#1a0e00" stroke-width="1.5"/>
-
-      <!-- Stripes across the body (perpendicular to travel) -->
-      <clipPath id="fbBodyClip"><ellipse cx="0" cy="0" rx="26" ry="15"/></clipPath>
-      <g clip-path="url(#fbBodyClip)">
-        <rect x="-14" y="-16" width="6" height="32" fill="#1a0e00" opacity="0.85"/>
-        <rect x="-2"  y="-16" width="6" height="32" fill="#1a0e00" opacity="0.85"/>
-        <rect x="10"  y="-16" width="6" height="32" fill="#1a0e00" opacity="0.85"/>
-      </g>
-
-      <!-- Head — front of body (+X direction) -->
-      <circle cx="-24" cy="0" r="10" fill="#1a0e00"/>
-      <!-- Eyes -->
-      <circle cx="-27" cy="-4" r="2.2" fill="#FFC857"/>
-      <circle cx="-27" cy="4"  r="2.2" fill="#FFC857"/>
-
-      <!-- Antennae (reaching forward) -->
-      <path d="M -30 -3 Q -42 -10 -48 -8" stroke="#1a0e00" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <circle cx="-49" cy="-8" r="2.5" fill="#D4F53C"/>
-      <path d="M -30 3 Q -42 10 -48 8" stroke="#1a0e00" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <circle cx="-49" cy="8" r="2.5" fill="#D4F53C"/>
-
-      <!-- Stinger (rear, -X... actually +X tail = behind travel) -->
-      <path d="M 26 -4 Q 38 0 26 4 Z" fill="#E8820A" opacity="0.7"/>
-    </g>
+  <!-- SVG trail overlay — drawn in screen space by the hero bee -->
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail" class="intro-trail"/>
   </svg>
+  <!-- Percentage readout — follows the bee -->
+  <div class="intro-pct" id="introPct">0%</div>
 </div>
 
 <div id="cur"></div>

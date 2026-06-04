@@ -8,6 +8,10 @@
 // THREE.JS — Honeycomb + Bees + Pollen + Honey-elastic mouse
 // ═══════════════════════════════════════════════════════════════════
 
+// This page drives its own intro loader (hero bee flight).
+// Tell shared.js to skip its generic loader.
+window.GH_CUSTOM_LOADER = true;
+
 const canvas = document.getElementById('c');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -362,6 +366,83 @@ function assignWorkerBees() {
 }
 assignWorkerBees();
 
+// ═══════════════════════════════════════════════════════════════
+// INTRO FLIGHT — hero bee loader
+// A single large bee flies left→right with organic noise motion,
+// drawing a dot-dash trail + percentage. At completion it shrinks
+// to normal size and joins the colony as a wanderer.
+// ═══════════════════════════════════════════════════════════════
+const intro = {
+  active: true,
+  progress: 0,        // 0..1 logical load progress
+  display: 0,         // smoothed progress the bee follows
+  done: false,
+  startTime: null,    // set on first frame
+  minDuration: 4.6,   // seconds — slowed for artistry
+  heroScale: 7.0,     // hero bee size multiplier (big, central hero)
+  handoffStart: null, // when shrink-to-colony begins (seconds)
+};
+
+// Build the hero bee (same geometry as colony, standalone, large)
+const heroBeeObj = makeBee();
+heroBeeObj.group.scale.setScalar(intro.heroScale);
+// Start it ON SCREEN, slightly left of center, so it's present from frame 1
+heroBeeObj.group.position.set(-1.5, 0.3, 0.5);
+scene.add(heroBeeObj.group);
+
+// Hero bee flight params — the bee is the centerpiece the WHOLE time.
+// It hovers and wanders the center band with personality, drifting
+// gently left→right overall, then flies to its colony spot at the end.
+const heroFlight = {
+  // Gentle overall drift across the center band (not edge-to-edge)
+  xDriftStart: -1.5, xDriftEnd: 1.8,
+  yCenter: 0.3, yWander: 1.6,
+  xWander: 1.4,            // horizontal wander amplitude (meander)
+  seedX: Math.random() * 10,
+  seedY: Math.random() * 10 + 20,
+  wingPhase: 0,
+  bobPhase: Math.random() * Math.PI * 2,
+  px: -1.5, py: 0.3,
+  prevX: -1.6, prevY: 0.3,
+  // Colony handoff target (where it settles among the hive)
+  targetX: 0, targetY: 0,
+  handoffFromX: 0, handoffFromY: 0, // captured at handoff start
+};
+
+// Logical progress driver — never completes before minDuration
+const introInterval = setInterval(() => {
+  intro.progress += Math.random() * 0.08;
+  if (intro.progress >= 1) intro.progress = 1;
+}, 110);
+
+// Overlay elements
+const introPctEl     = document.getElementById('introPct');
+const introTrail     = document.getElementById('introTrail');
+const introTrailGlow = document.getElementById('introTrailGlow');
+
+// Trail point history (screen-space)
+const trailPoints = [];
+
+// Project a 3D world point to screen pixels
+function projectToScreen(vec3) {
+  const v = vec3.clone().project(camera);
+  return {
+    x: (v.x * 0.5 + 0.5) * window.innerWidth,
+    y: (-v.y * 0.5 + 0.5) * window.innerHeight,
+  };
+}
+
+// Build an irregular dot-dash SVG path string from screen points,
+// rendered as a polyline; the dash pattern creates morse dot-dash.
+function buildTrailPath(points) {
+  if (points.length < 2) return '';
+  let d = `M ${points[0].x.toFixed(1)} ${points[0].y.toFixed(1)}`;
+  for (let i = 1; i < points.length; i++) {
+    d += ` L ${points[i].x.toFixed(1)} ${points[i].y.toFixed(1)}`;
+  }
+  return d;
+}
+
 // ── Scene states ──────────────────────────────────────────────
 const STATES = [
   { hexOp:0.14, pollenOp:0.7,  beeOp:0.82, hexSc:1.0,  hexRot:[0,0,0],         gz:0,    pSpr:1,    bR:1.0 },
@@ -470,6 +551,143 @@ function render() {
   worldMouse.x += (targetWorld.x - worldMouse.x) * 0.03;
   worldMouse.y += (targetWorld.y - worldMouse.y) * 0.03;
 
+  // ── INTRO FLIGHT ─────────────────────────────────────────
+  if (intro.active) {
+    if (intro.startTime === null) intro.startTime = t;
+    const elapsed = t - intro.startTime;
+    const timeProgress = Math.min(elapsed / intro.minDuration, 1);
+    // Bee follows slower of load-progress and time-progress
+    const target = Math.min(intro.progress, timeProgress);
+    intro.display += (target - intro.display) * 0.05;
+
+    // The bee is the CENTERPIECE — it hovers and wanders the center
+    // band the entire time, with only a gentle overall left→right drift.
+    // Motion is the same summed-sine noise the colony wanderers use.
+    const ease = intro.display * intro.display * (3 - 2 * intro.display); // smoothstep
+    const driftX = heroFlight.xDriftStart + (heroFlight.xDriftEnd - heroFlight.xDriftStart) * ease;
+
+    const wanderX = noise1(t * 0.5,  heroFlight.seedX) * heroFlight.xWander;
+    const wanderY = noise1(t * 0.55, heroFlight.seedY) * heroFlight.yWander;
+    const tx = driftX + wanderX;
+    const ty = heroFlight.yCenter + wanderY
+             + Math.sin(t * 2.6 + heroFlight.bobPhase) * 0.22; // lively bob
+
+    // Smooth toward target (honey lag)
+    heroFlight.px += (tx - heroFlight.px) * 0.07;
+    heroFlight.py += (ty - heroFlight.py) * 0.07;
+    heroBeeObj.group.position.set(heroFlight.px, heroFlight.py, 0.5);
+
+    // Face direction of travel
+    const ddx = heroFlight.px - heroFlight.prevX;
+    const ddy = heroFlight.py - heroFlight.prevY;
+    if (Math.abs(ddx) + Math.abs(ddy) > 0.0001) {
+      const ta = Math.atan2(ddy, ddx);
+      heroBeeObj.group.rotation.z += (ta - heroBeeObj.group.rotation.z) * 0.1;
+    }
+    heroFlight.prevX = heroFlight.px;
+    heroFlight.prevY = heroFlight.py;
+
+    // Wing flap — fast and lively (this is the hero)
+    heroFlight.wingPhase += 0.95;
+    const hflap = Math.sin(heroFlight.wingPhase) * 0.48;
+    heroBeeObj.wFL.rotation.x =  0.25 + hflap;
+    heroBeeObj.wFR.rotation.x = -0.25 - hflap;
+    heroBeeObj.wHL.rotation.x =  0.20 + hflap * 0.7;
+    heroBeeObj.wHR.rotation.x = -0.20 - hflap * 0.7;
+
+    // Hero bee opacity — full while flying
+    heroBeeObj.group.children.forEach((child, ci) => {
+      if (child.material) {
+        const baseOp = ci === 0 ? 1.0 : ci <= 3 ? 0.9 : ci <= 5 ? 0.78 : ci <= 7 ? 0.6 : 0.85;
+        child.material.opacity = baseOp;
+      }
+    });
+
+    // ── Trail + percentage overlay (screen space) ──────────
+    const screen = projectToScreen(heroBeeObj.group.position);
+    const last = trailPoints[trailPoints.length - 1];
+    if (!last || Math.hypot(screen.x - last.x, screen.y - last.y) > 6) {
+      trailPoints.push({ x: screen.x, y: screen.y });
+      // Cap trail length so it reads as a recent wake, not the full history
+      if (trailPoints.length > 90) trailPoints.shift();
+    }
+    if (introTrail) {
+      const d = buildTrailPath(trailPoints);
+      introTrail.setAttribute('d', d);
+      if (introTrailGlow) introTrailGlow.setAttribute('d', d);
+    }
+    if (introPctEl) {
+      const pct = Math.floor(intro.display * 100);
+      introPctEl.textContent = pct + '%';
+      introPctEl.style.left = (screen.x - 64) + 'px';
+      introPctEl.style.top  = (screen.y - 42) + 'px';
+      introPctEl.style.opacity = '1';
+    }
+
+    // ── Completion → handoff ───────────────────────────────
+    if (!intro.done && intro.display >= 0.985 && intro.progress >= 1) {
+      intro.done = true;
+      intro.handoffStart = t;
+      // Capture where the bee is now, and pick a colony target spot
+      heroFlight.handoffFromX = heroFlight.px;
+      heroFlight.handoffFromY = heroFlight.py;
+      // Target: a wanderer bee's current position (it joins the hive there)
+      const wanderer = beeData.find(b => b.archetype === 'wanderer') || beeData[0];
+      heroFlight.targetX = wanderer ? wanderer.px : 0;
+      heroFlight.targetY = wanderer ? wanderer.py : 0;
+      clearInterval(introInterval);
+      beginHandoff();
+    }
+  }
+
+  // ── HANDOFF — bee flies to colony spot AND shrinks ───────
+  if (intro.handoffStart !== null) {
+    const ht = t - intro.handoffStart;
+    const hd = 1.5; // handoff duration (seconds)
+    const k = Math.min(ht / hd, 1);
+    const ke = 1 - Math.pow(1 - k, 3); // ease-out cubic
+
+    // Fly from where it was to the colony target as it shrinks
+    const hx = heroFlight.handoffFromX + (heroFlight.targetX - heroFlight.handoffFromX) * ke;
+    const hy = heroFlight.handoffFromY + (heroFlight.targetY - heroFlight.handoffFromY) * ke;
+    heroBeeObj.group.position.set(hx, hy, 0.5 * (1 - ke));
+
+    // Keep wings flapping through the handoff
+    heroFlight.wingPhase += 0.95;
+    const hflap = Math.sin(heroFlight.wingPhase) * 0.48;
+    heroBeeObj.wFL.rotation.x =  0.25 + hflap;
+    heroBeeObj.wFR.rotation.x = -0.25 - hflap;
+    heroBeeObj.wHL.rotation.x =  0.20 + hflap * 0.7;
+    heroBeeObj.wHR.rotation.x = -0.20 - hflap * 0.7;
+
+    // Shrink hero bee from heroScale → 1.0
+    const sc = intro.heroScale + (1.0 - intro.heroScale) * ke;
+    heroBeeObj.group.scale.setScalar(sc);
+
+    // Fade the percentage + trail out
+    if (introPctEl)     introPctEl.style.opacity = String(1 - k);
+    if (introTrail)     introTrail.style.opacity = String(0.9 * (1 - k));
+    if (introTrailGlow) introTrailGlow.style.opacity = String(0.12 * (1 - k));
+
+    if (k >= 1) {
+      scene.remove(heroBeeObj.group);
+      intro.handoffStart = null;
+      intro.active = false;
+    }
+  }
+
+  // ── Scene-wide intro visibility multiplier ───────────────
+  // Hex + pollen hidden while hero bee flies, fade in at handoff
+  let sceneIntroMult = 1.0;
+  if (intro.active) {
+    if (intro.handoffStart !== null) {
+      const ht = t - intro.handoffStart;
+      sceneIntroMult = Math.min(ht / 1.5, 1);
+    } else {
+      sceneIntroMult = 0;
+    }
+  }
+
   curS = lerpS(curS, tgtS, 0.02);
 
   // Master group
@@ -534,7 +752,7 @@ function render() {
       targetOp = 0.0;
     }
     // Smooth opacity transition
-    h.mesh.material.opacity += (targetOp - h.mesh.material.opacity) * 0.08;
+    h.mesh.material.opacity += (targetOp * sceneIntroMult - h.mesh.material.opacity) * 0.08;
 
     const sc = 1 + 0.032 * Math.sin(t * 1.05 + h.phase);
     h.mesh.scale.setScalar(sc);
@@ -556,7 +774,7 @@ function render() {
     p.mesh.rotation.z += p.rotSpd;
 
     const glow = 0.55 + 0.45 * Math.sin(t * p.glowFreq + p.seed);
-    p.mesh.material.opacity = curS.pollenOp * p.baseOp * glow;
+    p.mesh.material.opacity = curS.pollenOp * p.baseOp * glow * sceneIntroMult;
   });
 
   // ── Bees ─────────────────────────────────────────────────
@@ -663,7 +881,17 @@ function render() {
       const cell = hexData[b.workerHexIdx];
       if (!cell.built) opMult = 1.3; // working harder — slightly more visible
     }
-    const op = curS.beeOp * b.baseOp * opMult;
+    // During intro: colony fades in only as the handoff progresses
+    let introMult = 1.0;
+    if (intro.active) {
+      if (intro.handoffStart !== null) {
+        const ht = clock.getElapsedTime() - intro.handoffStart;
+        introMult = Math.min(ht / 1.5, 1); // fade in over handoff
+      } else {
+        introMult = 0; // hidden while hero bee flies
+      }
+    }
+    const op = curS.beeOp * b.baseOp * opMult * introMult;
 
     b.group.children.forEach((child, ci) => {
       if (child.material) {
@@ -684,6 +912,22 @@ function render() {
 
   renderer.render(scene, camera);
 }
+// ── Handoff: fade veil, reveal site, fire page animations ─────
+function beginHandoff() {
+  // Fade the navy veil to expose the live colony scene
+  const veil = document.getElementById('ldr');
+  if (veil) {
+    gsap.to(veil, {
+      opacity: 0, duration: 1.4, ease: 'power2.inOut',
+      onComplete: () => { veil.style.display = 'none'; }
+    });
+  }
+  // Fire the page's scroll/reveal animations
+  if (typeof window.onLoaderComplete === 'function') {
+    window.onLoaderComplete();
+  }
+}
+
 render();
 
 window.addEventListener('resize', () => {

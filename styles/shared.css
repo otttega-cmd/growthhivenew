@@ -111,12 +111,11 @@ nav {
 }
 .btn-out:hover { border-color: var(--ch); color: var(--ch); }
 
-/* ── Loader — artistic bee flight ──────────────────────────── */
+/* ── Loader — intro veil + hero-bee trail overlay ──────────── */
 .ldr {
   position: fixed; inset: 0; background: var(--navy);
-  z-index: 1000;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
+  z-index: 1000; overflow: hidden;
+  pointer-events: none;
 }
 /* Subtle radial warmth behind the flight */
 .ldr::before {
@@ -125,26 +124,40 @@ nav {
   background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(212,245,60,.04) 0%, transparent 70%);
   pointer-events: none;
 }
-.bee-flight-svg {
+/* Full-screen SVG the hero bee draws its trail into */
+.intro-trail-svg {
+  position: absolute; inset: 0;
   width: 100%; height: 100%;
-  max-width: 100vw; max-height: 100vh;
-  display: block;
+  pointer-events: none;
 }
-/* Trail */
-.bee-trail {
+.intro-trail {
   fill: none;
   stroke: var(--ch);
   stroke-width: 2.5;
   stroke-linecap: round;
+  /* Dot-dash morse rhythm: ·· — · ——— ·· — */
+  stroke-dasharray: 2 10 2 10 22 10 2 10 40 10 2 10;
   opacity: .9;
 }
-.bee-trail-glow {
+.intro-trail-glow {
   fill: none;
   stroke: var(--ch);
-  stroke-width: 7;
+  stroke-width: 8;
   stroke-linecap: round;
+  stroke-dasharray: 2 10 2 10 22 10 2 10 40 10 2 10;
   opacity: .12;
   filter: blur(3px);
+}
+/* Percentage readout — positioned each frame by JS to follow the bee */
+.intro-pct {
+  position: absolute;
+  font-family: 'Space Mono', monospace;
+  font-size: .7rem; letter-spacing: .14em;
+  color: var(--ch);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  text-shadow: 0 0 12px rgba(212,245,60,.4);
 }
 
 /* ── Sections ──────────────────────────────────────────────── */
