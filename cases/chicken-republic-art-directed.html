@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chicken Republic — What's Your Order? | Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;1,9..40,200;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/chicken-republic-art-directed.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="case-cr">
+
+<!-- Loader -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail" class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="YOUR_ICON.png" alt="Growthhive icon">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html" class="active">Work</a></li>
+    <li><a href="/services.html">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="ncta">Start a project</a>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════
+     HERO — arrive mid-campaign, orders streaming
+══════════════════════════════════════════════════════════ -->
+<header class="cr-hero">
+  <div class="cr-hero-head">
+    <div class="cr-client-row" id="crClientRow">
+      <div class="cr-client-badge"><span class="cr-client-dot"></span>Chicken Republic</div>
+      <div class="cr-divider"></div>
+      <div class="cr-client-badge">National Activation</div>
+      <div class="cr-divider"></div>
+      <div class="cr-client-badge">Still Yours</div>
+    </div>
+  </div>
+
+  <div class="cr-hero-mid">
+    <div class="cr-hero-left">
+      <div class="cr-kicker" id="crKicker">The "Still Yours" Platform · Activation</div>
+      <h1 class="cr-hero-title">
+        <span class="l"><span class="w q">What's</span></span>
+        <span class="l"><span class="w o">Your Order?</span></span>
+      </h1>
+      <p class="cr-hero-sub" id="crSub">We asked Nigeria one question — and built a national conversation from the answer. <em>One order at a time.</em></p>
+    </div>
+
+    <!-- Live order ticker -->
+    <div class="cr-ticker-frame" id="crTickerFrame">
+      <div class="cr-ticker-head">
+        <div class="cr-ticker-live"><span class="cr-live-dot"></span>Live Order Feed</div>
+        <div class="cr-ticker-loc">Third Mainland · Oshodi · Lekki</div>
+      </div>
+      <div class="cr-ticker-feed">
+        <div class="cr-ticker-fade top"></div>
+        <div class="cr-ticker-track" id="crTickerTrack"><!-- JS injects orders --></div>
+        <div class="cr-ticker-fade bot"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cr-hero-foot">
+    <div class="cr-counter-block" id="crCounterBlock">
+      <div class="cr-counter" id="crCounter">0</div>
+      <div class="cr-counter-label">orders submitted<br>and counting</div>
+    </div>
+    <div class="cr-hero-meta">
+      <div class="cr-meta-item"><div class="cr-meta-label">Client</div><div class="cr-meta-value">Chicken Republic</div></div>
+      <div class="cr-meta-item"><div class="cr-meta-label">Scope</div><div class="cr-meta-value">Brand Platform · Activation · OOH</div></div>
+      <div class="cr-meta-item"><div class="cr-meta-label">Reach</div><div class="cr-meta-value">5 cities · 300+ outlets</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════════════════════
+     THE PROBLEM
+══════════════════════════════════════════════════════════ -->
+<section class="cr-section cr-problem">
+  <div class="cr-num">01 — The Problem</div>
+  <h2 class="cr-problem-statement reveal">The most eaten, <span class="red">least loved</span> brand in Nigerian fast food.</h2>
+  <div class="cr-problem-grid">
+    <div class="cr-problem-col reveal">
+      <p>Chicken Republic has won the market without winning the culture. Twenty years in. Over 300 locations. <span class="cr-stat-inline">₦60.9 billion</span> in annual sales — outselling its nearest rival 13×.</p>
+      <p>And yet a brand that millions eat monthly has just <span class="cr-stat-inline">91,000 Instagram followers</span>. Those three numbers should not coexist. They coexist because the brand has a transaction relationship with its customers — not an identity one.</p>
+    </div>
+    <div class="cr-problem-col reveal">
+      <p>Lagosians eat Chicken Republic the way they breathe Lagos air — without thinking, without identity, without loyalty that goes deeper than convenience. The brand is consumed without being claimed.</p>
+      <p>Nobody posts their Chicken Republic meal the way they post their KFC bucket. There's no social currency in it — because the brand's marketing has spent twenty years speaking to the transaction, and never once to the relationship.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     THE INSIGHT
+══════════════════════════════════════════════════════════ -->
+<section class="cr-section cr-insight">
+  <div class="cr-eyebrow">The Insight</div>
+  <p class="cr-insight-line reveal">Every Nigerian who has ever walked into a Chicken Republic has a <span class="em">default order.</span> Not something they think about — something they say automatically. As personal as a signature. As automatic as breathing.</p>
+  <div class="cr-insight-foot reveal">The campaign asks for almost nothing. The output is everything.</div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     THE ACTIVATION — interactive microsite mock
+══════════════════════════════════════════════════════════ -->
+<section class="cr-section cr-activation">
+  <<div class="cr-activation-head">
+  <div class="cr-num ch">02 — The Activation</div>
+
+  <h2 class="cr-activation-title reveal">
+    <span class="q">What's</span> <span class="o">Your Order?</span>
+  </h2>
+
+  <div
+    class="reveal"
+    style="
+      position: relative;
+      max-width: 680px;
+      margin-top: 1.25rem;
+      margin-bottom: 3rem;
+      padding-left: 1.35rem;
+      border-left: 2px solid #FFE100;
+    "
+  >
+    <p
+      class="cr-activation-desc"
+      style="
+        margin: 0;
+        font-size: clamp(.98rem, 1.25vw, 1.12rem);
+        line-height: 1.68;
+        font-weight: 300;
+        letter-spacing: -.005em;
+        color: rgba(245,237,226,.74);
+      "
+    >
+      It all starts right HEREEEEEE!!!!!.
+      <br>
+      Input your order. Maybe your selfie, if you're feeling up to it.
+      <br>
+      Your order in. Your word out on the street.
+    </p>
+
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 160 46"
+      style="
+        position: absolute;
+        left: .95rem;
+        bottom: -2.55rem;
+        width: 160px;
+        height: 46px;
+        overflow: visible;
+        opacity: .9;
+      "
+    >
+      <path
+        d="M2 6 C42 42, 100 42, 152 12"
+        fill="none"
+        stroke="#FFE100"
+        stroke-width="1.4"
+        stroke-linecap="round"
+        stroke-dasharray="4 7"
+      />
+    </svg>
+  </div>
+</div>
+
+  <div class="cr-mock reveal">
+    <!-- Form -->
+    <div class="cr-mock-form">
+      <div class="cr-mock-phone-label"><span class="cr-live-dot"></span>ordercr.com/still-yours — campaign microsite</div>
+      <div class="cr-mock-q"><span class="o">What's</span> your order?</div>
+      <div class="cr-field">
+        <label class="cr-field-label" for="crName">Name / Nickname</label>
+        <input class="cr-input" id="crName" type="text" placeholder="e.g. Adaeze" maxlength="24" autocomplete="off">
+      </div>
+      <div class="cr-field">
+        <label class="cr-field-label" for="crOrder">Your order — in your own words</label>
+        <input class="cr-input" id="crOrder" type="text" placeholder="e.g. Mega Meal, grilled, extra coleslaw" maxlength="60" autocomplete="off">
+      </div>
+      <div class="cr-field">
+        <label class="cr-field-label" for="crCity">Your city</label>
+        <select class="cr-select" id="crCity">
+          <option value="Lagos">Lagos</option>
+          <option value="Abuja">Abuja</option>
+          <option value="Port Harcourt">Port Harcourt</option>
+          <option value="Kano">Kano</option>
+          <option value="Ibadan">Ibadan</option>
+        </select>
+      </div>
+      <button class="cr-submit" id="crSubmit">Submit my order <span class="arr">→</span></button>
+    </div>
+
+    <!-- Shareable output -->
+    <div class="cr-mock-output">
+      <div class="cr-share-card empty" id="crShareCard">
+        <div class="cr-share-placeholder" id="crSharePlaceholder">
+          Your shareable card<br>appears here.<br><br>Fill in your order →
+        </div>
+        <div class="cr-share-brand" style="display:none;">Chicken Republic</div>
+        <div class="cr-share-name" id="crShareName" style="display:none;"></div>
+        <div class="cr-share-order-label" style="display:none;">THE ORDER</div>
+        <div class="cr-share-order" id="crShareOrder" style="display:none;"></div>
+        <div class="cr-share-tag" id="crShareTag" style="display:none;">#StillYours</div>
+        <div class="cr-share-still" style="display:none;">Chicken Republic · Still Yours</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     HUNGER MAP
+══════════════════════════════════════════════════════════ -->
+<section class="cr-section cr-map">
+  <div class="cr-num">03 — The Hunger Map</div>
+  <h2 class="cr-map-title reveal">A portrait of a nation,<br>drawn in <span class="acc">chicken orders.</span></h2>
+  <p class="cr-map-desc reveal">Every order mapped to the outlet it came from. What Lekki Phase 1 orders and what Ojuelegba orders are not the same. Different Lagos. Same brand. A story about the city Lagos has never seen told this way — and Chicken Republic is the only brand that could tell it.</p>
+  <div class="cr-map-viz reveal" id="crMapViz">
+    <div class="cr-map-label">Lagos · Live order density</div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════
+     OOH CANVAS — campaign content carousel
+══════════════════════════════════════════════════════════ -->
+<section class="cr-section cr-ooh" id="crOohSection">
+  <div class="cr-flow-ribbon" aria-hidden="true"></div>
+  <div class="cr-ooh-head">
+    <div>
+      <div class="cr-num ch">04 — Out of Home System</div>
+      <h2 class="cr-ooh-title reveal">The question leaves the counter<br>and enters <span class="sun">the city.</span></h2>
+    </div>
+    <p class="cr-ooh-desc reveal">A flexible OOH canvas for live order boards, street-level declarations, and later image mockups. The structure is built with placeholders now, but every frame is ready to accept campaign artwork, billboard renders, bus-shelter mockups, or digital screen captures.</p>
+  </div>
+
+  <div class="cr-ooh-shell reveal" aria-label="Potential OOH campaign content carousel">
+    <div class="cr-ooh-stage" id="crOohStage">
+      <article class="cr-ooh-slide is-active" data-ooh-slide>
+        <div class="cr-ooh-copy">
+          <div class="cr-ooh-kicker">Live Digital Billboard · Third Mainland</div>
+          <h3>What's Lagos ordering<br>right now?</h3>
+          <p>Orders stream across the board in real time — names, locations, and default meals turning traffic into a national appetite feed.</p>
+        </div>
+        <div class="cr-ooh-frame cr-ooh-landscape" data-mockup-slot>
+          <div class="cr-ooh-artmark">?</div>
+          <div class="cr-ooh-placeholder">16:9 Billboard Mockup Slot</div>
+          <div class="cr-ooh-boardline">ADA, LEKKI — MEGA MEAL, GRILLED, EXTRA COLESLAW</div>
+        </div>
+      </article>
+
+      <article class="cr-ooh-slide" data-ooh-slide>
+        <div class="cr-ooh-copy">
+          <div class="cr-ooh-kicker">Static Street Poster · Ojuelegba / Yaba</div>
+          <h3>This is not a menu.<br>This is memory.</h3>
+          <p>High-contrast posters built from actual submitted orders. Each execution feels local, human, and instantly photographable.</p>
+        </div>
+        <div class="cr-ooh-frame cr-ooh-poster" data-mockup-slot>
+          <div class="cr-ooh-artmark">Still<br>Yours</div>
+          <div class="cr-ooh-placeholder">4:5 Poster Mockup Slot</div>
+          <div class="cr-ooh-poster-type">LAGOS HAS<br>AN ORDER.</div>
+        </div>
+      </article>
+
+      <article class="cr-ooh-slide" data-ooh-slide>
+        <div class="cr-ooh-copy">
+          <div class="cr-ooh-kicker">Bus Shelter · Share Card Wall</div>
+          <h3>One order in.<br>One city out.</h3>
+          <p>Submitted orders become modular cards — a wall of names, meals, neighbourhoods, and small personal rituals.</p>
+        </div>
+        <div class="cr-ooh-frame cr-ooh-shelter" data-mockup-slot>
+          <div class="cr-ooh-cardgrid" aria-hidden="true">
+            <span>Refuel Meal</span><span>Chicken + Chips</span><span>Extra Pepper</span><span>Mega Meal</span><span>No Coleslaw</span><span>Always Grilled</span>
+          </div>
+          <div class="cr-ooh-placeholder">9:16 Shelter Mockup Slot</div>
+        </div>
+      </article>
+    </div>
+
+    <div class="cr-ooh-controls">
+      <button class="cr-ooh-btn" type="button" data-ooh-prev aria-label="Previous OOH concept">←</button>
+      <div class="cr-ooh-progress" aria-hidden="true"><span id="crOohProgress"></span></div>
+      <button class="cr-ooh-btn" type="button" data-ooh-next aria-label="Next OOH concept">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     PHASES
+══════════════════════════════════════════════════════════ -->
+<section class="cr-section cr-phases">
+  <div class="cr-num ch">05 — Campaign Architecture</div>
+  <h2 class="cr-map-title reveal" style="text-align:left;margin-bottom:3rem;">Five phases. One question.</h2>
+
+  <div class="cr-phase reveal">
+    <div class="cr-phase-num">01</div>
+    <div>
+      <div class="cr-phase-meta">Weeks 1–4 · In-store · OOH · Social</div>
+      <div class="cr-phase-name">The Ask</div>
+      <div class="cr-phase-body">Every location gets a complete visual takeover — tray liners, table tents, cups, delivery bags — carrying one question and a QR code. Nothing else. Social goes into a 72-hour blackout. The silence signals something is different.</div>
+    </div>
+  </div>
+
+  <div class="cr-phase reveal">
+    <div class="cr-phase-num">02</div>
+    <div>
+      <div class="cr-phase-meta">Weeks 3–8 · Live Digital OOH · Press</div>
+      <div class="cr-phase-name">The Boards</div>
+      <div class="cr-phase-body">Orders stream in real time to live digital billboards across Lagos, Abuja, Port Harcourt and Kano. Lagos sees itself scroll past on the Third Mainland Bridge. A full-page newspaper spread prints the first 14 days of orders like a national census: "This is Nigeria's Order."</div>
+    </div>
+  </div>
+
+  <div class="cr-phase reveal">
+    <div class="cr-phase-num">03</div>
+    <div>
+      <div class="cr-phase-meta">Weeks 5–10 · Digital + In-store Print</div>
+      <div class="cr-phase-name">The Hunger Map</div>
+      <div class="cr-phase-body">A street-level map of every activated city, every outlet marked. Tap an outlet and it explodes into the orders submitted from that exact location, in the submitter's own words. Data journalism native to Lagos culture — and a press story every food writer covers.</div>
+    </div>
+  </div>
+
+  <div class="cr-phase reveal">
+    <div class="cr-phase-num">04</div>
+    <div>
+      <div class="cr-phase-meta">Weeks 2–12 · Chowdeck · Glovo · Jumia</div>
+      <div class="cr-phase-name">Delivery Rewards</div>
+      <div class="cr-phase-body">Every delivery goes out in a campaign bag with its own unique QR code. Roughly 1 in 50 wins a complimentary "Still Yours" menu item. Walk-ins who submit enter a daily draw — the grand prize being your name and order on a Lagos billboard for 24 hours. The prize is visibility itself.</div>
+    </div>
+  </div>
+
+  <div class="cr-phase reveal">
+    <div class="cr-phase-num">05</div>
+    <div>
+      <div class="cr-phase-meta">Month 3 · All Channels</div>
+      <div class="cr-phase-name">Nigeria's Order</div>
+      <div class="cr-phase-body">The most-submitted order across the campaign — chosen by Nigeria, not by marketing — is declared and given limited-edition packaging. The campaign culminates in a new permanent menu item built from the data: the first thing Nigeria chose for itself.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     REVEAL
+══════════════════════════════════════════════════════════ -->
+<section class="cr-section cr-reveal-sec">
+  <div class="cr-reveal-label">The Payoff</div>
+  <h2 class="cr-reveal-title reveal">This brand belongs to Nigeria.<br>And Nigeria has been claiming it<br><span class="red">one order at a time.</span></h2>
+  <p class="cr-reveal-body reveal">"Still Yours" is not a tagline. It's the beginning of a brand platform Chicken Republic can operate within for the next ten years — twenty years of Nigerian loyalty, finally named.</p>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     DOWNLOAD
+══════════════════════════════════════════════════════════ -->
+<section class="cr-section cr-download">
+  <div class="cr-download-inner">
+    <div>
+      <div class="cr-num">06 — The Deck</div>
+      <h2 class="cr-download-title reveal">The activation,<br><span class="acc">in full.</span></h2>
+      <p class="cr-download-body reveal">The complete "What's Your Order?" activation — the insight, the mechanic, the five-phase architecture, and the targets. The same document we'd present in the room.</p>
+    </div>
+    <div class="cr-download-card reveal">
+      <div class="cr-deck-icon">📊</div>
+      <div class="cr-deck-name">What's Your Order?</div>
+      <div class="cr-deck-meta">PowerPoint · 10 slides · Activation Brief</div>
+      <a href="/assets/chicken_republic_whats_your_order.pptx" download class="cr-download-btn">
+        <span>Download presentation</span><span>↓</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════
+     CLOSER
+══════════════════════════════════════════════════════════ -->
+<section class="cr-closer">
+  <div class="cr-closer-glow"></div>
+  <div class="cr-closer-label">Ready to build</div>
+  <h2 class="cr-closer-title reveal">What's <span class="acc">your</span> order?</h2>
+  <div class="cr-closer-btns reveal">
+    <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="btn-fill">Book a free consultation</a>
+    <a href="/work.html" class="btn-out">See more work</a>
+  </div>
+</section>
+
+<footer class="cr-footer">
+  <div class="cr-footer-logo">Growthhive<em>.</em></div>
+  <div class="cr-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+  <div class="cr-footer-meta">© 2025 Growthhive · Confidential Case Study</div>
+</footer>
+
+<script src="/scripts/chicken-republic-art-directed.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>
