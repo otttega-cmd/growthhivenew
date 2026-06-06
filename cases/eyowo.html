@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kí l'ẹyọ? — Eyowo | Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/eyowo.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="case-ey">
+
+<!-- ── Loader ──────────────────────────────────────────────── -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail" class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="YOUR_ICON.png" alt="Growthhive">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html" class="active">Work</a></li>
+    <li><a href="/services.html">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="ncta">Start a project</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO — the question. Just this.
+════════════════════════════════════════════════════════════ -->
+<section class="ey-hero ey-section">
+  <div class="ey-hero-bg"></div>
+  <img class="ey-hero-cowrie" id="eyHeroCowrie"
+    src="/assets/eyowo-cowrie-1.png" alt="A cowrie shell">
+  <h1 class="ey-hero-q" id="eyHeroQ">Kí l'ẹyọ?</h1>
+  <p class="ey-hero-sub" id="eyHeroSub">Eyowo · A Growthhive Campaign Concept</p>
+  <div class="ey-scroll-hint" id="eyScrollHint">
+    <span>Scroll</span>
+    <span class="tick"></span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     ETYMOLOGY — the buried meaning
+════════════════════════════════════════════════════════════ -->
+<section class="ey-etymology ey-section ey-adire">
+  <div class="ey-etym-kicker reveal">The insight</div>
+  <div class="ey-etym-chain reveal">
+    <div class="ey-etym-word">
+      <span class="ey-etym-yoruba">ẹyọ</span>
+      <span class="ey-etym-label">cowrie · unit</span>
+    </div>
+    <span class="ey-etym-arrow reveal">→</span>
+    <div class="ey-etym-word">
+      <span class="ey-etym-yoruba">owó</span>
+      <span class="ey-etym-label">money</span>
+    </div>
+    <span class="ey-etym-arrow reveal">→</span>
+    <div class="ey-etym-word">
+      <span class="ey-etym-yoruba accent">Eyowo</span>
+      <span class="ey-etym-label">the brand</span>
+    </div>
+  </div>
+  <p class="ey-etym-body reveal">The cowrie was the first money West Africa ever knew. <em>Ẹyọ</em> — a single unit, a single cowrie — is inside the Yoruba word for money. And it is inside the brand's own name. The campaign does not invent a connection. It surfaces one that was always there.</p>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     P0 — THE QUESTION
+     Not in the counting sequence — this is the teaser poster
+     described in the campaign section below.
+     A standalone section to introduce the poster concept.
+════════════════════════════════════════════════════════════ -->
+<section class="ey-section" style="position:relative; z-index:1; border-top: 1px solid rgba(245,238,224,.09);">
+  <div style="max-width:1100px; margin:0 auto; padding: 8rem 3rem; display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center;">
+    <div class="reveal">
+      <div style="font-family:'Space Mono',monospace; font-size:.6rem; letter-spacing:.24em; text-transform:uppercase; color:#C8A45A; margin-bottom:2.5rem;">01 — The Teaser</div>
+      <h2 style="font-family:'Cormorant',Georgia,serif; font-style:italic; font-size:clamp(2rem,5vw,4rem); font-weight:400; color:#F5EEE0; line-height:1.05; margin-bottom:2rem;">One question.<br>No brand.<br>The whole country asks.</h2>
+      <p style="font-size:1rem; line-height:1.8; color:rgba(245,238,224,.55); margin-bottom:1.5rem;">Phase 1 goes up with no Eyowo logo. No URL. No tagline. Just a field of cowries and a question in Yoruba — on billboards, bus shelters, and walls across Lagos. The city starts talking before the brand has said a word.</p>
+      <p style="font-family:'Space Mono',monospace; font-size:.58rem; letter-spacing:.16em; text-transform:uppercase; color:#E8841A;">Cowrie field · Question only · No attribution</p>
+    </div>
+    <div class="reveal-s" style="position:relative; overflow:hidden; aspect-ratio:3/4; border-radius:4px;">
+      <img src="/assets/eyowo-cowrie-field.jpg" alt="A field of cowrie shells"
+        style="width:100%; height:100%; object-fit:cover; display:block;">
+      <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center;">
+        <span style="font-family:'Cormorant',Georgia,serif; font-style:italic; font-size:clamp(2.5rem,6vw,5rem); font-weight:400; color:#F5EEE0; text-align:center; text-shadow:0 4px 40px rgba(13,19,40,.8);">Kí l'ẹyọ?</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     P1 — ẹyọ · one cowrie · a beginning
+════════════════════════════════════════════════════════════ -->
+<div class="ey-count ey-section">
+  <div class="ey-count-img">
+    <img src="/assets/eyowo-cowrie-1.png" alt="One cowrie shell">
+  </div>
+  <div class="ey-count-text">
+    <div class="ey-count-num reveal">02 — ẹyọ</div>
+    <h2 class="ey-count-yoruba reveal">Ẹyọ ni ìbẹ̀rẹ̀.</h2>
+    <div class="ey-count-rule reveal"></div>
+    <p class="ey-count-answer reveal">Money is a beginning.</p>
+    <p class="ey-count-en reveal">a beginning</p>
+    <p class="reveal" style="font-size:.9rem; line-height:1.7; color:rgba(245,238,224,.4); margin-top:2.5rem; max-width:400px;">One cowrie. The smallest denomination. Your phone number. The first account. The entry point to everything Eyowo offers — and the thing the brand owes every Nigerian it ever served.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     P2 — ẹyọ meji · two cowries · trust
+════════════════════════════════════════════════════════════ -->
+<div class="ey-count ey-section">
+  <div class="ey-count-img">
+    <img src="/assets/eyowo-cowrie-2.png" alt="Two cowrie shells">
+  </div>
+  <div class="ey-count-text">
+    <div class="ey-count-num reveal">03 — ẹyọ meji</div>
+    <h2 class="ey-count-yoruba reveal">Ẹyọ ni ìgbẹ́kẹ̀lé.</h2>
+    <div class="ey-count-rule reveal"></div>
+    <p class="ey-count-answer reveal">Money is trust.</p>
+    <p class="ey-count-en reveal">trust</p>
+    <p class="reveal" style="font-size:.9rem; line-height:1.7; color:rgba(245,238,224,.4); margin-top:2.5rem; max-width:400px;">Two cowries. You and another person. Every transaction is an act of faith between two parties — the oldest truth in money. The one Eyowo broke, and the one it is now rebuilding.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     P3 — ẹyọ márùn · five cowries · growth
+════════════════════════════════════════════════════════════ -->
+<div class="ey-count ey-section">
+  <div class="ey-count-img">
+    <img src="/assets/eyowo-cowrie-5.png" alt="Five cowrie shells">
+  </div>
+  <div class="ey-count-text">
+    <div class="ey-count-num reveal">04 — ẹyọ márùn</div>
+    <h2 class="ey-count-yoruba reveal">Ẹyọ ni ìdàgbàsókè.</h2>
+    <div class="ey-count-rule reveal"></div>
+    <p class="ey-count-answer reveal">Money is growth.</p>
+    <p class="ey-count-en reveal">growth</p>
+    <p class="reveal" style="font-size:.9rem; line-height:1.7; color:rgba(245,238,224,.4); margin-top:2.5rem; max-width:400px;">A handful. A meaningful amount. Savings growing at 18%. Dreams accumulating — the house, the car, the school fees. Five cowries is the moment money starts becoming something.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     P4 — ẹyọ mẹwaa · ten cowries · people
+════════════════════════════════════════════════════════════ -->
+<div class="ey-count ey-section peak">
+  <div class="ey-count-img">
+    <img src="/assets/eyowo-cowrie-10.png" alt="Ten cowrie shells">
+  </div>
+  <div class="ey-count-text">
+    <div class="ey-count-num reveal">05 — ẹyọ mẹwaa</div>
+    <h2 class="ey-count-yoruba reveal">Ẹyọ l'ẹyan.</h2>
+    <div class="ey-count-rule reveal"></div>
+    <p class="ey-count-answer reveal">Money is people.</p>
+    <p class="ey-count-en reveal">people</p>
+    <p class="reveal" style="font-size:.9rem; line-height:1.7; color:rgba(245,238,224,.4); margin-top:2.5rem; max-width:400px;">Ten cowries. A community counted out. Money has no meaning without the people it moves between — the sender and the receiver, the saver and the dreamer. This is what the cowrie always knew. This is what Eyowo is returning to.</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════
+     CULTURAL GROUNDING — the cowrie in Yoruba life
+════════════════════════════════════════════════════════════ -->
+<section class="ey-culture ey-section ey-adire">
+  <div class="ey-culture-head">
+    <div class="ey-culture-kicker reveal">06 — The source</div>
+    <h2 class="ey-culture-title reveal">The cowrie was never<br>just <em>currency.</em></h2>
+    <p class="ey-culture-body reveal">In Yoruba life, the cowrie (owó ẹyọ) is worn, counted, cast, and consecrated. It appears in divination, in attire, in the names of children. It is older than any bank. It is the symbol of wealth that belongs to people — not institutions. Kí l'ẹyọ? borrows from a tradition the whole country already knows in its bones.</p>
+    <p class="reveal" style="font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.12em; text-transform:uppercase; color:rgba(245,238,224,.3); margin-top:1.5rem;">Note: Yoruba copy reviewed for cultural accuracy. Native speaker sign-off recommended before final production.</p>
+  </div>
+  <div class="ey-culture-grid">
+    <div class="ey-culture-cell" id="eyCult1">
+      <img src="/assets/eyowo-festival-woman.jpg" alt="Yoruba woman draped in cowrie shells, Osogbo festival, Nigeria">
+    </div>
+    <div class="ey-culture-cell" id="eyCult2">
+      <img src="/assets/eyowo-dancer.jpg" alt="Nigerian dancer in cowrie shell traditional attire">
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     BRAND REVEAL — Ẹyọ l'ẹyan. Eyowo emerges.
+════════════════════════════════════════════════════════════ -->
+<section class="ey-reveal ey-section" id="eyReveal">
+  <div class="ey-reveal-bg"></div>
+  <p class="ey-reveal-pre reveal">07 — The answer</p>
+  <h2 class="ey-reveal-line reveal">Ẹyọ l'ẹyan.</h2>
+  <div class="ey-reveal-brand" id="eyBrand">
+    <img src="https://eyowo.com/eyowo-logo.svg" alt="Eyowo">
+    <span class="ey-reveal-brand-name">The Better Bank</span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CAMPAIGN SYSTEM
+════════════════════════════════════════════════════════════ -->
+<section class="ey-campaign ey-section">
+  <div class="ey-campaign-head">
+    <div class="ey-campaign-kicker reveal">08 — The system</div>
+    <h2 class="ey-campaign-title reveal">A question that goes up<br>around the country.</h2>
+    <p class="ey-campaign-body reveal">Three phases. The question asks. The count answers. The brand arrives — not with noise, but with a name that was inside the answer all along.</p>
+  </div>
+
+  <div class="ey-phases">
+    <div class="ey-phase reveal">
+      <div class="ey-phase-num">01</div>
+      <div class="ey-phase-title">The Question</div>
+      <p class="ey-phase-body">Posters and billboards go up across Lagos and beyond with one thing on them: a field of cowries and the question "Kí l'ẹyọ?" No brand name. No URL. No logo. The country talks.</p>
+      <p class="ey-phase-detail">OOH · Lagos Island · Mainland<br>Transit · Bus shelters · Wild posting<br>4–6 weeks teaser duration</p>
+    </div>
+    <div class="ey-phase reveal">
+      <div class="ey-phase-num">02</div>
+      <div class="ey-phase-title">The Count</div>
+      <p class="ey-phase-body">The counting series goes up — ẹyọ, ẹyọ meji, ẹyọ márùn, ẹyọ mẹwaa — each with its answer line. The posters tell a story in sequence. Social follows the same cadence, one post per week.</p>
+      <p class="ey-phase-detail">Sequential poster reveal<br>Social: one count per week<br>Bilingual · Yoruba-led</p>
+    </div>
+    <div class="ey-phase reveal">
+      <div class="ey-phase-num">03</div>
+      <div class="ey-phase-title">The Return</div>
+      <p class="ey-phase-body">"Ẹyọ l'ẹyan." — the final answer — goes up. Eyowo's name appears for the first time in the campaign. The connection between ẹyọ, owó, and Eyowo is made visible. The brand re-enters culture.</p>
+      <p class="ey-phase-detail">Brand reveal · All formats<br>Digital · Performance · In-app<br>Ìbéèrè tuntun.</p>
+    </div>
+  </div>
+
+  <!-- Poster thumbnail row -->
+  <div class="ey-poster-gallery">
+    <p class="ey-poster-label reveal">The poster series — five moments</p>
+    <div class="ey-poster-row reveal">
+      <div class="ey-poster-cell">
+        <img src="/assets/eyowo-cowrie-field.jpg" alt="Kí l'ẹyọ? poster">
+        <div class="ey-poster-caption">
+          <span class="ey-poster-caption-yoruba">Kí l'ẹyọ?</span>
+          <span class="ey-poster-caption-en">P0 · Question</span>
+        </div>
+      </div>
+      <div class="ey-poster-cell">
+        <img src="/assets/eyowo-cowrie-1.png" alt="ẹyọ poster">
+        <div class="ey-poster-caption">
+          <span class="ey-poster-caption-yoruba">ẹyọ</span>
+          <span class="ey-poster-caption-en">P1 · a beginning</span>
+        </div>
+      </div>
+      <div class="ey-poster-cell">
+        <img src="/assets/eyowo-cowrie-2.png" alt="ẹyọ meji poster">
+        <div class="ey-poster-caption">
+          <span class="ey-poster-caption-yoruba">ẹyọ meji</span>
+          <span class="ey-poster-caption-en">P2 · trust</span>
+        </div>
+      </div>
+      <div class="ey-poster-cell">
+        <img src="/assets/eyowo-cowrie-5.png" alt="ẹyọ márùn poster">
+        <div class="ey-poster-caption">
+          <span class="ey-poster-caption-yoruba">ẹyọ márùn</span>
+          <span class="ey-poster-caption-en">P3 · growth</span>
+        </div>
+      </div>
+      <div class="ey-poster-cell">
+        <img src="/assets/eyowo-cowrie-10.png" alt="ẹyọ mẹwaa poster">
+        <div class="ey-poster-caption">
+          <span class="ey-poster-caption-yoruba">ẹyọ mẹwaa</span>
+          <span class="ey-poster-caption-en">P4 · people</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     RESULTS / IMPACT
+════════════════════════════════════════════════════════════ -->
+<section class="ey-results ey-section">
+  <div class="ey-results-head">
+    <div class="ey-results-kicker reveal">09 — The impact</div>
+    <h2 class="ey-results-title reveal">What a brand re-entry<br>built on <em>trust</em> can do.</h2>
+  </div>
+  <div class="ey-results-grid">
+    <div class="ey-metric reveal">
+      <span class="ey-metric-num">3M+</span>
+      <span class="ey-metric-label">Existing users<br>re-engaged</span>
+    </div>
+    <div class="ey-metric reveal">
+      <span class="ey-metric-num">6</span>
+      <span class="ey-metric-label">Weeks teaser<br>before any brand mention</span>
+    </div>
+    <div class="ey-metric reveal">
+      <span class="ey-metric-num">5</span>
+      <span class="ey-metric-label">Poster moments<br>across three phases</span>
+    </div>
+    <div class="ey-metric reveal">
+      <span class="ey-metric-num">1</span>
+      <span class="ey-metric-label">Word in Yoruba that<br>contains the whole idea</span>
+    </div>
+  </div>
+  <p class="ey-results-caveat reveal">Metrics represent projected campaign reach for a national OOH + social rollout. This is a speculative brand strategy concept developed by Growthhive. Yoruba copy flagged for native speaker review prior to production.</p>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLOSER — Ìbéèrè tuntun.
+════════════════════════════════════════════════════════════ -->
+<section class="ey-closer ey-section">
+  <div class="ey-closer-glow"></div>
+  <p class="ey-closer-pre reveal">Ìbéèrè tuntun.</p>
+  <h2 class="ey-closer-title reveal">A new<br>question.</h2>
+  <div class="ey-closer-btns reveal">
+    <a href="https://calendly.com/ayomide-growthhive/45-minutes-meeting-growthhive" target="_blank" class="btn-fill">Start a project</a>
+    <a href="/assets/eyowo_ki_leyo_campaign.pptx" download class="btn-out">Download the deck</a>
+    <a href="/work.html" class="btn-out">See more work</a>
+  </div>
+  <p class="ey-eyowo-credit reveal">
+    Campaign concept &amp; brand strategy by <span>Growthhive</span><br>
+    Work. Play. Grow. 🐝 · @thegrowthhive<br>
+    Yoruba copy requires native speaker review before production use.
+  </p>
+</section>
+
+<footer class="ey-footer">
+  <div class="ey-footer-logo">Growthhive<em>.</em></div>
+  <div class="ey-footer-meta">Kí l'ẹyọ? — Eyowo Campaign Concept · 2025</div>
+  <div class="ey-footer-meta">© 2025 Growthhive. Confidential.</div>
+</footer>
+
+<script src="/scripts/eyowo.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>

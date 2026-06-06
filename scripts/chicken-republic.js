@@ -208,12 +208,14 @@ function buildTrailPath(points) {
 
 // About page scene states — hex colour shifts per section
 const SECTION_ACCENTS = [
-  new THREE.Color(0xD81E2C),    // hero — CR scarlet
-  new THREE.Color(0xD81E2C),    // problem — scarlet
-  new THREE.Color(0xD4F53C),    // insight — chartreuse signature
-  new THREE.Color(0xD81E2C),    // activation — scarlet
-  new THREE.Color(0xD4F53C),    // map — chartreuse
-  new THREE.Color(0xD81E2C),    // phases/reveal/closer — scarlet
+  new THREE.Color(0xD81E2C),    // 0 hero — CR scarlet
+  new THREE.Color(0xE8A317),    // 1 problem — gold
+  new THREE.Color(0x05B86F),    // 2 insight — fresh green counterpoint ("...as automatic as breathing")
+  new THREE.Color(0xD81E2C),    // 3 activation — scarlet
+  new THREE.Color(0xE8A317),    // 4 map / OOH — gold
+  new THREE.Color(0x9C4A2E),    // 5 phases — clay
+  new THREE.Color(0xD81E2C),    // 6 reveal — scarlet climax
+  new THREE.Color(0xE8A317),    // 7 closer — gold, tied to the hero "Your" accent
 ];
 
 const STATES = [
@@ -512,8 +514,8 @@ window.onLoaderComplete = function() {
   // ── Scene accent shifts per section ───────────────────────
   const sections = [
     ['.cr-hero',0],['.cr-problem',1],['.cr-insight',2],
-    ['.cr-activation',3],['.cr-map',4],['.cr-phases',5],
-    ['.cr-reveal-sec',5],['.cr-download',5],['.cr-closer',5],
+    ['.cr-activation',3],['.cr-map',4],['.cr-ooh',4],['.cr-phases',5],
+    ['.cr-reveal-sec',6],['.cr-download',5],['.cr-closer',7],
   ];
   sections.forEach(([sel, si]) => {
     const el = document.querySelector(sel);
@@ -603,10 +605,15 @@ window.onLoaderComplete = function() {
     const orderI = document.getElementById('crOrder');
     const cityS  = document.getElementById('crCity');
     const submit = document.getElementById('crSubmit');
+    const selfieI = document.getElementById('crSelfie');
+    const selfieUpload = document.querySelector('.cr-selfie-upload');
+    const selfieThumb = document.getElementById('crSelfieThumb');
     const card   = document.getElementById('crShareCard');
     if (!card) return;
 
     const ph    = document.getElementById('crSharePlaceholder');
+    const shareSelfie = document.getElementById('crShareSelfie');
+    let selfieUrl = '';
     const nameO = document.getElementById('crShareName');
     const orderO= document.getElementById('crShareOrder');
     const tagO  = document.getElementById('crShareTag');
@@ -618,17 +625,18 @@ window.onLoaderComplete = function() {
       const name = (nameI.value || '').trim();
       const order = (orderI.value || '').trim();
       const city = cityS.value;
-      const hasContent = name || order;
+      const hasContent = name || order || selfieUrl;
 
       if (!hasContent) {
         card.classList.add('empty');
         ph.style.display = 'block';
-        [brand, nameO, orderLbl, orderO, tagO, still].forEach(el => el.style.display = 'none');
+        [brand, shareSelfie, nameO, orderLbl, orderO, tagO, still].filter(Boolean).forEach(el => el.style.display = 'none');
         return;
       }
       card.classList.remove('empty');
       ph.style.display = 'none';
       brand.style.display = 'block';
+      if (shareSelfie) shareSelfie.style.display = selfieUrl ? 'block' : 'none';
       nameO.style.display = 'block';
       orderLbl.style.display = 'block';
       orderO.style.display = 'block';
@@ -639,12 +647,44 @@ window.onLoaderComplete = function() {
       orderO.textContent = order || '—';
       brand.textContent  = 'Chicken Republic · ' + city;
       tagO.textContent   = '#StillYours';
+      if (shareSelfie && selfieUrl) shareSelfie.style.backgroundImage = 'url("' + selfieUrl + '")';
 
       if (animate) {
         card.classList.remove('pop');
         void card.offsetWidth; // reflow
         card.classList.add('pop');
       }
+    }
+
+    // Selfie upload — live thumb + share-card face
+    if (selfieI && selfieUpload) {
+      selfieI.addEventListener('change', () => {
+        const file = selfieI.files && selfieI.files[0];
+        const copyStrong = selfieUpload.querySelector('.cr-selfie-copy strong');
+        const copySmall = selfieUpload.querySelector('.cr-selfie-copy small');
+        const tag = selfieUpload.querySelector('.cr-selfie-tag');
+        if (!file) {
+          selfieUrl = '';
+          selfieUpload.classList.remove('has-file');
+          if (selfieThumb) selfieThumb.removeAttribute('src');
+          if (copyStrong) copyStrong.textContent = 'Put your face on it.';
+          if (copySmall) copySmall.textContent = 'Upload a selfie for your share card.';
+          if (tag) tag.textContent = 'Optional';
+          render(false);
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          selfieUrl = event.target.result;
+          selfieUpload.classList.add('has-file');
+          if (selfieThumb) selfieThumb.src = selfieUrl;
+          if (copyStrong) copyStrong.textContent = 'Selfie added.';
+          if (copySmall) copySmall.textContent = 'Now your order has a face.';
+          if (tag) tag.textContent = 'Ready';
+          render(true);
+        };
+        reader.readAsDataURL(file);
+      });
     }
 
     // Live update as they type
@@ -680,9 +720,40 @@ window.onLoaderComplete = function() {
       dot.style.width = sz + 'px';
       dot.style.height = sz + 'px';
       dot.style.animationDelay = (Math.random()*3) + 's';
-      // a few in scarlet
+      // a few in scarlet for accent
       if (Math.random() > 0.7) { dot.style.background = '#D81E2C'; }
       viz.appendChild(dot);
     }
+  })();
+
+  // ════════════════════════════════════════════════════════
+  // OOH CAROUSEL — slide stage with prev/next controls
+  // ════════════════════════════════════════════════════════
+  (function oohCarousel() {
+    const slides = Array.from(document.querySelectorAll('[data-ooh-slide]'));
+    if (!slides.length) return;
+
+    const prev = document.querySelector('[data-ooh-prev]');
+    const next = document.querySelector('[data-ooh-next]');
+    const progress = document.getElementById('crOohProgress');
+    let index = 0;
+    let timer = null;
+
+    function show(i) {
+      index = (i + slides.length) % slides.length;
+      slides.forEach((slide, n) => slide.classList.toggle('is-active', n === index));
+      if (progress) progress.style.transform = 'translateX(' + (index * 100) + '%)';
+    }
+
+    function restart() {
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => show(index + 1), 5200);
+    }
+
+    if (prev) prev.addEventListener('click', () => { show(index - 1); restart(); });
+    if (next) next.addEventListener('click', () => { show(index + 1); restart(); });
+
+    show(0);
+    restart();
   })();
 };

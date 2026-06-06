@@ -1,0 +1,466 @@
+/* ================================================================
+   Growthhive — Eyowo Case Study
+   eyowo.css · "Kí l'ẹyọ?"
+   Palette: Adire Indigo & Cowrie Bone
+   Depends on: shared.css (loaded first)
+================================================================ */
+
+:root {
+  --ey-indigo:  #1A2744;  /* Adire indigo — primary ground */
+  --ey-night:   #0D1328;  /* deepest dark */
+  --ey-cobalt:  #2D4A8C;  /* mid-field depth */
+  --ey-bone:    #F5EEE0;  /* cowrie bone — type on dark */
+  --ey-cream:   #EDE4D0;  /* slightly deeper cream */
+  --ey-orange:  #E8841A;  /* Eyowo accent — used sparingly */
+  --ey-gold:    #C8A45A;  /* old gold — secondary detail */
+  --ey-dim:     rgba(245,238,224,.55);
+  --ey-faint:   rgba(245,238,224,.09);
+  --ey-faint2:  rgba(245,238,224,.04);
+}
+
+body.case-ey { background: var(--ey-night); }
+
+/* Canvas — bee colony; lifted so it breathes through the indigo */
+#c { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .55; }
+
+/* ── Adire-evoked geometric texture (section accent) ─────────── */
+.ey-adire::before {
+  content: ''; position: absolute; inset: 0; z-index: 0;
+  pointer-events: none; opacity: .04;
+  background-image:
+    repeating-linear-gradient(45deg,  var(--ey-bone) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(-45deg, var(--ey-gold)  0 1px, transparent 1px 18px),
+    repeating-linear-gradient(0deg,   var(--ey-orange) 0 1px, transparent 1px 36px);
+  background-size: 36px 36px;
+}
+.ey-adire > * { position: relative; z-index: 1; }
+
+/* ── Section scaffold ─────────────────────────────────────────── */
+.ey-section { position: relative; z-index: 1; }
+
+/* Scroll reveal base states */
+.reveal   { opacity: 0; transform: translateY(24px); }
+.reveal-u { opacity: 0; transform: translateY(40px); }
+.reveal-s { opacity: 0; transform: scale(.97); }
+
+/* ════════════════════════════════════════════════════════════════
+   HERO — full viewport. The question. Nothing else.
+════════════════════════════════════════════════════════════════ */
+.ey-hero {
+  position: relative; z-index: 1;
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 9rem 2rem 5rem;
+  overflow: hidden;
+}
+.ey-hero-bg {
+  position: absolute; inset: 0; z-index: -1;
+  background: radial-gradient(ellipse 60% 80% at 50% 50%,
+    rgba(26,39,68,.95) 0%, rgba(13,19,40,1) 70%);
+}
+.ey-hero-cowrie {
+  width: clamp(120px, 26vw, 280px); height: auto;
+  object-fit: contain; margin-bottom: 3.5rem;
+  opacity: 0; transform: scale(.96);
+  filter: drop-shadow(0 24px 60px rgba(13,19,40,.8));
+}
+.ey-hero-q {
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: clamp(3rem, 9vw, 8.5rem);
+  font-weight: 400; font-style: italic;
+  line-height: 1; letter-spacing: -.015em;
+  color: var(--ey-bone);
+  opacity: 0; transform: translateY(16px);
+}
+.ey-hero-sub {
+  margin-top: 2.5rem;
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--ey-gold); opacity: 0;
+}
+.ey-scroll-hint {
+  position: absolute; bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%); display: flex;
+  flex-direction: column; align-items: center; gap: .8rem;
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(245,238,224,.4); opacity: 0;
+}
+.ey-scroll-hint .tick { width: 1px; height: 36px;
+  background: linear-gradient(var(--ey-gold), transparent); }
+
+/* ════════════════════════════════════════════════════════════════
+   ETYMOLOGY — the buried meaning. ẹyọ → owó → Eyowo.
+════════════════════════════════════════════════════════════════ */
+.ey-etymology {
+  padding: 10rem 3rem;
+  border-top: 1px solid var(--ey-faint);
+  text-align: center;
+  background: radial-gradient(ellipse 60% 50% at 50% 50%,
+    rgba(26,39,68,.6) 0%, transparent 70%);
+}
+.ey-etym-kicker {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: var(--ey-gold); margin-bottom: 3rem;
+}
+.ey-etym-chain {
+  display: flex; align-items: center; justify-content: center;
+  gap: 2.5rem; flex-wrap: wrap; margin-bottom: 4.5rem;
+}
+.ey-etym-word {
+  display: flex; flex-direction: column; align-items: center; gap: .6rem;
+}
+.ey-etym-yoruba {
+  font-family: 'Cormorant', Georgia, serif; font-style: italic;
+  font-size: clamp(1.8rem, 4.5vw, 3.4rem); font-weight: 400;
+  color: var(--ey-bone); line-height: 1;
+}
+.ey-etym-yoruba.accent { color: var(--ey-orange); }
+.ey-etym-label {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ey-gold);
+}
+.ey-etym-arrow {
+  font-size: 1.4rem; color: rgba(245,238,224,.25); align-self: center;
+}
+.ey-etym-body {
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem); font-weight: 200;
+  line-height: 1.5; color: var(--ey-dim);
+  max-width: 720px; margin: 0 auto;
+  font-family: 'Cormorant', Georgia, serif;
+}
+.ey-etym-body em { color: var(--ey-bone); font-style: italic; }
+
+/* ════════════════════════════════════════════════════════════════
+   COUNTING POSTER SECTIONS — each is a full-bleed editorial page
+════════════════════════════════════════════════════════════════ */
+.ey-count {
+  position: relative; z-index: 1;
+  min-height: 100vh; display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  border-top: 1px solid var(--ey-faint);
+  overflow: hidden;
+}
+.ey-count:nth-child(even) { direction: rtl; }
+.ey-count:nth-child(even) > * { direction: ltr; }
+
+.ey-count-img {
+  position: relative; overflow: hidden; min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--ey-night);
+}
+.ey-count-img img {
+  width: 100%; height: 100%; object-fit: contain;
+  object-position: center; max-height: 80vh;
+  padding: 4rem; opacity: 0; transform: scale(.96);
+}
+
+.ey-count-text {
+  padding: 6rem 5rem;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+.ey-count-num {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: var(--ey-gold); margin-bottom: 2.5rem;
+}
+.ey-count-yoruba {
+  font-family: 'Cormorant', Georgia, serif; font-style: italic;
+  font-size: clamp(2.2rem, 5vw, 4.5rem); font-weight: 400;
+  color: var(--ey-bone); line-height: 1; margin-bottom: .8rem;
+}
+.ey-count-answer {
+  font-family: 'Cormorant', Georgia, serif; font-style: italic;
+  font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 400;
+  color: var(--ey-dim); line-height: 1.15; margin-bottom: 2.5rem;
+}
+.ey-count-en {
+  font-family: 'Space Mono', monospace; font-size: .7rem;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ey-orange);
+}
+.ey-count-rule {
+  width: 48px; height: 1px; background: var(--ey-gold);
+  margin: 2.5rem 0;
+}
+
+/* P4 — ẹyọ l'ẹyan — extra weight, it's the peak */
+.ey-count.peak .ey-count-yoruba { font-size: clamp(2.6rem, 6vw, 5.5rem); }
+.ey-count.peak .ey-count-answer { color: var(--ey-bone); }
+.ey-count.peak .ey-count-en { color: var(--ey-gold); }
+
+/* ════════════════════════════════════════════════════════════════
+   CULTURAL GROUNDING — editorial photography. The cowrie in life.
+════════════════════════════════════════════════════════════════ */
+.ey-culture {
+  padding: 10rem 3rem;
+  border-top: 1px solid var(--ey-faint);
+  background: var(--ey-indigo);
+}
+.ey-culture-head {
+  text-align: center; max-width: 780px; margin: 0 auto 6rem;
+}
+.ey-culture-kicker {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: var(--ey-gold); margin-bottom: 2rem;
+}
+.ey-culture-title {
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 4rem); font-weight: 400;
+  line-height: 1.05; color: var(--ey-bone);
+}
+.ey-culture-title em { font-style: italic; color: var(--ey-orange); }
+.ey-culture-body {
+  margin-top: 2rem; font-size: 1rem; line-height: 1.8;
+  color: var(--ey-dim); max-width: 560px; margin: 2rem auto 0;
+}
+.ey-culture-grid {
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 2px;
+  max-width: 1200px; margin: 0 auto;
+}
+.ey-culture-cell {
+  position: relative; overflow: hidden;
+}
+.ey-culture-cell img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block; opacity: 0; transform: scale(1.04);
+  transition: transform 1.2s var(--ease);
+}
+.ey-culture-cell.loaded img { opacity: 1; transform: scale(1); }
+.ey-culture-cell:first-child { aspect-ratio: 2/3; }
+.ey-culture-cell:last-child  { aspect-ratio: 4/3; align-self: start; }
+
+/* ════════════════════════════════════════════════════════════════
+   BRAND REVEAL — "Ẹyọ l'ẹyan." + Eyowo emerges
+════════════════════════════════════════════════════════════════ */
+.ey-reveal {
+  position: relative; z-index: 1;
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 10rem 3rem;
+  border-top: 1px solid var(--ey-faint);
+  overflow: hidden;
+}
+.ey-reveal-bg {
+  position: absolute; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 65% 70% at 50% 50%,
+      rgba(26,39,68,.8) 0%, transparent 65%),
+    radial-gradient(ellipse 30% 40% at 50% 50%,
+      rgba(232,132,26,.06) 0%, transparent 55%);
+}
+.ey-reveal-pre {
+  font-family: 'Space Mono', monospace; font-size: .62rem;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: var(--ey-gold); margin-bottom: 4rem;
+}
+.ey-reveal-line {
+  font-family: 'Cormorant', Georgia, serif; font-style: italic;
+  font-size: clamp(3rem, 10vw, 9rem); font-weight: 400;
+  line-height: 1; color: var(--ey-bone);
+  margin-bottom: 5rem;
+}
+/* Eyowo logo / name reveal */
+.ey-reveal-brand {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 1.5rem;
+  opacity: 0; transform: translateY(20px);
+}
+.ey-reveal-brand img {
+  height: 36px; width: auto;
+  filter: brightness(0) invert(1); /* white version */
+}
+.ey-reveal-brand-name {
+  font-family: 'Space Mono', monospace; font-size: .78rem;
+  letter-spacing: .22em; text-transform: uppercase;
+  color: var(--ey-orange);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   CAMPAIGN SYSTEM — how it goes up around the country
+════════════════════════════════════════════════════════════════ */
+.ey-campaign { border-top: 1px solid var(--ey-faint); padding: 10rem 3rem; }
+.ey-campaign-head { max-width: 900px; margin: 0 auto 7rem; text-align: center; }
+.ey-campaign-kicker {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: var(--ey-gold); margin-bottom: 2rem;
+}
+.ey-campaign-title {
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: clamp(2rem, 4.5vw, 3.8rem); font-weight: 400;
+  line-height: 1.05; color: var(--ey-bone); margin-bottom: 1.5rem;
+}
+.ey-campaign-body { font-size: 1rem; line-height: 1.8; color: var(--ey-dim); max-width: 600px; margin: 0 auto; }
+
+/* Phase cards */
+.ey-phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; max-width: 1100px; margin: 0 auto; }
+.ey-phase {
+  background: var(--ey-indigo); padding: 3rem 2.5rem;
+  border: 1px solid var(--ey-faint);
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+.ey-phase-num {
+  font-family: 'Cormorant', Georgia, serif; font-style: italic;
+  font-size: 3.5rem; font-weight: 400; color: rgba(245,238,224,.12);
+  line-height: 1;
+}
+.ey-phase-title {
+  font-family: 'Space Mono', monospace; font-size: .68rem;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ey-orange);
+}
+.ey-phase-body { font-size: .96rem; line-height: 1.75; color: var(--ey-dim); }
+.ey-phase-detail {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--ey-gold);
+  margin-top: auto; line-height: 2;
+}
+
+/* Poster gallery — P0-P4 thumbnails shown as a horizontal set */
+.ey-poster-gallery { max-width: 1100px; margin: 6rem auto 0; }
+.ey-poster-label {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--ey-gold);
+  margin-bottom: 2rem; text-align: center;
+}
+.ey-poster-row { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr; gap: 2px; }
+.ey-poster-cell { position: relative; overflow: hidden; }
+.ey-poster-cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ey-poster-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1rem .8rem;
+  background: linear-gradient(to top, rgba(13,19,40,.9), transparent);
+}
+.ey-poster-caption-yoruba {
+  font-family: 'Cormorant', Georgia, serif; font-style: italic;
+  font-size: .9rem; color: var(--ey-bone); display: block;
+}
+.ey-poster-caption-en {
+  font-family: 'Space Mono', monospace; font-size: .46rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--ey-gold);
+}
+
+/* ════════════════════════════════════════════════════════════════
+   RESULTS / IMPACT
+════════════════════════════════════════════════════════════════ */
+.ey-results {
+  border-top: 1px solid var(--ey-faint); padding: 10rem 3rem;
+  background: var(--ey-indigo);
+}
+.ey-results-head { max-width: 700px; margin: 0 auto 6rem; text-align: center; }
+.ey-results-kicker {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: var(--ey-gold); margin-bottom: 2rem;
+}
+.ey-results-title {
+  font-family: 'Cormorant', Georgia, serif;
+  font-size: clamp(2rem, 4.5vw, 3.6rem); font-weight: 400;
+  line-height: 1.1; color: var(--ey-bone);
+}
+.ey-results-title em { font-style: italic; color: var(--ey-orange); }
+.ey-results-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  max-width: 1100px; margin: 0 auto 6rem;
+  border: 1px solid var(--ey-faint);
+}
+.ey-metric {
+  padding: 3rem 2rem; border-right: 1px solid var(--ey-faint);
+  text-align: center;
+}
+.ey-metric:last-child { border-right: none; }
+.ey-metric-num {
+  font-family: 'Cormorant', Georgia, serif; font-style: italic;
+  font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 400;
+  color: var(--ey-bone); line-height: 1; margin-bottom: .6rem;
+  display: block;
+}
+.ey-metric-label {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ey-gold);
+}
+.ey-results-caveat {
+  text-align: center; font-family: 'Space Mono', monospace;
+  font-size: .54rem; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(245,238,224,.25); max-width: 600px; margin: 0 auto;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   CLOSER — Ìbéèrè tuntun.
+════════════════════════════════════════════════════════════════ */
+.ey-closer {
+  border-top: 1px solid var(--ey-faint);
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: 10rem 3rem;
+  position: relative; overflow: hidden;
+}
+.ey-closer-glow {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 80%; height: 500px;
+  background: radial-gradient(ellipse at bottom,
+    rgba(232,132,26,.06) 0%, transparent 65%);
+  pointer-events: none;
+}
+.ey-closer-pre {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .24em; text-transform: uppercase;
+  color: var(--ey-gold); margin-bottom: 3rem;
+}
+.ey-closer-title {
+  font-family: 'Cormorant', Georgia, serif; font-style: italic;
+  font-size: clamp(3.5rem, 11vw, 10rem); font-weight: 400;
+  line-height: .92; color: var(--ey-bone); margin-bottom: 5rem;
+}
+.ey-closer-btns {
+  display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 6rem;
+}
+.ey-eyowo-credit {
+  font-family: 'Space Mono', monospace; font-size: .56rem;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: rgba(245,238,224,.3); line-height: 2;
+}
+.ey-eyowo-credit span { color: var(--ey-orange); }
+
+/* ── Footer ────────────────────────────────────────────────── */
+.ey-footer {
+  position: relative; z-index: 1; padding: 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1.5rem;
+  border-top: 1px solid var(--ey-faint);
+}
+.ey-footer-logo {
+  font-family: 'Space Mono', monospace; font-size: .78rem;
+  font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--ey-bone);
+}
+.ey-footer-logo em { color: var(--ey-orange); font-style: normal; }
+.ey-footer-meta {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .1em; color: rgba(245,238,224,.3);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ey-count { grid-template-columns: 1fr; min-height: auto; }
+  .ey-count:nth-child(even) { direction: ltr; }
+  .ey-count-img { min-height: 60vh; order: -1; }
+  .ey-count-text { padding: 4rem 2rem; }
+  .ey-culture-grid { grid-template-columns: 1fr; }
+  .ey-culture-cell:last-child { aspect-ratio: 4/3; }
+  .ey-phases { grid-template-columns: 1fr; }
+  .ey-results-grid { grid-template-columns: repeat(2, 1fr); }
+  .ey-poster-row { grid-template-columns: repeat(3, 1fr); }
+  .ey-etym-chain { gap: 1.5rem; }
+}
+@media (max-width: 600px) {
+  .ey-results-grid { grid-template-columns: 1fr 1fr; }
+  .ey-poster-row { grid-template-columns: repeat(2, 1fr); }
+  .ey-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
