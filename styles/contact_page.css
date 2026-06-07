@@ -1,0 +1,252 @@
+/* ================================================================
+   Growthhive — Contact / Start a Project
+   contact_page.css
+   One page. One action. Make it count.
+   Depends on: shared.css
+================================================================ */
+
+/* ── Page base ────────────────────────────────────────────── */
+body.page-contact { background: var(--navy); }
+#c { position: fixed; inset:0; z-index:0; pointer-events:none; opacity:.5; }
+
+/* ════════════════════════════════════════════════════════════
+   HERO — the declaration. Short. Confident. Earned.
+════════════════════════════════════════════════════════════ */
+.ct-hero {
+  position: relative; z-index: 1;
+  padding: 14rem 3rem 6rem;
+  border-bottom: 1px solid var(--faint);
+}
+.ct-hero-inner { max-width: 1200px; margin: 0 auto; }
+.ct-kicker {
+  font-family: 'Space Mono', monospace; font-size: .62rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--ch);
+  margin-bottom: 2.5rem; opacity: 0; transform: translateY(8px);
+}
+.ct-headline {
+  font-size: clamp(3rem, 7.5vw, 7rem); font-weight: 200;
+  line-height: .95; letter-spacing: -.04em; color: var(--white);
+  margin-bottom: 2.5rem; opacity: 0; transform: translateY(20px);
+}
+.ct-headline em { color: var(--ch); font-style: italic; }
+.ct-sub {
+  font-size: clamp(1rem, 1.6vw, 1.22rem); font-weight: 300;
+  line-height: 1.6; color: var(--dim);
+  max-width: 620px; opacity: 0; transform: translateY(12px);
+}
+.ct-sub strong { color: var(--white); font-weight: 400; }
+
+/* ════════════════════════════════════════════════════════════
+   MAIN — split: qualifiers left, Calendly right
+════════════════════════════════════════════════════════════ */
+.ct-main {
+  position: relative; z-index: 1;
+  max-width: 1440px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.35fr;
+  min-height: 80vh;
+}
+
+/* ── Left column — qualifiers ─────────────────────────────── */
+.ct-left {
+  padding: 6rem 4rem 6rem 3rem;
+  border-right: 1px solid var(--faint);
+  display: flex; flex-direction: column; gap: 5rem;
+}
+
+/* What to expect */
+.ct-block-label {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--ch);
+  margin-bottom: 2.5rem;
+}
+.ct-expect-list { display: flex; flex-direction: column; gap: 0; }
+.ct-expect-item {
+  padding: 2rem 0; border-bottom: 1px solid var(--faint);
+  display: grid; grid-template-columns: 28px 1fr; gap: 1.5rem;
+  align-items: start; opacity: 0; transform: translateX(-16px);
+}
+.ct-expect-item:first-child { border-top: 1px solid var(--faint); }
+.ct-expect-num {
+  font-family: 'Space Mono', monospace; font-size: .64rem;
+  color: var(--ch); padding-top: .15rem;
+}
+.ct-expect-content {}
+.ct-expect-title {
+  font-size: 1.05rem; font-weight: 400; color: var(--white);
+  margin-bottom: .5rem; line-height: 1.2;
+}
+.ct-expect-body { font-size: .9rem; line-height: 1.7; color: var(--dim); }
+
+/* Types of work */
+.ct-work-grid {
+  display: flex; flex-wrap: wrap; gap: .6rem;
+}
+.ct-work-tag {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  padding: .55rem 1rem; border: 1px solid var(--faint);
+  color: var(--dim); border-radius: 2px;
+  opacity: 0; transform: translateY(8px);
+  transition: border-color .3s, color .3s;
+}
+.ct-work-tag:hover { border-color: var(--ch); color: var(--ch); }
+
+/* Markets */
+.ct-markets {
+  display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 1.5rem;
+}
+.ct-market {
+  display: flex; align-items: center; gap: .7rem;
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--dim);
+}
+.ct-market-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--ch);
+  flex-shrink: 0;
+}
+
+/* Email fallback */
+.ct-email-block {
+  padding-top: 2rem; border-top: 1px solid var(--faint);
+  opacity: 0;
+}
+.ct-email-label {
+  font-family: 'Space Mono', monospace; font-size: .56rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--dim);
+  margin-bottom: .8rem;
+}
+.ct-email-link {
+  font-size: 1.1rem; font-weight: 300; color: var(--white);
+  text-decoration: none; border-bottom: 1px solid var(--faint);
+  padding-bottom: .2rem;
+  transition: color .3s, border-color .3s;
+}
+.ct-email-link:hover { color: var(--ch); border-color: var(--ch); }
+
+/* ── Right column — the embed ────────────────────────────── */
+.ct-right {
+  position: sticky; top: 0; height: 100vh;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+.ct-embed-header {
+  padding: 2.5rem 3rem 2rem;
+  border-bottom: 1px solid var(--faint);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-shrink: 0;
+}
+.ct-embed-title {
+  font-family: 'Space Mono', monospace; font-size: .62rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--white);
+}
+.ct-embed-meta {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--dim);
+}
+.ct-embed-meta span { color: var(--ch); }
+
+/* The Calendly embed container */
+.ct-calendly-wrap {
+  flex: 1; overflow: hidden; background: #fff;
+  opacity: 0; transform: translateY(20px);
+}
+.calendly-inline-widget {
+  width: 100%; height: 100%; min-height: 630px;
+}
+
+/* Loading state while Calendly JS loads */
+.ct-embed-loading {
+  position: absolute; inset: 0; display: flex;
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 1.2rem; pointer-events: none;
+  transition: opacity .4s;
+}
+.ct-embed-loading-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--ch);
+  animation: calPulse 1.4s ease-in-out infinite;
+}
+.ct-embed-loading-dot:nth-child(2) { animation-delay: .2s; }
+.ct-embed-loading-dot:nth-child(3) { animation-delay: .4s; }
+.ct-embed-loading-text {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--dim);
+}
+@keyframes calPulse {
+  0%, 100% { opacity: .25; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+}
+
+/* ════════════════════════════════════════════════════════════
+   SOCIAL PROOF — the work speaks. brief and grounded.
+════════════════════════════════════════════════════════════ */
+.ct-proof {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--faint);
+  padding: 5rem 3rem;
+  display: grid; grid-template-columns: 1fr 3fr; gap: 4rem;
+  align-items: start; max-width: 1440px; margin: 0 auto;
+}
+.ct-proof-label {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--dim);
+  padding-top: .1rem;
+}
+.ct-proof-cases {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+}
+.ct-case-ref {
+  padding: 1.5rem; border: 1px solid var(--faint); text-decoration: none;
+  display: flex; flex-direction: column; gap: .5rem;
+  transition: border-color .3s, background .3s;
+  opacity: 0; transform: translateY(12px);
+}
+.ct-case-ref:hover { border-color: var(--ch); background: rgba(212,245,60,.03); }
+.ct-case-industry {
+  font-family: 'Space Mono', monospace; font-size: .52rem;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--ch);
+}
+.ct-case-name {
+  font-size: 1rem; font-weight: 300; color: var(--white); line-height: 1.2;
+}
+.ct-case-line {
+  font-size: .84rem; color: var(--dim); line-height: 1.5;
+}
+
+/* ════════════════════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════════════════════ */
+.ct-footer {
+  position: relative; z-index: 1;
+  padding: 2.5rem 3rem;
+  border-top: 1px solid var(--faint);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem;
+  max-width: 1440px; margin: 0 auto;
+}
+.ct-footer-logo {
+  font-family: 'Space Mono', monospace; font-size: .78rem;
+  font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--white);
+}
+.ct-footer-logo em { color: var(--ch); font-style: normal; }
+.ct-footer-meta {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .1em; color: var(--dim);
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .ct-main { grid-template-columns: 1fr; }
+  .ct-left { padding: 4rem 2rem; border-right: none; border-bottom: 1px solid var(--faint); }
+  .ct-right { position: relative; height: auto; }
+  .ct-calendly-wrap { min-height: 700px; }
+  .ct-proof { grid-template-columns: 1fr; gap: 2rem; }
+  .ct-proof-cases { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .ct-hero { padding: 10rem 1.5rem 4rem; }
+  .ct-left { padding: 3rem 1.5rem; }
+  .ct-embed-header { padding: 1.5rem; }
+  .ct-proof { padding: 4rem 1.5rem; }
+  .ct-footer { padding: 2rem 1.5rem; flex-direction: column; }
+}
