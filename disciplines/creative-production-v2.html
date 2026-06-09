@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Production — Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/creative-production-v2.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="discipline-cpx">
+
+<!-- ── Loader ───────────────────────────────────────────────── -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail"     class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<!-- Generative atmosphere -->
+<div class="cpx-atmos">
+  <div class="cpx-atmos-mesh"></div>
+  <div class="cpx-atmos-grain"></div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ── Nav ─────────────────────────────────────────────────── -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="/assets/logo_icon.ico" alt="Growthhive">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html">Work</a></li>
+    <li><a href="/services.html" class="active">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <a href="/contact.html" class="ncta">Start a project</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO — parallax work fragments behind type
+════════════════════════════════════════════════════════════ -->
+<header class="cpx-hero">
+  <div class="cpx-hero-stage" id="cpxStage">
+    <div class="cpx-float cpx-float-1" data-depth="0.16">
+      <img src="/assets/russian-bear-bottle.png" alt="">
+    </div>
+    <div class="cpx-float cpx-float-2" data-depth="0.28">
+      <img src="/assets/russian-bear-bottle-amber.png" alt="">
+    </div>
+    <div class="cpx-float cpx-float-3" data-depth="0.42">
+      <img src="/assets/eyowo-cowrie-1.png" alt="">
+    </div>
+    <div class="cpx-float cpx-float-4" data-depth="0.22">
+      <img src="/assets/russian-bear-mark.png" alt="">
+    </div>
+    <div class="cpx-float cpx-float-img-cover cpx-float-5" data-depth="0.12">
+      <img src="/assets/eyowo-festival-woman.jpg" alt="">
+    </div>
+  </div>
+
+  <div class="cpx-hero-inner">
+    <div class="cpx-hero-eyebrow" id="cpxEyebrow">Growthhive · Creative Production</div>
+    <h1 class="cpx-hero-title" id="cpxTitle">
+      <span class="cpx-line">We make the</span><br>
+      <span class="cpx-line">things you <em>can't</em></span><br>
+      <span class="cpx-line">look away from.</span>
+    </h1>
+    <p class="cpx-hero-sub" id="cpxSub">
+      Campaign systems, brand identities, art direction, copy, and
+      collateral — built from a strategic insight, made for the
+      medium they live in, produced to a standard that earns attention.
+    </p>
+  </div>
+
+  <div class="cpx-scroll-cue" id="cpxScrollCue">
+    <span>Scroll</span>
+    <span class="cpx-scroll-line"></span>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     MANIFESTO — word-by-word scroll highlight
+════════════════════════════════════════════════════════════ -->
+<section class="cpx-manifesto">
+  <div class="cpx-manifesto-inner">
+    <p class="cpx-manifesto-line" id="cpxManifesto">
+      The insight always arrives before the aesthetic. We don't look for
+      something that looks good — we look for something that is true,
+      specific, and impossible to ignore. Then we build the world around it.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PRINCIPLES
+════════════════════════════════════════════════════════════ -->
+<section class="cpx-principles">
+  <div class="cpx-wide">
+    <div class="cpx-num rv">01 — How we think</div>
+  </div>
+  <div class="cpx-principles-grid">
+    <div class="cpx-principle rv">
+      <div class="cpx-principle-mark">i.</div>
+      <div class="cpx-principle-name">Strategy before aesthetics</div>
+      <div class="cpx-principle-desc">The insight drives the aesthetic — never the other way around. We map the brand's creative territory before we open a design file. What we're hunting for isn't what looks good. It's what's true, distinctive, and ownable.</div>
+    </div>
+    <div class="cpx-principle rv">
+      <div class="cpx-principle-mark">ii.</div>
+      <div class="cpx-principle-name">Made for the medium</div>
+      <div class="cpx-principle-desc">A billboard is not a scaled-up Instagram card. A brand guide is not a PDF that gathers dust. Every format gets its own brief, its own craft, its own measure of success. We don't resize — we rethink.</div>
+    </div>
+    <div class="cpx-principle rv">
+      <div class="cpx-principle-mark">iii.</div>
+      <div class="cpx-principle-name">Restraint as craft</div>
+      <div class="cpx-principle-desc">The work that earns the most attention is rarely the loudest. We choose what to leave out as carefully as what to include. White space is a decision. Silence is a decision. What you don't say is often what the audience hears most clearly.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     SHOWCASE — Russian Bear cinematic, parallax bottle
+════════════════════════════════════════════════════════════ -->
+<section class="cpx-showcase">
+  <div class="cpx-showcase-bg"></div>
+  <div class="cpx-showcase-grain"></div>
+  <div class="cpx-showcase-inner">
+    <div class="cpx-showcase-bottle" id="cpxBottle">
+      <img src="/assets/russian-bear-bottle.png" alt="Russian Bear — The Coldest Pursuit">
+    </div>
+    <div class="cpx-showcase-text">
+      <div class="cpx-showcase-kicker rv">From the studio · Brand identity</div>
+      <h2 class="cpx-showcase-title rv">Russian Bear.<br><em>Built from nothing.</em></h2>
+      <div class="cpx-showcase-body rv">
+        <p>An ultra-premium vodka brand invented from scratch — no client brief, no existing equity, no constraints. <em>A $95,000 bottle of Scotch-distilled vodka</em> that had to justify its price through the authority of its brand alone.</p>
+        <p>We developed three concept directions, each a complete world. The chosen route — The Coldest Pursuit — became a full identity: mark, palette, typography, voice, packaging, and brand guide. Restraint as dominance.</p>
+      </div>
+      <a href="/cases/russian-bear.html" class="cpx-showcase-tag rv">View the full case study →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THREE ROUTES — interactive accordion panels
+════════════════════════════════════════════════════════════ -->
+<section class="cpx-routes">
+  <div class="cpx-routes-head">
+    <div class="cpx-num rv" style="justify-content:center;">02 — Every brief, three ways</div>
+    <h2 class="cpx-routes-title rv">Three routes.<br>No <em>obvious answer.</em></h2>
+    <p class="cpx-routes-body rv">Every creative brief we write gets answered three genuinely different ways — not one idea at three levels of boldness, but three distinct creative philosophies. Open each one.</p>
+  </div>
+  <div class="cpx-route-stack" id="cpxRouteStack">
+
+    <div class="cpx-route-panel open" data-route="a">
+      <div class="cpx-route-index">A</div>
+      <div class="cpx-route-main">
+        <div class="cpx-route-label">Route A</div>
+        <div class="cpx-route-name">The Familiar Made Exceptional</div>
+        <div class="cpx-route-expand">
+          <p class="cpx-route-def">"Take what the brand already owns and execute it with a level of craft that makes the familiar feel new. The audience recognises the world — they've just never seen it look exactly like this."</p>
+          <div class="cpx-route-detail-grid">
+            <div>
+              <div class="cpx-route-detail-label">Creative logic</div>
+              <div class="cpx-route-detail-val">Refinement and elevation of existing brand equity. The idea is already there — the route finds its highest expression.</div>
+            </div>
+            <div>
+              <div class="cpx-route-detail-label">Risk profile</div>
+              <div class="cpx-route-detail-val">Lower risk, higher certainty. The audience knows the territory; the craft is what surprises them.</div>
+            </div>
+          </div>
+          <div class="cpx-route-ref">In the portfolio → Chicken Republic "What's Your Order?" — emotional equity elevated through executional precision</div>
+        </div>
+      </div>
+      <div class="cpx-route-toggle">+</div>
+    </div>
+
+    <div class="cpx-route-panel" data-route="b">
+      <div class="cpx-route-index">B</div>
+      <div class="cpx-route-main">
+        <div class="cpx-route-label">Route B</div>
+        <div class="cpx-route-name">The Surprising But Inevitable</div>
+        <div class="cpx-route-expand">
+          <p class="cpx-route-def">"The idea that, once seen, cannot be unseen. You wonder why nobody did it before. The insight was always there — this route is the first to find it and say it out loud."</p>
+          <div class="cpx-route-detail-grid">
+            <div>
+              <div class="cpx-route-detail-label">Creative logic</div>
+              <div class="cpx-route-detail-val">A specific, true observation that reframes everything. The work is the logical consequence of seeing what nobody else saw.</div>
+            </div>
+            <div>
+              <div class="cpx-route-detail-label">Risk profile</div>
+              <div class="cpx-route-detail-val">Medium risk, high reward. Requires confidence in the insight. When it lands, it's distinctive and durable.</div>
+            </div>
+          </div>
+          <div class="cpx-route-ref">In the portfolio → Eyowo "Kí l'ẹyọ?" — the insight was embedded in the brand name all along</div>
+        </div>
+      </div>
+      <div class="cpx-route-toggle">+</div>
+    </div>
+
+    <div class="cpx-route-panel" data-route="c">
+      <div class="cpx-route-index">C</div>
+      <div class="cpx-route-main">
+        <div class="cpx-route-label">Route C</div>
+        <div class="cpx-route-name">The Uncomfortable But Right</div>
+        <div class="cpx-route-expand">
+          <p class="cpx-route-def">"The route that challenges the brand's own assumptions about itself. It might make the client uncomfortable on first presentation. The strategy is correct. The ceiling is the highest of the three."</p>
+          <div class="cpx-route-detail-grid">
+            <div>
+              <div class="cpx-route-detail-label">Creative logic</div>
+              <div class="cpx-route-detail-val">A reframing that requires letting go of a current assumption. Transformative if the insight is right.</div>
+            </div>
+            <div>
+              <div class="cpx-route-detail-label">Risk profile</div>
+              <div class="cpx-route-detail-val">Higher risk, transformative ceiling. Requires strategic courage. Brands that choose it rarely go back.</div>
+            </div>
+          </div>
+          <div class="cpx-route-ref">In the portfolio → Russian Bear "The Coldest Pursuit" — a $95,000 vodka built on restraint, not aspiration</div>
+        </div>
+      </div>
+      <div class="cpx-route-toggle">+</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     EYOWO — full-bleed cultural moment, parallax bg
+════════════════════════════════════════════════════════════ -->
+<section class="cpx-eyowo">
+  <div class="cpx-eyowo-bg" id="cpxEyowoBg">
+    <img src="/assets/eyowo-festival-woman.jpg" alt="Eyowo — cultural campaign">
+  </div>
+  <div class="cpx-eyowo-overlay"></div>
+  <div class="cpx-eyowo-content">
+    <div class="cpx-eyowo-kicker rv">From the studio · Campaign concepting</div>
+    <h2 class="cpx-eyowo-title rv">Kí l'ẹyọ?<br><em>What is money?</em></h2>
+    <div class="cpx-eyowo-body rv">
+      <p>A campaign concept for a Nigerian digital bank, built on the Yoruba etymology hidden inside its own name — <em>ẹyọ</em>, the cowrie, the original unit of West African currency. The insight was in the brand all along. The campaign was the first to say it out loud.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     DELIVERABLES — editorial rows
+════════════════════════════════════════════════════════════ -->
+<section class="cpx-deliver">
+  <div class="cpx-deliver-head">
+    <div class="cpx-num rv">03 — What we make</div>
+    <h2 class="cpx-deliver-title rv">Every format.<br><em>One standard.</em></h2>
+    <p class="cpx-deliver-intro rv">Creative production at Growthhive spans eight output categories. The connective tissue between them is always the same: a strategic insight that earns its place in everything that follows.</p>
+  </div>
+  <div class="cpx-deliver-list">
+    <div class="cpx-deliver-row rv">
+      <div class="cpx-deliver-idx">01</div>
+      <div class="cpx-deliver-name">Campaign Concepting & Execution</div>
+      <div class="cpx-deliver-desc">The full system — from the single insight that anchors the campaign to every touchpoint it produces. Idea, platform, hero execution, and format extensions across every active medium.</div>
+    </div>
+    <div class="cpx-deliver-row rv">
+      <div class="cpx-deliver-idx">02</div>
+      <div class="cpx-deliver-name">Brand Identity & Visual Systems</div>
+      <div class="cpx-deliver-desc">Logo architecture, colour, typography, iconography, photography direction, and the design grammar that holds everything together across every application.</div>
+    </div>
+    <div class="cpx-deliver-row rv">
+      <div class="cpx-deliver-idx">03</div>
+      <div class="cpx-deliver-name">Art Direction & Photography</div>
+      <div class="cpx-deliver-desc">Shot lists, sourcing briefs, talent and editing direction, post-production colour grading and retouching. The visual language of a brand is determined by what it photographs.</div>
+    </div>
+    <div class="cpx-deliver-row rv">
+      <div class="cpx-deliver-idx">04</div>
+      <div class="cpx-deliver-name">Print & OOH Production</div>
+      <div class="cpx-deliver-desc">Poster series, billboard systems, transit and ambient media — designed for physical space, production-ready, fully spec'd for the media buyer.</div>
+    </div>
+    <div class="cpx-deliver-row rv">
+      <div class="cpx-deliver-idx">05</div>
+      <div class="cpx-deliver-name">Digital & Social Creative</div>
+      <div class="cpx-deliver-desc">Platform-native creative for Meta, TikTok, YouTube, LinkedIn, Snapchat, and Reddit — built to each platform's format, audience behaviour, and creative language.</div>
+    </div>
+    <div class="cpx-deliver-row rv">
+      <div class="cpx-deliver-idx">06</div>
+      <div class="cpx-deliver-name">Copywriting & Brand Voice</div>
+      <div class="cpx-deliver-desc">Headlines, body copy, voice guides, taglines, and naming — across English, Yoruba, Igbo, and Pidgin for Nigerian markets. Copy that earns the space it occupies.</div>
+    </div>
+    <div class="cpx-deliver-row rv">
+      <div class="cpx-deliver-idx">07</div>
+      <div class="cpx-deliver-name">Event Identity & Collateral</div>
+      <div class="cpx-deliver-desc">Complete creative systems for physical events — naming, identity, invitation design and production, signage, and credentials. The Long View for JP Morgan is the reference.</div>
+    </div>
+    <div class="cpx-deliver-row rv">
+      <div class="cpx-deliver-idx">08</div>
+      <div class="cpx-deliver-name">Brand Guides & Documentation</div>
+      <div class="cpx-deliver-desc">The documents that keep the work from degrading the moment it leaves our hands. Brand guides, usage rules, creative standards, and the decks that present work to the world.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     GALLERY — horizontal scroll track
+════════════════════════════════════════════════════════════ -->
+<section class="cpx-gallery-sec">
+  <div class="cpx-gallery-head">
+    <div class="cpx-num rv">04 — From the studio</div>
+    <h2 class="cpx-gallery-title rv">The range of what<br>gets <em>made here.</em></h2>
+    <div class="cpx-gallery-hint rv">Scroll to explore</div>
+  </div>
+  <div class="cpx-track-wrap">
+    <div class="cpx-track" id="cpxTrack">
+
+      <div class="cpx-tile cpx-tile-lg contain">
+        <img src="/assets/russian-bear-logo-lockup.png" alt="Russian Bear brand mark">
+        <div class="cpx-tile-meta">
+          <div>
+            <div class="cpx-tile-project">Russian Bear</div>
+            <div class="cpx-tile-piece">Brand Mark & Identity System</div>
+          </div>
+          <span class="cpx-tile-type">Identity</span>
+        </div>
+      </div>
+
+      <div class="cpx-tile cpx-tile-sm">
+        <img src="/assets/eyowo-festival-woman.jpg" alt="Eyowo cultural photography">
+        <div class="cpx-tile-meta">
+          <div>
+            <div class="cpx-tile-project">Eyowo — Kí l'ẹyọ?</div>
+            <div class="cpx-tile-piece">Cultural Photography Direction</div>
+          </div>
+          <span class="cpx-tile-type">Art Direction</span>
+        </div>
+      </div>
+
+      <div class="cpx-tile cpx-tile-sm contain">
+        <img src="/assets/russian-bear-bottle.png" alt="Russian Bear — The Coldest Pursuit">
+        <div class="cpx-tile-meta">
+          <div>
+            <div class="cpx-tile-project">Russian Bear</div>
+            <div class="cpx-tile-piece">The Coldest Pursuit</div>
+          </div>
+          <span class="cpx-tile-type">Packaging</span>
+        </div>
+      </div>
+
+      <div class="cpx-tile cpx-tile-lg">
+        <img src="/assets/eyowo-cowrie-field.jpg" alt="Eyowo cowrie field">
+        <div class="cpx-tile-meta">
+          <div>
+            <div class="cpx-tile-project">Eyowo — Kí l'ẹyọ?</div>
+            <div class="cpx-tile-piece">Campaign Art Direction</div>
+          </div>
+          <span class="cpx-tile-type">Campaign</span>
+        </div>
+      </div>
+
+      <div class="cpx-tile cpx-tile-sm contain">
+        <img src="/assets/russian-bear-bottle-amber.png" alt="Russian Bear — Amber Reserve">
+        <div class="cpx-tile-meta">
+          <div>
+            <div class="cpx-tile-project">Russian Bear</div>
+            <div class="cpx-tile-piece">Route A — Amber Reserve</div>
+          </div>
+          <span class="cpx-tile-type">Creative Route</span>
+        </div>
+      </div>
+
+      <div class="cpx-tile cpx-tile-sm">
+        <img src="/assets/eyowo-dancer.jpg" alt="Eyowo dancer">
+        <div class="cpx-tile-meta">
+          <div>
+            <div class="cpx-tile-project">Eyowo — Kí l'ẹyọ?</div>
+            <div class="cpx-tile-piece">Movement & Culture</div>
+          </div>
+          <span class="cpx-tile-type">Art Direction</span>
+        </div>
+      </div>
+
+      <div class="cpx-tile cpx-tile-sm contain">
+        <img src="/assets/russian-bear-bottle-sapphire.png" alt="Russian Bear — Sapphire Cask">
+        <div class="cpx-tile-meta">
+          <div>
+            <div class="cpx-tile-project">Russian Bear</div>
+            <div class="cpx-tile-piece">Route C — Sapphire Cask</div>
+          </div>
+          <span class="cpx-tile-type">Creative Route</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PROCESS — vertical timeline w/ progress rail
+════════════════════════════════════════════════════════════ -->
+<section class="cpx-process">
+  <div class="cpx-process-head">
+    <div class="cpx-num rv">05 — How it works</div>
+    <h2 class="cpx-process-title rv">Five stages.<br>One <em>finished thing.</em></h2>
+    <p class="cpx-process-body rv">The brief is never delivered without research. The three routes are never presented without specificity. The work that arrives is ready to use — not a work in progress handed over to figure out.</p>
+  </div>
+  <div class="cpx-timeline" id="cpxTimeline">
+    <div class="cpx-timeline-fill" id="cpxTlFill"></div>
+
+    <div class="cpx-tl-step">
+      <div class="cpx-tl-num">Stage 01</div>
+      <div class="cpx-tl-name">The Brief</div>
+      <div class="cpx-tl-desc">A 30-minute discovery call — no presentation required. We listen, then we write the brief. It defines the problem, the audience, the competitive context, the creative opportunity, and the success criteria. The most important document in the process.</div>
+    </div>
+    <div class="cpx-tl-step">
+      <div class="cpx-tl-num">Stage 02</div>
+      <div class="cpx-tl-name">Research & Territory Mapping</div>
+      <div class="cpx-tl-desc">Before we concept anything, we map the creative territory. What does the brand's visual world look like now? What do competitors occupy? What does the audience already see — and not see? Invisible to the client, present in everything that follows.</div>
+    </div>
+    <div class="cpx-tl-step highlight">
+      <div class="cpx-tl-num">Stage 03</div>
+      <div class="cpx-tl-name">The Three Routes</div>
+      <div class="cpx-tl-desc">Three distinct creative territories, developed to a level where you can genuinely picture the finished work. Not mood boards. Not one-sentence directions. Real executional specificity — visual language, tone, headlines, format applications.</div>
+    </div>
+    <div class="cpx-tl-step">
+      <div class="cpx-tl-num">Stage 04</div>
+      <div class="cpx-tl-name">Development & Production</div>
+      <div class="cpx-tl-desc">The chosen route built to full production standard. Every format briefed separately. Every medium given its own treatment. Photography art-directed, copy written, documents built, motion briefed where the format requires it.</div>
+    </div>
+    <div class="cpx-tl-step">
+      <div class="cpx-tl-num">Stage 05</div>
+      <div class="cpx-tl-name">Delivery & Usage</div>
+      <div class="cpx-tl-desc">All production files in the correct formats. Brand guides for anything reproduced by outside teams. A delivery session that walks through the work and the decisions. Creative is only as durable as the system built to protect it.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     ENGAGEMENT
+════════════════════════════════════════════════════════════ -->
+<section class="cpx-engage">
+  <div class="cpx-wide">
+    <div class="cpx-num rv">06 — The engagement</div>
+  </div>
+  <div class="cpx-engage-grid">
+    <div class="cpx-engage-block rv">
+      <div class="cpx-engage-label">Campaign system</div>
+      <div class="cpx-engage-val">4–8 weeks</div>
+      <div class="cpx-engage-note">From brief sign-off to a complete campaign system — hero concept, all format extensions, copy, and production files.</div>
+    </div>
+    <div class="cpx-engage-block featured rv">
+      <div class="cpx-engage-label">Brand identity</div>
+      <div class="cpx-engage-val">6–10 weeks</div>
+      <div class="cpx-engage-note">A complete visual identity system — logo, colour, type, photography direction, and brand guide. The full system, not a one-screen logo delivery.</div>
+    </div>
+    <div class="cpx-engage-block rv">
+      <div class="cpx-engage-label">Single asset</div>
+      <div class="cpx-engage-val">1–2 weeks</div>
+      <div class="cpx-engage-note">Specific executions rather than full systems — a poster series, an event invitation, a social campaign, a pitch deck.</div>
+    </div>
+    <div class="cpx-engage-block rv">
+      <div class="cpx-engage-label">Creative retainer</div>
+      <div class="cpx-engage-val">Monthly</div>
+      <div class="cpx-engage-note">A fixed volume of production across agreed formats. The most cost-efficient way to work with Growthhive if creative output is ongoing.</div>
+    </div>
+  </div>
+  <div class="cpx-engage-markets rv">
+    <span class="cpx-engage-markets-label">Markets we produce for</span>
+    <div class="cpx-market-list">
+      <span class="cpx-market-item">Nigeria</span>
+      <span class="cpx-market-item">United Kingdom</span>
+      <span class="cpx-market-item">United States</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLOSER
+════════════════════════════════════════════════════════════ -->
+<section class="cpx-closer">
+  <div class="cpx-closer-glow"></div>
+  <div class="cpx-closer-inner">
+    <p class="cpx-closer-pre rv">Creative Production · Growthhive</p>
+    <h2 class="cpx-closer-title rv">Ready to make<br>something <em>real?</em></h2>
+    <p class="cpx-closer-sub rv">Book a 30-minute discovery call. No brief required — bring the problem and we'll find the idea together.</p>
+    <div class="cpx-closer-btns rv">
+      <a href="/contact.html" class="btn-fill">Book a discovery call</a>
+      <a href="/work.html" class="btn-out">See all work</a>
+    </div>
+  </div>
+</section>
+
+<footer class="cpx-footer">
+  <div class="cpx-footer-logo">Growthhive<em>.</em></div>
+  <div class="cpx-footer-meta">Creative Production</div>
+  <div class="cpx-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+</footer>
+
+<script src="/scripts/creative-production-v2.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>
