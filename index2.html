@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Growthhive — Work. Play. Grow.</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Styles: shared first, then page-specific -->
+  <link rel="stylesheet" href="/styles/shared2.css">
+  <link rel="stylesheet" href="/styles/index2.css">
+
+  <!-- Vendor scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+<div class="ldr" id="ldr">
+  <div class="comb-wrap" id="combWrap">
+    <!-- SVG hex grid injected by index2.js -->
+    <div class="comb-pct" id="combPct">0%</div>
+    <div class="comb-tag" id="combTag">Work. Play. Grow. 🐝</div>
+  </div>
+</div>
+
+<div id="cur"></div>
+<div id="curR"></div>
+<canvas id="c"></canvas>
+
+<nav>
+  <!-- Logo: replace YOUR_ICON.png with your actual icon filename -->
+  <a href="index.html" class="nlogo">
+    <img class="nlogo-icon" src="YOUR_ICON.png" alt="Growthhive icon">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <a href="#" class="ncta">Start a project</a>
+</nav>
+
+<section class="hero" id="s0">
+  <div class="h-eye"><span>Brand Strategy & Growth Marketing — Lagos · London · New York</span></div>
+  <h1 class="h-title">
+    <span class="line"><span class="word">We make</span></span>
+    <span class="line"><span class="word">brands</span>&nbsp;<span class="word acc">grow.</span></span>
+  </h1>
+  <div class="h-foot">
+    <div class="h-desc"><span>A brand strategy and marketing agency built for businesses ready to scale across Nigeria, the UK, and the US.</span></div>
+    <div class="h-scr"><div class="scr-line"></div><span>Scroll</span></div>
+  </div>
+</section>
+
+<div class="mq">
+  <div class="mq-track">
+    <div class="mq-item"><span class="mq-b">🐝</span>Paid Acquisition</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Brand Strategy</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Creative Production</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Go-to-Market</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Product Marketing</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>PR & Comms</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Analytics</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Work. Play. Grow.</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Paid Acquisition</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Brand Strategy</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Creative Production</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Go-to-Market</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Product Marketing</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>PR & Comms</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Analytics</div>
+    <div class="mq-item"><span class="mq-b">🐝</span>Work. Play. Grow.</div>
+  </div>
+</div>
+
+<section class="intro" id="s1">
+  <div>
+    <div class="i-label"><span>About the hive</span></div>
+    <p class="i-txt">
+      <span class="line"><span class="inner">We approach every brief</span></span>
+      <span class="line"><span class="inner">with sharp strategy and</span></span>
+      <span class="line"><span class="inner">restless creative energy.</span></span>
+    </p>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="s-num">3×</div><div class="s-lbl">Markets — Nigeria · UK · US</div></div>
+    <div class="stat"><div class="s-num">50+</div><div class="s-lbl">Brands scaled</div></div>
+    <div class="stat"><div class="s-num">₦→$</div><div class="s-lbl">Cross-market growth expertise</div></div>
+  </div>
+</section>
+
+<section class="work" id="s2">
+  <div class="sec-head"><div class="sec-lbl">Selected Work</div><a href="#" class="sec-lnk">View all →</a></div>
+  <div class="wgrid">
+    <div class="wcard"><div class="card-bg"></div><div class="card-pat"></div><div class="card-ov"></div><div class="c-arr">↗</div><div class="card-info"><div class="c-tag">F&B · Brand Strategy · Paid Media</div><div class="c-name">Smoke & Salt</div></div></div>
+    <div class="wcard"><div class="card-bg"></div><div class="card-pat"></div><div class="card-ov"></div><div class="c-arr">↗</div><div class="card-info"><div class="c-tag">Hospitality · Go-to-Market</div><div class="c-name">Julirose Hotel & Suites</div></div></div>
+    <div class="wcard"><div class="card-bg"></div><div class="card-pat"></div><div class="card-ov"></div><div class="c-arr">↗</div><div class="card-info"><div class="c-tag">Fintech · Product Marketing</div><div class="c-name">Moniepoint</div></div></div>
+  </div>
+</section>
+
+<section class="svc" id="s3">
+  <div class="sec-head"><div class="sec-lbl">What we do</div><a href="#" class="sec-lnk">All services →</a></div>
+  <div class="svc-grid">
+    <div class="svc-item"><div class="sv-n">01</div><div class="sv-name">Brand Strategy</div><div class="sv-desc">Positioning, identity systems, and messaging architecture built for markets that move fast.</div></div>
+    <div class="svc-item"><div class="sv-n">02</div><div class="sv-name">Paid Acquisition</div><div class="sv-desc">Meta, TikTok, Google — performance campaigns that convert across Lagos, London, and New York.</div></div>
+    <div class="svc-item"><div class="sv-n">03</div><div class="sv-name">Creative Production</div><div class="sv-desc">Art direction, copywriting, and visual assets that stop the scroll and earn the click.</div></div>
+    <div class="svc-item"><div class="sv-n">04</div><div class="sv-name">Go-to-Market</div><div class="sv-desc">End-to-end launch strategy for new products entering competitive African and diaspora markets.</div></div>
+    <div class="svc-item"><div class="sv-n">05</div><div class="sv-name">PR & Comms</div><div class="sv-desc">Earned media, influencer strategy, and narrative building that shapes how your brand is seen.</div></div>
+    <div class="svc-item"><div class="sv-n">06</div><div class="sv-name">Analytics</div><div class="sv-desc">Attribution modelling, performance reporting, and data infrastructure that drives decisions.</div></div>
+  </div>
+</section>
+
+<section class="foot" id="s4">
+  <div class="foot-glow"></div>
+  <h2 class="f-hl">
+    <span class="line"><span class="inner">Ready to</span></span>
+    <span class="line"><span class="inner acc">grow?</span></span>
+  </h2>
+  <div class="f-btns">
+    <a href="#" class="btn-fill">Start a project</a>
+    <a href="#" class="btn-out">See our work</a>
+  </div>
+  <div class="f-bot">
+    <div class="f-logo">Growthhive<em>.</em></div>
+    <ul class="f-nav">
+      <li><a href="#">Work</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+      <li><a href="#">@thegrowthhive</a></li>
+    </ul>
+    <div class="f-copy">©2026 Growthhive. Lagos · London · New York</div>
+  </div>
+</section>
+
+<!-- Main script — deferred so DOM is ready -->
+
+<!-- growthhive.js first: sets window.onLoaderComplete -->
+<!-- shared.js second: cursor + loader, calls onLoaderComplete when done -->
+<!-- Both deferred — browser runs them in document order -->
+<script src="/scripts/index2.js" defer></script>
+<script src="/scripts/shared2.js" defer></script>
+
+</body>
+</html>

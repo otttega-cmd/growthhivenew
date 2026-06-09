@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paid & Owned Media — Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/paid-owned-media.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="discipline-pom">
+
+<!-- ── Loader ───────────────────────────────────────────────── -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail"     class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ── Nav ─────────────────────────────────────────────────── -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="/assets/logo_icon.ico" alt="Growthhive">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html">Work</a></li>
+    <li><a href="/services.html" class="active">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <a href="/contact.html" class="ncta">Start a project</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO — split: headline left · live dashboard right
+════════════════════════════════════════════════════════════ -->
+<header class="pom-hero pom-section">
+  <div class="pom-hero-inner">
+
+    <!-- Left: headline -->
+    <div class="pom-hero-left">
+      <div class="pom-hero-eyebrow" id="pomEyebrow">Growthhive · Disciplines</div>
+      <h1 class="pom-hero-title" id="pomTitle">
+        Every naira,<br>pound, and<br>dollar — <em>accountable.</em>
+      </h1>
+      <p class="pom-hero-sub" id="pomSub">
+        Paid and owned media across eight platforms and three markets.
+        We don't spend until the data says to. We don't stop
+        testing until the returns say we should.
+      </p>
+      <div class="pom-hero-meta" id="pomMeta">
+        <div class="pom-hero-stat">
+          <span class="pom-hero-stat-val">8+</span>
+          <span class="pom-hero-stat-key">active channels</span>
+        </div>
+        <div class="pom-hero-stat">
+          <span class="pom-hero-stat-val">NG · UK · US</span>
+          <span class="pom-hero-stat-key">markets, simultaneously</span>
+        </div>
+        <div class="pom-hero-stat">
+          <span class="pom-hero-stat-val">Data-first</span>
+          <span class="pom-hero-stat-key">every brief, every creative</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: animated performance dashboard -->
+    <div class="pom-hero-right" id="pomDashWrap">
+      <div class="pom-dashboard">
+        <!-- SVG gradient for sparkline fill -->
+        <svg width="0" height="0" style="position:absolute">
+          <defs>
+            <linearGradient id="sparkGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#D4F53C" stop-opacity=".6"/>
+              <stop offset="100%" stop-color="#D4F53C" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div class="pom-dash-header">
+          <span class="pom-dash-title">Campaign Overview</span>
+          <span class="pom-live-badge">
+            <span class="pom-live-dot"></span> Live
+          </span>
+        </div>
+
+        <div class="pom-metrics-row">
+          <div class="pom-metric-card">
+            <span class="pom-metric-label">CTR</span>
+            <span class="pom-metric-val" id="mCTR">0.0%</span>
+            <span class="pom-metric-delta pom-up" id="mCTRd">↑ vs last week</span>
+          </div>
+          <div class="pom-metric-card">
+            <span class="pom-metric-label">ROAS</span>
+            <span class="pom-metric-val" id="mROAS">0.0×</span>
+            <span class="pom-metric-delta pom-up" id="mROASd">↑ +0.6× WoW</span>
+          </div>
+          <div class="pom-metric-card">
+            <span class="pom-metric-label">CPM</span>
+            <span class="pom-metric-val" id="mCPM">₦0</span>
+            <span class="pom-metric-delta pom-down" id="mCPMd">↓ efficiency up</span>
+          </div>
+          <div class="pom-metric-card">
+            <span class="pom-metric-label">CPC</span>
+            <span class="pom-metric-val" id="mCPC">£0.00</span>
+            <span class="pom-metric-delta pom-up" id="mCPCd">↑ conv. rate</span>
+          </div>
+        </div>
+
+        <div class="pom-sparkline-wrap">
+          <svg class="pom-sparkline" id="pomSparkSvg" viewBox="0 0 300 60" preserveAspectRatio="none">
+            <path class="pom-spark-fill" id="pomSparkFill"
+              d="M0,55 C30,50 55,38 80,40 S115,25 140,22 S170,10 195,9 S225,6 250,4 S275,6 300,2 L300,60 L0,60 Z"/>
+            <path class="pom-spark-line" id="pomSparkLine"
+              d="M0,55 C30,50 55,38 80,40 S115,25 140,22 S170,10 195,9 S225,6 250,4 S275,6 300,2"/>
+          </svg>
+          <div class="pom-spark-labels">
+            <span>Week 1</span><span>Week 4</span><span>Week 8</span>
+          </div>
+        </div>
+
+        <div class="pom-platforms-row">
+          <span class="pom-plat meta">Meta</span>
+          <span class="pom-plat tiktok">TikTok</span>
+          <span class="pom-plat google">Google</span>
+          <span class="pom-plat youtube">YT</span>
+          <span class="pom-plat linkedin">in</span>
+          <span class="pom-plat snap">Snap</span>
+          <span class="pom-plat reddit">Reddit</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     BELIEF
+════════════════════════════════════════════════════════════ -->
+<section class="pom-belief pom-section">
+  <div class="pom-wide">
+    <div class="pom-belief-inner">
+      <div class="reveal">
+        <div class="pom-num">01 — The belief</div>
+        <div class="pom-belief-label">What we think about paid media.</div>
+      </div>
+      <div>
+        <h2 class="pom-belief-statement reveal">
+          Data-first creative,<br>or <em>nothing.</em>
+        </h2>
+        <div class="pom-belief-body reveal">
+          <p>Most agencies decide on the creative before they understand the audience. They commission the ad, put it in front of people, and wait to see what happens. We start with the signal — what the data says about who your customer is, what they respond to, when they're most likely to convert, and what makes them stop scrolling. The creative brief comes after the data brief, always.</p>
+          <p>The second thing most paid media agencies get wrong is treating a launch as a finish line. Every campaign that goes live is a data collection event. <em>You launch to learn, then you optimise, then you scale.</em> The brands that compound their returns are the ones whose agencies treat testing as a permanent state, not an opening phase.</p>
+          <p>And the third: treating ₦ budgets and £ budgets as the same problem. A ₦100,000 Meta campaign in Lagos has completely different CPM dynamics, audience behaviours, and creative requirements to the same budget in pounds in London. We don't apply the same playbook to different markets and expect the same results.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CHANNEL GRID
+════════════════════════════════════════════════════════════ -->
+<section class="pom-channels pom-section">
+  <div class="pom-wide">
+    <div class="pom-channels-head">
+      <div class="pom-num reveal">02 — Where we work</div>
+      <h2 class="pom-channels-title reveal">Eight channels.<br><em>One strategy.</em></h2>
+      <p class="pom-channels-sub reveal">Every platform requires a different creative language, a different bidding approach, and a different measurement framework. We run all of them — and we plan them as a single, coordinated system, not as eight separate campaigns fighting for the same customer.</p>
+    </div>
+    <div class="pom-channel-grid">
+
+      <div class="pom-channel-card pom-ch-meta reveal">
+        <span class="pom-channel-mark">Meta</span>
+        <div class="pom-channel-name">Facebook & Instagram Ads</div>
+        <div class="pom-channel-type">Paid Social · Awareness → Conversion</div>
+        <div class="pom-channel-desc">The largest paid social ecosystem in Nigeria, the UK, and the US. We run the full funnel — from broad awareness to precision retargeting — across Facebook and Instagram simultaneously, with creative specifically built for each placement's context and format.</div>
+      </div>
+
+      <div class="pom-channel-card pom-ch-tiktok reveal">
+        <span class="pom-channel-mark">TikTok</span>
+        <div class="pom-channel-name">TikTok Ads</div>
+        <div class="pom-channel-type">Paid Social · Video-first · Cultural</div>
+        <div class="pom-channel-desc">The fastest-growing paid channel in our markets. TikTok demands creative that feels native — ads that look and feel like content, not advertising. We brief to the platform's creative logic: immediate hook, authentic energy, clear call to action within three seconds.</div>
+      </div>
+
+      <div class="pom-channel-card pom-ch-google reveal">
+        <span class="pom-channel-mark">Google</span>
+        <div class="pom-channel-name">Google Ads — Search & Display</div>
+        <div class="pom-channel-type">Paid Search · Intent capture</div>
+        <div class="pom-channel-desc">Search captures intent at its most explicit. We build and manage search campaigns that own the queries your customers are already using — and display campaigns that keep the brand visible in the moments between active searches. Keyword strategy, bid management, and Quality Score optimisation at the account level.</div>
+      </div>
+
+      <div class="pom-channel-card pom-ch-youtube reveal">
+        <span class="pom-channel-mark">YouTube</span>
+        <div class="pom-channel-name">YouTube Ads</div>
+        <div class="pom-channel-type">Video Advertising · Brand & Performance</div>
+        <div class="pom-channel-desc">Long-form attention in a short-form world. YouTube Ads reach audiences during deliberate viewing — a different quality of attention to social scroll. We produce and manage pre-roll, mid-roll, and connected TV campaigns that build brand equity with audiences who are actively choosing what to watch.</div>
+      </div>
+
+      <div class="pom-channel-card pom-ch-linkedin reveal">
+        <span class="pom-channel-mark">LinkedIn</span>
+        <div class="pom-channel-name">LinkedIn Ads</div>
+        <div class="pom-channel-type">B2B Paid Social · Professional audiences</div>
+        <div class="pom-channel-desc">The only paid channel where you can target by job title, industry, seniority, and company size simultaneously. Critical for B2B brands, institutional pitches, and any brand that needs to reach decision-makers in corporate environments across our three markets.</div>
+      </div>
+
+      <div class="pom-channel-card pom-ch-snap reveal">
+        <span class="pom-channel-mark">Snap</span>
+        <div class="pom-channel-name">Snapchat Ads</div>
+        <div class="pom-channel-type">Paid Social · Youth audiences</div>
+        <div class="pom-channel-desc">The underrated channel for reaching 18–34 audiences, particularly in the UK and US markets. Lower competition than Meta or TikTok, often with significantly better CPMs for the right categories. Augmented reality ad formats create engagement depth that static and video ads can't match.</div>
+      </div>
+
+      <div class="pom-channel-card pom-ch-reddit reveal">
+        <span class="pom-channel-mark">Reddit</span>
+        <div class="pom-channel-name">Reddit Ads</div>
+        <div class="pom-channel-type">Community advertising · High-intent niches</div>
+        <div class="pom-channel-desc">Reddit's community structure means you can place ads inside conversations that are already happening about your category. Technically complex — Reddit audiences reject traditional ad formats aggressively — but correctly executed, it reaches the highest-intent, most research-driven audiences in the market.</div>
+      </div>
+
+      <div class="pom-channel-card pom-ch-ooh reveal">
+        <span class="pom-channel-mark">OOH</span>
+        <div class="pom-channel-name">Out-of-Home & Billboards</div>
+        <div class="pom-channel-type">Outdoor · Physical · Mass reach</div>
+        <div class="pom-channel-desc">Billboards, transit advertising, bus shelters, ambient media, digital screens. OOH is the only channel that exists in physical space — it reaches people when their phones are put away. We plan and buy OOH as part of the same integrated media strategy as digital, not as a separate campaign.</div>
+      </div>
+
+      <div class="pom-channel-card pom-ch-email reveal">
+        <span class="pom-channel-mark">Owned</span>
+        <div class="pom-channel-name">Email, CRM & Owned Channels</div>
+        <div class="pom-channel-type">Owned Media · Retention · Zero ad cost</div>
+        <div class="pom-channel-desc">The channels you own — email, push notifications, WhatsApp (critical for Nigerian markets), SMS, and in-app messaging. Owned channels have zero incremental media cost and compound value over time. We build the programmes that turn paid media audiences into owned media assets.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PROCESS
+════════════════════════════════════════════════════════════ -->
+<section class="pom-process pom-section">
+  <div class="pom-wide">
+    <div class="pom-process-head">
+      <div class="pom-num reveal">03 — How it works</div>
+      <h2 class="pom-process-title reveal">Five stages.<br>Then the flywheel <em>runs.</em></h2>
+      <p class="pom-process-body reveal">The first four stages get the strategy right. Stage five is where the work actually happens — and it never really stops. Every campaign that goes live becomes a source of learning for the next iteration.</p>
+    </div>
+    <div class="pom-steps">
+
+      <div class="pom-step reveal">
+        <div class="pom-step-num">01</div>
+        <div class="pom-step-name">Discovery Call</div>
+        <div class="pom-step-desc">30 minutes, free, no preparation required. We want to hear the business goals in your terms: the product, the audience, the markets, and what you've tried before. What worked, what didn't, and what the budget has looked like.</div>
+      </div>
+
+      <div class="pom-step reveal">
+        <div class="pom-step-num">02</div>
+        <div class="pom-step-name">Spend & Channel Audit</div>
+        <div class="pom-step-desc">If there's existing paid media activity, we audit it before proposing anything. We look at account structure, historical performance data, audience segmentation, creative quality, and attribution setup. This tells us where the money is being wasted and where the opportunity is. If there's no existing activity, we build a competitive intelligence picture instead.</div>
+      </div>
+
+      <div class="pom-step reveal">
+        <div class="pom-step-num">03</div>
+        <div class="pom-step-name">Strategy & Budget Allocation</div>
+        <div class="pom-step-desc">Based on the audit, we develop the channel strategy — which platforms, what budget weighting, what funnel structure, what measurement framework. This is where we decide how your budget splits between awareness, consideration, and conversion, and which markets get which resource allocation. Scope agreed before any work starts.</div>
+      </div>
+
+      <div class="pom-step highlight reveal">
+        <div class="pom-step-num">04</div>
+        <div class="pom-step-name">Three Campaign Approaches</div>
+        <div class="pom-step-desc">We develop three distinct campaign strategy approaches — different philosophies for how the budget gets deployed, how the funnel is structured, and what creative direction each requires. Each approach has different risk/return characteristics. You choose the one that fits where the business is right now.</div>
+      </div>
+
+      <div class="pom-step iterative reveal">
+        <div class="pom-step-num">05</div>
+        <div class="pom-step-name">Launch, Test & Optimise</div>
+        <div class="pom-step-desc">Campaigns go live in a structured test environment — multiple ad variations, audience segments, and channel splits run simultaneously. Weekly performance reviews identify what's working and what isn't. Creative is refreshed on a rolling basis. Budget allocation shifts toward what the data confirms is working. Monthly reports track spend efficiency, ROAS, and pipeline contribution. This stage repeats indefinitely.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THREE CAMPAIGN APPROACHES
+════════════════════════════════════════════════════════════ -->
+<section class="pom-approaches pom-section">
+  <div class="pom-wide">
+    <div class="pom-approaches-head">
+      <div class="pom-num reveal">04 — The three approaches</div>
+      <h2 class="pom-approaches-title reveal">Three strategies.<br>One <em>chosen.</em></h2>
+      <p class="pom-approaches-body reveal">Every paid media engagement produces three distinct campaign approaches — not three versions of the same idea, but three genuinely different philosophies for how the budget gets deployed. Each has different risk, different return characteristics, and different implications for how the brand grows. You choose based on where the business is, not where we think it should be.</p>
+    </div>
+    <div class="pom-approach-cards">
+
+      <div class="pom-approach reveal-l">
+        <div class="pom-approach-tag">Approach A</div>
+        <div class="pom-approach-name">The Awareness Architecture</div>
+        <div class="pom-approach-thesis">"Build the audience before you ask them to buy. Awareness-dominant strategy: invest in reach and brand recognition now to earn lower acquisition costs later."</div>
+        <div class="pom-approach-channels">
+          <span class="pom-approach-ch-tag">YouTube</span>
+          <span class="pom-approach-ch-tag">Meta (top-of-funnel)</span>
+          <span class="pom-approach-ch-tag">TikTok</span>
+          <span class="pom-approach-ch-tag">OOH</span>
+        </div>
+        <div class="pom-approach-best">Best for: New brands · New markets · Category creation · Long-term brand building</div>
+      </div>
+
+      <div class="pom-approach reveal">
+        <div class="pom-approach-tag">Approach B</div>
+        <div class="pom-approach-name">The Performance Engine</div>
+        <div class="pom-approach-thesis">"Convert now. Conversion-dominant strategy: tight attribution, direct response creative, and budget concentrated at the bottom of the funnel where intent is highest."</div>
+        <div class="pom-approach-channels">
+          <span class="pom-approach-ch-tag">Google Search</span>
+          <span class="pom-approach-ch-tag">Meta (retargeting)</span>
+          <span class="pom-approach-ch-tag">LinkedIn (B2B)</span>
+          <span class="pom-approach-ch-tag">Email sequences</span>
+        </div>
+        <div class="pom-approach-best">Best for: Proven offers · Scale-ready brands · Short sales cycles · ROAS optimisation</div>
+      </div>
+
+      <div class="pom-approach reveal-r">
+        <div class="pom-approach-tag">Approach C</div>
+        <div class="pom-approach-name">The Flywheel</div>
+        <div class="pom-approach-thesis">"Build the audience with content, capture them at intent, close with retargeting — and keep looping. The highest compound return of the three, and the most complex to run."</div>
+        <div class="pom-approach-channels">
+          <span class="pom-approach-ch-tag">All channels</span>
+          <span class="pom-approach-ch-tag">Owned media integration</span>
+          <span class="pom-approach-ch-tag">Full-funnel attribution</span>
+        </div>
+        <div class="pom-approach-best">Best for: Growth-stage brands · High LTV products · Brands with existing content · 6–12 month outlook</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     DATA-FIRST CREATIVE — the iterative loop
+════════════════════════════════════════════════════════════ -->
+<section class="pom-data-first pom-section">
+  <div class="pom-wide">
+    <div class="pom-data-inner">
+      <div>
+        <div class="pom-num reveal">05 — The method</div>
+        <h2 class="pom-data-title reveal">
+          Creative brief<br>from data.<br><em>Every time.</em>
+        </h2>
+        <div class="pom-data-body reveal">
+          <p>The difference between a wasted ad spend and a working one isn't creative quality. It's whether the creative was briefed from data in the first place. We don't look for a great idea and then put it in front of an audience. We find out what the audience responds to and then build the creative around that signal.</p>
+          <p>Every campaign produces data. <em>We use all of it.</em> Engagement rates, scroll stop ratios, sentiment on comments, search query reports, audience overlap analysis — these tell us not just what's performing, but why. The brief for the next creative cycle is written from the last campaign's data, not from instinct.</p>
+          <p>The result is a system that gets more efficient over time, not less. Most campaigns degrade — audiences fatigue, costs rise, returns fall. A properly built iterative system compounds: each cycle builds on the last, the audience understanding deepens, and the creative gets sharper.</p>
+        </div>
+      </div>
+      <!-- Iterative loop diagram -->
+      <div class="reveal-r">
+        <div class="pom-loop">
+          <div class="pom-loop-arrow">↺ repeating cycle</div>
+          <div class="pom-loop-node">
+            <div class="pom-loop-icon">01</div>
+            <div class="pom-loop-content">
+              <div class="pom-loop-label">Signal</div>
+              <div class="pom-loop-sub">Audience data, search trends, competitor analysis, previous campaign learnings. The brief starts here.</div>
+            </div>
+          </div>
+          <div class="pom-loop-node">
+            <div class="pom-loop-icon">02</div>
+            <div class="pom-loop-content">
+              <div class="pom-loop-label">Brief</div>
+              <div class="pom-loop-sub">Data-informed creative brief. Audience segment, message, format, platform-specific requirements, success metric.</div>
+            </div>
+          </div>
+          <div class="pom-loop-node">
+            <div class="pom-loop-icon">03</div>
+            <div class="pom-loop-content">
+              <div class="pom-loop-label">Build</div>
+              <div class="pom-loop-sub">Creative production — ad copy, visuals, video — built to the platform's native format and the brief's parameters.</div>
+            </div>
+          </div>
+          <div class="pom-loop-node">
+            <div class="pom-loop-icon">04</div>
+            <div class="pom-loop-content">
+              <div class="pom-loop-label">Launch</div>
+              <div class="pom-loop-sub">Multi-variant launch. Multiple creative versions, audience segments, and bid strategies tested simultaneously.</div>
+            </div>
+          </div>
+          <div class="pom-loop-node">
+            <div class="pom-loop-icon">05</div>
+            <div class="pom-loop-content">
+              <div class="pom-loop-label">Learn → back to 01</div>
+              <div class="pom-loop-sub">Performance data analysed. Winning variants scaled. Underperformers cut. Insights feed directly into the next brief.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     OOH — billboard photo section
+════════════════════════════════════════════════════════════ -->
+<section class="pom-ooh pom-section">
+  <div class="pom-ooh-bg"></div>
+  <div class="pom-ooh-overlay"></div>
+  <div class="pom-ooh-content">
+    <div>
+      <div class="pom-num reveal" style="color:#D4F53C;">06 — Out of home</div>
+      <h2 class="pom-ooh-title reveal">
+        The screen isn't<br>the only <em>channel.</em>
+      </h2>
+      <div class="pom-ooh-body reveal">
+        <p>OOH and digital aren't competing channels. They're complementary moments in the same customer journey. A billboard a customer walks past on their commute, retargeted on their phone that evening — that's a sequence, not a coincidence. <em>We plan both.</em></p>
+        <p>We plan, buy, and produce outdoor media across Lagos, London, and New York — from large-format highway billboards to transit advertising, ambient installations, and digital OOH screens. Every OOH placement is planned against the digital campaign it's amplifying.</p>
+      </div>
+    </div>
+    <div>
+      <div class="pom-ooh-types reveal">
+        <div class="pom-ooh-type">
+          <span class="pom-ooh-type-dot"></span>
+          <span class="pom-ooh-type-name">Large-format billboards</span>
+          <span class="pom-ooh-type-note">Highway, arterial road, landmark sites</span>
+        </div>
+        <div class="pom-ooh-type">
+          <span class="pom-ooh-type-dot"></span>
+          <span class="pom-ooh-type-name">Transit & transport media</span>
+          <span class="pom-ooh-type-note">Bus shelters, stations, vehicles</span>
+        </div>
+        <div class="pom-ooh-type">
+          <span class="pom-ooh-type-dot"></span>
+          <span class="pom-ooh-type-name">Digital OOH screens</span>
+          <span class="pom-ooh-type-note">Programmatic DOOH, dayparting, dynamic creative</span>
+        </div>
+        <div class="pom-ooh-type">
+          <span class="pom-ooh-type-dot"></span>
+          <span class="pom-ooh-type-name">Ambient & experiential</span>
+          <span class="pom-ooh-type-note">Street-level, pop-up, environmental media</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     ENGAGEMENT
+════════════════════════════════════════════════════════════ -->
+<section class="pom-engage pom-section">
+  <div class="pom-wide">
+    <div class="pom-num reveal">07 — The engagement</div>
+    <div class="pom-engage-grid">
+      <div class="pom-engage-block reveal">
+        <div class="pom-engage-label">Engagement model</div>
+        <div class="pom-engage-val">Retainer or sprint</div>
+        <div class="pom-engage-note">Ongoing paid media management runs as a monthly retainer — campaigns live, tested, and optimised continuously. For specific launches or market entries, we run fixed-term sprints with defined spend, timeline, and output. Both models include weekly reporting and a monthly strategic review.</div>
+      </div>
+      <div class="pom-engage-block reveal">
+        <div class="pom-engage-label">Reporting cadence</div>
+        <div class="pom-engage-val">Weekly + monthly</div>
+        <div class="pom-engage-note">Weekly performance snapshots track live campaign metrics. Monthly strategy reports analyse trends, attribute spend to pipeline, and brief the next cycle's creative. You always know where the budget is and what it's doing.</div>
+      </div>
+      <div class="pom-engage-block reveal">
+        <div class="pom-engage-label">Starting point</div>
+        <div class="pom-engage-val">30 minutes</div>
+        <div class="pom-engage-note">A free discovery call — no media plan required. Tell us the business goal and the budget range. We'll come back with the spend audit and the strategy recommendation before any commitment is made.</div>
+      </div>
+    </div>
+    <div class="pom-engage-markets reveal">
+      <span class="pom-engage-markets-label">Active markets</span>
+      <div class="pom-market-list">
+        <span class="pom-market-item">Nigeria</span>
+        <span class="pom-market-item">United Kingdom</span>
+        <span class="pom-market-item">United States</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLOSER
+════════════════════════════════════════════════════════════ -->
+<section class="pom-closer pom-section">
+  <p class="pom-closer-pre reveal">Paid & Owned Media · Growthhive</p>
+  <h2 class="pom-closer-title reveal">
+    Ready to make<br>every dollar <em>work?</em>
+  </h2>
+  <p class="pom-closer-sub reveal">Book a 30-minute call. No media plan required — just tell us what the business needs to do, and how much you have to do it with.</p>
+  <div class="pom-closer-btns reveal">
+    <a href="/contact.html" class="btn-fill">Book a discovery call</a>
+    <a href="/services.html" class="btn-out">All services</a>
+  </div>
+</section>
+
+<footer class="pom-footer">
+  <div class="pom-footer-logo">Growthhive<em>.</em></div>
+  <div class="pom-footer-meta">Paid & Owned Media</div>
+  <div class="pom-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+</footer>
+
+<script src="/scripts/paid-owned-media.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>

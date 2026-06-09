@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brand Strategy & Identity — Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/brand-strategy.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="discipline-bs">
+
+<!-- ── Loader ──────────────────────────────────────────────── -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail"     class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="/assets/logo_icon.ico" alt="Growthhive">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html">Work</a></li>
+    <li><a href="/services.html" class="active">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <a href="/contact.html" class="ncta">Start a project</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<header class="bs-hero bs-section">
+  <div class="bs-hero-inner">
+    <div class="bs-hero-eyebrow" id="bsEyebrow">
+      Growthhive · Disciplines
+    </div>
+    <h1 class="bs-hero-title" id="bsTitle">
+      Brands that earn<br>belief <em>before</em><br>the pitch.
+    </h1>
+    <p class="bs-hero-sub" id="bsSub">
+      Brand Strategy & Identity. We build the architecture that makes
+      every touchpoint coherent, every competitor irrelevant, and every
+      customer feel like they were always supposed to find you.
+    </p>
+    <div class="bs-hero-meta" id="bsMeta">
+      <div class="bs-hero-stat">
+        <span class="bs-hero-stat-val">3–6</span>
+        <span class="bs-hero-stat-key">weeks, brief to delivery</span>
+      </div>
+      <div class="bs-hero-divider"></div>
+      <div class="bs-hero-stat">
+        <span class="bs-hero-stat-val">3</span>
+        <span class="bs-hero-stat-key">concept directions, always</span>
+      </div>
+      <div class="bs-hero-divider"></div>
+      <div class="bs-hero-stat">
+        <span class="bs-hero-stat-val">NG · UK · US</span>
+        <span class="bs-hero-stat-key">markets we operate in</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE BELIEF
+════════════════════════════════════════════════════════════ -->
+<section class="bs-belief bs-section">
+  <div class="bs-wide">
+    <div class="bs-belief-inner">
+      <div class="reveal">
+        <div class="bs-num">01 — The belief</div>
+        <div class="bs-belief-label">What we think about brand.</div>
+      </div>
+      <div>
+        <h2 class="bs-belief-statement reveal">
+          A brand without strategy<br>is just <em>decoration.</em>
+        </h2>
+        <div class="bs-belief-body reveal">
+          <p>Most agencies start with aesthetics. We start with the question that aesthetics can't answer: <em>why should anyone believe in this brand?</em> Before we design a single logo or write a single line of copy, we do the analytical work that most agencies skip — mapping your competitive territory, understanding your customer's actual frame of reference, and identifying the specific territory your brand can own.</p>
+          <p>The visual identity, the messaging, the tone — these are the expression of a strategic decision, not the decision itself. Get the strategy wrong and everything you build on top of it will be beautiful and ineffective. Get it right and the brand compounds: every piece of content, every campaign, every customer touchpoint reinforces the same idea until it becomes undeniable.</p>
+          <p>That is what we build. Not a logo. <em>A position.</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     DELIVERABLES
+════════════════════════════════════════════════════════════ -->
+<section class="bs-delivers bs-section">
+  <div class="bs-wide">
+    <div class="bs-delivers-head">
+      <div>
+        <div class="bs-num reveal">02 — What's included</div>
+        <h2 class="bs-delivers-title reveal">
+          The full<br><em>system.</em>
+        </h2>
+      </div>
+      <p class="bs-delivers-intro reveal">
+        Every Brand Strategy & Identity engagement produces the four things a brand needs to operate coherently — from the boardroom to the billboard. Not a mood board. A working system.
+      </p>
+    </div>
+    <div class="bs-deliver-grid">
+      <div class="bs-deliver-item reveal">
+        <div class="bs-deliver-num">01</div>
+        <div class="bs-deliver-name">Brand Positioning & Competitive Mapping</div>
+        <div class="bs-deliver-desc">We map your market, identify the white space your competitors have left open, and define the specific territory your brand will own. The output: a positioning statement precise enough to make decisions from, and a competitive map that shows exactly where you stand — and where you'll go.</div>
+      </div>
+      <div class="bs-deliver-item reveal">
+        <div class="bs-deliver-num">02</div>
+        <div class="bs-deliver-name">Visual Identity System & Brand Guidelines</div>
+        <div class="bs-deliver-desc">Logo system, colour palette, typography, iconography, photography direction, and the usage rules that keep everything coherent at scale. Not a PDF that gathers dust — a working toolkit that your team, your agencies, and your partners can all use without calling us.</div>
+      </div>
+      <div class="bs-deliver-item reveal">
+        <div class="bs-deliver-num">03</div>
+        <div class="bs-deliver-name">Messaging Architecture & Brand Voice</div>
+        <div class="bs-deliver-desc">The words your brand uses and the way it uses them. We define your brand's core narrative, its key messages by audience, its tone of voice, and the language that is distinctly, recognisably yours. Because being visually distinctive is only half the job.</div>
+      </div>
+      <div class="bs-deliver-item reveal">
+        <div class="bs-deliver-num">04</div>
+        <div class="bs-deliver-name">Brand Audits & Repositioning</div>
+        <div class="bs-deliver-desc">For brands that already exist but have drifted, grown inconsistent, or are entering new markets where their current position doesn't hold. We audit the full brand ecosystem, identify the gaps, and build a repositioning strategy that respects what the brand has earned while giving it the clarity to go further.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE PROCESS
+════════════════════════════════════════════════════════════ -->
+<section class="bs-process bs-section">
+  <div class="bs-wide">
+    <div class="bs-process-head">
+      <div class="bs-num reveal">03 — How it works</div>
+      <h2 class="bs-process-title reveal">
+        Five steps.<br>No <em>surprises.</em>
+      </h2>
+      <p class="bs-process-body reveal">Every Brand Strategy & Identity engagement follows the same structure. You always know where you are and what comes next.</p>
+    </div>
+    <div class="bs-steps">
+
+      <div class="bs-step reveal">
+        <div class="bs-step-num">01</div>
+        <div class="bs-step-name">Contact &amp; Discovery Call</div>
+        <div class="bs-step-desc">You reach out. We set up a 30-minute discovery call — no preparation required. We want to hear about the business in your words: where it is, where it needs to go, and what's in the way. This call is free and carries no obligation.</div>
+      </div>
+
+      <div class="bs-step reveal">
+        <div class="bs-step-num">02</div>
+        <div class="bs-step-name">The Brief</div>
+        <div class="bs-step-desc">We do our own research and develop a brief that maps your competitive landscape, defines the strategic challenge, and outlines what a brand strategy engagement for your business would involve. This is Growthhive's homework, not yours.</div>
+      </div>
+
+      <div class="bs-step reveal">
+        <div class="bs-step-num">03</div>
+        <div class="bs-step-name">Scope Review</div>
+        <div class="bs-step-desc">We share the brief with you. We walk through the strategic diagnosis together — what we found, what we think the brand needs, and the scope of the work required. If the brief is right and the scope makes sense, we move forward. If it isn't right, we revise. No pressure, no clock running.</div>
+      </div>
+
+      <div class="bs-step highlight reveal">
+        <div class="bs-step-num">04</div>
+        <div class="bs-step-name">Three Concept Directions</div>
+        <div class="bs-step-desc">Before any final work is built, we present three distinct concept directions — each a complete strategic and creative territory. Different positioning, different visual direction, different brand personality. You review them, discuss them with your team, and choose one. Or tell us what's right about each of them and we'll incorporate it. The point is: you choose, we don't.</div>
+      </div>
+
+      <div class="bs-step reveal">
+        <div class="bs-step-num">05</div>
+        <div class="bs-step-name">Build</div>
+        <div class="bs-step-desc">With a chosen direction, we build the full brand system. Positioning document. Visual identity. Messaging architecture. Brand guidelines. Everything delivered in 3–6 weeks from brief sign-off, depending on scope. You receive a system ready to use from day one — not a work in progress.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THREE DIRECTIONS — the concept explained
+════════════════════════════════════════════════════════════ -->
+<section class="bs-directions bs-section">
+  <div class="bs-wide">
+    <div class="bs-directions-head">
+      <div class="bs-num reveal">04 — The three directions</div>
+      <h2 class="bs-directions-title reveal">
+        Three territories.<br>One <em>choice.</em>
+      </h2>
+      <p class="bs-directions-body reveal">We never present one option and tell you it's right. Every brand strategy engagement produces three distinct concept directions — each with its own strategic logic, its own visual world, and its own set of implications for how the brand will operate. The three directions are not variations on a theme. They are genuinely different answers to the same strategic question.</p>
+    </div>
+    <div class="bs-dir-cards">
+
+      <div class="bs-dir-card reveal-l">
+        <div class="bs-dir-tag">Direction A</div>
+        <div class="bs-dir-name">The strategic territory</div>
+        <div class="bs-dir-platform">"The brand's positioning platform — the single, ownable idea the brand is built around."</div>
+        <div class="bs-dir-elements">
+          <div class="bs-dir-el">Positioning statement</div>
+          <div class="bs-dir-el">Visual direction</div>
+          <div class="bs-dir-el">Brand personality</div>
+          <div class="bs-dir-el">Tone of voice</div>
+          <div class="bs-dir-el">Key message framework</div>
+        </div>
+      </div>
+
+      <div class="bs-dir-card reveal">
+        <div class="bs-dir-tag">Direction B</div>
+        <div class="bs-dir-name">A different answer</div>
+        <div class="bs-dir-platform">"An alternative strategic territory — same brief, different logic, different world."</div>
+        <div class="bs-dir-elements">
+          <div class="bs-dir-el">Positioning statement</div>
+          <div class="bs-dir-el">Visual direction</div>
+          <div class="bs-dir-el">Brand personality</div>
+          <div class="bs-dir-el">Tone of voice</div>
+          <div class="bs-dir-el">Key message framework</div>
+        </div>
+      </div>
+
+      <div class="bs-dir-card reveal-r">
+        <div class="bs-dir-tag">Direction C</div>
+        <div class="bs-dir-name">The third option</div>
+        <div class="bs-dir-platform">"A third distinct approach — because the right answer isn't always the obvious one."</div>
+        <div class="bs-dir-elements">
+          <div class="bs-dir-el">Positioning statement</div>
+          <div class="bs-dir-el">Visual direction</div>
+          <div class="bs-dir-el">Brand personality</div>
+          <div class="bs-dir-el">Tone of voice</div>
+          <div class="bs-dir-el">Key message framework</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FROM THE STUDIO — Russian Bear
+════════════════════════════════════════════════════════════ -->
+<section class="bs-studio bs-section">
+  <div class="bs-wide">
+    <div class="bs-studio-head">
+      <div>
+        <div class="bs-num reveal">05 — From the studio</div>
+        <div class="bs-studio-label reveal">What three directions looks like in practice.</div>
+      </div>
+      <div>
+        <h2 class="bs-studio-title reveal">
+          Russian Bear.<br>Built from nothing.
+        </h2>
+        <div class="bs-studio-body reveal">
+          <p>The brief: invent an ultra-premium vodka brand from scratch. No brief from a client, no existing equity, no constraints. <em>A $95,000 bottle of Scotch-distilled vodka</em> that had to justify its price through the authority of its brand alone.</p>
+          <p>We developed three concept directions — three completely distinct answers to what this brand could be. Different names, different visual worlds, different strategies for commanding that price point in a market that has never seen it.</p>
+          <p>The client chose <em>The Coldest Pursuit</em> — and from that direction we built the complete brand: identity, mark, palette, voice, bottle design, and brand guide.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three bottle directions — the visual proof -->
+    <div class="bs-bottles">
+
+      <div class="bs-bottle-cell reveal-l">
+        <div class="bs-bottle-img">
+          <img src="/assets/russian-bear-2.png"
+               alt="Russian Bear — Amber Reserve direction"
+               onload="this.classList.add('loaded')">
+        </div>
+        <div class="bs-bottle-meta">
+          <div class="bs-bottle-dir">Direction A</div>
+          <div class="bs-bottle-name">Amber Reserve</div>
+          <div class="bs-bottle-desc">Warmth, craft, the golden age of Scottish distilling. A richer, more accessible luxury — the brand as craftsman, not cold authority.</div>
+        </div>
+      </div>
+
+      <div class="bs-bottle-cell chosen reveal">
+        <div class="bs-bottle-img">
+          <img src="/assets/russian-bear-bottle.png"
+               alt="Russian Bear — The Coldest Pursuit — chosen direction"
+               onload="this.classList.add('loaded')">
+        </div>
+        <div class="bs-bottle-meta">
+          <div class="bs-bottle-chosen-badge">Chosen direction</div>
+          <div class="bs-bottle-dir">Direction B</div>
+          <div class="bs-bottle-name">The Coldest Pursuit</div>
+          <div class="bs-bottle-desc">Restraint as dominance. Cold architecture, smoke and gold, the rampant bear as heraldic authority. The brand that doesn't need to explain its price.</div>
+        </div>
+      </div>
+
+      <div class="bs-bottle-cell reveal-r">
+        <div class="bs-bottle-img">
+          <img src="/assets/russian-bear_3.png"
+               alt="Russian Bear — Sapphire Cask direction"
+               onload="this.classList.add('loaded')">
+        </div>
+        <div class="bs-bottle-meta">
+          <div class="bs-bottle-dir">Direction C</div>
+          <div class="bs-bottle-name">Sapphire Cask</div>
+          <div class="bs-bottle-desc">Rarity through material obsession. Gemstone filtration, deep blue, the brand as collector's object. Luxury as provenance rather than lineage.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="bs-studio-cta reveal">
+      <a href="/cases/russian-bear.html" class="bs-studio-link">
+        View the full Russian Bear case study →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     ENGAGEMENT
+════════════════════════════════════════════════════════════ -->
+<section class="bs-engage bs-section">
+  <div class="bs-wide">
+    <div class="bs-num reveal">06 — The engagement</div>
+    <div class="bs-engage-grid">
+      <div class="bs-engage-block reveal">
+        <div class="bs-engage-label">Timeline</div>
+        <div class="bs-engage-val">3–6 weeks</div>
+        <div class="bs-engage-note">From brief sign-off to final delivery. The range depends on scope — a new brand from scratch takes longer than a focused repositioning. We'll give you a specific timeline after the discovery call.</div>
+      </div>
+      <div class="bs-engage-block reveal">
+        <div class="bs-engage-label">What you get</div>
+        <div class="bs-engage-val">A system</div>
+        <div class="bs-engage-note">Positioning document. Visual identity. Messaging architecture. Brand guidelines. Not a mood board you have to interpret — a complete, working brand system ready to deploy from day one.</div>
+      </div>
+      <div class="bs-engage-block reveal">
+        <div class="bs-engage-label">How it starts</div>
+        <div class="bs-engage-val">30 minutes</div>
+        <div class="bs-engage-note">A free, 30-minute discovery call. No slides required from you. Just a conversation about the business and where the brand needs to go. We take it from there.</div>
+      </div>
+    </div>
+    <div class="bs-engage-markets reveal">
+      <span class="bs-engage-markets-label">Markets we operate in</span>
+      <div class="bs-engage-market-list">
+        <span class="bs-engage-market">Nigeria</span>
+        <span class="bs-engage-market">United Kingdom</span>
+        <span class="bs-engage-market">United States</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLOSER
+════════════════════════════════════════════════════════════ -->
+<section class="bs-closer bs-section">
+  <p class="bs-closer-pre reveal">Brand Strategy & Identity · Growthhive</p>
+  <h2 class="bs-closer-title reveal">
+    Ready to build<br>something <em>real?</em>
+  </h2>
+  <p class="bs-closer-sub reveal">Book a 30-minute discovery call. No preparation required. Just bring the business.</p>
+  <div class="bs-closer-btns reveal">
+    <a href="/contact.html" class="btn-fill">Book a discovery call</a>
+    <a href="/services.html" class="btn-out">All services</a>
+  </div>
+</section>
+
+<footer class="bs-footer">
+  <div class="bs-footer-logo">Growthhive<em>.</em></div>
+  <div class="bs-footer-meta">Brand Strategy & Identity</div>
+  <div class="bs-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+</footer>
+
+<script src="/scripts/brand-strategy.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>

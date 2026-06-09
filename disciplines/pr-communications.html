@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PR & Communications — Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/pr-communications.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="discipline-pr">
+
+<!-- ── Loader ───────────────────────────────────────────────── -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail"     class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ── Navigation ───────────────────────────────────────────── -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="/assets/logo_icon.ico" alt="Growthhive">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html">Work</a></li>
+    <li><a href="/services.html" class="active">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <a href="/contact.html" class="ncta">Start a project</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<header class="pr-hero pr-section">
+  <div class="pr-hero-inner">
+    <div class="pr-hero-eyebrow" id="prEyebrow">Growthhive · Disciplines</div>
+    <h1 class="pr-hero-title" id="prTitle">
+      Your story, told in<br>the rooms that <em>matter.</em>
+    </h1>
+    <p class="pr-hero-sub" id="prSub">
+      PR & Communications. Earned media, narrative building, and crisis
+      communications — in Nigerian, British, and American press simultaneously,
+      always in the voice your brand has earned.
+    </p>
+    <div class="pr-hero-meta" id="prMeta">
+      <div class="pr-hero-stat">
+        <span class="pr-hero-stat-val">3</span>
+        <span class="pr-hero-stat-key">narrative directions, always</span>
+      </div>
+      <div class="pr-hero-divider"></div>
+      <div class="pr-hero-stat">
+        <span class="pr-hero-stat-val">NG · UK · US</span>
+        <span class="pr-hero-stat-key">press markets, simultaneously</span>
+      </div>
+      <div class="pr-hero-divider"></div>
+      <div class="pr-hero-stat">
+        <span class="pr-hero-stat-val">Retainer</span>
+        <span class="pr-hero-stat-key">or project-based engagement</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE BELIEF
+════════════════════════════════════════════════════════════ -->
+<section class="pr-belief pr-section">
+  <div class="pr-wide">
+    <div class="pr-belief-inner">
+      <div class="reveal">
+        <div class="pr-num">01 — The belief</div>
+        <div class="pr-belief-label">What we think about PR.</div>
+      </div>
+      <div>
+        <h2 class="pr-belief-statement reveal">
+          PR without brand strategy<br>is just <em>noise management.</em>
+        </h2>
+        <div class="pr-belief-body reveal">
+          <p>Most PR agencies treat press releases like administrative tasks — a block of text dispatched to a journalist list, hoping something sticks. We treat every piece of external communication as a brand decision. The story we tell the press is the same story the brand tells its customers, its investors, and the culture. It has to be consistent, it has to be true, and it has to be interesting enough for a journalist to care.</p>
+          <p>The second thing most PR agencies get wrong: they think of markets as separate problems. A Nigerian brand entering the UK doesn't need a Nigerian PR strategy and a British PR strategy running in parallel — it needs <em>one narrative architecture</em> that translates intelligently across both markets, with the cultural fluency to land in each. That is the specific capability we've built. Not two separate teams handing work across a timezone gap, but a genuinely cross-market perspective on how stories move between Lagos, London, and New York.</p>
+          <p>The result: coverage that compounds. Each placement reinforces the next. The brand accumulates credibility in the press the way good content compounds online — slowly at first, then suddenly everywhere.</p>
+        </div>
+        <div class="pr-market-tags reveal">
+          <span class="pr-market-tag">Nigerian press</span>
+          <span class="pr-market-tag">British press</span>
+          <span class="pr-market-tag">American press</span>
+          <span class="pr-market-tag">Trade & specialist media</span>
+          <span class="pr-market-tag">Investor & financial press</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     DELIVERABLES
+════════════════════════════════════════════════════════════ -->
+<section class="pr-delivers pr-section">
+  <div class="pr-wide">
+    <div class="pr-delivers-head">
+      <div>
+        <div class="pr-num reveal">02 — What's included</div>
+        <h2 class="pr-delivers-title reveal">Four sub-disciplines.<br><em>One voice.</em></h2>
+      </div>
+      <p class="pr-delivers-intro reveal">
+        Every PR & Communications engagement operates across four areas — each distinct in its mechanics, unified in the brand narrative that runs through all of them.
+      </p>
+    </div>
+    <div class="pr-deliver-grid">
+      <div class="pr-deliver-item reveal">
+        <div class="pr-deliver-num">01</div>
+        <div class="pr-deliver-name">Media Relations & Press Strategy</div>
+        <div class="pr-deliver-desc">We build and manage your press relationships across Nigerian, British, and American media — business press, consumer press, trade publications, and cultural outlets. Every pitch is written to the specific journalist, not to a mailing list. Every release is on-brand. Every placement is tracked against the narrative we're building, not just the column inch.</div>
+      </div>
+      <div class="pr-deliver-item reveal">
+        <div class="pr-deliver-num">02</div>
+        <div class="pr-deliver-name">Influencer Strategy & Partnerships</div>
+        <div class="pr-deliver-desc">The right influencer is a media channel, not a transaction. We identify the voices whose audiences already overlap with yours, negotiate partnerships that feel organic rather than sponsored, and build the briefs that keep your brand's voice intact when someone else is holding the mic. We work across Lagos, London, and New York creator ecosystems simultaneously.</div>
+      </div>
+      <div class="pr-deliver-item reveal">
+        <div class="pr-deliver-num">03</div>
+        <div class="pr-deliver-name">Crisis Communications & Reputation Management</div>
+        <div class="pr-deliver-desc">When something goes wrong — and eventually something does — the brand that responds well comes out stronger. We prepare crisis protocols before they're needed and execute them when they are. Fast, clear, on-brand responses that acknowledge what needs to be acknowledged, correct what needs to be corrected, and protect what the brand has earned. We've done this across markets where one country's story can become another country's headline within hours.</div>
+      </div>
+      <div class="pr-deliver-item reveal">
+        <div class="pr-deliver-num">04</div>
+        <div class="pr-deliver-name">Content & Thought Leadership Programmes</div>
+        <div class="pr-deliver-desc">The brands that own their category in the press do it by being the most useful, most credible, most quoted source in their industry. We build the thought leadership infrastructure — the long-form pieces, the expert commentary programmes, the white papers and reports — that positions your leadership as the people the press calls when they need a perspective on your category.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PROCESS
+════════════════════════════════════════════════════════════ -->
+<section class="pr-process pr-section">
+  <div class="pr-wide">
+    <div class="pr-process-head">
+      <div class="pr-num reveal">03 — How it works</div>
+      <h2 class="pr-process-title reveal">Five stages.<br>Then it <em>keeps running.</em></h2>
+      <p class="pr-process-body reveal">PR is not a sprint. The first five stages set the strategy and launch the programme. After that, we're in a continuous cycle of outreach, placement, and refinement — reporting back every month on what's landing, what's not, and what's next.</p>
+    </div>
+    <div class="pr-steps">
+
+      <div class="pr-step reveal">
+        <div class="pr-step-num">01</div>
+        <div class="pr-step-name">Discovery Call</div>
+        <div class="pr-step-desc">30 minutes, free, no preparation required. We want to hear about the brand in your words: what the business does, how the press currently covers it — or ignores it — and what you need the narrative to say. This call carries no obligation.</div>
+      </div>
+
+      <div class="pr-step reveal">
+        <div class="pr-step-num">02</div>
+        <div class="pr-step-name">Brand & Press Audit</div>
+        <div class="pr-step-desc">Growthhive maps your existing press footprint — volume of coverage, quality of outlets, tone of current narrative, share of voice against competitors, and reputation gaps across each market you operate in. We also audit the brand itself: the voice, the positioning, the visual language. This is our homework, not yours. The output is the brief.</div>
+      </div>
+
+      <div class="pr-step reveal">
+        <div class="pr-step-num">03</div>
+        <div class="pr-step-name">Narrative Brief & Scope</div>
+        <div class="pr-step-desc">We share the audit and our strategic diagnosis: the story the brand should be telling, which markets require which angles, and the shape of the PR engagement. We also agree here whether this is a project engagement — a launch, an event, a specific campaign — or an ongoing retainer. Scope is confirmed before any work begins.</div>
+      </div>
+
+      <div class="pr-step highlight reveal">
+        <div class="pr-step-num">04</div>
+        <div class="pr-step-name">Three Narrative Directions</div>
+        <div class="pr-step-desc">We present three distinct story angles — three completely different ways to position the brand in the press. Each direction includes a story territory, a target media map by market, the hook that makes it newsworthy right now, and the key messages it would drive. You choose the direction that reflects where the brand needs to go. We don't choose for you.</div>
+      </div>
+
+      <div class="pr-step ongoing reveal">
+        <div class="pr-step-num">05</div>
+        <div class="pr-step-name">Outreach, Place & Report</div>
+        <div class="pr-step-desc">Execution: building and maintaining the press list, writing releases and pitches in the brand's voice, managing journalist relationships, securing placements, and handling follow-up. Monthly coverage reports track volume, outlet quality, sentiment, and message penetration across all active markets. For retainer engagements, this stage continues month after month — the narrative sharpened by what's landing and what isn't.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THREE NARRATIVE DIRECTIONS — what they look like
+════════════════════════════════════════════════════════════ -->
+<section class="pr-directions pr-section">
+  <div class="pr-wide">
+    <div class="pr-directions-head">
+      <div class="pr-num reveal">04 — The three directions</div>
+      <h2 class="pr-directions-title reveal">Three angles.<br>One <em>chosen.</em></h2>
+      <p class="pr-directions-body reveal">A PR strategy without a clear narrative direction is just activity. Every engagement produces three distinct story angles — different editorial territories, different target media, different ways of making the brand newsworthy. The structure of each direction is the same. The content is entirely specific to the brand.</p>
+    </div>
+    <div class="pr-dir-cards">
+      <div class="pr-dir-card reveal-l">
+        <div class="pr-dir-tag">Story Direction A</div>
+        <div class="pr-dir-territory">The editorial angle</div>
+        <div class="pr-dir-hook">"The hook — why this story is newsworthy right now, in this market, to this journalist."</div>
+        <div class="pr-dir-meta">
+          <div class="pr-dir-meta-row">
+            <span class="pr-dir-meta-label">Target media</span>
+            <span class="pr-dir-meta-val">Publications, journalists, and outlets for this angle</span>
+          </div>
+          <div class="pr-dir-meta-row">
+            <span class="pr-dir-meta-label">Key message</span>
+            <span class="pr-dir-meta-val">What we need the press to say about the brand</span>
+          </div>
+          <div class="pr-dir-meta-row">
+            <span class="pr-dir-meta-label">Markets</span>
+            <span class="pr-dir-meta-val">Which of NG · UK · US this angle leads in</span>
+          </div>
+        </div>
+      </div>
+      <div class="pr-dir-card reveal">
+        <div class="pr-dir-tag">Story Direction B</div>
+        <div class="pr-dir-territory">A different angle</div>
+        <div class="pr-dir-hook">"Same brand, different story. A different editorial entry point that reaches different journalists and different audiences."</div>
+        <div class="pr-dir-meta">
+          <div class="pr-dir-meta-row">
+            <span class="pr-dir-meta-label">Target media</span>
+            <span class="pr-dir-meta-val">A different media map — this angle finds different doors</span>
+          </div>
+          <div class="pr-dir-meta-row">
+            <span class="pr-dir-meta-label">Key message</span>
+            <span class="pr-dir-meta-val">A different claim — equally true, differently emphasised</span>
+          </div>
+          <div class="pr-dir-meta-row">
+            <span class="pr-dir-meta-label">Markets</span>
+            <span class="pr-dir-meta-val">May lead in a different market than Direction A</span>
+          </div>
+        </div>
+      </div>
+      <div class="pr-dir-card reveal-r">
+        <div class="pr-dir-tag">Story Direction C</div>
+        <div class="pr-dir-territory">The third option</div>
+        <div class="pr-dir-hook">"The angle you might not have thought of — sometimes the most powerful story is the one that's least obvious."</div>
+        <div class="pr-dir-meta">
+          <div class="pr-dir-meta-row">
+            <span class="pr-dir-meta-label">Target media</span>
+            <span class="pr-dir-meta-val">Potentially the most unexpected media map of the three</span>
+          </div>
+          <div class="pr-dir-meta-row">
+            <span class="pr-dir-meta-label">Key message</span>
+            <span class="pr-dir-meta-val">A reframe — the brand seen from a different position</span>
+          </div>
+          <div class="pr-dir-meta-row">
+            <span class="pr-dir-meta-label">Markets</span>
+            <span class="pr-dir-meta-val">May unlock a market the other angles don't reach</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FROM THE STUDIO — JP Morgan
+════════════════════════════════════════════════════════════ -->
+<section class="pr-studio pr-section">
+  <div class="pr-wide">
+    <div class="pr-studio-head">
+      <div>
+        <div class="pr-num reveal">05 — From the studio</div>
+        <div class="pr-studio-label reveal">Three directions. One story that moved the market.</div>
+      </div>
+      <div>
+        <h2 class="pr-studio-title reveal">J.P. Morgan Asset Management.<br>Lagos, to the world.</h2>
+        <div class="pr-studio-body reveal">
+          <p>The brief: position J.P. Morgan Asset Management's Lagos office as the origin of a new conversation about African capital — not the destination for it. The bank was applying for a merchant banking licence, Jamie Dimon had visited Lagos in 2024, and Nigeria's $9bn-oversubscribed Eurobond had already made the story. <em>What the market needed was a narrative that made Lagos the place from which global institutional investors were thinking about Africa's long-term investment future.</em></p>
+          <p>We developed three editorial directions — three distinct ways to take this story to the financial press, the institutional investment media, and the African business press simultaneously across London, New York, and Lagos.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three narrative directions -->
+    <div class="pr-narratives">
+      <div class="pr-narrative reveal-l">
+        <div class="pr-narrative-dir">Direction A</div>
+        <div class="pr-narrative-angle">The Market Entry Story</div>
+        <div class="pr-narrative-desc">JP Morgan's merchant banking licence application as the news hook. A corporate expansion story targeting financial press in London and New York — strong on facts, weak on narrative differentiation.</div>
+        <div class="pr-narrative-target">FT · Bloomberg · Reuters · Wall Street Journal</div>
+      </div>
+      <div class="pr-narrative chosen reveal">
+        <div class="pr-narrative-chosen-badge">Chosen direction</div>
+        <div class="pr-narrative-dir">Direction B</div>
+        <div class="pr-narrative-angle">The Long View — Africa as long-term capital destination</div>
+        <div class="pr-narrative-desc">Africa is not an emerging market story. It is a long-term capital story. JP Morgan, with 30 years of Long-Term Capital Market Assumptions, was the only institution positioned to make this argument with authority — from Lagos. A thought leadership angle that crossed institutional investment, African business, and global capital media simultaneously.</div>
+        <div class="pr-narrative-target">Institutional Investor · FT · TechCabal · Stears · Bloomberg Africa</div>
+      </div>
+      <div class="pr-narrative reveal-r">
+        <div class="pr-narrative-dir">Direction C</div>
+        <div class="pr-narrative-angle">The Lagos Moment</div>
+        <div class="pr-narrative-desc">Lagos as the new node in the global financial conversation. A cultural and business story rather than a finance story — targeting broader readership but with less direct pull on institutional investment audiences.</div>
+        <div class="pr-narrative-target">The Economist · Quartz Africa · CNN Business · Monocle</div>
+      </div>
+    </div>
+
+    <!-- Outcome — The Long View event -->
+    <div class="pr-studio-results">
+      <div class="pr-result reveal">
+        <span class="pr-result-val">200</span>
+        <span class="pr-result-label">Invite-only attendees<br>18 countries</span>
+      </div>
+      <div class="pr-result reveal">
+        <span class="pr-result-val">$2T+</span>
+        <span class="pr-result-label">Capital in the room<br>at the forum</span>
+      </div>
+      <div class="pr-result reveal">
+        <span class="pr-result-val">3</span>
+        <span class="pr-result-label">Markets reached<br>simultaneously</span>
+      </div>
+      <div class="pr-result reveal">
+        <span class="pr-result-val">1</span>
+        <span class="pr-result-label">Narrative that made<br>Lagos the origin</span>
+      </div>
+    </div>
+
+    <div class="pr-studio-cta reveal">
+      <a href="/cases/jpmorgan.html" class="pr-studio-link">
+        View the full JP Morgan case study →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     ENGAGEMENT
+════════════════════════════════════════════════════════════ -->
+<section class="pr-engage pr-section">
+  <div class="pr-wide">
+    <div class="pr-num reveal">06 — The engagement</div>
+    <div class="pr-engage-grid">
+      <div class="pr-engage-block reveal">
+        <div class="pr-engage-label">Engagement type</div>
+        <div class="pr-engage-val">Retainer or project</div>
+        <div class="pr-engage-note">PR works best as an ongoing programme — a retainer that runs month after month, building coverage and refining the narrative. For specific launches, events, or campaigns, we also run fixed-term project engagements with a defined scope and timeline.</div>
+      </div>
+      <div class="pr-engage-block reveal">
+        <div class="pr-engage-label">How reporting works</div>
+        <div class="pr-engage-val">Monthly</div>
+        <div class="pr-engage-note">Every month: a coverage report tracking placements, outlet quality, sentiment, and message penetration across all active markets. You always know what's landed, what's in progress, and what's being refined. No black boxes.</div>
+      </div>
+      <div class="pr-engage-block reveal">
+        <div class="pr-engage-label">How it starts</div>
+        <div class="pr-engage-val">30 minutes</div>
+        <div class="pr-engage-note">A free discovery call — no slides, no brief required. Just a conversation about the brand and the press landscape it's operating in. We do the audit after the call, not before it.</div>
+      </div>
+    </div>
+
+    <!-- Markets + press landscape -->
+    <div class="pr-engage-markets reveal">
+      <span class="pr-engage-markets-label">Active press markets</span>
+      <div class="pr-market-list">
+        <span class="pr-market-item">Nigeria</span>
+        <span class="pr-market-item">United Kingdom</span>
+        <span class="pr-market-item">United States</span>
+      </div>
+    </div>
+
+    <div class="pr-press-grid reveal">
+      <div class="pr-press-col">
+        <div class="pr-press-market">Nigerian press</div>
+        <div class="pr-press-list">
+          <span class="pr-press-item">Business Day</span>
+          <span class="pr-press-item">Punch · Guardian Nigeria</span>
+          <span class="pr-press-item">TechCabal · Stears</span>
+          <span class="pr-press-item">Nairametrics</span>
+          <span class="pr-press-item">Trade & sector publications</span>
+        </div>
+      </div>
+      <div class="pr-press-col">
+        <div class="pr-press-market">British press</div>
+        <div class="pr-press-list">
+          <span class="pr-press-item">Financial Times</span>
+          <span class="pr-press-item">The Times · The Guardian</span>
+          <span class="pr-press-item">The Economist · Monocle</span>
+          <span class="pr-press-item">Campaign UK · Marketing Week</span>
+          <span class="pr-press-item">Trade & sector publications</span>
+        </div>
+      </div>
+      <div class="pr-press-col">
+        <div class="pr-press-market">American press</div>
+        <div class="pr-press-list">
+          <span class="pr-press-item">Bloomberg · Forbes</span>
+          <span class="pr-press-item">Wall Street Journal</span>
+          <span class="pr-press-item">Ad Age · Fast Company</span>
+          <span class="pr-press-item">Quartz · Axios</span>
+          <span class="pr-press-item">Trade & sector publications</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLOSER
+════════════════════════════════════════════════════════════ -->
+<section class="pr-closer pr-section">
+  <p class="pr-closer-pre reveal">PR & Communications · Growthhive</p>
+  <h2 class="pr-closer-title reveal">
+    Ready to own<br>the <em>narrative?</em>
+  </h2>
+  <p class="pr-closer-sub reveal">Book a 30-minute discovery call. No press pack required. Just tell us the story you need the world to hear.</p>
+  <div class="pr-closer-btns reveal">
+    <a href="/contact.html" class="btn-fill">Book a discovery call</a>
+    <a href="/services.html" class="btn-out">All services</a>
+  </div>
+</section>
+
+<footer class="pr-footer">
+  <div class="pr-footer-logo">Growthhive<em>.</em></div>
+  <div class="pr-footer-meta">PR & Communications</div>
+  <div class="pr-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+</footer>
+
+<script src="/scripts/pr-communications.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>

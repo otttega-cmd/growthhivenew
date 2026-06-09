@@ -1,0 +1,407 @@
+/* ================================================================
+   Growthhive — Brand Strategy & Identity
+   brand-strategy.css
+   /disciplines/brand-strategy.html
+   Depends on: shared.css
+================================================================ */
+
+/* ── Page base ─────────────────────────────────────────────── */
+body.discipline-bs { background: var(--navy); }
+#c { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .45; }
+
+/* ── Reveals ───────────────────────────────────────────────── */
+.reveal   { opacity: 0; transform: translateY(22px); }
+.reveal-l { opacity: 0; transform: translateX(-22px); }
+.reveal-r { opacity: 0; transform: translateX(22px); }
+.reveal-s { opacity: 0; transform: scale(.97); }
+
+/* ── Shared section scaffold ───────────────────────────────── */
+.bs-section { position: relative; z-index: 1; }
+.bs-wide    { max-width: 1280px; margin: 0 auto; }
+.bs-narrow  { max-width: 900px; margin: 0 auto; }
+.bs-num {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--ch);
+  margin-bottom: 2.5rem;
+}
+.bs-rule { height: 1px; background: var(--faint); }
+.bs-rule-ch { width: 48px; height: 2px; background: var(--ch); margin: 2.5rem 0; }
+
+/* ════════════════════════════════════════════════════════════
+   HERO
+════════════════════════════════════════════════════════════ */
+.bs-hero {
+  position: relative; z-index: 1;
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 10rem 4rem 7rem;
+  overflow: hidden;
+}
+/* Geometric dot-grid — brand system structure as texture */
+.bs-hero::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgba(212,245,60,.18) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: 24px 24px;
+  mask-image: radial-gradient(ellipse 80% 70% at 70% 40%, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 70% 40%, black 0%, transparent 70%);
+}
+.bs-hero-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; width: 100%; }
+.bs-hero-eyebrow {
+  font-family: 'Space Mono', monospace; font-size: .62rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--ch);
+  margin-bottom: 2.5rem; opacity: 0; transform: translateY(8px);
+}
+.bs-hero-title {
+  font-size: clamp(3rem, 7.5vw, 7.5rem); font-weight: 200;
+  line-height: .92; letter-spacing: -.04em; color: var(--white);
+  margin-bottom: 3rem; opacity: 0; transform: translateY(24px);
+  max-width: 900px;
+}
+.bs-hero-title em { font-style: italic; color: var(--ch); }
+.bs-hero-sub {
+  font-size: clamp(.9rem, 1.4vw, 1.1rem); font-weight: 300;
+  line-height: 1.7; color: var(--dim); max-width: 540px;
+  opacity: 0; transform: translateY(12px);
+}
+.bs-hero-meta {
+  display: flex; gap: 3rem; flex-wrap: wrap;
+  border-top: 1px solid var(--faint); padding-top: 3rem; margin-top: 4rem;
+  opacity: 0;
+}
+.bs-hero-stat { display: flex; flex-direction: column; gap: .4rem; }
+.bs-hero-stat-val {
+  font-size: 1.6rem; font-weight: 200; color: var(--white); line-height: 1;
+}
+.bs-hero-stat-key {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ch);
+}
+.bs-hero-divider { width: 1px; background: var(--faint); align-self: stretch; }
+
+/* ════════════════════════════════════════════════════════════
+   THE BELIEF — philosophy
+════════════════════════════════════════════════════════════ */
+.bs-belief {
+  border-top: 1px solid var(--faint); padding: 10rem 4rem;
+  background: linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%);
+}
+.bs-belief-inner {
+  display: grid; grid-template-columns: 1fr 1.5fr; gap: 8rem; align-items: start;
+}
+.bs-belief-label {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--ch);
+  padding-top: .2rem;
+}
+.bs-belief-statement {
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem); font-weight: 200;
+  line-height: 1.25; letter-spacing: -.02em; color: var(--white);
+  margin-bottom: 2.5rem;
+}
+.bs-belief-statement em { font-style: italic; color: var(--ch); }
+.bs-belief-body { font-size: 1rem; line-height: 1.88; color: var(--dim); }
+.bs-belief-body p + p { margin-top: 1.4rem; }
+.bs-belief-body em { color: var(--white); font-style: normal; }
+
+/* ════════════════════════════════════════════════════════════
+   DELIVERABLES — what's included
+════════════════════════════════════════════════════════════ */
+.bs-delivers { border-top: 1px solid var(--faint); padding: 10rem 4rem; }
+.bs-delivers-head {
+  display: grid; grid-template-columns: 1fr 1.5fr; gap: 8rem;
+  align-items: start; margin-bottom: 6rem;
+}
+.bs-delivers-title {
+  font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 200;
+  letter-spacing: -.03em; line-height: 1.05; color: var(--white);
+}
+.bs-delivers-title em { font-style: italic; color: var(--ch); }
+.bs-delivers-intro { font-size: 1rem; line-height: 1.88; color: var(--dim); }
+.bs-deliver-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; }
+.bs-deliver-item {
+  padding: 3rem; border: 1px solid var(--faint);
+  background: rgba(242,242,234,.02);
+  display: flex; flex-direction: column; gap: 1rem;
+  transition: background .4s;
+}
+.bs-deliver-item:hover { background: rgba(212,245,60,.03); }
+.bs-deliver-num {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ch);
+}
+.bs-deliver-name {
+  font-size: 1.1rem; font-weight: 400; color: var(--white); line-height: 1.25;
+}
+.bs-deliver-desc { font-size: .9rem; line-height: 1.75; color: var(--dim); margin-top: auto; }
+
+/* ════════════════════════════════════════════════════════════
+   PROCESS — 5-stage
+════════════════════════════════════════════════════════════ */
+.bs-process {
+  border-top: 1px solid var(--faint); padding: 10rem 4rem;
+  background: var(--navy2);
+}
+.bs-process-head { max-width: 820px; margin: 0 auto 7rem; }
+.bs-process-title {
+  font-size: clamp(2rem, 4.5vw, 3.8rem); font-weight: 200;
+  letter-spacing: -.03em; line-height: 1.05; color: var(--white);
+  margin-bottom: 1.5rem;
+}
+.bs-process-title em { font-style: italic; color: var(--ch); }
+.bs-process-body { font-size: 1rem; line-height: 1.88; color: var(--dim); max-width: 600px; }
+.bs-steps { display: flex; flex-direction: column; gap: 0; max-width: 1000px; margin: 0 auto; }
+.bs-step {
+  display: grid; grid-template-columns: 80px 1fr 1fr; gap: 3rem;
+  padding: 3.5rem 0; border-bottom: 1px solid var(--faint); align-items: start;
+}
+.bs-step:first-child { border-top: 1px solid var(--faint); }
+.bs-step-num {
+  font-family: 'Space Mono', monospace; font-size: .56rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ch);
+  padding-top: .2rem;
+}
+.bs-step-name {
+  font-size: 1.05rem; font-weight: 400; color: var(--white); line-height: 1.3;
+}
+.bs-step-desc { font-size: .9rem; line-height: 1.75; color: var(--dim); }
+/* Highlight step 04 — the three directions moment */
+.bs-step.highlight .bs-step-name { color: var(--ch); }
+
+/* ════════════════════════════════════════════════════════════
+   THREE DIRECTIONS — the concept
+════════════════════════════════════════════════════════════ */
+.bs-directions { border-top: 1px solid var(--faint); padding: 10rem 4rem; }
+.bs-directions-head { max-width: 900px; margin: 0 auto 7rem; }
+.bs-directions-title {
+  font-size: clamp(2rem, 4.5vw, 3.8rem); font-weight: 200;
+  letter-spacing: -.03em; line-height: 1.05; color: var(--white);
+  margin-bottom: 1.5rem;
+}
+.bs-directions-title em { font-style: italic; color: var(--ch); }
+.bs-directions-body {
+  font-size: 1rem; line-height: 1.88; color: var(--dim); max-width: 620px;
+}
+/* The three concept direction cards — schematic illustration */
+.bs-dir-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  max-width: 1100px; margin: 0 auto;
+}
+.bs-dir-card {
+  border: 1px solid var(--faint); padding: 3.5rem 2.8rem;
+  background: rgba(242,242,234,.02); display: flex; flex-direction: column; gap: 1.8rem;
+  position: relative; overflow: hidden;
+  transition: background .4s, border-color .4s;
+}
+.bs-dir-card:hover { background: rgba(212,245,60,.03); border-color: rgba(212,245,60,.25); }
+/* Subtle top rule that appears on hover */
+.bs-dir-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--ch); transform: scaleX(0); transform-origin: left;
+  transition: transform .5s var(--ease);
+}
+.bs-dir-card:hover::before { transform: scaleX(1); }
+.bs-dir-tag {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ch);
+}
+.bs-dir-name {
+  font-size: 1.3rem; font-weight: 300; color: var(--white); line-height: 1.2;
+}
+.bs-dir-platform {
+  font-size: .92rem; line-height: 1.7; color: var(--dim);
+  border-left: 2px solid var(--faint); padding-left: 1.2rem;
+  font-style: italic;
+}
+.bs-dir-elements { display: flex; flex-direction: column; gap: .6rem; margin-top: auto; }
+.bs-dir-el {
+  font-family: 'Space Mono', monospace; font-size: .5rem;
+  letter-spacing: .1em; text-transform: uppercase; color: rgba(242,242,234,.3);
+  display: flex; align-items: center; gap: .7rem;
+}
+.bs-dir-el::before {
+  content: ''; width: 4px; height: 4px; border-radius: 50%;
+  background: var(--ch); flex-shrink: 0; opacity: .6;
+}
+
+/* ════════════════════════════════════════════════════════════
+   FROM THE STUDIO — Russian Bear
+════════════════════════════════════════════════════════════ */
+.bs-studio {
+  border-top: 1px solid var(--faint); padding: 10rem 4rem;
+  background: var(--navy2);
+}
+.bs-studio-head {
+  display: grid; grid-template-columns: 1fr 1.5fr; gap: 8rem;
+  align-items: start; margin-bottom: 6rem;
+}
+.bs-studio-label {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--ch);
+  padding-top: .2rem;
+}
+.bs-studio-title {
+  font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 200;
+  letter-spacing: -.03em; line-height: 1.1; color: var(--white);
+  margin-bottom: 1.5rem;
+}
+.bs-studio-body { font-size: 1rem; line-height: 1.88; color: var(--dim); }
+.bs-studio-body p + p { margin-top: 1.4rem; }
+.bs-studio-body em { color: var(--white); font-style: normal; }
+/* Three bottles — the three concept directions made visual */
+.bs-bottles {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  max-width: 1100px; margin: 0 auto;
+}
+.bs-bottle-cell {
+  display: flex; flex-direction: column;
+  border: 1px solid var(--faint); overflow: hidden;
+}
+.bs-bottle-img {
+  aspect-ratio: 2/3; position: relative; overflow: hidden;
+  background: #080810; display: flex; align-items: center; justify-content: center;
+  padding: 2rem;
+}
+.bs-bottle-img img {
+  max-height: 100%; width: auto; object-fit: contain; opacity: 0;
+  transform: translateY(12px); transition: opacity .8s, transform .8s;
+}
+.bs-bottle-img img.loaded { opacity: 1; transform: translateY(0); }
+.bs-bottle-meta { padding: 2rem 2rem 2.5rem; }
+.bs-bottle-dir {
+  font-family: 'Space Mono', monospace; font-size: .5rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ch);
+  margin-bottom: .8rem;
+}
+.bs-bottle-name { font-size: 1rem; font-weight: 400; color: var(--white); margin-bottom: .5rem; }
+.bs-bottle-desc { font-size: .84rem; line-height: 1.65; color: var(--dim); }
+.bs-bottle-cell.chosen { border-color: rgba(212,245,60,.35); }
+.bs-bottle-cell.chosen .bs-bottle-meta { background: rgba(212,245,60,.04); }
+.bs-bottle-chosen-badge {
+  font-family: 'Space Mono', monospace; font-size: .48rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--navy);
+  background: var(--ch); padding: .3rem .7rem; display: inline-block;
+  margin-bottom: .8rem;
+}
+.bs-studio-cta {
+  max-width: 1100px; margin: 4rem auto 0;
+  display: flex; justify-content: flex-end;
+}
+.bs-studio-link {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ch); text-decoration: none;
+  display: flex; align-items: center; gap: 1rem;
+  border-bottom: 1px solid rgba(212,245,60,.3); padding-bottom: .4rem;
+  transition: gap .3s var(--ease), border-color .3s;
+}
+.bs-studio-link:hover { gap: 1.5rem; border-color: var(--ch); }
+
+/* ════════════════════════════════════════════════════════════
+   ENGAGEMENT — scope, timeline, markets
+════════════════════════════════════════════════════════════ */
+.bs-engage { border-top: 1px solid var(--faint); padding: 10rem 4rem; }
+.bs-engage-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  max-width: 1100px; margin: 0 auto 6rem;
+}
+.bs-engage-block {
+  padding: 3.5rem 3rem; border: 1px solid var(--faint);
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+.bs-engage-label {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ch);
+}
+.bs-engage-val {
+  font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 200;
+  letter-spacing: -.03em; color: var(--white); line-height: 1;
+}
+.bs-engage-note { font-size: .88rem; line-height: 1.7; color: var(--dim); margin-top: auto; }
+.bs-engage-markets {
+  max-width: 1100px; margin: 0 auto;
+  padding: 3rem; border: 1px solid var(--faint); background: rgba(242,242,234,.02);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem;
+}
+.bs-engage-markets-label {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--dim);
+}
+.bs-engage-market-list { display: flex; gap: 2rem; flex-wrap: wrap; }
+.bs-engage-market {
+  font-family: 'Space Mono', monospace; font-size: .62rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--white);
+  display: flex; align-items: center; gap: .6rem;
+}
+.bs-engage-market::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ch);
+}
+
+/* ════════════════════════════════════════════════════════════
+   CLOSER
+════════════════════════════════════════════════════════════ */
+.bs-closer {
+  border-top: 1px solid var(--faint); padding: 12rem 4rem;
+  text-align: center; position: relative; overflow: hidden;
+  min-height: 70vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.bs-closer::before {
+  content: ''; position: absolute; bottom: 0; left: 50%;
+  transform: translateX(-50%); width: 80%; height: 400px;
+  background: radial-gradient(ellipse at bottom, rgba(212,245,60,.06), transparent 65%);
+  pointer-events: none;
+}
+.bs-closer-pre {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--ch);
+  margin-bottom: 3rem;
+}
+.bs-closer-title {
+  font-size: clamp(2.8rem, 8vw, 7rem); font-weight: 200;
+  letter-spacing: -.04em; line-height: .95; color: var(--white);
+  margin-bottom: 1.5rem;
+}
+.bs-closer-title em { font-style: italic; color: var(--ch); }
+.bs-closer-sub {
+  font-size: 1rem; line-height: 1.75; color: var(--dim);
+  max-width: 500px; margin: 0 auto 4rem;
+}
+.bs-closer-btns { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+
+/* ── Footer ──────────────────────────────────────────────── */
+.bs-footer {
+  position: relative; z-index: 1; padding: 3rem 4rem;
+  border-top: 1px solid var(--faint);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1.5rem;
+}
+.bs-footer-logo {
+  font-family: 'Space Mono', monospace; font-size: .78rem;
+  font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--white);
+}
+.bs-footer-logo em { color: var(--ch); font-style: normal; }
+.bs-footer-meta {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .1em; color: var(--dim);
+}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .bs-belief-inner, .bs-delivers-head,
+  .bs-studio-head { grid-template-columns: 1fr; gap: 3rem; }
+  .bs-deliver-grid { grid-template-columns: 1fr; }
+  .bs-dir-cards, .bs-bottles { grid-template-columns: 1fr; }
+  .bs-engage-grid { grid-template-columns: 1fr; }
+  .bs-step { grid-template-columns: 60px 1fr; }
+  .bs-step-desc { grid-column: 2; margin-top: -.5rem; }
+}
+@media (max-width: 640px) {
+  .bs-hero, .bs-belief, .bs-delivers, .bs-process,
+  .bs-directions, .bs-studio, .bs-engage { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .bs-footer { padding: 2rem 1.5rem; flex-direction: column; }
+  .bs-hero-meta { gap: 1.5rem; }
+  .bs-hero-divider { display: none; }
+}

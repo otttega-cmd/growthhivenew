@@ -1,0 +1,453 @@
+/* ================================================================
+   Growthhive — PR & Communications
+   pr-communications.css
+   /disciplines/pr-communications.html
+   Visual motif: broadcast scan lines — narrative as transmission
+   Depends on: shared.css
+================================================================ */
+
+body.discipline-pr { background: var(--navy); }
+#c { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .45; }
+
+/* ── Reveals ────────────────────────────────────────────────── */
+.reveal   { opacity: 0; transform: translateY(22px); }
+.reveal-l { opacity: 0; transform: translateX(-22px); }
+.reveal-r { opacity: 0; transform: translateX(22px); }
+.reveal-s { opacity: 0; transform: scale(.97); }
+
+/* ── Section scaffold ──────────────────────────────────────── */
+.pr-section { position: relative; z-index: 1; }
+.pr-wide    { max-width: 1280px; margin: 0 auto; }
+.pr-narrow  { max-width: 900px; margin: 0 auto; }
+.pr-num {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--ch);
+  margin-bottom: 2.5rem;
+}
+.pr-rule-ch { width: 48px; height: 2px; background: var(--ch); margin: 2.5rem 0; }
+
+/* ════════════════════════════════════════════════════════════
+   HERO — broadcast scan-line texture
+════════════════════════════════════════════════════════════ */
+.pr-hero {
+  position: relative; z-index: 1;
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 10rem 4rem 7rem; overflow: hidden;
+}
+/* Horizontal scan lines — editorial column / broadcast signal */
+.pr-hero::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 6px,
+    rgba(212,245,60,.06) 6px,
+    rgba(212,245,60,.06) 7px
+  );
+  mask-image: linear-gradient(90deg, transparent 0%, black 30%, black 70%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 30%, black 70%, transparent 100%);
+}
+/* Vertical column structure — newsprint reference */
+.pr-hero::after {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 119px,
+    rgba(212,245,60,.04) 119px,
+    rgba(212,245,60,.04) 120px
+  );
+  mask-image: radial-gradient(ellipse 70% 80% at 60% 40%, black 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 80% at 60% 40%, black 0%, transparent 75%);
+}
+.pr-hero-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; width: 100%; }
+.pr-hero-eyebrow {
+  font-family: 'Space Mono', monospace; font-size: .62rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--ch);
+  margin-bottom: 2.5rem; opacity: 0; transform: translateY(8px);
+}
+.pr-hero-title {
+  font-size: clamp(3rem, 7.5vw, 7.5rem); font-weight: 200;
+  line-height: .92; letter-spacing: -.04em; color: var(--white);
+  margin-bottom: 3rem; opacity: 0; transform: translateY(24px);
+  max-width: 960px;
+}
+.pr-hero-title em { font-style: italic; color: var(--ch); }
+.pr-hero-sub {
+  font-size: clamp(.9rem, 1.4vw, 1.1rem); font-weight: 300;
+  line-height: 1.7; color: var(--dim); max-width: 560px;
+  opacity: 0; transform: translateY(12px);
+}
+.pr-hero-meta {
+  display: flex; gap: 3rem; flex-wrap: wrap;
+  border-top: 1px solid var(--faint); padding-top: 3rem; margin-top: 4rem;
+  opacity: 0;
+}
+.pr-hero-stat { display: flex; flex-direction: column; gap: .4rem; }
+.pr-hero-stat-val {
+  font-size: 1.6rem; font-weight: 200; color: var(--white); line-height: 1;
+}
+.pr-hero-stat-key {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ch);
+}
+.pr-hero-divider { width: 1px; background: var(--faint); align-self: stretch; }
+
+/* ════════════════════════════════════════════════════════════
+   THE BELIEF
+════════════════════════════════════════════════════════════ */
+.pr-belief {
+  border-top: 1px solid var(--faint); padding: 10rem 4rem;
+  background: linear-gradient(180deg, var(--navy) 0%, var(--navy2) 100%);
+}
+.pr-belief-inner {
+  display: grid; grid-template-columns: 1fr 1.5fr; gap: 8rem; align-items: start;
+}
+.pr-belief-label {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--ch); padding-top: .2rem;
+}
+.pr-belief-statement {
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem); font-weight: 200;
+  line-height: 1.25; letter-spacing: -.02em; color: var(--white); margin-bottom: 2.5rem;
+}
+.pr-belief-statement em { font-style: italic; color: var(--ch); }
+.pr-belief-body { font-size: 1rem; line-height: 1.88; color: var(--dim); }
+.pr-belief-body p + p { margin-top: 1.4rem; }
+.pr-belief-body em { color: var(--white); font-style: normal; }
+
+/* Market tags */
+.pr-market-tags { display: flex; gap: .6rem; flex-wrap: wrap; margin-top: 2rem; }
+.pr-market-tag {
+  font-family: 'Space Mono', monospace; font-size: .52rem;
+  letter-spacing: .12em; text-transform: uppercase;
+  border: 1px solid rgba(212,245,60,.35); color: var(--ch);
+  padding: .45rem .9rem; border-radius: 2px;
+}
+
+/* ════════════════════════════════════════════════════════════
+   DELIVERABLES
+════════════════════════════════════════════════════════════ */
+.pr-delivers { border-top: 1px solid var(--faint); padding: 10rem 4rem; }
+.pr-delivers-head {
+  display: grid; grid-template-columns: 1fr 1.5fr; gap: 8rem;
+  align-items: start; margin-bottom: 6rem;
+}
+.pr-delivers-title {
+  font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 200;
+  letter-spacing: -.03em; line-height: 1.05; color: var(--white);
+}
+.pr-delivers-title em { font-style: italic; color: var(--ch); }
+.pr-delivers-intro { font-size: 1rem; line-height: 1.88; color: var(--dim); }
+.pr-deliver-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; }
+.pr-deliver-item {
+  padding: 3rem; border: 1px solid var(--faint);
+  background: rgba(242,242,234,.02);
+  display: flex; flex-direction: column; gap: 1rem;
+  transition: background .4s;
+}
+.pr-deliver-item:hover { background: rgba(212,245,60,.03); }
+.pr-deliver-num {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ch);
+}
+.pr-deliver-name {
+  font-size: 1.1rem; font-weight: 400; color: var(--white); line-height: 1.25;
+}
+.pr-deliver-desc { font-size: .9rem; line-height: 1.75; color: var(--dim); margin-top: auto; }
+
+/* ════════════════════════════════════════════════════════════
+   PROCESS
+════════════════════════════════════════════════════════════ */
+.pr-process {
+  border-top: 1px solid var(--faint); padding: 10rem 4rem; background: var(--navy2);
+}
+.pr-process-head { max-width: 820px; margin: 0 auto 7rem; }
+.pr-process-title {
+  font-size: clamp(2rem, 4.5vw, 3.8rem); font-weight: 200;
+  letter-spacing: -.03em; line-height: 1.05; color: var(--white); margin-bottom: 1.5rem;
+}
+.pr-process-title em { font-style: italic; color: var(--ch); }
+.pr-process-body { font-size: 1rem; line-height: 1.88; color: var(--dim); max-width: 600px; }
+.pr-steps { display: flex; flex-direction: column; gap: 0; max-width: 1000px; margin: 0 auto; }
+.pr-step {
+  display: grid; grid-template-columns: 80px 1fr 1fr; gap: 3rem;
+  padding: 3.5rem 0; border-bottom: 1px solid var(--faint); align-items: start;
+}
+.pr-step:first-child { border-top: 1px solid var(--faint); }
+.pr-step-num {
+  font-family: 'Space Mono', monospace; font-size: .56rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ch); padding-top: .2rem;
+}
+.pr-step-name { font-size: 1.05rem; font-weight: 400; color: var(--white); line-height: 1.3; }
+.pr-step-desc { font-size: .9rem; line-height: 1.75; color: var(--dim); }
+.pr-step.highlight .pr-step-name { color: var(--ch); }
+/* Step 05 gets a retainer note */
+.pr-step.ongoing { background: rgba(212,245,60,.02); padding-left: 1.5rem; padding-right: 1.5rem; margin: 0 -1.5rem; }
+
+/* ════════════════════════════════════════════════════════════
+   NARRATIVE DIRECTIONS
+════════════════════════════════════════════════════════════ */
+.pr-directions { border-top: 1px solid var(--faint); padding: 10rem 4rem; }
+.pr-directions-head { max-width: 900px; margin: 0 auto 7rem; }
+.pr-directions-title {
+  font-size: clamp(2rem, 4.5vw, 3.8rem); font-weight: 200;
+  letter-spacing: -.03em; line-height: 1.05; color: var(--white); margin-bottom: 1.5rem;
+}
+.pr-directions-title em { font-style: italic; color: var(--ch); }
+.pr-directions-body { font-size: 1rem; line-height: 1.88; color: var(--dim); max-width: 620px; }
+.pr-dir-cards {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; max-width: 1100px; margin: 0 auto;
+}
+.pr-dir-card {
+  border: 1px solid var(--faint); padding: 3.5rem 2.8rem;
+  background: rgba(242,242,234,.02); display: flex; flex-direction: column; gap: 1.8rem;
+  position: relative; overflow: hidden; transition: background .4s, border-color .4s;
+}
+.pr-dir-card:hover { background: rgba(212,245,60,.03); border-color: rgba(212,245,60,.25); }
+.pr-dir-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: var(--ch); transform: scaleX(0); transform-origin: left;
+  transition: transform .5s var(--ease);
+}
+.pr-dir-card:hover::before { transform: scaleX(1); }
+.pr-dir-tag {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ch);
+}
+.pr-dir-territory { font-size: 1.3rem; font-weight: 300; color: var(--white); line-height: 1.2; }
+.pr-dir-hook {
+  font-size: .92rem; line-height: 1.7; color: var(--dim);
+  border-left: 2px solid var(--faint); padding-left: 1.2rem; font-style: italic;
+}
+.pr-dir-meta { display: flex; flex-direction: column; gap: .8rem; margin-top: auto; }
+.pr-dir-meta-row {
+  display: flex; flex-direction: column; gap: .2rem;
+}
+.pr-dir-meta-label {
+  font-family: 'Space Mono', monospace; font-size: .46rem;
+  letter-spacing: .12em; text-transform: uppercase; color: rgba(212,245,60,.5);
+}
+.pr-dir-meta-val {
+  font-family: 'Space Mono', monospace; font-size: .52rem;
+  letter-spacing: .06em; color: rgba(242,242,234,.45);
+}
+
+/* ════════════════════════════════════════════════════════════
+   FROM THE STUDIO — JP Morgan
+════════════════════════════════════════════════════════════ */
+.pr-studio {
+  border-top: 1px solid var(--faint); padding: 10rem 4rem; background: var(--navy2);
+}
+.pr-studio-head {
+  display: grid; grid-template-columns: 1fr 1.5fr; gap: 8rem;
+  align-items: start; margin-bottom: 6rem;
+}
+.pr-studio-label {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--ch); padding-top: .2rem;
+}
+.pr-studio-title {
+  font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 200;
+  letter-spacing: -.03em; line-height: 1.1; color: var(--white); margin-bottom: 1.5rem;
+}
+.pr-studio-body { font-size: 1rem; line-height: 1.88; color: var(--dim); }
+.pr-studio-body p + p { margin-top: 1.4rem; }
+.pr-studio-body em { color: var(--white); font-style: normal; }
+
+/* Three narrative directions — as editorial angle cards */
+.pr-narratives {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  max-width: 1100px; margin: 0 auto;
+}
+.pr-narrative {
+  border: 1px solid var(--faint); padding: 2.5rem 2.5rem;
+  background: rgba(242,242,234,.02); display: flex; flex-direction: column; gap: 1.2rem;
+  position: relative;
+}
+.pr-narrative.chosen {
+  border-color: rgba(212,245,60,.35); background: rgba(212,245,60,.03);
+}
+.pr-narrative.chosen::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; background: var(--ch);
+}
+.pr-narrative-chosen-badge {
+  font-family: 'Space Mono', monospace; font-size: .48rem;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--navy); background: var(--ch);
+  padding: .28rem .65rem; display: inline-block; margin-bottom: .4rem;
+}
+.pr-narrative-dir {
+  font-family: 'Space Mono', monospace; font-size: .52rem;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--ch);
+}
+.pr-narrative-angle {
+  font-size: 1.1rem; font-weight: 300; color: var(--white); line-height: 1.3;
+}
+.pr-narrative-desc { font-size: .86rem; line-height: 1.7; color: var(--dim); }
+.pr-narrative-target {
+  font-family: 'Space Mono', monospace; font-size: .48rem;
+  letter-spacing: .1em; text-transform: uppercase; color: rgba(242,242,234,.3);
+  margin-top: auto;
+}
+
+/* JP Morgan results strip */
+.pr-studio-results {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  max-width: 1100px; margin: 4rem auto 0;
+  border: 1px solid var(--faint);
+}
+.pr-result {
+  padding: 2.5rem 2rem; text-align: center; border-right: 1px solid var(--faint);
+}
+.pr-result:last-child { border-right: none; }
+.pr-result-val {
+  font-size: clamp(2rem, 4vw, 3rem); font-weight: 200;
+  color: var(--white); line-height: 1; display: block; margin-bottom: .6rem;
+  font-style: italic;
+}
+.pr-result-label {
+  font-family: 'Space Mono', monospace; font-size: .5rem;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--ch); line-height: 1.8;
+}
+.pr-studio-cta {
+  max-width: 1100px; margin: 4rem auto 0; display: flex; justify-content: flex-end;
+}
+.pr-studio-link {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--ch); text-decoration: none;
+  display: flex; align-items: center; gap: 1rem;
+  border-bottom: 1px solid rgba(212,245,60,.3); padding-bottom: .4rem;
+  transition: gap .3s var(--ease), border-color .3s;
+}
+.pr-studio-link:hover { gap: 1.5rem; border-color: var(--ch); }
+
+/* ════════════════════════════════════════════════════════════
+   ENGAGEMENT
+════════════════════════════════════════════════════════════ */
+.pr-engage { border-top: 1px solid var(--faint); padding: 10rem 4rem; }
+.pr-engage-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+  max-width: 1100px; margin: 0 auto 6rem;
+}
+.pr-engage-block {
+  padding: 3.5rem 3rem; border: 1px solid var(--faint);
+  display: flex; flex-direction: column; gap: 1.5rem;
+}
+.pr-engage-label {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--ch);
+}
+.pr-engage-val {
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 200;
+  letter-spacing: -.03em; color: var(--white); line-height: 1;
+}
+.pr-engage-note { font-size: .88rem; line-height: 1.7; color: var(--dim); margin-top: auto; }
+.pr-engage-markets {
+  max-width: 1100px; margin: 0 auto;
+  padding: 3rem; border: 1px solid var(--faint); background: rgba(242,242,234,.02);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 2rem;
+}
+.pr-engage-markets-label {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--dim);
+}
+.pr-market-list { display: flex; gap: 2rem; flex-wrap: wrap; }
+.pr-market-item {
+  font-family: 'Space Mono', monospace; font-size: .62rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--white);
+  display: flex; align-items: center; gap: .6rem;
+}
+.pr-market-item::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--ch);
+}
+/* Press list */
+.pr-press-grid {
+  max-width: 1100px; margin: 2rem auto 0;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  border: 1px solid var(--faint);
+}
+.pr-press-col { padding: 2rem 2.5rem; border-right: 1px solid var(--faint); }
+.pr-press-col:last-child { border-right: none; }
+.pr-press-market {
+  font-family: 'Space Mono', monospace; font-size: .52rem;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--ch); margin-bottom: 1.2rem;
+}
+.pr-press-list { display: flex; flex-direction: column; gap: .5rem; }
+.pr-press-item {
+  font-size: .86rem; color: var(--dim); line-height: 1.5;
+  display: flex; align-items: center; gap: .6rem;
+}
+.pr-press-item::before {
+  content: ''; width: 3px; height: 3px; border-radius: 50%;
+  background: rgba(212,245,60,.4); flex-shrink: 0;
+}
+
+/* ════════════════════════════════════════════════════════════
+   CLOSER
+════════════════════════════════════════════════════════════ */
+.pr-closer {
+  border-top: 1px solid var(--faint); padding: 12rem 4rem;
+  text-align: center; position: relative; overflow: hidden;
+  min-height: 70vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.pr-closer::before {
+  content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 80%; height: 400px;
+  background: radial-gradient(ellipse at bottom, rgba(212,245,60,.06), transparent 65%);
+  pointer-events: none;
+}
+.pr-closer-pre {
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--ch); margin-bottom: 3rem;
+}
+.pr-closer-title {
+  font-size: clamp(2.8rem, 8vw, 7rem); font-weight: 200;
+  letter-spacing: -.04em; line-height: .95; color: var(--white); margin-bottom: 1.5rem;
+}
+.pr-closer-title em { font-style: italic; color: var(--ch); }
+.pr-closer-sub {
+  font-size: 1rem; line-height: 1.75; color: var(--dim);
+  max-width: 500px; margin: 0 auto 4rem;
+}
+.pr-closer-btns { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+
+/* ── Footer ─────────────────────────────────────────────── */
+.pr-footer {
+  position: relative; z-index: 1; padding: 3rem 4rem;
+  border-top: 1px solid var(--faint);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
+}
+.pr-footer-logo {
+  font-family: 'Space Mono', monospace; font-size: .78rem;
+  font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--white);
+}
+.pr-footer-logo em { color: var(--ch); font-style: normal; }
+.pr-footer-meta {
+  font-family: 'Space Mono', monospace; font-size: .54rem; letter-spacing: .1em; color: var(--dim);
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .pr-belief-inner, .pr-delivers-head,
+  .pr-studio-head { grid-template-columns: 1fr; gap: 3rem; }
+  .pr-deliver-grid { grid-template-columns: 1fr; }
+  .pr-dir-cards, .pr-narratives { grid-template-columns: 1fr; }
+  .pr-engage-grid { grid-template-columns: 1fr; }
+  .pr-studio-results { grid-template-columns: repeat(2, 1fr); }
+  .pr-press-grid { grid-template-columns: 1fr; }
+  .pr-press-col { border-right: none; border-bottom: 1px solid var(--faint); }
+  .pr-press-col:last-child { border-bottom: none; }
+  .pr-step { grid-template-columns: 60px 1fr; }
+  .pr-step-desc { grid-column: 2; margin-top: -.5rem; }
+}
+@media (max-width: 640px) {
+  .pr-hero, .pr-belief, .pr-delivers, .pr-process,
+  .pr-directions, .pr-studio, .pr-engage { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .pr-footer { padding: 2rem 1.5rem; flex-direction: column; }
+  .pr-hero-meta { gap: 1.5rem; }
+  .pr-hero-divider { display: none; }
+}

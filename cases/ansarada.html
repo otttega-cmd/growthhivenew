@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tender — How Africa Procures | Ansarada × Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/ansarada.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="case-tn">
+
+<!-- ── Loader ──────────────────────────────────────────────── -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail" class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="YOUR_ICON.png" alt="Growthhive">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html" class="active">Work</a></li>
+    <li><a href="/services.html">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <a href="/contact.html" class="ncta">Start a project</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<header class="tn-hero tn-section">
+  <div class="tn-hero-bg"></div>
+
+  <div class="tn-hero-eyebrow" id="tnEyebrow">
+    Ansarada Procure · A Growthhive Proposal
+  </div>
+
+  <h1 class="tn-hero-title" id="tnTitle">Tender.</h1>
+  <p class="tn-hero-tagline" id="tnTagline">How Africa procures.</p>
+
+  <div class="tn-hero-meta" id="tnMeta">
+    <span>Pan-African Roadshow</span> · Infrastructure Advisory Professionals<br>
+    <span>80–120 advisors</span> per city · By invitation only · Q1 2026
+  </div>
+
+  <div class="tn-hero-cities" id="tnCities">
+    <div class="tn-city-dot">
+      <div>
+        <div class="tn-city-name">Lagos</div>
+        <div class="tn-city-sub">West Africa</div>
+      </div>
+    </div>
+    <div class="tn-city-dot">
+      <div>
+        <div class="tn-city-name">Nairobi</div>
+        <div class="tn-city-sub">East Africa</div>
+      </div>
+    </div>
+    <div class="tn-city-dot">
+      <div>
+        <div class="tn-city-name">Cairo</div>
+        <div class="tn-city-sub">North Africa</div>
+      </div>
+    </div>
+    <div class="tn-city-dot">
+      <div>
+        <div class="tn-city-name">Cape Town</div>
+        <div class="tn-city-sub">Southern Africa</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE BRIEF
+════════════════════════════════════════════════════════════ -->
+<section class="tn-brief tn-section">
+  <div class="tn-wide">
+    <div class="tn-brief-grid">
+      <div>
+        <div class="tn-num reveal">01 — The Brief</div>
+        <h2 class="tn-brief-title reveal">
+          Ansarada.<br><em>In Africa.</em><br>Through the advisors.
+        </h2>
+        <div class="tn-rule-teal reveal"></div>
+        <div class="tn-brief-meta reveal">
+          <strong>Client</strong>
+          Ansarada (a Datasite company)
+          <strong>Product</strong>
+          Ansarada Procure — purpose-built software for large-scale infrastructure procurement and tenders
+          <strong>Market</strong>
+          Pan-African · Lagos, Nairobi, Cairo, Cape Town
+          <strong>Growthhive's Role</strong>
+          Event concept · Brand identity · Invitation strategy · Production · Follow-up
+          <strong>Format</strong>
+          This is an active Growthhive pitch. Projected outcomes are clearly labelled.
+        </div>
+      </div>
+      <div class="tn-brief-body reveal">
+        <p>Ansarada Procure is the only software solution purpose-built for large, complex, high-value infrastructure procurement. It brings structured workflow, secure document management, two-way Q&A, bidder management, and evaluation tools to a process that, in most African markets, has never had purpose-built technology applied to it.</p>
+        <p>Africa's infrastructure investment requirement — estimated at $130–170 billion annually — is being managed on spreadsheets, disconnected email threads, and institutional goodwill. Projects stall. Tenders are disputed. Budgets overrun. Advisors are blamed.</p>
+        <p>Ansarada's path to that market runs through the advisory community. The infrastructure advisory firms — <em>Big 4 teams, specialist procurement advisors, infrastructure law firms, investment banks</em> — are already trusted by the government clients who commission the projects. When an advisor recommends a tool, it is adopted. Win them, and Ansarada Procure becomes their standard recommendation to every government client they serve.</p>
+        <p>Growthhive proposes a pan-African roadshow that puts Ansarada in the same room as Africa's infrastructure advisory community across four cities. The event creates the conditions for demonstration, advocacy, and sale — without feeling like a sales event.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE INSIGHT — advisor as distribution channel
+════════════════════════════════════════════════════════════ -->
+<section class="tn-insight tn-section">
+  <div class="tn-insight-inner">
+    <div>
+      <div class="tn-num reveal">02 — The Insight</div>
+      <h2 class="tn-insight-title reveal">
+        The advisor is<br>the distribution<br><em>channel.</em>
+      </h2>
+      <div class="tn-rule-amber reveal"></div>
+      <div class="tn-insight-body reveal">
+        <p>Ansarada's direct sales motion to government infrastructure bodies is a long, relationship-dependent cycle. It requires credibility that takes years to build with procurement officers who move slowly and buy on trust.</p>
+        <p>The infrastructure advisor already has that credibility. They are already in the room. Their recommendation carries the weight of a professional mandate. <em>The event is not the sale — the advisor who attends is.</em></p>
+      </div>
+      <div class="tn-advisor-types reveal">
+        <div class="tn-advisor-type">
+          <div class="tn-advisor-label">Big 4</div>
+          <div class="tn-advisor-desc">PwC, Deloitte, KPMG, EY infrastructure advisory teams — operating across all four Tender cities</div>
+        </div>
+        <div class="tn-advisor-type">
+          <div class="tn-advisor-label">Specialist</div>
+          <div class="tn-advisor-desc">Steer, AECOM, WSP, Mott MacDonald — specialist procurement and infrastructure advisory firms</div>
+        </div>
+        <div class="tn-advisor-type">
+          <div class="tn-advisor-label">Legal</div>
+          <div class="tn-advisor-desc">Infrastructure and government procurement law firms with active tender management mandates</div>
+        </div>
+        <div class="tn-advisor-type">
+          <div class="tn-advisor-label">Financial</div>
+          <div class="tn-advisor-desc">Investment banks and DFI advisors with infrastructure project mandates across Africa</div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal-r" style="display:flex; flex-direction:column; gap:2rem; padding-top:4rem;">
+      <div style="background:rgba(0,155,138,.06); border:1px solid rgba(0,155,138,.2); padding:2.5rem; border-left:3px solid var(--tn-teal);">
+        <div style="font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.14em; text-transform:uppercase; color:var(--tn-teal); margin-bottom:1rem;">The B2B2G model</div>
+        <div style="font-family:'Cormorant',Georgia,serif; font-size:1.4rem; color:var(--tn-ivory); line-height:1.4; margin-bottom:.8rem;">Growthhive reaches the advisor. The advisor recommends Procure. The government buys.</div>
+        <div style="font-size:.88rem; line-height:1.7; color:var(--tn-dim);">Business → Business → Government. The event is the top of the funnel. The advisor relationship is the channel. The government contract is the outcome.</div>
+      </div>
+      <div style="background:rgba(224,123,56,.06); border:1px solid rgba(224,123,56,.2); padding:2.5rem; border-left:3px solid var(--tn-amber);">
+        <div style="font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.14em; text-transform:uppercase; color:var(--tn-amber); margin-bottom:1rem;">Why this works</div>
+        <div style="font-size:.88rem; line-height:1.7; color:var(--tn-dim);">Ansarada already has organic African traction from advisor referrals — the Botswana Port project came through an advisor recommendation. Tender systematises what has already started happening organically.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE CONCEPT
+════════════════════════════════════════════════════════════ -->
+<section class="tn-concept tn-section">
+  <div class="tn-wide">
+    <div class="tn-num reveal">03 — The Concept</div>
+    <div class="tn-concept-hero">
+      <div class="reveal-l">
+        <div class="tn-concept-word">Tender.</div>
+      </div>
+      <div class="reveal-r">
+        <div class="tn-concept-tagline">How Africa procures.</div>
+        <div class="tn-concept-body">
+          <p>The word advisors use every day, for the work they do every day. To tender, to issue a tender, to manage a tender — it is the vocabulary of their professional lives. An event named after that word is immediately, unmistakably theirs.</p>
+          <p>Tender is not positioned as an Ansarada product launch. It is positioned as a forum for Africa's infrastructure advisory community — one that advisors want to attend on their own terms, for the peer access, the content, and the professional standing. <em>The commercial architecture sits beneath a format that has genuine value.</em></p>
+          <p>The product demonstration is woven into the content. The working session is not a sales pitch bolted on at the end. Advisors experience Ansarada Procure as part of a live procurement workflow exercise — they leave having used it, not just heard about it.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why advisors attend -->
+    <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:2px;" class="reveal">
+      <div style="padding:2.5rem 2rem; background:rgba(0,0,0,.25); border:1px solid rgba(245,240,232,.08);">
+        <div style="font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.14em; text-transform:uppercase; color:var(--tn-teal); margin-bottom:1rem;">Peer access</div>
+        <div style="font-size:.88rem; line-height:1.7; color:var(--tn-dim);">The only forum for Africa's infrastructure advisory community. The people in the room are the people who matter.</div>
+      </div>
+      <div style="padding:2.5rem 2rem; background:rgba(0,0,0,.25); border:1px solid rgba(245,240,232,.08);">
+        <div style="font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.14em; text-transform:uppercase; color:var(--tn-teal); margin-bottom:1rem;">Real content</div>
+        <div style="font-size:.88rem; line-height:1.7; color:var(--tn-dim);">The state of African infrastructure procurement, real project case studies, what's changing and what isn't.</div>
+      </div>
+      <div style="padding:2.5rem 2rem; background:rgba(0,0,0,.25); border:1px solid rgba(245,240,232,.08);">
+        <div style="font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.14em; text-transform:uppercase; color:var(--tn-teal); margin-bottom:1rem;">Standing</div>
+        <div style="font-size:.88rem; line-height:1.7; color:var(--tn-dim);">Being at Tender signals currency. Not being there is visible. The event becomes a professional marker.</div>
+      </div>
+      <div style="padding:2.5rem 2rem; background:rgba(0,0,0,.25); border:1px solid rgba(245,240,232,.08);">
+        <div style="font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:.14em; text-transform:uppercase; color:var(--tn-teal); margin-bottom:1rem;">Practical value</div>
+        <div style="font-size:.88rem; line-height:1.7; color:var(--tn-dim);">They leave with tools, frameworks, and a product they've used — ready to recommend to their next government client.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE FOUR CITIES
+════════════════════════════════════════════════════════════ -->
+<section class="tn-cities tn-section">
+  <div class="tn-cities-head">
+    <div class="tn-num reveal">04 — The Roadshow</div>
+    <h2 class="tn-cities-title reveal">Four cities.<br><em>One standard.</em></h2>
+    <p class="tn-cities-body reveal">Each city stop covers a distinct regional advisory ecosystem. 80–120 carefully selected advisors per stop, by invitation only. Quality over scale — every person in the room is a potential Ansarada advocate.</p>
+  </div>
+  <div class="tn-city-grid tn-wide">
+    <div class="tn-city-card reveal-l">
+      <div class="tn-city-num">Stop 01 · West Africa</div>
+      <div class="tn-city-card-name">Lagos</div>
+      <div class="tn-city-country">Nigeria</div>
+      <div class="tn-city-eco">The continent's largest economy and most active M&A and infrastructure market. Nigeria's infrastructure programme — roads, power, ports, rail — is running simultaneously at massive scale. Growthhive's home base gives us a genuine network advantage here.</div>
+      <div class="tn-city-venue">Eko Hotel, Victoria Island</div>
+      <div class="tn-city-advisors">
+        <span class="tn-advisor-tag">Big 4 Nigeria</span>
+        <span class="tn-advisor-tag">Infrastructure law firms</span>
+        <span class="tn-advisor-tag">Investment banks</span>
+        <span class="tn-advisor-tag">Government procurement advisors</span>
+      </div>
+    </div>
+    <div class="tn-city-card amber reveal-r">
+      <div class="tn-city-num">Stop 02 · East Africa</div>
+      <div class="tn-city-card-name">Nairobi</div>
+      <div class="tn-city-country">Kenya</div>
+      <div class="tn-city-eco">East Africa's advisory hub, covering Kenya, Tanzania, Uganda, and Ethiopia. The region is running some of the continent's most ambitious infrastructure programmes — the SGR, Lamu Port, Ethiopia's hydropower expansion — all requiring sophisticated procurement.</div>
+      <div class="tn-city-venue">Villa Rosa Kempinski</div>
+      <div class="tn-city-advisors">
+        <span class="tn-advisor-tag">East Africa Big 4</span>
+        <span class="tn-advisor-tag">Development finance advisors</span>
+        <span class="tn-advisor-tag">Specialist procurement firms</span>
+      </div>
+    </div>
+    <div class="tn-city-card reveal-l">
+      <div class="tn-city-num">Stop 03 · North Africa</div>
+      <div class="tn-city-card-name">Cairo</div>
+      <div class="tn-city-country">Egypt</div>
+      <div class="tn-city-eco">Egypt's $100B+ national infrastructure programme — new administrative capital, transport networks, renewable energy — represents one of the largest procurement environments on the continent. MENA infrastructure advisors operating here are running some of the highest-value tender processes in Africa.</div>
+      <div class="tn-city-venue">Four Seasons Cairo</div>
+      <div class="tn-city-advisors">
+        <span class="tn-advisor-tag">MENA advisory firms</span>
+        <span class="tn-advisor-tag">International law firms</span>
+        <span class="tn-advisor-tag">Infrastructure consultancies</span>
+      </div>
+    </div>
+    <div class="tn-city-card amber reveal-r">
+      <div class="tn-city-num">Stop 04 · Southern Africa</div>
+      <div class="tn-city-card-name">Cape Town</div>
+      <div class="tn-city-country">South Africa</div>
+      <div class="tn-city-eco">Southern Africa's advisory ecosystem is the most sophisticated and mature on the continent. South African advisory firms frequently operate across SADC countries, making Cape Town the entry point to the broadest regional network — and the one most likely to adopt a new standard early.</div>
+      <div class="tn-city-venue">Cape Grace Hotel</div>
+      <div class="tn-city-advisors">
+        <span class="tn-advisor-tag">SA Big 4</span>
+        <span class="tn-advisor-tag">SADC advisory firms</span>
+        <span class="tn-advisor-tag">Infrastructure law firms</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE FORMAT
+════════════════════════════════════════════════════════════ -->
+<section class="tn-format tn-section">
+  <div class="tn-wide">
+    <div class="tn-format-head">
+      <div class="tn-num reveal">05 — The Format</div>
+      <h2 class="tn-format-title reveal">Half-day forum.<br><em>The whole morning.</em></h2>
+      <p style="font-size:1rem; line-height:1.8; color:var(--tn-dim); max-width:600px;" class="reveal">Each city stop runs as a working morning — four sessions, each building on the last — followed by a networking lunch where Ansarada's team is available for individual conversations. The lunch is the commercial room.</p>
+    </div>
+    <div class="tn-sessions">
+      <div class="tn-session reveal">
+        <div class="tn-session-time">08:30</div>
+        <div class="tn-session-body">
+          <div class="tn-session-name">Registration & Networking Breakfast</div>
+          <div class="tn-session-desc">Advisors arrive and connect before the programme begins. Name-matched seating to engineer useful introductions.</div>
+        </div>
+      </div>
+      <div class="tn-session reveal">
+        <div class="tn-session-time">09:30</div>
+        <div class="tn-session-body">
+          <div class="tn-session-name">Opening Keynote — Africa's Infrastructure Decade: Why the Process Determines the Outcome</div>
+          <div class="tn-session-desc">The scale of Africa's infrastructure programme, where procurement is failing projects, and what best practice looks like globally. Sets the intellectual context for everything that follows.</div>
+        </div>
+      </div>
+      <div class="tn-session reveal">
+        <div class="tn-session-time">10:30</div>
+        <div class="tn-session-body">
+          <div class="tn-session-name">Panel — The Advisor's Role in Procurement Excellence</div>
+          <div class="tn-session-desc">Senior advisors from across the region discuss real projects — what went wrong, what made the difference, what they wish the process had looked like. Peer-to-peer, honest, structured.</div>
+        </div>
+      </div>
+      <div class="tn-session highlight reveal">
+        <div class="tn-session-time">11:45</div>
+        <div class="tn-session-body">
+          <div class="tn-session-name">Working Session — Running a Procurement with Ansarada Procure</div>
+          <div class="tn-session-desc">Not a product demo. A live procurement workflow session — advisors work through a real-world infrastructure tender scenario using Ansarada Procure. The tool is experienced, not presented. The objective: attendees leave having used it, not just having heard about it.</div>
+        </div>
+      </div>
+      <div class="tn-session reveal">
+        <div class="tn-session-time">13:00</div>
+        <div class="tn-session-body">
+          <div class="tn-session-name">Networking Lunch</div>
+          <div class="tn-session-desc">The commercial room. Ansarada's team available for individual conversations. Post-event demonstration scheduling happens here. All attendees captured in CRM for follow-up sequencing.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     GROWTHHIVE SCOPE
+════════════════════════════════════════════════════════════ -->
+<section class="tn-scope tn-section">
+  <div class="tn-wide">
+    <div class="tn-scope-head">
+      <div class="tn-num reveal">06 — Growthhive's Scope</div>
+      <h2 class="tn-scope-title reveal">We build it.<br><em>All of it.</em></h2>
+      <p style="font-size:1rem; line-height:1.8; color:var(--tn-dim); max-width:600px;" class="reveal">From concept to close, across all four cities. Our Lagos base is not incidental to this brief — it is the brief. We know the Nigerian advisory ecosystem and the operational infrastructure to extend it across the continent.</p>
+    </div>
+    <div class="tn-scope-grid">
+      <div class="tn-scope-item reveal">
+        <div class="tn-scope-num">01</div>
+        <div class="tn-scope-name">Event Concept & Brand</div>
+        <div class="tn-scope-desc">Tender identity, visual system, tagline, brand guidelines, all event materials, collateral and signage across four cities.</div>
+      </div>
+      <div class="tn-scope-item reveal">
+        <div class="tn-scope-num">02</div>
+        <div class="tn-scope-name">Invitation Strategy</div>
+        <div class="tn-scope-desc">Advisor targeting across all four cities — firms, individuals, seniority levels. Bespoke outreach built for each regional market.</div>
+      </div>
+      <div class="tn-scope-item reveal">
+        <div class="tn-scope-num">03</div>
+        <div class="tn-scope-name">Event Marketing</div>
+        <div class="tn-scope-desc">Pre-event digital, social, and direct outreach campaign. Post-event content and follow-up programme across all markets.</div>
+      </div>
+      <div class="tn-scope-item reveal">
+        <div class="tn-scope-num">04</div>
+        <div class="tn-scope-name">Event Production</div>
+        <div class="tn-scope-desc">Venue management, run-of-show, AV, registration, catering, speaker management and logistics for all four city stops.</div>
+      </div>
+      <div class="tn-scope-item reveal">
+        <div class="tn-scope-num">05</div>
+        <div class="tn-scope-name">Working Session Design</div>
+        <div class="tn-scope-desc">The Ansarada Procure live workflow session — content design, facilitation script, and attendee materials developed in partnership with Ansarada's product team.</div>
+      </div>
+      <div class="tn-scope-item reveal">
+        <div class="tn-scope-num">06</div>
+        <div class="tn-scope-name">Post-Event Follow-Up</div>
+        <div class="tn-scope-desc">CRM capture of all attendees, segmented follow-up sequence, and product demonstration scheduling pipeline to convert attendee relationships.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PROJECTED OUTCOMES
+════════════════════════════════════════════════════════════ -->
+<section class="tn-outcomes tn-section">
+  <div class="tn-wide">
+    <div class="tn-outcomes-head">
+      <div class="tn-num reveal">07 — Projected Outcomes</div>
+      <h2 class="tn-outcomes-title reveal">What Tender<br>will <em>generate.</em></h2>
+      <div style="margin-top:1.5rem;" class="reveal">
+        <div class="tn-outcomes-caveat">Projections based on comparable B2B advisory event performance · Not guaranteed results</div>
+      </div>
+    </div>
+    <div class="tn-metrics">
+      <div class="tn-metric reveal">
+        <span class="tn-metric-val">400+</span>
+        <div class="tn-metric-label">Infrastructure advisors<br>across four cities</div>
+        <div class="tn-metric-sub">80–120 per stop, senior advisory layer per market</div>
+      </div>
+      <div class="tn-metric reveal">
+        <span class="tn-metric-val">80+</span>
+        <div class="tn-metric-label">Advisory firms<br>represented</div>
+        <div class="tn-metric-sub">Big 4, specialist, legal, financial advisory across Africa</div>
+      </div>
+      <div class="tn-metric reveal">
+        <span class="tn-metric-val">45+</span>
+        <div class="tn-metric-label">Post-event demo<br>requests</div>
+        <div class="tn-metric-sub">~12–15% conversion from working session attendees</div>
+      </div>
+      <div class="tn-metric reveal">
+        <span class="tn-metric-val">20+</span>
+        <div class="tn-metric-label">New Procure mandates<br>within 6 months</div>
+        <div class="tn-metric-sub">Advisors recommending or adopting Procure for client engagements</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     DOWNLOAD
+════════════════════════════════════════════════════════════ -->
+<section class="tn-download tn-section">
+  <div class="tn-wide">
+    <div class="tn-scope-head">
+      <div class="tn-num reveal">08 — The Documents</div>
+      <h2 class="tn-scope-title reveal">The full case,<br><em>in detail.</em></h2>
+      <p style="font-size:1rem; line-height:1.8; color:var(--tn-dim); max-width:500px;" class="reveal">The complete Tender proposal — concept, format, four-city breakdown, scope, and projected outcomes — available as a presentation and a full proposal document.</p>
+    </div>
+    <div class="tn-download-grid">
+      <div class="tn-dl-card reveal-l">
+        <div class="tn-dl-type">Presentation · 9 slides</div>
+        <div class="tn-dl-name">Tender — How Africa Procures</div>
+        <div class="tn-dl-desc">The Tender pitch deck. Concept, insight, four cities, format, scope, and projected outcomes. Designed for the Ansarada team.</div>
+        <a href="/assets/tender_ansarada_roadshow.pptx" download class="tn-dl-btn">
+          <span>Download deck</span><span>↓</span>
+        </a>
+      </div>
+      <div class="tn-dl-card amber reveal-r">
+        <div class="tn-dl-type">Proposal document · Full brief</div>
+        <div class="tn-dl-name">Tender — Ansarada Proposal</div>
+        <div class="tn-dl-desc">The complete written proposal — executive summary, opportunity analysis, event concept, four-city roadshow, event format, Growthhive scope, projected outcomes, and next steps.</div>
+        <a href="/assets/Tender_Ansarada_Proposal.docx" download class="tn-dl-btn">
+          <span>Download proposal</span><span>↓</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLOSER
+════════════════════════════════════════════════════════════ -->
+<section class="tn-closer tn-section">
+  <div class="tn-closer-glow"></div>
+  <p class="tn-closer-pre reveal">Tender · How Africa Procures</p>
+  <h2 class="tn-closer-title reveal">
+    Ready to go<br>to <em>market?</em>
+  </h2>
+  <p class="tn-closer-sub reveal">Growthhive has the concept, the market knowledge, and the Lagos base to make Tender the event that establishes Ansarada Procure as the standard for African infrastructure procurement.</p>
+  <div class="tn-closer-btns reveal">
+    <a href="/contact.html" class="btn-fill">Start a conversation</a>
+    <a href="/work.html" class="btn-out">See more work</a>
+  </div>
+</section>
+
+<footer class="tn-footer">
+  <div class="tn-footer-logo">Growthhive<em>.</em></div>
+  <div class="tn-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+  <div class="tn-footer-meta">© 2025 Growthhive · Active Pitch Document</div>
+</footer>
+
+<script src="/scripts/ansarada.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>
