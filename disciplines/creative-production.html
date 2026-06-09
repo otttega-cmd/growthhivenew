@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Creative Production — Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/creative-production.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="discipline-cp">
+
+<!-- ── Loader ───────────────────────────────────────────────── -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail"     class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ── Nav ─────────────────────────────────────────────────── -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="/assets/logo_icon.ico" alt="Growthhive">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html">Work</a></li>
+    <li><a href="/services.html" class="active">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <a href="/contact.html" class="ncta">Start a project</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO — triptych of portfolio work
+════════════════════════════════════════════════════════════ -->
+<header class="cp-hero cp-section">
+
+  <!-- Three image panels -->
+  <div class="cp-triptych" id="cpTriptych">
+    <div class="cp-triptych-panel" id="cpPanel1">
+      <img src="/assets/eyowo-festival-woman.jpg"
+           alt="Eyowo campaign — cultural direction"
+           onload="this.closest('.cp-triptych-panel').classList.add('loaded')">
+    </div>
+    <div class="cp-triptych-panel" id="cpPanel2">
+      <img src="/assets/russian-bear-bottle.png"
+           alt="Russian Bear — The Coldest Pursuit"
+           onload="this.closest('.cp-triptych-panel').classList.add('loaded')"
+           style="object-fit:contain; background:#060610;">
+    </div>
+    <div class="cp-triptych-panel" id="cpPanel3">
+      <img src="/assets/eyowo-cowrie-field.jpg"
+           alt="Eyowo — cowrie field"
+           onload="this.closest('.cp-triptych-panel').classList.add('loaded')">
+    </div>
+  </div>
+
+  <!-- Vertical dividers -->
+  <div class="cp-hero-dividers">
+    <span></span><span></span><span></span>
+  </div>
+
+  <!-- Panel labels — sit at top of image columns -->
+  <div class="cp-panel-labels" id="cpPanelLabels">
+    <span class="cp-panel-label">Campaign concepting</span>
+    <span class="cp-panel-label">Brand identity</span>
+    <span class="cp-panel-label">Visual language</span>
+  </div>
+
+  <!-- Gradient overlay -->
+  <div class="cp-hero-overlay"></div>
+
+  <!-- Headline content -->
+  <div class="cp-hero-content">
+    <div class="cp-hero-eyebrow" id="cpEyebrow">Growthhive · Disciplines</div>
+    <h1 class="cp-hero-title" id="cpTitle">
+      Work that couldn't have<br>come from <em>anywhere else.</em>
+    </h1>
+    <p class="cp-hero-sub" id="cpSub">
+      Creative Production. We make the things brands need to be seen,
+      remembered, and chosen — campaign systems, brand identities,
+      art direction, copy, event collateral, and everything in between.
+      Always strategy-led. Always made for the medium it lives in.
+    </p>
+    <div class="cp-hero-meta" id="cpMeta">
+      <div class="cp-hero-stat">
+        <span class="cp-hero-stat-val">3</span>
+        <span class="cp-hero-stat-key">creative routes, every brief</span>
+      </div>
+      <div class="cp-hero-divider-meta"></div>
+      <div class="cp-hero-stat">
+        <span class="cp-hero-stat-val">4–10 wks</span>
+        <span class="cp-hero-stat-key">brief to delivery</span>
+      </div>
+      <div class="cp-hero-divider-meta"></div>
+      <div class="cp-hero-stat">
+        <span class="cp-hero-stat-val">NG · UK · US</span>
+        <span class="cp-hero-stat-key">markets, cultures, contexts</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE BELIEF — creative philosophy
+════════════════════════════════════════════════════════════ -->
+<section class="cp-belief cp-section">
+  <div class="cp-wide">
+    <div class="cp-belief-inner">
+      <div class="reveal">
+        <div class="cp-num">01 — The belief</div>
+        <div class="cp-belief-label">What we think about creative.</div>
+      </div>
+      <div>
+        <h2 class="cp-pull-quote reveal">
+          The insight always arrives<br>before the <em>aesthetic.</em>
+        </h2>
+        <div class="cp-belief-body reveal">
+          <p>The most common misconception about creative work is that it begins with a visual. It doesn't. It begins with a true observation about the brand, the audience, or the culture — specific enough to be useful, interesting enough to be memorable. The aesthetic is the expression of that observation. Get the observation wrong and the best-executed creative in the world will still fail to move anyone.</p>
+          <p>Every piece of work in the Growthhive portfolio starts with a territory mapping exercise — understanding what the brand's visual and cultural landscape looks like, what the competitors occupy, what the audience already sees, and what remains unsaid. <em>The creative route emerges from that research.</em> Not from a visual preference. Not from a trend. From a gap in the market that a specific, disciplined creative idea can occupy.</p>
+          <p>The second thing: we build for where the work lives. A poster is a different brief from an Instagram card, even when both are for the same campaign. A billboard is not a scaled-up social post. Every medium has its own creative language, and we write a specific brief for each one — because work that ignores the medium it lives in wastes every advantage the medium offers.</p>
+        </div>
+        <div class="cp-principles reveal">
+          <div class="cp-principle">
+            <span class="cp-principle-num">I</span>
+            <div>
+              <div class="cp-principle-name">Strategy before aesthetics</div>
+              <div class="cp-principle-desc">The insight drives the aesthetic. We map the brand's creative territory before we open a design file. What we're looking for is not what looks good — it's what's true and distinctive and ownable.</div>
+            </div>
+          </div>
+          <div class="cp-principle">
+            <span class="cp-principle-num">II</span>
+            <div>
+              <div class="cp-principle-name">Made for the medium</div>
+              <div class="cp-principle-desc">A billboard is not a scaled-up Instagram card. A brand guide is not a PDF that gathers dust. Every format gets its own brief, its own creative requirements, its own measure of success. We don't resize — we rethink.</div>
+            </div>
+          </div>
+          <div class="cp-principle">
+            <span class="cp-principle-num">III</span>
+            <div>
+              <div class="cp-principle-name">Restraint as craft</div>
+              <div class="cp-principle-desc">The work that earns the most attention is rarely the loudest. We choose what to leave out as carefully as what to include. Silence is a creative decision. White space is a creative decision. What you don't say is often what the audience hears most clearly.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     DELIVERABLES
+════════════════════════════════════════════════════════════ -->
+<section class="cp-delivers cp-section">
+  <div class="cp-wide">
+    <div class="cp-delivers-head">
+      <div>
+        <div class="cp-num reveal">02 — What we make</div>
+        <h2 class="cp-delivers-title reveal">
+          Every format.<br><em>One standard.</em>
+        </h2>
+      </div>
+      <p class="cp-delivers-intro reveal">
+        Creative production at Growthhive spans eight output categories — each with its own craft requirements, its own brief format, and its own measure of success. The connective tissue between them is always the same: a strategic insight that earns its place in everything that follows.
+      </p>
+    </div>
+    <div class="cp-deliver-grid">
+
+      <div class="cp-deliver-item reveal">
+        <div class="cp-deliver-num">01</div>
+        <div class="cp-deliver-name">Campaign Concepting & Execution</div>
+        <div class="cp-deliver-desc">The full system — from the single insight that anchors the campaign to every touchpoint it produces. Campaign idea, brand platform, hero execution, format extensions across every active medium. We brief, concept, and produce the entire campaign as a single coherent system.</div>
+      </div>
+
+      <div class="cp-deliver-item reveal">
+        <div class="cp-deliver-num">02</div>
+        <div class="cp-deliver-name">Brand Identity & Visual Systems</div>
+        <div class="cp-deliver-desc">Logo architecture, colour system, typography, iconography, photography direction, and the design grammar that keeps everything coherent across every application. We build identities that are specific enough to be distinctive and systematic enough to scale. Russian Bear is what a Growthhive identity project looks like when there are no constraints at all.</div>
+      </div>
+
+      <div class="cp-deliver-item reveal">
+        <div class="cp-deliver-num">03</div>
+        <div class="cp-deliver-name">Art Direction & Photography</div>
+        <div class="cp-deliver-desc">The visual language of a brand is determined as much by what it photographs as by what it designs. We develop shot lists, sourcing briefs, editing direction, and full photography art direction — for campaign shoots, product photography, talent direction, and editorial projects. Including post-production colour grading and retouching.</div>
+      </div>
+
+      <div class="cp-deliver-item reveal">
+        <div class="cp-deliver-num">04</div>
+        <div class="cp-deliver-name">Print & OOH Production</div>
+        <div class="cp-deliver-desc">Poster series, billboard systems, bus shelter panels, transit advertising, ambient media. Designed for physical space — which means accounting for viewing distance, dwell time, ambient light, and the specific visual grammar of each format. All files production-ready for print, fully spec'd for the media buyer.</div>
+      </div>
+
+      <div class="cp-deliver-item reveal">
+        <div class="cp-deliver-num">05</div>
+        <div class="cp-deliver-name">Digital & Social Creative</div>
+        <div class="cp-deliver-desc">Platform-native creative for Meta, TikTok, YouTube, LinkedIn, Snapchat, and Reddit — built to each platform's specific format requirements, audience behaviour, and creative language. Static, motion, and interactive formats. We don't resize — we rethink the brief for every platform the work will live on.</div>
+      </div>
+
+      <div class="cp-deliver-item reveal">
+        <div class="cp-deliver-num">06</div>
+        <div class="cp-deliver-name">Copywriting & Brand Voice</div>
+        <div class="cp-deliver-desc">Campaign headlines, body copy, brand voice guides, taglines, naming strategy, and all written creative production. Across English, Yoruba, Igbo, and Pidgin for Nigerian markets. Copy that earns the space it occupies — because the second-most powerful creative tool after a strong insight is a sentence nobody saw coming.</div>
+      </div>
+
+      <div class="cp-deliver-item reveal">
+        <div class="cp-deliver-num">07</div>
+        <div class="cp-deliver-name">Event Identity & Collateral</div>
+        <div class="cp-deliver-desc">The complete creative system for a physical event — event naming and visual identity, invitation design and production management, programme design, credential and badge systems, venue signage, and all event materials. The Long View for JP Morgan Asset Management is what a Growthhive event identity engagement delivers.</div>
+      </div>
+
+      <div class="cp-deliver-item reveal">
+        <div class="cp-deliver-num">08</div>
+        <div class="cp-deliver-name">Brand Guides & Creative Documentation</div>
+        <div class="cp-deliver-desc">The documents that ensure the creative work doesn't degrade the moment it leaves Growthhive's hands. Brand guides, usage rules, creative standards, and the pitch decks and proposals that present work to the world. Creative is only as durable as the system built to protect it.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PROCESS
+════════════════════════════════════════════════════════════ -->
+<section class="cp-process cp-section">
+  <div class="cp-wide">
+    <div class="cp-process-head">
+      <div class="cp-num reveal">03 — How it works</div>
+      <h2 class="cp-process-title reveal">
+        Five stages.<br>One <em>finished thing.</em>
+      </h2>
+      <p class="cp-process-body reveal">Every creative engagement follows the same structure. The brief is never delivered without research. The three routes are never presented without specificity. The chosen direction is never produced without a clear delivery standard. The work that arrives is ready to use — not a work in progress handed over for the client to figure out.</p>
+    </div>
+    <div class="cp-steps">
+
+      <div class="cp-step reveal">
+        <div class="cp-step-num">01</div>
+        <div class="cp-step-name">The Brief</div>
+        <div class="cp-step-desc">A 30-minute discovery call — no presentation required. We listen, ask questions, and then we write the brief. The brief is Growthhive's diagnosis of the creative challenge, not a restatement of what the client has told us. It defines the problem, the audience, the competitive context, the creative opportunity, and the success criteria. It is the most important document in the process.</div>
+      </div>
+
+      <div class="cp-step reveal">
+        <div class="cp-step-num">02</div>
+        <div class="cp-step-name">Research & Territory Mapping</div>
+        <div class="cp-step-desc">Before we concept anything, we map the creative territory. What does the brand's visual world look like now? What do competitors occupy? What does the target audience already see, and what are they not seeing? What cultural references are in play? This research phase is invisible to the client but present in everything that comes after it. The routes that emerge from good research are always more interesting than the ones that don't.</div>
+      </div>
+
+      <div class="cp-step highlight reveal">
+        <div class="cp-step-num">03</div>
+        <div class="cp-step-name">The Three Routes</div>
+        <div class="cp-step-desc">Three distinct creative territories, each developed to a level where the client can genuinely picture the finished work. Not mood boards. Not directions described in one sentence. Routes developed with real executional specificity — visual language, tone, headline examples, format applications, and what the brand would look like if this route were taken all the way. The three routes are not safe, safer, and bold. They are three genuinely different answers to the same brief.</div>
+      </div>
+
+      <div class="cp-step reveal">
+        <div class="cp-step-num">04</div>
+        <div class="cp-step-name">Development & Production</div>
+        <div class="cp-step-desc">The chosen route is built to full production standard. Every format briefed separately. Every medium given its own creative treatment. Photography sourced or art-directed. Copy written and refined. Documents built, not decorated. Motion briefed if the format requires it. This stage takes the time it takes to be right — the timeline is agreed in the brief stage, not after production has started.</div>
+      </div>
+
+      <div class="cp-step reveal">
+        <div class="cp-step-num">05</div>
+        <div class="cp-step-name">Delivery & Usage</div>
+        <div class="cp-step-desc">All production files in the correct formats for every application. Brand guides or usage documentation for anything that will be reproduced by teams outside Growthhive. A delivery session that walks through the work, explains the decisions, and answers every question about how to use it correctly. Creative is only as durable as the system built to protect it from the moment it leaves our hands.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE THREE ROUTES
+════════════════════════════════════════════════════════════ -->
+<section class="cp-routes cp-section">
+  <div class="cp-wide">
+    <div class="cp-routes-head">
+      <div class="cp-num reveal">04 — The three routes</div>
+      <h2 class="cp-routes-title reveal">
+        Three territories.<br>No <em>obvious answer.</em>
+      </h2>
+      <p class="cp-routes-body reveal">Every creative brief we write gets answered three different ways. Not one way presented at three levels of boldness. Three genuinely different creative philosophies — each with its own logic, its own risk profile, and its own ceiling. The right route depends on where the brand is, what the audience needs to feel, and how much courage the moment requires.</p>
+    </div>
+    <div class="cp-route-cards">
+
+      <div class="cp-route-card reveal-l">
+        <div class="cp-route-tag">Route A</div>
+        <div class="cp-route-name">The Familiar Made Exceptional</div>
+        <div class="cp-route-def">"Take what the brand already owns and execute it with a level of craft and precision that makes the familiar feel new. The audience recognises the world — they've just never seen it look exactly like this."</div>
+        <div class="cp-route-meta">
+          <div class="cp-route-meta-row">
+            <div class="cp-route-meta-label">Creative logic</div>
+            <div class="cp-route-meta-val">Refinement and elevation of existing brand equity. The idea is already there — the route finds the highest possible expression of it.</div>
+          </div>
+          <div class="cp-route-meta-row">
+            <div class="cp-route-meta-label">Risk profile</div>
+            <div class="cp-route-meta-val">Lower risk, higher certainty. The audience knows the territory; the craft is what surprises them.</div>
+          </div>
+        </div>
+        <div class="cp-route-ref">In the portfolio → Chicken Republic "What's Your Order?" — the brand's emotional equity (CR as a cultural constant) elevated through executional precision</div>
+      </div>
+
+      <div class="cp-route-card reveal">
+        <div class="cp-route-tag">Route B</div>
+        <div class="cp-route-name">The Surprising But Inevitable</div>
+        <div class="cp-route-def">"The idea that, once seen, cannot be unseen. You wonder why nobody did it before. The insight was always there — this route is the first to find it and say it out loud."</div>
+        <div class="cp-route-meta">
+          <div class="cp-route-meta-row">
+            <div class="cp-route-meta-label">Creative logic</div>
+            <div class="cp-route-meta-val">A specific, true observation about the brand or the culture that reframes everything. The creative work is the logical consequence of seeing something nobody else saw.</div>
+          </div>
+          <div class="cp-route-meta-row">
+            <div class="cp-route-meta-label">Risk profile</div>
+            <div class="cp-route-meta-val">Medium risk, high reward. Requires client confidence in the insight. When it lands, it's distinctive and durable.</div>
+          </div>
+        </div>
+        <div class="cp-route-ref">In the portfolio → Eyowo "Kí l'ẹyọ?" — the insight was embedded in the brand name all along; the campaign route was the first to say it</div>
+      </div>
+
+      <div class="cp-route-card reveal-r">
+        <div class="cp-route-tag">Route C</div>
+        <div class="cp-route-name">The Uncomfortable But Right</div>
+        <div class="cp-route-def">"The route that challenges the brand's own assumptions about itself. It might make the client uncomfortable on first presentation. The strategy is correct. The ceiling is the highest of the three."</div>
+        <div class="cp-route-meta">
+          <div class="cp-route-meta-row">
+            <div class="cp-route-meta-label">Creative logic</div>
+            <div class="cp-route-meta-val">A reframing of the brand that requires the client to let go of a current assumption. Transformative if the insight is right. Not for every brief or every moment.</div>
+          </div>
+          <div class="cp-route-meta-row">
+            <div class="cp-route-meta-label">Risk profile</div>
+            <div class="cp-route-meta-val">Higher risk, potentially transformative ceiling. Requires strategic courage. The brands that choose this route rarely go back.</div>
+          </div>
+        </div>
+        <div class="cp-route-ref">In the portfolio → Russian Bear "The Coldest Pursuit" — a $95,000 bottle of vodka in a market that doesn't exist yet, built around restraint and authority rather than aspiration</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FROM THE STUDIO — portfolio gallery
+════════════════════════════════════════════════════════════ -->
+<section class="cp-studio cp-section">
+  <div class="cp-wide">
+    <div class="cp-studio-head">
+      <div>
+        <div class="cp-num reveal">05 — From the studio</div>
+        <div class="cp-studio-label reveal">A selection of creative production work.</div>
+      </div>
+      <div>
+        <h2 class="cp-studio-title reveal">
+          The range of what<br>gets <em>made here.</em>
+        </h2>
+        <p class="cp-studio-intro reveal">Brand identity built from nothing. Campaign concepts rooted in Yoruba etymology. Event creative systems for institutional investment forums. The range of what Growthhive produces is intentionally wide — because the creative challenges our clients bring us are rarely the same twice.</p>
+      </div>
+    </div>
+
+    <div class="cp-gallery">
+
+      <!-- Row 1, Col 1 — tall item spanning 2 rows -->
+      <div class="cp-gallery-item tall reveal-l">
+        <div class="cp-gallery-img">
+          <img src="/assets/russian-bear-logo-lockup.png"
+               alt="Russian Bear — brand mark"
+               onload="this.classList.add('loaded')"
+               style="object-fit:contain; max-height:440px;">
+        </div>
+        <div class="cp-gallery-meta">
+          <div>
+            <div class="cp-gallery-project">Russian Bear</div>
+            <div class="cp-gallery-piece">Brand Mark & Identity System</div>
+          </div>
+          <span class="cp-gallery-type">Identity</span>
+        </div>
+      </div>
+
+      <!-- Row 1, Col 2 -->
+      <div class="cp-gallery-item reveal-r">
+        <div class="cp-gallery-img cover">
+          <img src="/assets/eyowo-cowrie-field.jpg"
+               alt="Eyowo — cowrie field"
+               onload="this.classList.add('loaded')">
+        </div>
+        <div class="cp-gallery-meta">
+          <div>
+            <div class="cp-gallery-project">Eyowo — Kí l'ẹyọ?</div>
+            <div class="cp-gallery-piece">Campaign Art Direction</div>
+          </div>
+          <span class="cp-gallery-type">Campaign</span>
+        </div>
+      </div>
+
+      <!-- Row 2, Col 2 (Col 1 still occupied by tall item) -->
+      <div class="cp-gallery-item reveal-r">
+        <div class="cp-gallery-img cover">
+          <img src="/assets/eyowo-festival-woman.jpg"
+               alt="Eyowo — festival woman"
+               onload="this.classList.add('loaded')">
+        </div>
+        <div class="cp-gallery-meta">
+          <div>
+            <div class="cp-gallery-project">Eyowo — Kí l'ẹyọ?</div>
+            <div class="cp-gallery-piece">Cultural Photography Direction</div>
+          </div>
+          <span class="cp-gallery-type">Art Direction</span>
+        </div>
+      </div>
+
+      <!-- Row 3, Col 1 — tall item -->
+      <div class="cp-gallery-item tall reveal-l">
+        <div class="cp-gallery-img">
+          <img src="/assets/russian-bear-bottle.png"
+               alt="Russian Bear — The Coldest Pursuit"
+               onload="this.classList.add('loaded')"
+               style="object-fit:contain; max-height:480px;">
+        </div>
+        <div class="cp-gallery-meta">
+          <div>
+            <div class="cp-gallery-project">Russian Bear</div>
+            <div class="cp-gallery-piece">Packaging Direction — The Coldest Pursuit</div>
+          </div>
+          <span class="cp-gallery-type">Brand Identity</span>
+        </div>
+      </div>
+
+      <!-- Row 3, Col 2 -->
+      <div class="cp-gallery-item reveal-r">
+        <div class="cp-gallery-img">
+          <img src="/assets/russian-bear-2.png"
+               alt="Russian Bear — Amber Reserve direction"
+               onload="this.classList.add('loaded')"
+               style="object-fit:contain; max-height:280px;">
+        </div>
+        <div class="cp-gallery-meta">
+          <div>
+            <div class="cp-gallery-project">Russian Bear</div>
+            <div class="cp-gallery-piece">Route A — Amber Reserve</div>
+          </div>
+          <span class="cp-gallery-type">Creative Route</span>
+        </div>
+      </div>
+
+      <!-- Row 4, Col 2 -->
+      <div class="cp-gallery-item reveal-r">
+        <div class="cp-gallery-img">
+          <img src="/assets/eyowo-cowrie-1.png"
+               alt="Eyowo — single cowrie render"
+               onload="this.classList.add('loaded')"
+               style="object-fit:contain; max-height:280px; background:#0D1328;">
+        </div>
+        <div class="cp-gallery-meta">
+          <div>
+            <div class="cp-gallery-project">Eyowo — Kí l'ẹyọ?</div>
+            <div class="cp-gallery-piece">Cowrie — Campaign Motif</div>
+          </div>
+          <span class="cp-gallery-type">Visual Language</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cp-gallery-link reveal">
+      <a href="/work.html" class="cp-studio-link">
+        View all case studies →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     ENGAGEMENT
+════════════════════════════════════════════════════════════ -->
+<section class="cp-engage cp-section">
+  <div class="cp-wide">
+    <div class="cp-num reveal">06 — The engagement</div>
+    <div class="cp-engage-grid">
+      <div class="cp-engage-block reveal">
+        <div class="cp-engage-label">Campaign system</div>
+        <div class="cp-engage-val">4–8 weeks</div>
+        <div class="cp-engage-note">From brief sign-off to delivery of a complete campaign system — hero concept, all format extensions, copy, and production files. Timeline depends on number of formats and production complexity.</div>
+      </div>
+      <div class="cp-engage-block featured reveal">
+        <div class="cp-engage-label">Brand identity</div>
+        <div class="cp-engage-val">6–10 weeks</div>
+        <div class="cp-engage-note">From brief to a complete visual identity system — logo, colour, type, photography direction, and brand guide. A Growthhive brand identity engagement is not a one-screen logo delivery. It is the full system the brand needs to operate at scale.</div>
+      </div>
+      <div class="cp-engage-block reveal">
+        <div class="cp-engage-label">Single asset</div>
+        <div class="cp-engage-val">1–2 weeks</div>
+        <div class="cp-engage-note">For brands that need specific executions rather than full systems — a poster series, an event invitation, a social campaign, a pitch deck. Scoped by asset type and number of formats required.</div>
+      </div>
+      <div class="cp-engage-block reveal">
+        <div class="cp-engage-label">Creative retainer</div>
+        <div class="cp-engage-val">Monthly</div>
+        <div class="cp-engage-note">For brands that produce creative output continuously — a monthly creative retainer that provides a fixed volume of production across agreed formats. The most cost-efficient way to work with Growthhive if creative output is ongoing.</div>
+      </div>
+    </div>
+    <div class="cp-engage-markets reveal">
+      <span class="cp-engage-markets-label">Markets we produce for</span>
+      <div class="cp-market-list">
+        <span class="cp-market-item">Nigeria</span>
+        <span class="cp-market-item">United Kingdom</span>
+        <span class="cp-market-item">United States</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLOSER
+════════════════════════════════════════════════════════════ -->
+<section class="cp-closer cp-section">
+  <p class="cp-closer-pre reveal">Creative Production · Growthhive</p>
+  <h2 class="cp-closer-title reveal">
+    Ready to make<br>something <em>real?</em>
+  </h2>
+  <p class="cp-closer-sub reveal">Book a 30-minute discovery call. No brief required — bring the problem and we'll find the idea together.</p>
+  <div class="cp-closer-btns reveal">
+    <a href="/contact.html" class="btn-fill">Book a discovery call</a>
+    <a href="/services.html" class="btn-out">All services</a>
+  </div>
+</section>
+
+<footer class="cp-footer">
+  <div class="cp-footer-logo">Growthhive<em>.</em></div>
+  <div class="cp-footer-meta">Creative Production</div>
+  <div class="cp-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+</footer>
+
+<script src="/scripts/creative-production.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>
