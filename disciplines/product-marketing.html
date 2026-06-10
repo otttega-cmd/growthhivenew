@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Marketing — Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/product-marketing.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="discipline-pm">
+
+<!-- ── Loader ───────────────────────────────────────────────── -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail"     class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ── Nav ─────────────────────────────────────────────────── -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="/assets/logo_icon.ico" alt="Growthhive">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html">Work</a></li>
+    <li><a href="/services.html" class="active">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <a href="/contact.html" class="ncta">Start a project</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<header class="pm-hero pm-section">
+  <div class="pm-hero-inner">
+    <div class="pm-hero-eyebrow" id="pmEyebrow">Growthhive · Disciplines</div>
+    <h1 class="pm-hero-title" id="pmTitle">
+      Market the product.<br>Not the <em>feature list.</em>
+    </h1>
+    <p class="pm-hero-sub" id="pmSub">
+      Product Marketing. Positioning, messaging, launch, and go-to-market —
+      built on what the product actually makes someone feel, and what they're
+      really trying to achieve. The analytics underneath, the story on top.
+    </p>
+    <div class="pm-hero-meta" id="pmMeta">
+      <div class="pm-hero-stat">
+        <span class="pm-hero-stat-val">9</span>
+        <span class="pm-hero-stat-key">capabilities, one discipline</span>
+      </div>
+      <div class="pm-hero-divider"></div>
+      <div class="pm-hero-stat">
+        <span class="pm-hero-stat-val">Outcome</span>
+        <span class="pm-hero-stat-key">over feature, always</span>
+      </div>
+      <div class="pm-hero-divider"></div>
+      <div class="pm-hero-stat">
+        <span class="pm-hero-stat-val">NG · UK · US</span>
+        <span class="pm-hero-stat-key">positioning per market</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE BELIEF
+════════════════════════════════════════════════════════════ -->
+<section class="pm-belief pm-section">
+  <div class="pm-wide">
+    <div class="pm-belief-inner">
+      <div class="reveal">
+        <div class="pm-num">01 — The belief</div>
+        <div class="pm-belief-label">What we think about product marketing.</div>
+      </div>
+      <div>
+        <h2 class="pm-belief-statement reveal">
+          Nobody buys a feature.<br>They buy what the feature<br><em>does for them.</em>
+        </h2>
+        <div class="pm-belief-body reveal">
+          <p>The most common failure in product marketing is describing the product instead of the customer's life with the product in it. Specs, features, capabilities — these are inputs. What the customer is actually buying is a feeling and an outcome: the relief of a problem solved, the confidence of looking capable, the freedom of time returned to them. The product is the bridge between where they are and where they want to be. <em>We market the bridge by describing the other side.</em></p>
+          <p>This requires real analytical rigour underneath the storytelling. We don't guess what the customer wants — we study the product analytics, map the conversion funnel, analyse user behaviour, and build personas from evidence. The story we tell sits on top of that foundation. Beautiful messaging that isn't grounded in how people actually use the product is just decoration. Analytics without a story is just a dashboard nobody acts on.</p>
+        </div>
+        <div class="pm-contrast reveal">
+          <div class="pm-contrast-cell crossed">
+            <div class="pm-contrast-label">✕ Feature marketing</div>
+            <div class="pm-contrast-text"><strong>"POS terminals with 99.9% uptime and instant settlement."</strong> Accurate. Forgettable. Describes the product, not the person using it.</div>
+          </div>
+          <div class="pm-contrast-cell right">
+            <div class="pm-contrast-label">✓ Outcome marketing</div>
+            <div class="pm-contrast-text"><strong>"The shop owner who never has to turn a customer away because the network is down."</strong> Same product. Now it's about the person.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CAPABILITIES — the 9
+════════════════════════════════════════════════════════════ -->
+<section class="pm-caps pm-section">
+  <div class="pm-wide">
+    <div class="pm-caps-head">
+      <div>
+        <div class="pm-num reveal">02 — What's included</div>
+        <h2 class="pm-caps-title reveal">Nine capabilities.<br><em>One discipline.</em></h2>
+      </div>
+      <p class="pm-caps-intro reveal">
+        Product marketing at Growthhive spans the full arc — from the analytics that reveal how the product is actually used, to the positioning that gives it meaning, to the launch that puts it in front of the right people. Each capability stands alone. Together they form a complete go-to-market engine.
+      </p>
+    </div>
+    <div class="pm-caps-grid">
+
+      <div class="pm-cap-item reveal">
+        <div class="pm-cap-num">01</div>
+        <div class="pm-cap-name">Product Analytics</div>
+        <div class="pm-cap-desc">The evidence layer. We instrument and interpret how the product is actually used — activation, retention, feature adoption, drop-off — so every marketing decision is grounded in behaviour, not assumption.</div>
+      </div>
+
+      <div class="pm-cap-item reveal">
+        <div class="pm-cap-num">02</div>
+        <div class="pm-cap-name">Product Teardowns</div>
+        <div class="pm-cap-desc">A forensic breakdown of a product's positioning, onboarding, funnel, and messaging — yours or a competitor's. The fastest way to see what's working, what's leaking, and where the opportunity is hiding.</div>
+      </div>
+
+      <div class="pm-cap-item reveal">
+        <div class="pm-cap-num">03</div>
+        <div class="pm-cap-name">Positioning & Messaging</div>
+        <div class="pm-cap-desc">The core of the discipline. We define what the product is, who it's for, what it replaces, and why it matters — then build the messaging hierarchy that carries that positioning across every channel and market.</div>
+      </div>
+
+      <div class="pm-cap-item reveal">
+        <div class="pm-cap-num">04</div>
+        <div class="pm-cap-name">User Behaviour Analysis</div>
+        <div class="pm-cap-desc">Why users do what they do. We study the patterns — where they hesitate, what they ignore, what makes them convert — and translate that into messaging and product narrative that meets people where they actually are.</div>
+      </div>
+
+      <div class="pm-cap-item reveal">
+        <div class="pm-cap-num">05</div>
+        <div class="pm-cap-name">Conversion Funnel Optimisation</div>
+        <div class="pm-cap-desc">Every funnel leaks. We map each stage from awareness to activation to retention, identify where users fall out and why, and fix the messaging, positioning, and experience gaps that cause the drop-off.</div>
+      </div>
+
+      <div class="pm-cap-item reveal">
+        <div class="pm-cap-num">06</div>
+        <div class="pm-cap-name">Launch Campaigns</div>
+        <div class="pm-cap-desc">Getting the product into the world with momentum. Launch narrative, sequencing, channel plan, and the full creative campaign — coordinated so the product lands as an event, not an announcement nobody noticed.</div>
+      </div>
+
+      <div class="pm-cap-item reveal">
+        <div class="pm-cap-num">07</div>
+        <div class="pm-cap-name">Competitive Positioning</div>
+        <div class="pm-cap-desc">Where you stand relative to everyone else fighting for the same customer. We map the competitive landscape, find the territory only you can own, and build the positioning that makes the comparison irrelevant.</div>
+      </div>
+
+      <div class="pm-cap-item reveal">
+        <div class="pm-cap-num">08</div>
+        <div class="pm-cap-name">Pricing & Packaging Strategy</div>
+        <div class="pm-cap-desc">How the product is structured, tiered, and priced is a marketing decision as much as a finance one. We design packaging and pricing that reflects the value delivered and makes the right choice the obvious one.</div>
+      </div>
+
+      <div class="pm-cap-item reveal">
+        <div class="pm-cap-num">09</div>
+        <div class="pm-cap-name">Customer & Persona Research</div>
+        <div class="pm-cap-desc">Built from evidence, not stereotypes. We develop the customer personas, jobs-to-be-done, and segment definitions that everything else is built on — because you can't market the outcome until you know whose outcome it is.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PROCESS
+════════════════════════════════════════════════════════════ -->
+<section class="pm-process pm-section">
+  <div class="pm-wide">
+    <div class="pm-process-head">
+      <div class="pm-num reveal">03 — How it works</div>
+      <h2 class="pm-process-title reveal">Five stages.<br>Evidence to <em>outcome.</em></h2>
+      <p class="pm-process-body reveal">Product marketing engagements follow the same structure as everything else at Growthhive — but the work starts with data. We earn the right to tell the story by understanding the product first.</p>
+    </div>
+    <div class="pm-steps">
+
+      <div class="pm-step reveal">
+        <div class="pm-step-num">01</div>
+        <div class="pm-step-name">Discovery Call</div>
+        <div class="pm-step-desc">30 minutes, free, no preparation required. We want to understand the product, the business model, the markets, and what success looks like. What the product does, who it's for, and what's getting in the way of growth.</div>
+      </div>
+
+      <div class="pm-step reveal">
+        <div class="pm-step-num">02</div>
+        <div class="pm-step-name">Product & Funnel Audit</div>
+        <div class="pm-step-desc">The evidence phase. We dig into the product analytics, map the conversion funnel, study user behaviour, and audit the current positioning and messaging. We tear down the product the way we'd tear down a competitor's — honestly. This becomes the brief.</div>
+      </div>
+
+      <div class="pm-step reveal">
+        <div class="pm-step-num">03</div>
+        <div class="pm-step-name">Strategy & Scope Review</div>
+        <div class="pm-step-desc">We share the audit and the diagnosis: where the product is leaking customers, where the positioning is unclear, where the opportunity is. We agree the scope — positioning, launch, funnel work, or the full engagement — before any production begins.</div>
+      </div>
+
+      <div class="pm-step highlight reveal">
+        <div class="pm-step-num">04</div>
+        <div class="pm-step-name">Three Positioning Directions</div>
+        <div class="pm-step-desc">We present three distinct ways to position the product — three different answers to what it is, who it's for, and what outcome it owns. Each comes with its messaging hierarchy, target persona, and the market implications of taking it. You choose the direction that fits where the product needs to go.</div>
+      </div>
+
+      <div class="pm-step reveal">
+        <div class="pm-step-num">05</div>
+        <div class="pm-step-name">Build & Launch</div>
+        <div class="pm-step-desc">The chosen direction built into a complete product marketing system — positioning document, messaging framework, persona library, sales enablement, launch campaign, and funnel improvements. For ongoing engagements, we measure against the funnel metrics and refine continuously.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THREE POSITIONING DIRECTIONS
+════════════════════════════════════════════════════════════ -->
+<section class="pm-directions pm-section">
+  <div class="pm-wide">
+    <div class="pm-directions-head">
+      <div class="pm-num reveal">04 — The three directions</div>
+      <h2 class="pm-directions-title reveal">Three positions.<br>One <em>chosen.</em></h2>
+      <p class="pm-directions-body reveal">A product can be positioned more than one way, and the choice changes everything downstream — the messaging, the persona, the pricing, the channels. We present three genuinely different positioning territories, each internally complete, so the choice is strategic rather than aesthetic.</p>
+    </div>
+    <div class="pm-dir-cards">
+
+      <div class="pm-dir-card reveal-l">
+        <div class="pm-dir-tag">Direction A</div>
+        <div class="pm-dir-name">The Functional Position</div>
+        <div class="pm-dir-def">"Own the job the product does better than anyone. The clearest, most direct claim — what it does, who it's for, why it's better."</div>
+        <div class="pm-dir-meta">
+          <div>
+            <div class="pm-dir-meta-label">Anchored on</div>
+            <div class="pm-dir-meta-val">The core functional benefit and the job-to-be-done</div>
+          </div>
+          <div>
+            <div class="pm-dir-meta-label">Best when</div>
+            <div class="pm-dir-meta-val">The product is genuinely better and the category is understood</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pm-dir-card reveal">
+        <div class="pm-dir-tag">Direction B</div>
+        <div class="pm-dir-name">The Emotional Position</div>
+        <div class="pm-dir-def">"Own the feeling, not the function. Position the product around what it makes the customer feel — confidence, freedom, belonging, control."</div>
+        <div class="pm-dir-meta">
+          <div>
+            <div class="pm-dir-meta-label">Anchored on</div>
+            <div class="pm-dir-meta-val">The emotional outcome and identity the product confers</div>
+          </div>
+          <div>
+            <div class="pm-dir-meta-label">Best when</div>
+            <div class="pm-dir-meta-val">The category is crowded on features and differentiation is hard</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pm-dir-card reveal-r">
+        <div class="pm-dir-tag">Direction C</div>
+        <div class="pm-dir-name">The Category Position</div>
+        <div class="pm-dir-def">"Don't compete in the category — redefine it. Position the product as a new kind of thing, where the old comparisons stop applying."</div>
+        <div class="pm-dir-meta">
+          <div>
+            <div class="pm-dir-meta-label">Anchored on</div>
+            <div class="pm-dir-meta-val">A reframe of what the product even is</div>
+          </div>
+          <div>
+            <div class="pm-dir-meta-label">Best when</div>
+            <div class="pm-dir-meta-val">The product is genuinely novel or the category is a trap</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FROM THE STUDIO — Moniepoint teardown
+════════════════════════════════════════════════════════════ -->
+<section class="pm-studio pm-section">
+  <div class="pm-wide">
+    <div class="pm-studio-head">
+      <div>
+        <div class="pm-num reveal">05 — From the studio</div>
+        <div class="pm-studio-label reveal">A product marketing teardown.</div>
+      </div>
+      <div>
+        <h2 class="pm-studio-title reveal">Moniepoint.<br>The middle point.</h2>
+        <div class="pm-studio-body reveal">
+          <p>To show what product marketing looks like in practice, we ran a full teardown of one of Nigeria's most important fintech products — <em>Moniepoint</em>. The discipline in one artifact: the analytics, the positioning, the persona, the funnel, and the campaign concept the strategy produced.</p>
+          <p>The insight: Moniepoint isn't a POS company or a bank. It's the <em>middle point</em> — the infrastructure that sits between a transaction wanting to happen and it actually happening. Everything flows through the middle. That reframe positions the product not on features (terminals, settlement speed) but on the role it plays in a business owner's life: the point everything passes through, reliably, every time.</p>
+        </div>
+        <div class="pm-studio-disclaimer reveal">
+          Speculative analysis · Growthhive's own product marketing teardown · Not a commissioned engagement
+        </div>
+      </div>
+    </div>
+
+    <!-- The teardown artifact -->
+    <div class="pm-teardown reveal">
+      <div class="pm-teardown-bar">
+        <span class="pm-teardown-bar-title">Product Marketing Teardown — Moniepoint</span>
+        <span class="pm-teardown-bar-tag">Growthhive Analysis</span>
+      </div>
+
+      <div class="pm-teardown-grid">
+
+        <!-- Positioning -->
+        <div class="pm-teardown-panel">
+          <div class="pm-td-panel-label">→ Positioning statement</div>
+          <div class="pm-td-positioning">
+            For the Nigerian business owner who can't afford a single failed transaction, Moniepoint is <em>the middle point</em> — the reliable infrastructure every naira passes through, so the business never stops moving.
+          </div>
+        </div>
+
+        <!-- Persona -->
+        <div class="pm-teardown-panel">
+          <div class="pm-td-panel-label">→ Primary persona</div>
+          <div class="pm-td-persona">
+            <div class="pm-td-persona-row">
+              <span class="pm-td-persona-key">Who</span>
+              <span class="pm-td-persona-val">The everyday merchant — shop owner, market trader, SME operator</span>
+            </div>
+            <div class="pm-td-persona-row">
+              <span class="pm-td-persona-key">Job</span>
+              <span class="pm-td-persona-val">Take payment reliably, every time, without losing a sale to downtime</span>
+            </div>
+            <div class="pm-td-persona-row">
+              <span class="pm-td-persona-key">Fear</span>
+              <span class="pm-td-persona-val">The network failing mid-transaction with a customer standing there</span>
+            </div>
+            <div class="pm-td-persona-row">
+              <span class="pm-td-persona-key">Outcome</span>
+              <span class="pm-td-persona-val">A business that never has to say "the POS is not working"</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Funnel -->
+        <div class="pm-teardown-panel">
+          <div class="pm-td-panel-label">→ Conversion funnel</div>
+          <div class="pm-funnel">
+            <div class="pm-funnel-stage"><span class="pm-funnel-label">Awareness</span><span class="pm-funnel-note">agent network</span></div>
+            <div class="pm-funnel-stage"><span class="pm-funnel-label">Sign-up</span><span class="pm-funnel-note">KYC</span></div>
+            <div class="pm-funnel-stage"><span class="pm-funnel-label">Activation</span><span class="pm-funnel-note">first txn</span></div>
+            <div class="pm-funnel-stage"><span class="pm-funnel-label">Habit</span><span class="pm-funnel-note">daily use</span></div>
+            <div class="pm-funnel-stage"><span class="pm-funnel-label">Expansion</span><span class="pm-funnel-note">loans, banking</span></div>
+          </div>
+        </div>
+
+        <!-- Campaign outcome -->
+        <div class="pm-teardown-panel">
+          <div class="pm-td-panel-label">→ Campaign concept the strategy produced</div>
+          <div class="pm-td-campaign">
+            <div class="pm-td-campaign-line">"Follow the ₦5,000.<br><em>Moniepoint is the middle point.</em>"</div>
+            <div class="pm-td-campaign-desc">A five-poster Lagos chain campaign tracing a single ₦5,000 note through a day in the city — every hand it passes through, every business it touches, all connected by the same infrastructure. The product as the point everything moves through.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     ENGAGEMENT
+════════════════════════════════════════════════════════════ -->
+<section class="pm-engage pm-section">
+  <div class="pm-wide">
+    <div class="pm-num reveal">06 — The engagement</div>
+    <div class="pm-engage-grid">
+      <div class="pm-engage-block reveal">
+        <div class="pm-engage-label">Positioning project</div>
+        <div class="pm-engage-val">3–5 weeks</div>
+        <div class="pm-engage-note">From audit to a complete positioning and messaging system — positioning statement, messaging hierarchy, persona library, and competitive map. The strategic foundation everything else builds on.</div>
+      </div>
+      <div class="pm-engage-block reveal">
+        <div class="pm-engage-label">Launch engagement</div>
+        <div class="pm-engage-val">6–10 weeks</div>
+        <div class="pm-engage-note">Full go-to-market for a product launch — positioning, launch narrative, campaign, sales enablement, and channel plan. Scoped to the size and ambition of the launch.</div>
+      </div>
+      <div class="pm-engage-block reveal">
+        <div class="pm-engage-label">Growth retainer</div>
+        <div class="pm-engage-val">Monthly</div>
+        <div class="pm-engage-note">Ongoing funnel optimisation, analytics, and messaging refinement measured against product metrics. For products in active growth where positioning and conversion are continuously tuned.</div>
+      </div>
+    </div>
+    <div class="pm-engage-markets reveal">
+      <span class="pm-engage-markets-label">Markets we position for</span>
+      <div class="pm-market-list">
+        <span class="pm-market-item">Nigeria</span>
+        <span class="pm-market-item">United Kingdom</span>
+        <span class="pm-market-item">United States</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLOSER
+════════════════════════════════════════════════════════════ -->
+<section class="pm-closer pm-section">
+  <p class="pm-closer-pre reveal">Product Marketing · Growthhive</p>
+  <h2 class="pm-closer-title reveal">
+    What does your<br>product <em>really sell?</em>
+  </h2>
+  <p class="pm-closer-sub reveal">Book a 30-minute discovery call. We'll tear down the product and show you the outcome it's actually selling.</p>
+  <div class="pm-closer-btns reveal">
+    <a href="/contact.html" class="btn-fill">Book a discovery call</a>
+    <a href="/services.html" class="btn-out">All services</a>
+  </div>
+</section>
+
+<footer class="pm-footer">
+  <div class="pm-footer-logo">Growthhive<em>.</em></div>
+  <div class="pm-footer-meta">Product Marketing</div>
+  <div class="pm-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+</footer>
+
+<script src="/scripts/product-marketing.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>
