@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Growth Analytics — Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/growth-analytics.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="discipline-ga">
+
+<!-- ── Loader ───────────────────────────────────────────────── -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail"     class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ── Nav ─────────────────────────────────────────────────── -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="/assets/logo_icon.ico" alt="Growthhive">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html">Work</a></li>
+    <li><a href="/services.html" class="active">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <a href="/contact.html" class="ncta">Start a project</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<header class="ga-hero ga-section">
+  <div class="ga-hero-inner">
+    <div class="ga-hero-left">
+      <div class="ga-hero-eyebrow" id="gaEyebrow">Growthhive · Disciplines</div>
+      <h1 class="ga-hero-title" id="gaTitle">
+        Measure to<br>change what<br>happens <em>next.</em>
+      </h1>
+      <p class="ga-hero-sub" id="gaSub">
+        Growth Analytics. Attribution, funnels, cohorts, and experimentation —
+        built to drive the next decision, not to decorate a slide. The numbers
+        only matter if they change what you do.
+      </p>
+      <div class="ga-hero-meta" id="gaMeta">
+        <div class="ga-hero-stat">
+          <span class="ga-hero-stat-val">9</span>
+          <span class="ga-hero-stat-key">analytics capabilities</span>
+        </div>
+        <div class="ga-hero-stat">
+          <span class="ga-hero-stat-val">Closed loop</span>
+          <span class="ga-hero-stat-key">measure → act → measure</span>
+        </div>
+        <div class="ga-hero-stat">
+          <span class="ga-hero-stat-val">NG · UK · US</span>
+          <span class="ga-hero-stat-key">multi-market attribution</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live data panel -->
+    <div class="ga-hero-panel-wrap" id="gaPanelWrap">
+      <div class="ga-panel">
+        <div class="ga-panel-header">
+          <span class="ga-panel-title">Channel Performance</span>
+          <span class="ga-panel-live"><span class="ga-live-dot"></span> Live</span>
+        </div>
+        <!-- Bar chart -->
+        <div class="ga-chart" id="gaChart">
+          <div class="ga-bar-col"><div class="ga-bar" data-h="44"></div><span class="ga-bar-label">Meta</span></div>
+          <div class="ga-bar-col"><div class="ga-bar" data-h="92"></div><span class="ga-bar-label">TikTok</span></div>
+          <div class="ga-bar-col"><div class="ga-bar dim" data-h="38"></div><span class="ga-bar-label">YT</span></div>
+          <div class="ga-bar-col"><div class="ga-bar" data-h="64"></div><span class="ga-bar-label">Google</span></div>
+          <div class="ga-bar-col"><div class="ga-bar dim" data-h="28"></div><span class="ga-bar-label">LinkedIn</span></div>
+          <div class="ga-bar-col"><div class="ga-bar" data-h="54"></div><span class="ga-bar-label">Email</span></div>
+        </div>
+        <!-- Attribution rows -->
+        <div class="ga-attr">
+          <div class="ga-attr-row">
+            <span class="ga-attr-label">First touch</span>
+            <span class="ga-attr-track"><span class="ga-attr-fill" data-w="72"></span></span>
+            <span class="ga-attr-val" data-v="72">0%</span>
+          </div>
+          <div class="ga-attr-row">
+            <span class="ga-attr-label">Assisted</span>
+            <span class="ga-attr-track"><span class="ga-attr-fill" data-w="48"></span></span>
+            <span class="ga-attr-val" data-v="48">0%</span>
+          </div>
+          <div class="ga-attr-row">
+            <span class="ga-attr-label">Last touch</span>
+            <span class="ga-attr-track"><span class="ga-attr-fill" data-w="61"></span></span>
+            <span class="ga-attr-val" data-v="61">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     BELIEF
+════════════════════════════════════════════════════════════ -->
+<section class="ga-belief ga-section">
+  <div class="ga-wide">
+    <div class="ga-belief-inner">
+      <div class="reveal">
+        <div class="ga-num">01 — The belief</div>
+        <div class="ga-belief-label">What we think about analytics.</div>
+      </div>
+      <div>
+        <h2 class="ga-belief-statement reveal">
+          Most agencies report<br>what happened. We measure<br>to change <em>what's next.</em>
+        </h2>
+        <div class="ga-belief-body reveal">
+          <p>A report that tells you what already happened is a history lesson. Useful, occasionally interesting, but it doesn't move anything. The only analytics that matters is analytics that changes a decision — that tells you to shift budget from this channel to that one, to fix the step in the funnel where everyone drops out, to double down on the cohort that actually sticks around.</p>
+          <p>This is where being a full agency matters. We don't hand you a dashboard and leave you to interpret it. <em>We run the campaigns the data is measuring</em> — so the insight feeds straight back into the next action, with no gap between knowing and doing. The loop closes inside one team.</p>
+          <p>And the rigour is real. Clean tracking infrastructure, honest attribution that doesn't flatter the easy channels, experiments designed to actually prove causation. Beautiful charts built on bad data are worse than no charts at all — they give you confidence in the wrong direction.</p>
+        </div>
+        <div class="ga-contrast reveal">
+          <div class="ga-contrast-cell muted">
+            <div class="ga-contrast-label">✕ Reporting</div>
+            <div class="ga-contrast-text"><strong>"Last month, ROAS was 3.2× and CTR rose 0.4%."</strong> True. Tidy. Changes nothing about what you do tomorrow.</div>
+          </div>
+          <div class="ga-contrast-cell lit">
+            <div class="ga-contrast-label">✓ Decision analytics</div>
+            <div class="ga-contrast-text"><strong>"TikTok converts at half the cost of Meta — move 30% of the Meta budget there next week."</strong> Same data. Now it's an instruction.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CAPABILITIES
+════════════════════════════════════════════════════════════ -->
+<section class="ga-caps ga-section">
+  <div class="ga-wide">
+    <div class="ga-caps-head">
+      <div>
+        <div class="ga-num reveal">02 — What's included</div>
+        <h2 class="ga-caps-title reveal">Nine ways<br>to <em>read the truth.</em></h2>
+      </div>
+      <p class="ga-caps-intro reveal">
+        Growth analytics at Growthhive spans the full stack — from the tracking infrastructure that produces clean data, through the analysis that finds the signal, to the experiments that prove what actually causes growth. Each capability stands alone. Together they form a complete measurement system.
+      </p>
+    </div>
+    <div class="ga-caps-grid">
+
+      <div class="ga-cap-item reveal">
+        <div class="ga-cap-num">01</div>
+        <div class="ga-cap-name">Attribution Modelling & Measurement Frameworks</div>
+        <div class="ga-cap-desc">Multi-touch and channel attribution, plus the measurement framework that defines what success means and how it's tracked. Honest attribution that credits the channels actually doing the work — not just the last click.</div>
+      </div>
+
+      <div class="ga-cap-item reveal">
+        <div class="ga-cap-num">02</div>
+        <div class="ga-cap-name">Funnel Analysis & Drop-off Identification</div>
+        <div class="ga-cap-desc">Mapping every stage from awareness to conversion and finding precisely where users fall out — and why. The fastest path to recovered revenue is usually fixing the leak you didn't know was there.</div>
+      </div>
+
+      <div class="ga-cap-item reveal">
+        <div class="ga-cap-num">03</div>
+        <div class="ga-cap-name">Cohort Analysis & Retention</div>
+        <div class="ga-cap-desc">Tracking groups of users over time to understand retention, lifetime value, and how behaviour differs by acquisition source or period. Acquisition is vanity; retention is where the business actually lives.</div>
+      </div>
+
+      <div class="ga-cap-item reveal">
+        <div class="ga-cap-num">04</div>
+        <div class="ga-cap-name">A/B Testing & Experimentation</div>
+        <div class="ga-cap-desc">Designing, running, and reading experiments that prove causation — not correlation. Properly powered tests, clean control groups, and honest readouts that tell you what genuinely moved the metric.</div>
+      </div>
+
+      <div class="ga-cap-item reveal">
+        <div class="ga-cap-num">05</div>
+        <div class="ga-cap-name">Conversion Analytics & CRO</div>
+        <div class="ga-cap-desc">Measuring and improving the rate at which traffic becomes customers — the analytics layer beneath conversion rate optimisation. Where the experience, the messaging, and the data meet.</div>
+      </div>
+
+      <div class="ga-cap-item reveal">
+        <div class="ga-cap-num">06</div>
+        <div class="ga-cap-name">Performance Reporting & Dashboards</div>
+        <div class="ga-cap-desc">Live dashboards and reports that make the data legible and, more importantly, actionable. Built around the decisions they need to support — not around every metric it's possible to display.</div>
+      </div>
+
+      <div class="ga-cap-item reveal">
+        <div class="ga-cap-num">07</div>
+        <div class="ga-cap-name">Data Infrastructure & Tracking Setup</div>
+        <div class="ga-cap-desc">The foundation everything depends on — pixels, event tracking, tag management, and a clean data pipeline. Get this wrong and every insight downstream is built on sand. We get it right first.</div>
+      </div>
+
+      <div class="ga-cap-item reveal">
+        <div class="ga-cap-num">08</div>
+        <div class="ga-cap-name">ROI & Spend Efficiency Analysis</div>
+        <div class="ga-cap-desc">Connecting spend directly to outcome — which naira, pound, and dollar is working, which is wasted, and exactly where to reallocate. The analysis that pays for itself by cutting the spend that wasn't.</div>
+      </div>
+
+      <div class="ga-cap-item reveal">
+        <div class="ga-cap-num">09</div>
+        <div class="ga-cap-name">Marketing & Campaign Analytics</div>
+        <div class="ga-cap-desc">The cross-channel performance layer — how campaigns perform across every platform and market, read as one coherent picture instead of seven disconnected dashboards. The view that lets you actually compare.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE LOOP — signature section
+════════════════════════════════════════════════════════════ -->
+<section class="ga-loop ga-section">
+  <div class="ga-wide">
+    <div class="ga-loop-head">
+      <div class="ga-num reveal" style="justify-content:center;">03 — The method</div>
+      <h2 class="ga-loop-title reveal">Analytics that<br><em>closes the loop.</em></h2>
+      <p class="ga-loop-body reveal">Measurement only creates value when it changes the next action. Because Growthhive runs the campaigns we measure, the loop closes inside one team — no handoff, no gap between knowing and doing. This is the cycle every engagement runs on.</p>
+    </div>
+    <div class="ga-loop-track reveal">
+      <div class="ga-loop-node">
+        <div class="ga-loop-dot">01</div>
+        <div class="ga-loop-name">Measure</div>
+        <div class="ga-loop-desc">Clean tracking, honest attribution, and the metrics that actually map to the business goal — captured properly from the start.</div>
+      </div>
+      <div class="ga-loop-node">
+        <div class="ga-loop-dot">02</div>
+        <div class="ga-loop-name">Find the signal</div>
+        <div class="ga-loop-desc">Analysis that separates what matters from noise — the channel that's wasting spend, the funnel step that's leaking, the cohort that sticks.</div>
+      </div>
+      <div class="ga-loop-node">
+        <div class="ga-loop-dot">03</div>
+        <div class="ga-loop-name">Act</div>
+        <div class="ga-loop-desc">The decision the data demands — reallocate budget, fix the funnel, kill the test that lost, scale the one that won. Executed, not recommended.</div>
+      </div>
+      <div class="ga-loop-node">
+        <div class="ga-loop-dot">04</div>
+        <div class="ga-loop-name">Re-measure</div>
+        <div class="ga-loop-desc">Measure the change against the baseline. Did the action move the metric? The answer becomes the input to the next cycle.</div>
+      </div>
+    </div>
+    <div class="ga-loop-return reveal"><span>↺ &nbsp; The output of step 04 is the input to step 01 — continuously</span></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     COHORT GRID — visual demonstration
+════════════════════════════════════════════════════════════ -->
+<section class="ga-cohort ga-section">
+  <div class="ga-wide">
+    <div class="ga-cohort-inner">
+      <div>
+        <div class="ga-num reveal">04 — Reading the data</div>
+        <h2 class="ga-cohort-title reveal">A number is just<br>a number until you see<br><em>the pattern.</em></h2>
+        <div class="ga-cohort-body reveal">
+          <p>A retention cohort table is a good example of why visualisation matters. The raw numbers tell you retention rates. The heatmap tells you something the table hides — that a specific acquisition period produced users who behaved completely differently, and that the drop-off concentrates in a particular week.</p>
+          <p>This is what we mean by reading the truth. <em>The data has a shape.</em> Our job is to find it, show it clearly, and turn it into the decision it implies — which channel to scale, which week to intervene, which cohort to study.</p>
+        </div>
+      </div>
+      <!-- Retention heatmap -->
+      <div class="ga-heatmap reveal-r">
+        <div class="ga-heatmap-title">Retention by cohort — % active</div>
+        <div class="ga-heatmap-grid" id="gaHeatmap">
+          <div class="ga-hm-corner"></div>
+          <div class="ga-hm-colhead">W0</div>
+          <div class="ga-hm-colhead">W1</div>
+          <div class="ga-hm-colhead">W2</div>
+          <div class="ga-hm-colhead">W3</div>
+          <div class="ga-hm-colhead">W4</div>
+          <div class="ga-hm-colhead">W5</div>
+
+          <div class="ga-hm-rowhead">Jan</div>
+          <div class="ga-hm-cell h5" data-d="0">100</div>
+          <div class="ga-hm-cell h4" data-d="1">68</div>
+          <div class="ga-hm-cell h3" data-d="2">52</div>
+          <div class="ga-hm-cell h3" data-d="3">44</div>
+          <div class="ga-hm-cell h2" data-d="4">38</div>
+          <div class="ga-hm-cell h2" data-d="5">35</div>
+
+          <div class="ga-hm-rowhead">Feb</div>
+          <div class="ga-hm-cell h5" data-d="1">100</div>
+          <div class="ga-hm-cell h4" data-d="2">71</div>
+          <div class="ga-hm-cell h4" data-d="3">58</div>
+          <div class="ga-hm-cell h3" data-d="4">49</div>
+          <div class="ga-hm-cell h3" data-d="5">43</div>
+          <div class="ga-hm-cell h2" data-d="6">40</div>
+
+          <div class="ga-hm-rowhead">Mar</div>
+          <div class="ga-hm-cell h5" data-d="2">100</div>
+          <div class="ga-hm-cell h5" data-d="3">82</div>
+          <div class="ga-hm-cell h4" data-d="4">74</div>
+          <div class="ga-hm-cell h4" data-d="5">69</div>
+          <div class="ga-hm-cell h4" data-d="6">66</div>
+          <div class="ga-hm-cell h4" data-d="7">63</div>
+
+          <div class="ga-hm-rowhead">Apr</div>
+          <div class="ga-hm-cell h5" data-d="3">100</div>
+          <div class="ga-hm-cell h3" data-d="4">54</div>
+          <div class="ga-hm-cell h2" data-d="5">36</div>
+          <div class="ga-hm-cell h1" data-d="6">24</div>
+          <div class="ga-hm-cell h1" data-d="7">19</div>
+          <div class="ga-hm-cell h0" data-d="8">15</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PROCESS
+════════════════════════════════════════════════════════════ -->
+<section class="ga-process ga-section">
+  <div class="ga-wide">
+    <div class="ga-process-head">
+      <div class="ga-num reveal">05 — How it works</div>
+      <h2 class="ga-process-title reveal">Five stages.<br>Data to <em>decision.</em></h2>
+      <p class="ga-process-body reveal">The engagement follows the same Growthhive structure, built for analytics — it starts by getting the measurement right and ends in a system that keeps producing decisions, not just reports.</p>
+    </div>
+    <div class="ga-steps">
+
+      <div class="ga-step reveal">
+        <div class="ga-step-num">01</div>
+        <div class="ga-step-name">Discovery Call</div>
+        <div class="ga-step-desc">30 minutes, free, no preparation. We want to understand the business goals, the channels in play, what's currently being tracked, and the decisions you're trying to make better. What you need to know that you can't see right now.</div>
+      </div>
+
+      <div class="ga-step reveal">
+        <div class="ga-step-num">02</div>
+        <div class="ga-step-name">Tracking & Data Audit</div>
+        <div class="ga-step-desc">We audit the current measurement setup — what's tracked, what's broken, what's missing, and whether the data can be trusted. Bad tracking produces confident wrong answers, so we fix the foundation before we analyse anything. This becomes the brief.</div>
+      </div>
+
+      <div class="ga-step reveal">
+        <div class="ga-step-num">03</div>
+        <div class="ga-step-name">Framework & Scope Review</div>
+        <div class="ga-step-desc">We share the audit and propose the measurement framework — the metrics that matter, the attribution model, the dashboards, and the analysis cadence. We agree the scope: a one-time audit and setup, or an ongoing analytics engagement. Confirmed before any build.</div>
+      </div>
+
+      <div class="ga-step highlight reveal">
+        <div class="ga-step-num">04</div>
+        <div class="ga-step-name">Three Measurement Approaches</div>
+        <div class="ga-step-desc">We present three distinct ways to structure the measurement — different attribution models, different metric hierarchies, different dashboard philosophies. Each implies a different view of what drives the business. You choose the one that fits how decisions actually get made.</div>
+      </div>
+
+      <div class="ga-step reveal">
+        <div class="ga-step-num">05</div>
+        <div class="ga-step-name">Build, Measure & Iterate</div>
+        <div class="ga-step-desc">We build the tracking, the dashboards, and the analysis system — then run the loop. Regular readouts that end in recommendations, experiments that prove what works, and continuous refinement. For ongoing engagements, every cycle feeds the next decision.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     ENGAGEMENT
+════════════════════════════════════════════════════════════ -->
+<section class="ga-engage ga-section">
+  <div class="ga-wide">
+    <div class="ga-num reveal">06 — The engagement</div>
+    <div class="ga-engage-grid">
+      <div class="ga-engage-block reveal">
+        <div class="ga-engage-label">Audit & setup</div>
+        <div class="ga-engage-val">2–4 weeks</div>
+        <div class="ga-engage-note">A one-time engagement to fix the foundation — tracking audit, infrastructure setup, attribution framework, and a dashboard that finally tells the truth. The clean base everything else builds on.</div>
+      </div>
+      <div class="ga-engage-block reveal">
+        <div class="ga-engage-label">Analytics retainer</div>
+        <div class="ga-engage-val">Monthly</div>
+        <div class="ga-engage-note">Ongoing measurement, analysis, and experimentation — readouts that end in decisions, tests that prove what works, and a loop that keeps tightening. Best paired with active campaign work so the loop closes fully.</div>
+      </div>
+      <div class="ga-engage-block reveal">
+        <div class="ga-engage-label">Project analysis</div>
+        <div class="ga-engage-val">1–3 weeks</div>
+        <div class="ga-engage-note">A focused analysis to answer a specific question — why is this funnel leaking, which channel is actually working, did this campaign pay back. Scoped to the question and the data required to answer it.</div>
+      </div>
+    </div>
+    <div class="ga-engage-markets reveal">
+      <span class="ga-engage-markets-label">Markets we measure across</span>
+      <div class="ga-market-list">
+        <span class="ga-market-item">Nigeria</span>
+        <span class="ga-market-item">United Kingdom</span>
+        <span class="ga-market-item">United States</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLOSER
+════════════════════════════════════════════════════════════ -->
+<section class="ga-closer ga-section">
+  <p class="ga-closer-pre reveal">Growth Analytics · Growthhive</p>
+  <h2 class="ga-closer-title reveal">
+    What is your<br>data <em>telling you?</em>
+  </h2>
+  <p class="ga-closer-sub reveal">Book a 30-minute discovery call. We'll audit what you're tracking and show you the decisions hiding in your data.</p>
+  <div class="ga-closer-btns reveal">
+    <a href="/contact.html" class="btn-fill">Book a discovery call</a>
+    <a href="/services.html" class="btn-out">All services</a>
+  </div>
+</section>
+
+<footer class="ga-footer">
+  <div class="ga-footer-logo">Growthhive<em>.</em></div>
+  <div class="ga-footer-meta">Growth Analytics</div>
+  <div class="ga-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+</footer>
+
+<script src="/scripts/growth-analytics.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>

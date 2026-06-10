@@ -311,6 +311,15 @@ body.discipline-pm { background: var(--navy); }
 }
 .pm-td-campaign-line em { color: var(--ch); font-style: normal; }
 .pm-td-campaign-desc { font-size: .86rem; line-height: 1.6; color: var(--dim); }
+.pm-td-campaign-link {
+  display: inline-flex; align-items: center; gap: .8rem; margin-top: .4rem;
+  font-family: 'Space Mono', monospace; font-size: .56rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--ch);
+  text-decoration: none; align-self: flex-start;
+  border-bottom: 1px solid rgba(212,245,60,.3); padding-bottom: .4rem;
+  transition: gap .3s var(--ease), border-color .3s;
+}
+.pm-td-campaign-link:hover { gap: 1.3rem; border-color: var(--ch); }
 
 /* ════════════════════════════════════════════════════════════
    ENGAGEMENT

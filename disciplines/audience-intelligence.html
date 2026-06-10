@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audience Intelligence — Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/audience-intelligence.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="discipline-ai">
+
+<!-- ── Loader ───────────────────────────────────────────────── -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail"     class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ── Nav ─────────────────────────────────────────────────── -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="/assets/logo_icon.ico" alt="Growthhive">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html">Work</a></li>
+    <li><a href="/services.html" class="active">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <a href="/contact.html" class="ncta">Start a project</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════════ -->
+<header class="ai-hero ai-section">
+  <div class="ai-hero-inner">
+    <div class="ai-hero-left">
+      <div class="ai-hero-eyebrow" id="aiEyebrow">Growthhive · Disciplines</div>
+      <h1 class="ai-hero-title" id="aiTitle">
+        Know who they<br>are. Not just<br>what they <em>did.</em>
+      </h1>
+      <p class="ai-hero-sub" id="aiSub">
+        Audience Intelligence. Segmentation, persona development, cultural
+        insight, and social listening — understanding who your audience
+        actually is, what they believe, and why they do what they do.
+      </p>
+      <div class="ai-hero-meta" id="aiMeta">
+        <div class="ai-hero-stat">
+          <span class="ai-hero-stat-val">9</span>
+          <span class="ai-hero-stat-key">intelligence capabilities</span>
+        </div>
+        <div class="ai-hero-stat">
+          <span class="ai-hero-stat-val">Why</span>
+          <span class="ai-hero-stat-key">not just who or what</span>
+        </div>
+        <div class="ai-hero-stat">
+          <span class="ai-hero-stat-val">NG · UK · US</span>
+          <span class="ai-hero-stat-key">cultural fluency per market</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cluster map -->
+    <div class="ai-hero-map-wrap" id="aiMapWrap">
+      <div class="ai-map-panel">
+        <div class="ai-map-header">
+          <span class="ai-map-title">Audience Segmentation Map</span>
+          <span class="ai-map-axis">Values × Behaviour</span>
+        </div>
+        <svg class="ai-cluster-svg" id="aiCluster" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid meet">
+          <!-- axes -->
+          <line class="ai-axis-line" x1="30" y1="230" x2="380" y2="230"/>
+          <line class="ai-axis-line" x1="30" y1="20" x2="30" y2="230"/>
+          <text class="ai-axis-text" x="340" y="245">behaviour →</text>
+          <text class="ai-axis-text" x="10" y="30" transform="rotate(-90 10 30)">values →</text>
+
+          <!-- cluster hulls -->
+          <ellipse class="ai-cluster-hull" id="hull1" cx="110" cy="80" rx="58" ry="44"/>
+          <ellipse class="ai-cluster-hull" id="hull2" cx="285" cy="120" rx="62" ry="48"/>
+          <ellipse class="ai-cluster-hull" id="hull3" cx="180" cy="185" rx="52" ry="38"/>
+
+          <!-- cluster 1 dots -->
+          <circle class="ai-cluster-dot" cx="95"  cy="70"  r="3.5" fill="#D4F53C"/>
+          <circle class="ai-cluster-dot" cx="120" cy="62"  r="3.5" fill="#D4F53C"/>
+          <circle class="ai-cluster-dot" cx="108" cy="92"  r="3.5" fill="#D4F53C"/>
+          <circle class="ai-cluster-dot" cx="132" cy="88"  r="3.5" fill="#D4F53C"/>
+          <circle class="ai-cluster-dot" cx="88"  cy="95"  r="3.5" fill="#D4F53C"/>
+          <circle class="ai-cluster-dot" cx="118" cy="100" r="3.5" fill="#D4F53C"/>
+          <!-- cluster 2 dots -->
+          <circle class="ai-cluster-dot" cx="270" cy="108" r="3.5" fill="#8FA8FF"/>
+          <circle class="ai-cluster-dot" cx="298" cy="100" r="3.5" fill="#8FA8FF"/>
+          <circle class="ai-cluster-dot" cx="285" cy="128" r="3.5" fill="#8FA8FF"/>
+          <circle class="ai-cluster-dot" cx="310" cy="135" r="3.5" fill="#8FA8FF"/>
+          <circle class="ai-cluster-dot" cx="258" cy="128" r="3.5" fill="#8FA8FF"/>
+          <circle class="ai-cluster-dot" cx="300" cy="118" r="3.5" fill="#8FA8FF"/>
+          <circle class="ai-cluster-dot" cx="278" cy="92"  r="3.5" fill="#8FA8FF"/>
+          <!-- cluster 3 dots -->
+          <circle class="ai-cluster-dot" cx="170" cy="178" r="3.5" fill="#E8A317"/>
+          <circle class="ai-cluster-dot" cx="190" cy="172" r="3.5" fill="#E8A317"/>
+          <circle class="ai-cluster-dot" cx="182" cy="195" r="3.5" fill="#E8A317"/>
+          <circle class="ai-cluster-dot" cx="200" cy="190" r="3.5" fill="#E8A317"/>
+          <circle class="ai-cluster-dot" cx="162" cy="192" r="3.5" fill="#E8A317"/>
+
+          <!-- labels -->
+          <text class="ai-cluster-label" id="lbl1" x="82"  y="40">Segment A</text>
+          <text class="ai-cluster-label" id="lbl2" x="258" y="68">Segment B</text>
+          <text class="ai-cluster-label" id="lbl3" x="152" y="232">Segment C</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     BELIEF
+════════════════════════════════════════════════════════════ -->
+<section class="ai-belief ai-section">
+  <div class="ai-wide">
+    <div class="ai-belief-inner">
+      <div class="reveal">
+        <div class="ai-num">01 — The belief</div>
+        <div class="ai-belief-label">What we think about audiences.</div>
+      </div>
+      <div>
+        <h2 class="ai-belief-statement reveal">
+          Demographics tell you<br>who they are on paper.<br>We find who they <em>actually are.</em>
+        </h2>
+        <div class="ai-belief-body reveal">
+          <p>Most agencies segment by demographics — age, location, income, gender. It's easy to buy and easy to report, and it tells you almost nothing about why someone chooses one brand over another. Two people with identical demographics can hold completely opposite values, follow different cultural codes, and respond to entirely different messages. The census category is not the person.</p>
+          <p>We segment by what people actually believe and do — their values, their motivations, their cultural references, the jobs they're hiring a product to do. <em>Psychographics over demographics, always.</em> Because the audience that matters isn't "women, 25–34, Lagos." It's "the woman who sees buying local as an act of pride, not a compromise." You can't write a message for the first one. You can write a great one for the second.</p>
+          <p>And reading an audience well requires cultural fluency, not just data. The same product means different things in Lagos, London, and New York — different aspirations, different anxieties, different signals of status and belonging. We read each market on its own terms, in its own language, not flattened into a global average that fits no one.</p>
+        </div>
+        <div class="ai-contrast reveal">
+          <div class="ai-contrast-cell muted">
+            <div class="ai-contrast-label">✕ Demographic segment</div>
+            <div class="ai-contrast-text"><strong>"Women, 25–34, urban, mid-income."</strong> Easy to buy as a media target. Tells you nothing about what they believe or why they'd choose you.</div>
+          </div>
+          <div class="ai-contrast-cell lit">
+            <div class="ai-contrast-label">✓ Psychographic segment</div>
+            <div class="ai-contrast-text"><strong>"Sees buying local as pride, not compromise — and wants others to notice."</strong> Now you know what to say, and why it'll land.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CAPABILITIES
+════════════════════════════════════════════════════════════ -->
+<section class="ai-caps ai-section">
+  <div class="ai-wide">
+    <div class="ai-caps-head">
+      <div>
+        <div class="ai-num reveal">02 — What's included</div>
+        <h2 class="ai-caps-title reveal">Nine ways<br>to <em>know them.</em></h2>
+      </div>
+      <p class="ai-caps-intro reveal">
+        Audience intelligence at Growthhive spans the full picture — from the hard segmentation and research that maps an audience, through the cultural and psychographic insight that explains it, to the listening that keeps it current. Each capability stands alone. Together they tell you who you're really talking to.
+      </p>
+    </div>
+    <div class="ai-caps-grid">
+
+      <div class="ai-cap-item reveal">
+        <div class="ai-cap-num">01</div>
+        <div class="ai-cap-name">Audience Segmentation & Profiling</div>
+        <div class="ai-cap-desc">Dividing the market into meaningful groups — not by demographics alone, but by behaviour, values, and need. The segments that actually predict how someone responds, with the profiles that make each one real.</div>
+      </div>
+
+      <div class="ai-cap-item reveal">
+        <div class="ai-cap-num">02</div>
+        <div class="ai-cap-name">Persona Development & Jobs-to-be-Done</div>
+        <div class="ai-cap-desc">Turning segments into people you can write for — named, motivated, specific personas built around the job the customer is actually hiring the product to do. The bridge between the data and the creative.</div>
+      </div>
+
+      <div class="ai-cap-item reveal">
+        <div class="ai-cap-num">03</div>
+        <div class="ai-cap-name">Cultural & Behavioural Insight</div>
+        <div class="ai-cap-desc">The "why" beneath the "what." We find the cultural codes, social dynamics, and behavioural drivers that explain why an audience does what it does — the insight that makes a campaign feel like it was made by someone who gets them.</div>
+      </div>
+
+      <div class="ai-cap-item reveal">
+        <div class="ai-cap-num">04</div>
+        <div class="ai-cap-name">Social Listening & Audience Monitoring</div>
+        <div class="ai-cap-desc">Tracking what audiences say, share, and react to in real time — across platforms and markets. The unfiltered voice of the audience, monitored continuously so you hear the shift before it becomes obvious.</div>
+      </div>
+
+      <div class="ai-cap-item reveal">
+        <div class="ai-cap-num">05</div>
+        <div class="ai-cap-name">Market & Competitor Audience Analysis</div>
+        <div class="ai-cap-desc">Who your competitors are actually reaching — and who they're missing. We map the audience landscape of a category to find the segments that are over-served, under-served, and entirely ignored.</div>
+      </div>
+
+      <div class="ai-cap-item reveal">
+        <div class="ai-cap-num">06</div>
+        <div class="ai-cap-name">Trend & Cultural Signal Tracking</div>
+        <div class="ai-cap-desc">Reading the signals before they're trends — the shifts in language, behaviour, and culture that tell you where an audience is heading. So the brand moves with the culture instead of chasing it.</div>
+      </div>
+
+      <div class="ai-cap-item reveal">
+        <div class="ai-cap-num">07</div>
+        <div class="ai-cap-name">Audience Research — Qual & Quant</div>
+        <div class="ai-cap-desc">Surveys, interviews, focus groups, and quantitative studies — the primary research that grounds everything in evidence rather than assumption. We ask the audience directly, then read between the lines of what they say.</div>
+      </div>
+
+      <div class="ai-cap-item reveal">
+        <div class="ai-cap-num">08</div>
+        <div class="ai-cap-name">Media Consumption & Channel Affinity</div>
+        <div class="ai-cap-desc">Where the audience actually spends attention — which platforms, which creators, which formats, at which moments. The map that tells you not just who to reach, but where and how to reach them.</div>
+      </div>
+
+      <div class="ai-cap-item reveal">
+        <div class="ai-cap-num">09</div>
+        <div class="ai-cap-name">Psychographic & Values-Based Profiling</div>
+        <div class="ai-cap-desc">The deepest layer — profiling audiences by what they value, believe, and aspire to. The difference between targeting a demographic and understanding a person. This is where the intelligence becomes an unfair advantage.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PERSONA CARDS — built demonstration
+════════════════════════════════════════════════════════════ -->
+<section class="ai-personas ai-section">
+  <div class="ai-wide">
+    <div class="ai-personas-head">
+      <div class="ai-num reveal" style="justify-content:center;">03 — What it produces</div>
+      <h2 class="ai-personas-title reveal">A persona you can<br><em>actually write for.</em></h2>
+      <p class="ai-personas-body reveal">Here's what an audience intelligence output looks like in practice — not a demographic bracket, but a person with values, motivations, and a job to be done. Three illustrative personas, built the way we build them: psychographic-first, culturally grounded, specific enough to brief a campaign from.</p>
+    </div>
+    <div class="ai-persona-grid">
+
+      <div class="ai-persona reveal-l">
+        <div class="ai-persona-tag">Persona 01</div>
+        <div class="ai-persona-name">The Proud Localist</div>
+        <div class="ai-persona-quote">"If it's made here and it's good, I'd rather buy it — and I want people to know I do."</div>
+        <div class="ai-persona-rows">
+          <div class="ai-persona-row">
+            <span class="ai-persona-key">Job to be done</span>
+            <span class="ai-persona-val">Express identity and values through what they buy</span>
+          </div>
+          <div class="ai-persona-row">
+            <span class="ai-persona-key">Core value</span>
+            <span class="ai-persona-val">Pride in the local, visible to others</span>
+          </div>
+          <div class="ai-psycho">
+            <div class="ai-psycho-row"><span class="ai-psycho-label">Status-led</span><span class="ai-psycho-track"><span class="ai-psycho-fill" data-w="78"></span></span></div>
+            <div class="ai-psycho-row"><span class="ai-psycho-label">Price-led</span><span class="ai-psycho-track"><span class="ai-psycho-fill" data-w="34"></span></span></div>
+            <div class="ai-psycho-row"><span class="ai-psycho-label">Community</span><span class="ai-psycho-track"><span class="ai-psycho-fill" data-w="88"></span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-persona reveal">
+        <div class="ai-persona-tag">Persona 02</div>
+        <div class="ai-persona-name">The Quiet Optimiser</div>
+        <div class="ai-persona-quote">"I don't need anyone to know. I just want it to work, every time, without me thinking about it."</div>
+        <div class="ai-persona-rows">
+          <div class="ai-persona-row">
+            <span class="ai-persona-key">Job to be done</span>
+            <span class="ai-persona-val">Remove friction and reclaim time and certainty</span>
+          </div>
+          <div class="ai-persona-row">
+            <span class="ai-persona-key">Core value</span>
+            <span class="ai-persona-val">Competence and control, privately held</span>
+          </div>
+          <div class="ai-psycho">
+            <div class="ai-psycho-row"><span class="ai-psycho-label">Status-led</span><span class="ai-psycho-track"><span class="ai-psycho-fill" data-w="22"></span></span></div>
+            <div class="ai-psycho-row"><span class="ai-psycho-label">Price-led</span><span class="ai-psycho-track"><span class="ai-psycho-fill" data-w="48"></span></span></div>
+            <div class="ai-psycho-row"><span class="ai-psycho-label">Reliability</span><span class="ai-psycho-track"><span class="ai-psycho-fill" data-w="94"></span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-persona reveal-r">
+        <div class="ai-persona-tag">Persona 03</div>
+        <div class="ai-persona-name">The Cultural Early-Mover</div>
+        <div class="ai-persona-quote">"I found it first. By the time everyone else is on it, I've already moved on to the next thing."</div>
+        <div class="ai-persona-rows">
+          <div class="ai-persona-row">
+            <span class="ai-persona-key">Job to be done</span>
+            <span class="ai-persona-val">Signal taste and stay ahead of the curve</span>
+          </div>
+          <div class="ai-persona-row">
+            <span class="ai-persona-key">Core value</span>
+            <span class="ai-persona-val">Discovery, distinction, cultural currency</span>
+          </div>
+          <div class="ai-psycho">
+            <div class="ai-psycho-row"><span class="ai-psycho-label">Status-led</span><span class="ai-psycho-track"><span class="ai-psycho-fill" data-w="84"></span></span></div>
+            <div class="ai-psycho-row"><span class="ai-psycho-label">Price-led</span><span class="ai-psycho-track"><span class="ai-psycho-fill" data-w="28"></span></span></div>
+            <div class="ai-psycho-row"><span class="ai-psycho-label">Novelty</span><span class="ai-psycho-track"><span class="ai-psycho-fill" data-w="91"></span></span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PROCESS
+════════════════════════════════════════════════════════════ -->
+<section class="ai-process ai-section">
+  <div class="ai-wide">
+    <div class="ai-process-head">
+      <div class="ai-num reveal">04 — How it works</div>
+      <h2 class="ai-process-title reveal">Five stages.<br>Data to <em>human.</em></h2>
+      <p class="ai-process-body reveal">The engagement follows the same Growthhive structure, built for intelligence work — it starts with the question you're actually trying to answer and ends with an audience understanding the rest of the business can act on.</p>
+    </div>
+    <div class="ai-steps">
+
+      <div class="ai-step reveal">
+        <div class="ai-step-num">01</div>
+        <div class="ai-step-name">Discovery Call</div>
+        <div class="ai-step-desc">30 minutes, free, no preparation. We want to understand who you think your audience is, who you wish you understood better, and the decisions this intelligence needs to inform. The question beneath the question.</div>
+      </div>
+
+      <div class="ai-step reveal">
+        <div class="ai-step-num">02</div>
+        <div class="ai-step-name">Research & Listening</div>
+        <div class="ai-step-desc">We gather the evidence — existing data, primary research, social listening, cultural context, and competitor audience analysis. We go wide before we go deep, because the most useful insight is often in the segment nobody was looking at. This becomes the brief.</div>
+      </div>
+
+      <div class="ai-step reveal">
+        <div class="ai-step-num">03</div>
+        <div class="ai-step-name">Synthesis & Scope Review</div>
+        <div class="ai-step-desc">We share what the research is telling us — the segments emerging, the cultural patterns, the surprising findings — and agree the scope of the full deliverable. Segmentation, personas, a listening programme, or the complete intelligence picture. Confirmed before we build it out.</div>
+      </div>
+
+      <div class="ai-step highlight reveal">
+        <div class="ai-step-num">04</div>
+        <div class="ai-step-name">Three Segmentation Models</div>
+        <div class="ai-step-desc">We present three distinct ways to segment the audience — by behaviour, by values, by need, or a hybrid. Each model implies a different strategy and reveals different opportunities. You choose the lens that best fits how the business needs to act on it.</div>
+      </div>
+
+      <div class="ai-step reveal">
+        <div class="ai-step-num">05</div>
+        <div class="ai-step-name">Build & Activate</div>
+        <div class="ai-step-desc">The chosen model built into a complete intelligence system — segment definitions, persona library, cultural insight, channel affinity maps, and the activation guidance that tells the rest of the team how to use it. For ongoing engagements, the listening keeps it current as the audience shifts.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CULTURAL FLUENCY
+════════════════════════════════════════════════════════════ -->
+<section class="ai-culture ai-section">
+  <div class="ai-wide">
+    <div class="ai-culture-head">
+      <div class="ai-num reveal">05 — The edge</div>
+      <h2 class="ai-culture-title reveal">The same audience<br>is <em>three audiences.</em></h2>
+      <p class="ai-culture-body reveal">A brand entering Nigeria, the UK, and the US is not addressing one audience in three places. It's addressing three genuinely different audiences with different aspirations, anxieties, and codes. We read each on its own terms — which is the difference between a message that travels and a message that lands.</p>
+    </div>
+    <div class="ai-culture-grid">
+      <div class="ai-culture-card reveal-l">
+        <div class="ai-culture-market">Nigeria</div>
+        <div class="ai-culture-headline">Read in the language people actually use.</div>
+        <div class="ai-culture-text">English, Yoruba, Igbo, Pidgin — and the cultural codes beneath each. We read the Nigerian audience with native fluency, catching the meaning, the humour, and the aspiration that a non-local lens flattens into stereotype.</div>
+      </div>
+      <div class="ai-culture-card reveal">
+        <div class="ai-culture-market">United Kingdom</div>
+        <div class="ai-culture-headline">Where class, irony, and restraint shape everything.</div>
+        <div class="ai-culture-text">The British audience reads signals of understatement, self-deprecation, and social positioning that don't translate from elsewhere. We read what's actually being communicated beneath the politeness.</div>
+      </div>
+      <div class="ai-culture-card reveal-r">
+        <div class="ai-culture-market">United States</div>
+        <div class="ai-culture-headline">Aspiration, identity, and the power of the explicit.</div>
+        <div class="ai-culture-text">The American audience rewards directness, ambition, and identity-led brands in ways other markets don't. We read the regional and cultural nuance beneath the scale.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     ENGAGEMENT
+════════════════════════════════════════════════════════════ -->
+<section class="ai-engage ai-section">
+  <div class="ai-wide">
+    <div class="ai-num reveal">06 — The engagement</div>
+    <div class="ai-engage-grid">
+      <div class="ai-engage-block reveal">
+        <div class="ai-engage-label">Intelligence project</div>
+        <div class="ai-engage-val">3–5 weeks</div>
+        <div class="ai-engage-note">A complete audience intelligence study — segmentation, personas, cultural insight, and channel affinity. The full picture of who your audience is and how to reach them, delivered as a system the whole team can use.</div>
+      </div>
+      <div class="ai-engage-block reveal">
+        <div class="ai-engage-label">Listening retainer</div>
+        <div class="ai-engage-val">Monthly</div>
+        <div class="ai-engage-note">Ongoing social listening and audience monitoring — tracking what your audience says, shares, and shifts toward, with regular readouts that catch the change before it becomes obvious.</div>
+      </div>
+      <div class="ai-engage-block reveal">
+        <div class="ai-engage-label">Research sprint</div>
+        <div class="ai-engage-val">2–3 weeks</div>
+        <div class="ai-engage-note">A focused study to answer a specific audience question — who is this segment, why aren't they converting, what does this market actually value. Scoped to the question and the research required.</div>
+      </div>
+    </div>
+    <div class="ai-engage-markets reveal">
+      <span class="ai-engage-markets-label">Markets we read</span>
+      <div class="ai-market-list">
+        <span class="ai-market-item">Nigeria</span>
+        <span class="ai-market-item">United Kingdom</span>
+        <span class="ai-market-item">United States</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLOSER
+════════════════════════════════════════════════════════════ -->
+<section class="ai-closer ai-section">
+  <p class="ai-closer-pre reveal">Audience Intelligence · Growthhive</p>
+  <h2 class="ai-closer-title reveal">
+    Do you really<br>know <em>who's listening?</em>
+  </h2>
+  <p class="ai-closer-sub reveal">Book a 30-minute discovery call. We'll show you the audience hiding behind your demographics.</p>
+  <div class="ai-closer-btns reveal">
+    <a href="/contact.html" class="btn-fill">Book a discovery call</a>
+    <a href="/services.html" class="btn-out">All services</a>
+  </div>
+</section>
+
+<footer class="ai-footer">
+  <div class="ai-footer-logo">Growthhive<em>.</em></div>
+  <div class="ai-footer-meta">Audience Intelligence</div>
+  <div class="ai-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+</footer>
+
+<script src="/scripts/audience-intelligence.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>

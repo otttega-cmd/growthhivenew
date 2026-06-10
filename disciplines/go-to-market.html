@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Go-to-Market Strategy — Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,200;9..40,300;9..40,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/go-to-market.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="discipline-gtm">
+
+<!-- ── Loader ───────────────────────────────────────────────── -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail"     class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ── Nav ─────────────────────────────────────────────────── -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="/assets/logo_icon.ico" alt="Growthhive">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html">Work</a></li>
+    <li><a href="/services.html" class="active">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <a href="/contact.html" class="ncta">Start a project</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO — trajectory motif
+════════════════════════════════════════════════════════════ -->
+<header class="gtm-hero gtm-section">
+  <!-- Trajectory SVG — drawn by JS -->
+  <svg class="gtm-hero-traj" id="gtmTraj" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid meet">
+    <path class="gtm-traj-path-glow" id="gtmTrajGlow"
+      d="M -50 760 C 280 740, 420 600, 620 540 S 980 420, 1140 300 S 1380 160, 1520 90"/>
+    <path class="gtm-traj-path" id="gtmTrajLine"
+      d="M -50 760 C 280 740, 420 600, 620 540 S 980 420, 1140 300 S 1380 160, 1520 90"/>
+    <!-- nodes along the path -->
+    <g id="gtmNodes">
+      <circle class="gtm-traj-node-core" cx="620" cy="540" r="4"/>
+      <circle class="gtm-traj-node" cx="620" cy="540" r="9"/>
+      <text class="gtm-traj-label" x="600" y="575">Product</text>
+
+      <circle class="gtm-traj-node-core" cx="900" cy="430" r="4"/>
+      <circle class="gtm-traj-node" cx="900" cy="430" r="9"/>
+      <text class="gtm-traj-label" x="880" y="465">Position</text>
+
+      <circle class="gtm-traj-node-core" cx="1140" cy="300" r="4"/>
+      <circle class="gtm-traj-node" cx="1140" cy="300" r="9"/>
+      <text class="gtm-traj-label" x="1120" y="335">Channel</text>
+
+      <circle class="gtm-traj-node-core" cx="1360" cy="170" r="4"/>
+      <circle class="gtm-traj-node" cx="1360" cy="170" r="9"/>
+      <text class="gtm-traj-label" x="1300" y="150">Market</text>
+    </g>
+  </svg>
+
+  <div class="gtm-hero-inner">
+    <div class="gtm-hero-eyebrow" id="gtmEyebrow">Growthhive · Disciplines</div>
+    <h1 class="gtm-hero-title" id="gtmTitle">
+      We don't just plan<br>the route. We <em>run it.</em>
+    </h1>
+    <p class="gtm-hero-sub" id="gtmSub">
+      Go-to-Market Strategy. The complete motion of putting a product into a
+      market — entry strategy, channel, pricing, launch, and partnerships —
+      built and then executed under one roof. Strategy that ends in a deck
+      is just an opinion.
+    </p>
+    <div class="gtm-hero-meta" id="gtmMeta">
+      <div class="gtm-hero-stat">
+        <span class="gtm-hero-stat-val">Plan + run</span>
+        <span class="gtm-hero-stat-key">strategy through execution</span>
+      </div>
+      <div class="gtm-hero-divider"></div>
+      <div class="gtm-hero-stat">
+        <span class="gtm-hero-stat-val">4 phases</span>
+        <span class="gtm-hero-stat-key">product to market</span>
+      </div>
+      <div class="gtm-hero-divider"></div>
+      <div class="gtm-hero-stat">
+        <span class="gtm-hero-stat-val">NG · UK · US</span>
+        <span class="gtm-hero-stat-key">every entry is different</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE BELIEF
+════════════════════════════════════════════════════════════ -->
+<section class="gtm-belief gtm-section">
+  <div class="gtm-wide">
+    <div class="gtm-belief-inner">
+      <div class="reveal">
+        <div class="gtm-num">01 — The belief</div>
+        <div class="gtm-belief-label">What we think about go-to-market.</div>
+      </div>
+      <div>
+        <h2 class="gtm-belief-statement reveal">
+          A strategy you can't<br>execute is just an<br><em>expensive opinion.</em>
+        </h2>
+        <div class="gtm-belief-body reveal">
+          <p>The traditional agency model for go-to-market ends with a beautiful strategy document and a handshake. Then the client is left to execute it — usually with a different team, often a different agency, frequently losing the intent of the strategy somewhere in the handoff. We think that handoff is where most go-to-market plans die.</p>
+          <p>Growthhive builds the strategy and then runs it. The market entry plan, the channel selection, the positioning, the pricing, the launch creative, and the campaign that puts it all in market — under one roof, with the people who wrote the strategy executing it. <em>There is no handoff to lose intent in.</em></p>
+          <p>And the entry itself is never generic. Launching in Lagos is a fundamentally different motion to launching in London — different channels, different trust signals, different buyer behaviour, different competitive dynamics. We build the entry for the market it's actually entering, not a template applied across three of them.</p>
+        </div>
+        <div class="gtm-vs reveal">
+          <div class="gtm-vs-cell muted">
+            <div class="gtm-vs-label">The usual model</div>
+            <div class="gtm-vs-text"><strong>Strategy deck delivered. Handshake. Goodbye.</strong> Execution becomes the client's problem — and the strategy's intent leaks away in the handoff.</div>
+          </div>
+          <div class="gtm-vs-arrow">→</div>
+          <div class="gtm-vs-cell lit">
+            <div class="gtm-vs-label">The Growthhive model</div>
+            <div class="gtm-vs-text"><strong>Strategy built and then run by the same team.</strong> The people who designed the motion are the people who execute it. Nothing is lost in translation.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CAPABILITIES
+════════════════════════════════════════════════════════════ -->
+<section class="gtm-caps gtm-section">
+  <div class="gtm-wide">
+    <div class="gtm-caps-head">
+      <div>
+        <div class="gtm-num reveal">02 — What's included</div>
+        <h2 class="gtm-caps-title reveal">The whole<br><em>motion.</em></h2>
+      </div>
+      <p class="gtm-caps-intro reveal">
+        Go-to-market is not a single deliverable — it's the coordinated sequence that takes a product from ready-to-sell to selling. Growthhive covers every component of that sequence, and connects them so the strategy holds all the way from the plan to the first sale.
+      </p>
+    </div>
+    <div class="gtm-caps-grid">
+
+      <div class="gtm-cap-item reveal">
+        <div class="gtm-cap-num">01</div>
+        <div class="gtm-cap-name">Market Entry Strategy</div>
+        <div class="gtm-cap-desc">The foundational decision: which market, which segment, when, and how. We assess market readiness, sizing, competitive density, and entry barriers — then define the beachhead and the sequence for expanding out from it.</div>
+      </div>
+
+      <div class="gtm-cap-item reveal">
+        <div class="gtm-cap-num">02</div>
+        <div class="gtm-cap-name">Channel Strategy & Selection</div>
+        <div class="gtm-cap-desc">How the product actually reaches the buyer. Direct, partner-led, retail, digital, field sales — we identify the channels that fit the product, the market, and the economics, and we don't default to the channels that are easiest to buy.</div>
+      </div>
+
+      <div class="gtm-cap-item reveal">
+        <div class="gtm-cap-num">03</div>
+        <div class="gtm-cap-name">Pricing & Packaging</div>
+        <div class="gtm-cap-desc">How the offer is structured, tiered, and priced for the market it's entering. Pricing is a positioning signal as much as a revenue lever — and what works in one market often fails in another. We build it market by market.</div>
+      </div>
+
+      <div class="gtm-cap-item reveal">
+        <div class="gtm-cap-num">04</div>
+        <div class="gtm-cap-name">Launch Planning & Sequencing</div>
+        <div class="gtm-cap-desc">The choreography of a launch — what happens, in what order, across what channels, on what timeline. A launch is a sequence of coordinated moves, not a single moment. We plan the whole sequence and the contingencies.</div>
+      </div>
+
+      <div class="gtm-cap-item reveal">
+        <div class="gtm-cap-num">05</div>
+        <div class="gtm-cap-name">Sales Enablement</div>
+        <div class="gtm-cap-desc">The tools that turn the strategy into closed deals — pitch decks, one-pagers, battlecards, objection handling, demo scripts, and the narrative the sales motion runs on. The bridge between marketing's promise and sales' delivery.</div>
+      </div>
+
+      <div class="gtm-cap-item reveal">
+        <div class="gtm-cap-num">06</div>
+        <div class="gtm-cap-name">Partnership & Distribution</div>
+        <div class="gtm-cap-desc">For products that reach the market through others — resellers, advisors, platform partners, distributors. We design the partnership motion, the partner enablement, and the incentive structures that make the channel actually move the product.</div>
+      </div>
+
+      <div class="gtm-cap-item reveal">
+        <div class="gtm-cap-num">07</div>
+        <div class="gtm-cap-name">Market-Specific Localisation</div>
+        <div class="gtm-cap-desc">The Nigerian, British, and American versions of the same go-to-market are genuinely different motions. We localise the entry — channels, messaging, trust signals, pricing, partnerships — for the specific market, not a translated template.</div>
+      </div>
+
+      <div class="gtm-cap-item reveal">
+        <div class="gtm-cap-num">08</div>
+        <div class="gtm-cap-name">Demand Generation & Activation</div>
+        <div class="gtm-cap-desc">The execution engine: the campaigns, events, content, and outreach that actually create pipeline. Because a go-to-market that doesn't generate demand is just a plan. We build the activation and run it.</div>
+      </div>
+
+      <div class="gtm-cap-item reveal">
+        <div class="gtm-cap-num">09</div>
+        <div class="gtm-cap-name">Measurement & Iteration</div>
+        <div class="gtm-cap-desc">Entry metrics, pipeline tracking, and the feedback loop that tells us what's working. The first version of a go-to-market is a hypothesis. We measure against it and refine the motion based on what the market actually does.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE MOTION — 4-phase signature sequence
+════════════════════════════════════════════════════════════ -->
+<section class="gtm-motion gtm-section">
+  <div class="gtm-wide">
+    <div class="gtm-motion-head">
+      <div class="gtm-num reveal" style="justify-content:center;">03 — The motion</div>
+      <h2 class="gtm-motion-title reveal">Product to market,<br>in <em>four moves.</em></h2>
+      <p class="gtm-motion-body reveal">Every go-to-market motion we build follows the same trajectory — four phases that take a product from ready to revenue. The detail inside each phase is specific to the product and the market. The shape is always this.</p>
+    </div>
+    <div class="gtm-phases reveal">
+      <div class="gtm-phase">
+        <div class="gtm-phase-dot">01</div>
+        <div class="gtm-phase-name">Product</div>
+        <div class="gtm-phase-desc">Understand what's being taken to market — the value, the readiness, the proof. The honest assessment of what we're actually launching.</div>
+        <span class="gtm-phase-tag">Readiness · Value · Proof</span>
+      </div>
+      <div class="gtm-phase">
+        <div class="gtm-phase-dot">02</div>
+        <div class="gtm-phase-name">Position</div>
+        <div class="gtm-phase-desc">Define who it's for, what it replaces, and why now. The strategic claim the entire motion is built to communicate.</div>
+        <span class="gtm-phase-tag">Segment · Claim · Timing</span>
+      </div>
+      <div class="gtm-phase">
+        <div class="gtm-phase-dot">03</div>
+        <div class="gtm-phase-name">Channel</div>
+        <div class="gtm-phase-desc">Choose how it reaches the buyer — direct, partner, digital, field. The route from product to the person who pays for it.</div>
+        <span class="gtm-phase-tag">Route · Partner · Economics</span>
+      </div>
+      <div class="gtm-phase">
+        <div class="gtm-phase-dot">04</div>
+        <div class="gtm-phase-name">Market</div>
+        <div class="gtm-phase-desc">Launch, generate demand, measure, and expand. The motion in market — and the loop that refines it as the market responds.</div>
+        <span class="gtm-phase-tag">Launch · Demand · Iterate</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PROCESS
+════════════════════════════════════════════════════════════ -->
+<section class="gtm-process gtm-section">
+  <div class="gtm-wide">
+    <div class="gtm-process-head">
+      <div class="gtm-num reveal">04 — How we work</div>
+      <h2 class="gtm-process-title reveal">Five stages.<br>Plan, then <em>run.</em></h2>
+      <p class="gtm-process-body reveal">The engagement follows the same Growthhive structure as every discipline — but uniquely, it doesn't end at strategy. Stage five is execution, and it's where most of the work actually happens.</p>
+    </div>
+    <div class="gtm-steps">
+
+      <div class="gtm-step reveal">
+        <div class="gtm-step-num">01</div>
+        <div class="gtm-step-name">Discovery Call</div>
+        <div class="gtm-step-desc">30 minutes, free, no preparation. We want to understand the product, the target market, the timeline, and the commercial goal. What you're launching, where, and what winning looks like.</div>
+      </div>
+
+      <div class="gtm-step reveal">
+        <div class="gtm-step-num">02</div>
+        <div class="gtm-step-name">Market & Opportunity Audit</div>
+        <div class="gtm-step-desc">We research the market the product is entering — sizing, competitive density, channel landscape, buyer behaviour, and entry barriers. For multi-market launches, we audit each market separately, because each is a different motion. This becomes the brief.</div>
+      </div>
+
+      <div class="gtm-step reveal">
+        <div class="gtm-step-num">03</div>
+        <div class="gtm-step-name">Strategy & Scope Review</div>
+        <div class="gtm-step-desc">We share the audit and the recommended entry strategy — the beachhead, the channel approach, the positioning, the sequence. We agree the scope together: strategy only, or strategy plus the execution Growthhive will run. Confirmed before any build begins.</div>
+      </div>
+
+      <div class="gtm-step highlight reveal">
+        <div class="gtm-step-num">04</div>
+        <div class="gtm-step-name">Three Entry Approaches</div>
+        <div class="gtm-step-desc">We present three distinct ways into the market — different beachheads, different channel strategies, different sequencing. Each with its risk profile, resource requirement, and speed-to-revenue. You choose the approach that fits the appetite and the timeline.</div>
+      </div>
+
+      <div class="gtm-step reveal">
+        <div class="gtm-step-num">05</div>
+        <div class="gtm-step-name">Build & Execute</div>
+        <div class="gtm-step-desc">The chosen approach built into a complete go-to-market system — and then run. Channel setup, sales enablement, launch creative, demand generation, and the campaigns that create pipeline. We measure against entry metrics and refine the motion as the market responds. This is where strategy becomes revenue.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FROM THE STUDIO — Tender / Ansarada
+════════════════════════════════════════════════════════════ -->
+<section class="gtm-studio gtm-section">
+  <div class="gtm-wide">
+    <div class="gtm-studio-head">
+      <div>
+        <div class="gtm-num reveal">05 — From the studio</div>
+        <div class="gtm-studio-label reveal">A complete go-to-market motion.</div>
+      </div>
+      <div>
+        <h2 class="gtm-studio-title reveal">Tender.<br>How Ansarada enters Africa.</h2>
+        <div class="gtm-studio-body reveal">
+          <p>Ansarada Procure is the only software purpose-built for large-scale infrastructure procurement — and Africa, building infrastructure at historic scale, is its largest untapped market. The challenge wasn't the product. It was the <em>motion</em>: how do you enter a market where the buyer is government, the sale is slow, and trust is everything?</p>
+          <p>Growthhive built the complete go-to-market — the entry strategy, the channel insight, the activation, and the funnel — as a single coordinated motion. <em>Tender</em> is the worked example of every component of this discipline in one engagement.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- GTM motion artifact — Tender decomposed into the 4 GTM moves -->
+    <div class="gtm-artifact reveal">
+      <div class="gtm-artifact-bar">
+        <span class="gtm-artifact-title">Go-to-Market Motion — Ansarada Procure × Africa</span>
+        <span class="gtm-artifact-tag">Active Engagement</span>
+      </div>
+      <div class="gtm-artifact-grid">
+
+        <!-- Entry strategy -->
+        <div class="gtm-artifact-panel">
+          <div class="gtm-art-label">→ Market entry strategy</div>
+          <div class="gtm-art-headline">Enter through the <em>advisor</em>, not the government.</div>
+          <div class="gtm-art-text">The buyer is government, but the trusted recommender is the infrastructure advisory firm. The entry strategy targets the advisor layer — a B2B2G motion where the advisor becomes the distribution channel into government procurement.</div>
+        </div>
+
+        <!-- Channel -->
+        <div class="gtm-artifact-panel">
+          <div class="gtm-art-label">→ Channel & activation</div>
+          <div class="gtm-art-headline">A pan-African roadshow as the channel.</div>
+          <div class="gtm-art-text">Rather than cold sales, the channel is a flagship event — a forum advisors actually want to attend, where the product is experienced inside a working procurement session, not pitched.</div>
+        </div>
+
+        <!-- Route map -->
+        <div class="gtm-artifact-panel">
+          <div class="gtm-art-label">→ Market sequence</div>
+          <div class="gtm-route-map">
+            <div class="gtm-route-city">
+              <div class="gtm-route-dot"></div>
+              <div class="gtm-route-name">Lagos</div>
+              <div class="gtm-route-sub">West</div>
+            </div>
+            <div class="gtm-route-city">
+              <div class="gtm-route-dot"></div>
+              <div class="gtm-route-name">Nairobi</div>
+              <div class="gtm-route-sub">East</div>
+            </div>
+            <div class="gtm-route-city">
+              <div class="gtm-route-dot"></div>
+              <div class="gtm-route-name">Cairo</div>
+              <div class="gtm-route-sub">North</div>
+            </div>
+            <div class="gtm-route-city">
+              <div class="gtm-route-dot"></div>
+              <div class="gtm-route-name">Cape Town</div>
+              <div class="gtm-route-sub">South</div>
+            </div>
+          </div>
+          <div class="gtm-art-text" style="margin-top:1.5rem;">Four cities, sequenced to cover the four regional advisory ecosystems — each a distinct sub-market with its own entry motion.</div>
+        </div>
+
+        <!-- Projected funnel -->
+        <div class="gtm-artifact-panel">
+          <div class="gtm-art-label">→ Projected pipeline</div>
+          <div class="gtm-art-stats">
+            <div class="gtm-art-stat">
+              <div class="gtm-art-stat-val">400+</div>
+              <div class="gtm-art-stat-key">advisors reached</div>
+            </div>
+            <div class="gtm-art-stat">
+              <div class="gtm-art-stat-val">45+</div>
+              <div class="gtm-art-stat-key">demos requested</div>
+            </div>
+            <div class="gtm-art-stat">
+              <div class="gtm-art-stat-val">20+</div>
+              <div class="gtm-art-stat-key">mandates in 6mo</div>
+            </div>
+          </div>
+          <div class="gtm-art-text" style="margin-top:1.5rem;">Projected outcomes based on comparable B2B advisory event performance — not guaranteed results.</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="gtm-studio-cta reveal">
+      <a href="/cases/ansarada.html" class="gtm-studio-link">View the full Tender case study →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     ENGAGEMENT
+════════════════════════════════════════════════════════════ -->
+<section class="gtm-engage gtm-section">
+  <div class="gtm-wide">
+    <div class="gtm-num reveal">06 — The engagement</div>
+    <div class="gtm-engage-grid">
+      <div class="gtm-engage-block reveal">
+        <div class="gtm-engage-label">Strategy engagement</div>
+        <div class="gtm-engage-val">4–6 weeks</div>
+        <div class="gtm-engage-note">The complete go-to-market strategy — entry plan, channel approach, positioning, pricing, and launch sequence. The full plan, ready to execute. Yours to run, or ours.</div>
+      </div>
+      <div class="gtm-engage-block reveal">
+        <div class="gtm-engage-label">Strategy + execution</div>
+        <div class="gtm-engage-val">3–6 months</div>
+        <div class="gtm-engage-note">We build the strategy and then run it — channel setup, sales enablement, launch, and demand generation. The complete motion from plan to pipeline, executed by the team that designed it.</div>
+      </div>
+      <div class="gtm-engage-block reveal">
+        <div class="gtm-engage-label">Market expansion retainer</div>
+        <div class="gtm-engage-val">Ongoing</div>
+        <div class="gtm-engage-note">For companies entering multiple markets in sequence — a rolling engagement that takes the product into one market after another, refining the motion with each entry.</div>
+      </div>
+    </div>
+    <div class="gtm-engage-markets reveal">
+      <span class="gtm-engage-markets-label">Markets we launch into</span>
+      <div class="gtm-market-list">
+        <span class="gtm-market-item">Nigeria</span>
+        <span class="gtm-market-item">United Kingdom</span>
+        <span class="gtm-market-item">United States</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLOSER
+════════════════════════════════════════════════════════════ -->
+<section class="gtm-closer gtm-section">
+  <p class="gtm-closer-pre reveal">Go-to-Market Strategy · Growthhive</p>
+  <h2 class="gtm-closer-title reveal">
+    Ready to enter<br>the <em>market?</em>
+  </h2>
+  <p class="gtm-closer-sub reveal">Book a 30-minute discovery call. Tell us what you're launching and where — we'll show you the motion to get it there.</p>
+  <div class="gtm-closer-btns reveal">
+    <a href="/contact.html" class="btn-fill">Book a discovery call</a>
+    <a href="/services.html" class="btn-out">All services</a>
+  </div>
+</section>
+
+<footer class="gtm-footer">
+  <div class="gtm-footer-logo">Growthhive<em>.</em></div>
+  <div class="gtm-footer-meta">Go-to-Market Strategy</div>
+  <div class="gtm-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+</footer>
+
+<script src="/scripts/go-to-market.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>
