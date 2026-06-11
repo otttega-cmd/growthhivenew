@@ -14,9 +14,27 @@
   const curREl = document.getElementById('curR');
   if (!curEl || !curREl) return;
 
+  // Hide both cursor elements until the first mousemove fires,
+  // so they never appear stuck at 0,0 (top-left) during loading.
+  curEl.style.opacity  = '0';
+  curREl.style.opacity = '0';
+
   let mx = 0, my = 0, rx = 0, ry = 0;
+  let seenFirstMove = false;
+
   document.addEventListener('mousemove', e => {
     mx = e.clientX; my = e.clientY;
+
+    if (!seenFirstMove) {
+      // Seed the ring at the real position so it doesn't chase from 0,0
+      rx = mx; ry = my;
+      // Snap the dot instantly to the real position, then reveal both
+      gsap.set(curEl, { x: mx, y: my });
+      curEl.style.opacity  = '1';
+      curREl.style.opacity = '1';
+      seenFirstMove = true;
+    }
+
     gsap.to(curEl, { x: mx, y: my, duration: 0.07 });
   });
   (function rl() {
