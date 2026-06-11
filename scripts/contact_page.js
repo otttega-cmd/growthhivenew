@@ -140,7 +140,7 @@ const intro = {
   display: 0,         // smoothed progress the bee follows
   done: false,
   startTime: null,    // set on first frame
-  minDuration: 4.6,   // seconds — slowed for artistry
+  minDuration: 2.4,   // seconds
   heroScale: 7.0,     // hero bee size multiplier (big, central hero)
   handoffStart: null, // when shrink-to-colony begins (seconds)
 };
@@ -173,9 +173,9 @@ const heroFlight = {
 
 // Logical progress driver — never completes before minDuration
 const introInterval = setInterval(() => {
-  intro.progress += Math.random() * 0.08;
+  intro.progress += Math.random() * 0.13;
   if (intro.progress >= 1) intro.progress = 1;
-}, 110);
+}, 80);
 
 // Overlay elements
 const introPctEl     = document.getElementById('introPct');
@@ -356,7 +356,7 @@ function render(){
   // ── HANDOFF — bee flies to colony spot AND shrinks ───────
   if (intro.handoffStart !== null) {
     const ht = t - intro.handoffStart;
-    const hd = 1.5; // handoff duration (seconds)
+    const hd = 1.1; // handoff duration (seconds)
     const k = Math.min(ht / hd, 1);
     const ke = 1 - Math.pow(1 - k, 3); // ease-out cubic
 
