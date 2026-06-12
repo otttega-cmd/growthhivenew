@@ -1,0 +1,413 @@
+/* ================================================================
+   Growthhive — Moniepoint Case Study
+   moniepoint.css
+   "Moniepoint is the middle point."
+   Palette: Moniepoint Blue #0B5FDB / Deep #073A8C (infrastructure)
+            Naira Gold #E8B53A (money in motion)
+   Depends on: shared.css
+================================================================ */
+
+:root {
+  --mp:      #0B5FDB;
+  --mp-deep: #073A8C;
+  --mp-soft: #5B9BF0;
+  --gold:    #E8B53A;
+  --gold-soft: #F5D680;
+}
+
+body.case-mp { background: #060912; }
+#c { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .4; }
+
+/* ── Reveals ────────────────────────────────────────────────── */
+.reveal   { opacity: 0; transform: translateY(22px); }
+.reveal-l { opacity: 0; transform: translateX(-22px); }
+.reveal-r { opacity: 0; transform: translateX(22px); }
+.reveal-s { opacity: 0; transform: scale(.96); }
+
+/* ── Scaffold ───────────────────────────────────────────────── */
+.mp-section { position: relative; z-index: 1; }
+.mp-wide    { max-width: 1280px; margin: 0 auto; }
+.mp-narrow  { max-width: 880px; margin: 0 auto; }
+.mp-kicker {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .24em; text-transform: uppercase; color: var(--mp-soft);
+  margin-bottom: 2.5rem; display: flex; align-items: center; gap: 1rem;
+}
+.mp-kicker::before { content: ''; width: 26px; height: 1px; background: var(--mp); opacity: .7; }
+
+/* ════════════════════════════════════════════════════════════
+   HERO — the statement
+════════════════════════════════════════════════════════════ */
+.mp-hero {
+  position: relative; z-index: 1; min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 9rem 2rem 6rem; overflow: hidden;
+}
+/* Blue infrastructure field */
+.mp-hero::before {
+  content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(11,95,219,.14), transparent 70%),
+    linear-gradient(180deg, #060912 0%, #081226 55%, #060912 100%);
+}
+/* Network lines converging to center */
+.mp-hero-net {
+  position: absolute; inset: 0; z-index: 0; pointer-events: none; width: 100%; height: 100%;
+}
+.mp-net-line { stroke: rgba(11,95,219,.25); stroke-width: 1; fill: none; }
+.mp-net-line.gold { stroke: rgba(232,181,58,.4); stroke-width: 1.5; stroke-dasharray: 6 10; }
+.mp-net-node { fill: #060912; stroke: rgba(91,155,240,.5); stroke-width: 1; }
+.mp-net-core { fill: var(--gold); }
+.mp-hero-tag {
+  position: relative; z-index: 1;
+  font-family: 'Space Mono', monospace; font-size: .6rem;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--mp-soft);
+  margin-bottom: 3rem; opacity: 0; transform: translateY(10px);
+}
+.mp-hero-title {
+  position: relative; z-index: 1;
+  font-size: clamp(2.6rem, 8vw, 7.4rem); font-weight: 200;
+  line-height: 1.02; letter-spacing: -.04em; color: var(--white);
+  margin-bottom: 2.5rem; max-width: 1100px;
+  opacity: 0; transform: translateY(26px);
+}
+.mp-hero-title em { font-style: italic; color: var(--gold); }
+.mp-hero-sub {
+  position: relative; z-index: 1;
+  font-size: clamp(.92rem, 1.4vw, 1.1rem); font-weight: 300; line-height: 1.7;
+  color: var(--dim); max-width: 560px; opacity: 0; transform: translateY(14px);
+}
+.mp-hero-spec {
+  position: relative; z-index: 1; margin-top: 3.5rem;
+  font-family: 'Space Mono', monospace; font-size: .5rem;
+  letter-spacing: .14em; text-transform: uppercase; color: rgba(242,242,234,.35);
+  border: 1px solid rgba(242,242,234,.12); padding: .6rem 1.2rem; opacity: 0;
+}
+.mp-scroll-hint {
+  position: absolute; bottom: 2.6rem; left: 50%; transform: translateX(-50%); z-index: 1;
+  display: flex; flex-direction: column; align-items: center; gap: .7rem;
+  font-family: 'Space Mono', monospace; font-size: .5rem;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--dim); opacity: 0;
+}
+.mp-scroll-line {
+  width: 1px; height: 40px; background: linear-gradient(var(--gold), transparent);
+  animation: mpScroll 2s ease-in-out infinite;
+}
+@keyframes mpScroll { 0%,100% { transform: scaleY(.4); opacity:.4; transform-origin: top; } 50% { transform: scaleY(1); opacity:1; transform-origin: top; } }
+
+/* ════════════════════════════════════════════════════════════
+   THE INSIGHT
+════════════════════════════════════════════════════════════ */
+.mp-insight {
+  border-top: 1px solid var(--faint); padding: 10rem 4rem;
+  background: linear-gradient(180deg, #060912 0%, #081020 100%);
+}
+.mp-insight-inner { display: grid; grid-template-columns: 1fr 1.5fr; gap: 8rem; align-items: start; }
+.mp-insight-statement {
+  font-size: clamp(1.7rem, 3.6vw, 2.9rem); font-weight: 200;
+  line-height: 1.22; letter-spacing: -.02em; color: var(--white); margin-bottom: 2.5rem;
+}
+.mp-insight-statement em { font-style: italic; color: var(--gold); }
+.mp-insight-body { font-size: 1rem; line-height: 1.9; color: var(--dim); }
+.mp-insight-body p + p { margin-top: 1.4rem; }
+.mp-insight-body em { color: var(--white); font-style: normal; }
+/* The reframe strip */
+.mp-reframe {
+  display: grid; grid-template-columns: 1fr auto 1fr; margin-top: 3rem;
+  border: 1px solid var(--faint); align-items: stretch;
+}
+.mp-reframe-cell { padding: 2rem; }
+.mp-reframe-cell.muted { background: rgba(242,242,234,.015); }
+.mp-reframe-cell.lit { background: rgba(11,95,219,.07); }
+.mp-reframe-label {
+  font-family: 'Space Mono', monospace; font-size: .5rem;
+  letter-spacing: .14em; text-transform: uppercase; margin-bottom: 1rem; color: var(--dim);
+}
+.mp-reframe-cell.lit .mp-reframe-label { color: var(--mp-soft); }
+.mp-reframe-text { font-size: .92rem; line-height: 1.6; color: var(--dim); }
+.mp-reframe-text strong { color: var(--white); font-weight: 400; }
+.mp-reframe-arrow {
+  display: flex; align-items: center; justify-content: center; padding: 0 1.4rem;
+  color: var(--gold); font-size: 1.2rem;
+  border-left: 1px solid var(--faint); border-right: 1px solid var(--faint);
+}
+
+/* ════════════════════════════════════════════════════════════
+   POSITIONING
+════════════════════════════════════════════════════════════ */
+.mp-positioning {
+  border-top: 1px solid var(--faint); padding: 11rem 4rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.mp-positioning::before {
+  content: ''; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(11,95,219,.08), transparent 70%);
+}
+.mp-pos-statement {
+  position: relative; max-width: 980px; margin: 0 auto;
+  font-size: clamp(1.5rem, 3.4vw, 2.7rem); font-weight: 200;
+  line-height: 1.45; letter-spacing: -.01em; color: rgba(242,242,234,.85);
+}
+.mp-pos-statement em { font-style: italic; color: var(--gold); }
+.mp-pos-statement strong { color: var(--white); font-weight: 300; }
+
+/* ════════════════════════════════════════════════════════════
+   PERSONA
+════════════════════════════════════════════════════════════ */
+.mp-persona { border-top: 1px solid var(--faint); padding: 10rem 4rem; background: #081020; }
+.mp-persona-inner { display: grid; grid-template-columns: 1fr 1.2fr; gap: 6rem; align-items: center; }
+.mp-persona-title {
+  font-size: clamp(1.8rem, 3.6vw, 3rem); font-weight: 200;
+  letter-spacing: -.03em; line-height: 1.1; color: var(--white); margin-bottom: 1.5rem;
+}
+.mp-persona-title em { font-style: italic; color: var(--gold); }
+.mp-persona-body { font-size: 1rem; line-height: 1.9; color: var(--dim); }
+.mp-persona-body em { color: var(--white); font-style: normal; }
+.mp-persona-card {
+  border: 1px solid rgba(11,95,219,.3); background: rgba(8,18,38,.7);
+  padding: 2.6rem; position: relative;
+  box-shadow: 0 30px 70px rgba(0,0,0,.5);
+}
+.mp-persona-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--mp), rgba(11,95,219,.2) 70%, transparent);
+}
+.mp-persona-card-label {
+  font-family: 'Space Mono', monospace; font-size: .52rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--mp-soft); margin-bottom: 1.8rem;
+}
+.mp-persona-row { display: flex; gap: 1.2rem; align-items: baseline; padding: 1rem 0; border-top: 1px solid rgba(242,242,234,.06); }
+.mp-persona-row:first-of-type { border-top: none; padding-top: 0; }
+.mp-persona-key {
+  font-family: 'Space Mono', monospace; font-size: .5rem;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--gold); width: 84px; flex-shrink: 0;
+}
+.mp-persona-val { font-size: .92rem; line-height: 1.55; color: rgba(242,242,234,.8); }
+
+/* ════════════════════════════════════════════════════════════
+   CAMPAIGN — Follow the ₦5,000 · the chain
+════════════════════════════════════════════════════════════ */
+.mp-campaign { border-top: 1px solid var(--faint); padding: 10rem 0 8rem; overflow: hidden; }
+.mp-campaign-head { max-width: 880px; margin: 0 auto 2rem; padding: 0 4rem; text-align: center; }
+.mp-campaign-title {
+  font-size: clamp(2.4rem, 6vw, 5rem); font-weight: 200;
+  letter-spacing: -.04em; line-height: 1; color: var(--white); margin-bottom: 1.6rem;
+}
+.mp-campaign-title em { font-style: italic; color: var(--gold); }
+.mp-campaign-body { font-size: 1.02rem; line-height: 1.85; color: var(--dim); max-width: 620px; margin: 0 auto; }
+.mp-campaign-body em { color: var(--white); font-style: normal; }
+
+/* The journey rail */
+.mp-chain-rail {
+  max-width: 1100px; margin: 4rem auto 3rem; padding: 0 4rem;
+  display: flex; align-items: center; justify-content: space-between; position: relative;
+}
+.mp-chain-rail::before {
+  content: ''; position: absolute; left: 6rem; right: 6rem; top: 17px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(232,181,58,.45) 12%, rgba(232,181,58,.45) 88%, transparent);
+}
+.mp-chain-stop {
+  position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: .8rem;
+  cursor: pointer; background: none; border: none; padding: 0; font-family: inherit;
+}
+.mp-chain-dot {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: #081020; border: 1px solid rgba(232,181,58,.4);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Space Mono', monospace; font-size: .6rem; font-weight: 700; color: var(--gold);
+  transition: background .4s, box-shadow .4s, transform .4s;
+}
+.mp-chain-stop.active .mp-chain-dot {
+  background: var(--gold); color: #081020; transform: scale(1.15);
+  box-shadow: 0 0 24px rgba(232,181,58,.5);
+}
+.mp-chain-name {
+  font-family: 'Space Mono', monospace; font-size: .52rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--dim); transition: color .4s;
+}
+.mp-chain-stop.active .mp-chain-name { color: var(--white); }
+
+/* Poster stage */
+.mp-poster-stage {
+  max-width: 1100px; margin: 0 auto; padding: 0 4rem;
+  display: grid; grid-template-columns: 420px 1fr; gap: 4rem; align-items: center;
+}
+/* The poster mockup — swappable: replace .mp-poster-art content with an <img> later */
+.mp-poster {
+  aspect-ratio: 4 / 5; position: relative; overflow: hidden;
+  background: linear-gradient(165deg, #0A2C66 0%, #073A8C 55%, #0B5FDB 130%);
+  border: 1px solid rgba(11,95,219,.4);
+  box-shadow: 0 40px 90px rgba(0,0,0,.6);
+  display: flex; flex-direction: column;
+}
+.mp-poster-art { position: relative; flex: 1; overflow: hidden; }
+.mp-poster-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mp-poster-scene {
+  position: absolute; top: 1.6rem; left: 1.6rem;
+  font-family: 'Space Mono', monospace; font-size: .5rem;
+  letter-spacing: .2em; text-transform: uppercase; color: rgba(242,242,234,.55);
+}
+.mp-poster-headline {
+  position: absolute; left: 1.6rem; right: 1.6rem; bottom: 5.2rem;
+  font-size: clamp(1.3rem, 2.4vw, 1.9rem); font-weight: 300; line-height: 1.18;
+  letter-spacing: -.01em; color: #fff;
+}
+.mp-poster-headline em { font-style: italic; color: var(--gold-soft); }
+.mp-poster-foot {
+  position: absolute; left: 1.6rem; right: 1.6rem; bottom: 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,.18); padding-top: 1rem;
+}
+.mp-poster-brand {
+  font-family: 'Space Mono', monospace; font-size: .56rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase; color: #fff;
+}
+.mp-poster-line {
+  font-family: 'Space Mono', monospace; font-size: .44rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--gold-soft);
+}
+/* Poster copy panel */
+.mp-poster-copy {}
+.mp-poster-num {
+  font-family: 'Space Mono', monospace; font-size: .56rem;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.4rem;
+}
+.mp-poster-copy-title {
+  font-size: clamp(1.5rem, 3vw, 2.4rem); font-weight: 200;
+  letter-spacing: -.02em; line-height: 1.12; color: var(--white); margin-bottom: 1.4rem;
+}
+.mp-poster-copy-body { font-size: .98rem; line-height: 1.85; color: var(--dim); max-width: 480px; }
+.mp-poster-copy-body em { color: var(--white); font-style: normal; }
+.mp-poster-nav { display: flex; gap: 1rem; margin-top: 2.5rem; }
+.mp-poster-btn {
+  width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
+  border: 1px solid rgba(232,181,58,.4); background: transparent; color: var(--gold);
+  font-size: 1rem; transition: background .3s, transform .3s;
+  display: flex; align-items: center; justify-content: center;
+}
+.mp-poster-btn:hover { background: rgba(232,181,58,.12); transform: scale(1.06); }
+.mp-swap-note {
+  max-width: 1100px; margin: 2.5rem auto 0; padding: 0 4rem;
+  font-family: 'Space Mono', monospace; font-size: .48rem;
+  letter-spacing: .1em; text-transform: uppercase; color: rgba(242,242,234,.3); text-align: right;
+}
+
+/* ════════════════════════════════════════════════════════════
+   SYSTEM — funnel / GTM
+════════════════════════════════════════════════════════════ */
+.mp-system { border-top: 1px solid var(--faint); padding: 10rem 4rem; background: #081020; }
+.mp-system-head { max-width: 880px; margin: 0 auto 5rem; }
+.mp-system-title {
+  font-size: clamp(2rem, 4.4vw, 3.6rem); font-weight: 200;
+  letter-spacing: -.03em; line-height: 1.05; color: var(--white); margin-bottom: 1.4rem;
+}
+.mp-system-title em { font-style: italic; color: var(--gold); }
+.mp-system-body { font-size: 1rem; line-height: 1.85; color: var(--dim); max-width: 620px; }
+.mp-system-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 1100px; margin: 0 auto; }
+.mp-sys-panel {
+  border: 1px solid var(--faint); background: rgba(6,9,18,.55); padding: 2.6rem;
+}
+.mp-sys-label {
+  font-family: 'Space Mono', monospace; font-size: .5rem;
+  letter-spacing: .16em; text-transform: uppercase; color: var(--mp-soft); margin-bottom: 1.4rem;
+}
+.mp-sys-text { font-size: .9rem; line-height: 1.7; color: var(--dim); }
+.mp-sys-text strong { color: var(--white); font-weight: 400; }
+/* funnel bars */
+.mp-funnel { display: flex; flex-direction: column; gap: 4px; }
+.mp-funnel-stage {
+  padding: .85rem 1.3rem; margin: 0 auto; width: 100%;
+  background: rgba(11,95,219,.1); border: 1px solid rgba(11,95,219,.25);
+  display: flex; align-items: center; justify-content: space-between; transition: background .4s;
+}
+.mp-funnel-stage:hover { background: rgba(11,95,219,.2); }
+.mp-funnel-stage:nth-child(2) { width: 85%; }
+.mp-funnel-stage:nth-child(3) { width: 70%; }
+.mp-funnel-stage:nth-child(4) { width: 55%; }
+.mp-funnel-stage:nth-child(5) { width: 42%; }
+.mp-funnel-name {
+  font-family: 'Space Mono', monospace; font-size: .54rem;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--white);
+}
+.mp-funnel-note { font-family: 'Space Mono', monospace; font-size: .46rem; color: var(--gold); }
+
+/* ════════════════════════════════════════════════════════════
+   FRAMING / outcomes
+════════════════════════════════════════════════════════════ */
+.mp-frame { border-top: 1px solid var(--faint); padding: 10rem 4rem; }
+.mp-frame-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; max-width: 1100px; margin: 0 auto 3rem; }
+.mp-frame-cell {
+  border: 1px solid var(--faint); padding: 3rem 2.5rem;
+  display: flex; flex-direction: column; gap: 1rem; background: rgba(242,242,234,.015);
+}
+.mp-frame-val { font-size: clamp(1.8rem, 3.4vw, 2.8rem); font-weight: 200; color: var(--white); line-height: 1; }
+.mp-frame-key {
+  font-family: 'Space Mono', monospace; font-size: .52rem;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--mp-soft);
+}
+.mp-frame-note { font-size: .84rem; line-height: 1.65; color: var(--dim); margin-top: auto; }
+.mp-frame-disclaimer {
+  max-width: 1100px; margin: 0 auto;
+  font-family: 'Space Mono', monospace; font-size: .5rem;
+  letter-spacing: .1em; text-transform: uppercase; color: rgba(242,242,234,.32); text-align: center;
+}
+
+/* ════════════════════════════════════════════════════════════
+   CLOSER
+════════════════════════════════════════════════════════════ */
+.mp-closer {
+  border-top: 1px solid var(--faint); padding: 12rem 4rem; min-height: 72vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; position: relative; overflow: hidden;
+}
+.mp-closer::before {
+  content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 80%; height: 380px;
+  background: radial-gradient(ellipse at bottom, rgba(11,95,219,.12), transparent 65%);
+  pointer-events: none;
+}
+.mp-closer-pre {
+  font-family: 'Space Mono', monospace; font-size: .58rem;
+  letter-spacing: .28em; text-transform: uppercase; color: var(--mp-soft); margin-bottom: 2.6rem;
+}
+.mp-closer-title {
+  font-size: clamp(2.6rem, 8vw, 6.6rem); font-weight: 200;
+  letter-spacing: -.04em; line-height: .96; color: var(--white); margin-bottom: 1.6rem;
+}
+.mp-closer-title em { font-style: italic; color: var(--gold); }
+.mp-closer-sub { font-size: 1rem; line-height: 1.75; color: var(--dim); max-width: 520px; margin: 0 auto 3.6rem; }
+.mp-closer-btns { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; position: relative; z-index: 1; }
+
+/* ── Footer ─────────────────────────────────────────────── */
+.mp-footer {
+  position: relative; z-index: 1; padding: 3rem 4rem;
+  border-top: 1px solid var(--faint);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
+}
+.mp-footer-logo {
+  font-family: 'Space Mono', monospace; font-size: .78rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--white);
+}
+.mp-footer-logo em { color: var(--ch); font-style: normal; }
+.mp-footer-meta { font-family: 'Space Mono', monospace; font-size: .54rem; letter-spacing: .1em; color: var(--dim); }
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .mp-insight-inner, .mp-persona-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .mp-poster-stage { grid-template-columns: 1fr; gap: 3rem; }
+  .mp-poster { max-width: 420px; margin: 0 auto; }
+  .mp-system-grid { grid-template-columns: 1fr; }
+  .mp-frame-grid { grid-template-columns: 1fr; }
+  .mp-reframe { grid-template-columns: 1fr; }
+  .mp-reframe-arrow {
+    border: none; border-top: 1px solid var(--faint); border-bottom: 1px solid var(--faint);
+    padding: .8rem; transform: rotate(90deg);
+  }
+  .mp-chain-rail { flex-wrap: wrap; gap: 1.6rem; justify-content: center; }
+  .mp-chain-rail::before { display: none; }
+}
+@media (max-width: 640px) {
+  .mp-insight, .mp-positioning, .mp-persona, .mp-system, .mp-frame, .mp-closer { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .mp-campaign-head, .mp-poster-stage, .mp-chain-rail, .mp-swap-note { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .mp-footer { padding: 2rem 1.5rem; flex-direction: column; }
+}

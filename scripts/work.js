@@ -362,7 +362,7 @@ const CASE_ACCENTS = [
   new THREE.Color(0x00E676), // Chicken Republic — green
   new THREE.Color(0xCE93D8), // Domino's — purple
   new THREE.Color(0x00B0FF), // Heineken — blue
-  new THREE.Color(0xFFD600), // Moniepoint — gold
+  new THREE.Color(0x0B5FDB), // Moniepoint — Moniepoint blue
   new THREE.Color(0xFF4081), // PiggyVest — pink
 ];
 

@@ -1,1 +1,308 @@
-mo
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Moniepoint is the Middle Point — Growthhive</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;1,9..40,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles/shared.css">
+  <link rel="stylesheet" href="/styles/moniepoint.css">
+  <link rel="icon" href="/assets/growthhive-logo.png" sizes="any">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+<body class="case-mp">
+
+<!-- ── Loader ──────────────────────────────────────────────── -->
+<div class="ldr" id="ldr">
+  <svg class="intro-trail-svg" id="introTrailSvg" xmlns="http://www.w3.org/2000/svg">
+    <path id="introTrailGlow" class="intro-trail-glow"/>
+    <path id="introTrail" class="intro-trail"/>
+  </svg>
+  <div class="intro-pct" id="introPct">0%</div>
+</div>
+
+<canvas id="c"></canvas>
+<div id="cur"></div>
+<div id="curR"></div>
+
+<!-- ── Navigation ──────────────────────────────────────────── -->
+<nav>
+  <a href="/index.html" class="nlogo">
+    <img class="nlogo-icon" src="/assets/growthhive-logo.png" alt="Growthhive">
+    <span>Growthhive<em>.</em></span>
+  </a>
+  <ul class="nlinks">
+    <li><a href="/work.html" class="active">Work</a></li>
+    <li><a href="/services.html">Services</a></li>
+    <li><a href="/about.html">About</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <a href="/contact.html" class="ncta">Start a project</a>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════
+     HERO — the statement
+════════════════════════════════════════════════════════════ -->
+<section class="mp-hero mp-section">
+  <!-- Network field: transactions converging through the middle -->
+  <svg class="mp-hero-net" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path class="mp-net-line" d="M -40 120 C 320 240, 520 380, 720 400"/>
+    <path class="mp-net-line" d="M -40 680 C 300 560, 540 430, 720 400"/>
+    <path class="mp-net-line" d="M 1480 90 C 1120 230, 920 370, 720 400"/>
+    <path class="mp-net-line" d="M 1480 720 C 1140 580, 900 430, 720 400"/>
+    <path class="mp-net-line" d="M 260 -40 C 420 160, 600 330, 720 400"/>
+    <path class="mp-net-line" d="M 1180 840 C 1020 640, 840 470, 720 400"/>
+    <path class="mp-net-line gold" id="mpGoldLine" d="M -40 400 C 300 400, 540 400, 720 400 S 1140 400, 1480 400"/>
+    <circle class="mp-net-node" cx="240" cy="200" r="5"/>
+    <circle class="mp-net-node" cx="1200" cy="170" r="5"/>
+    <circle class="mp-net-node" cx="190" cy="610" r="5"/>
+    <circle class="mp-net-node" cx="1250" cy="640" r="5"/>
+    <circle class="mp-net-node" cx="720" cy="400" r="14"/>
+    <circle class="mp-net-core" id="mpCore" cx="720" cy="400" r="5"/>
+  </svg>
+
+  <div class="mp-hero-tag" id="mpHeroTag">Moniepoint × Growthhive · Product Marketing Concept</div>
+  <h1 class="mp-hero-title" id="mpHeroTitle">Moniepoint is<br>the <em>middle point.</em></h1>
+  <p class="mp-hero-sub" id="mpHeroSub">
+    Every naira that moves through a Nigerian business passes through somewhere.
+    A product marketing campaign built on the role Moniepoint plays — not the
+    features it lists.
+  </p>
+  <div class="mp-hero-spec" id="mpHeroSpec">Speculative concept · A Growthhive demonstration · Not a commissioned engagement</div>
+  <div class="mp-scroll-hint" id="mpScrollHint">
+    <span>Follow the money</span>
+    <span class="mp-scroll-line"></span>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     THE INSIGHT
+════════════════════════════════════════════════════════════ -->
+<section class="mp-insight mp-section">
+  <div class="mp-wide">
+    <div class="mp-insight-inner">
+      <div class="reveal">
+        <div class="mp-kicker">01 — The insight</div>
+      </div>
+      <div>
+        <h2 class="mp-insight-statement reveal">
+          Nobody loves a POS terminal.<br>
+          Everybody depends on<br>what it <em>does.</em>
+        </h2>
+        <div class="mp-insight-body reveal">
+          <p>Moniepoint's marketing problem isn't awareness — the blue terminal is on every counter in Lagos. The problem is meaning. Fintech advertising in Nigeria is a wall of identical claims: fast settlement, low fees, reliable uptime. Features. Specs. Noise. When everyone says the same thing, nobody is saying anything.</p>
+          <p>So we went looking for the thing only Moniepoint can claim, and found it in plain sight: <em>scale itself.</em> Most of the everyday transactions in Nigeria already pass through Moniepoint. The student's airtime, the trader's change, the okada fare, the shop's daily sales — somewhere in the middle of all of it sits the same infrastructure.</p>
+          <p>That's not a feature. That's a <em>role.</em> And a role is something you can own.</p>
+        </div>
+        <div class="mp-reframe reveal">
+          <div class="mp-reframe-cell muted">
+            <div class="mp-reframe-label">✕ The feature claim</div>
+            <div class="mp-reframe-text"><strong>"99.9% uptime. Instant settlement. Low fees."</strong> True of Moniepoint — and claimed by every competitor on the same street.</div>
+          </div>
+          <div class="mp-reframe-arrow">→</div>
+          <div class="mp-reframe-cell lit">
+            <div class="mp-reframe-label">✓ The role claim</div>
+            <div class="mp-reframe-text"><strong>"The point every transaction passes through."</strong> Only the market leader can say it. Saying it makes the leadership visible.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     POSITIONING
+════════════════════════════════════════════════════════════ -->
+<section class="mp-positioning mp-section">
+  <div class="mp-kicker reveal" style="justify-content:center;">02 — The positioning</div>
+  <p class="mp-pos-statement reveal">
+    For the Nigerian business owner who can't afford a single failed transaction,
+    <strong>Moniepoint is <em>the middle point</em></strong> — the reliable infrastructure
+    every naira passes through, so the business never stops moving.
+  </p>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     PERSONA
+════════════════════════════════════════════════════════════ -->
+<section class="mp-persona mp-section">
+  <div class="mp-wide">
+    <div class="mp-persona-inner">
+      <div>
+        <div class="mp-kicker reveal">03 — Who it's for</div>
+        <h2 class="mp-persona-title reveal">Not "SMEs."<br>The person behind<br>the <em>counter.</em></h2>
+        <div class="mp-persona-body reveal">
+          <p>The strategy is built on one persona, drawn from how the product is actually used: the everyday merchant. Their relationship with payments isn't aspirational — it's existential. A failed transaction with a customer standing at the counter isn't an inconvenience. <em>It's a lost sale, a lost customer, and a small humiliation.</em> Every message in the campaign is written to that fear and its opposite: the quiet confidence of infrastructure that simply works.</p>
+        </div>
+      </div>
+      <div class="mp-persona-card reveal-r">
+        <div class="mp-persona-card-label">Primary persona — The Everyday Merchant</div>
+        <div class="mp-persona-row">
+          <span class="mp-persona-key">Who</span>
+          <span class="mp-persona-val">Shop owner, market trader, SME operator — the person at the counter</span>
+        </div>
+        <div class="mp-persona-row">
+          <span class="mp-persona-key">Job</span>
+          <span class="mp-persona-val">Take payment reliably, every time, without losing a sale to downtime</span>
+        </div>
+        <div class="mp-persona-row">
+          <span class="mp-persona-key">Fear</span>
+          <span class="mp-persona-val">The network failing mid-transaction with a customer standing there</span>
+        </div>
+        <div class="mp-persona-row">
+          <span class="mp-persona-key">Outcome</span>
+          <span class="mp-persona-val">A business that never has to say "the POS is not working"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CAMPAIGN — Follow the ₦5,000
+════════════════════════════════════════════════════════════ -->
+<section class="mp-campaign mp-section">
+  <div class="mp-campaign-head">
+    <div class="mp-kicker reveal" style="justify-content:center;">04 — The campaign</div>
+    <h2 class="mp-campaign-title reveal">Follow the<br><em>₦5,000.</em></h2>
+    <p class="mp-campaign-body reveal">
+      Five ₦1,000 notes leave a student's pocket on a Lagos morning. By nightfall they've
+      passed through five pairs of hands — and every hand they passed through,
+      <em>Moniepoint was the middle point.</em> A five-poster chain campaign where each poster
+      hands the money to the next.
+    </p>
+  </div>
+
+  <!-- Journey rail -->
+  <div class="mp-chain-rail" id="mpChainRail">
+    <button class="mp-chain-stop active" data-stop="0">
+      <span class="mp-chain-dot">1</span>
+      <span class="mp-chain-name">Student</span>
+    </button>
+    <button class="mp-chain-stop" data-stop="1">
+      <span class="mp-chain-dot">2</span>
+      <span class="mp-chain-name">Market trader</span>
+    </button>
+    <button class="mp-chain-stop" data-stop="2">
+      <span class="mp-chain-dot">3</span>
+      <span class="mp-chain-name">Shop owner</span>
+    </button>
+    <button class="mp-chain-stop" data-stop="3">
+      <span class="mp-chain-dot">4</span>
+      <span class="mp-chain-name">Okada rider</span>
+    </button>
+    <button class="mp-chain-stop" data-stop="4">
+      <span class="mp-chain-dot">5</span>
+      <span class="mp-chain-name">Supermarket</span>
+    </button>
+  </div>
+
+  <!-- Poster stage -->
+  <div class="mp-poster-stage">
+    <!-- SWAPPABLE: replace .mp-poster-art SVG with <img src="/assets/mp-poster-N.jpg"> when real posters exist -->
+    <div class="mp-poster reveal-l" id="mpPoster">
+      <div class="mp-poster-art" id="mpPosterArt"></div>
+      <div class="mp-poster-scene" id="mpPosterScene">Scene 01 · 7:40 AM · Yaba</div>
+      <div class="mp-poster-headline" id="mpPosterHeadline"></div>
+      <div class="mp-poster-foot">
+        <span class="mp-poster-brand">Moniepoint</span>
+        <span class="mp-poster-line">The middle point</span>
+      </div>
+    </div>
+    <div class="mp-poster-copy">
+      <div class="mp-poster-num" id="mpCopyNum">Poster 01 / 05</div>
+      <div class="mp-poster-copy-title" id="mpCopyTitle"></div>
+      <div class="mp-poster-copy-body" id="mpCopyBody"></div>
+      <div class="mp-poster-nav">
+        <button class="mp-poster-btn" id="mpPrev" aria-label="Previous poster">←</button>
+        <button class="mp-poster-btn" id="mpNext" aria-label="Next poster">→</button>
+      </div>
+    </div>
+  </div>
+  <div class="mp-swap-note">Built mockups · swappable for final campaign photography</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     SYSTEM — funnel / GTM
+════════════════════════════════════════════════════════════ -->
+<section class="mp-system mp-section">
+  <div class="mp-wide">
+    <div class="mp-system-head">
+      <div class="mp-kicker reveal">05 — The system behind it</div>
+      <h2 class="mp-system-title reveal">A campaign on top.<br>A <em>funnel</em> underneath.</h2>
+      <p class="mp-system-body reveal">"Follow the ₦5,000" is the visible layer of a complete product marketing system — positioning, go-to-market playbook, full creative production, and Meta and Google campaigns engineered around the merchant funnel.</p>
+    </div>
+    <div class="mp-system-grid">
+      <div class="mp-sys-panel reveal">
+        <div class="mp-sys-label">→ Conversion funnel</div>
+        <div class="mp-funnel">
+          <div class="mp-funnel-stage"><span class="mp-funnel-name">Awareness</span><span class="mp-funnel-note">OOH chain + agent network</span></div>
+          <div class="mp-funnel-stage"><span class="mp-funnel-name">Sign-up</span><span class="mp-funnel-note">KYC</span></div>
+          <div class="mp-funnel-stage"><span class="mp-funnel-name">Activation</span><span class="mp-funnel-note">first transaction</span></div>
+          <div class="mp-funnel-stage"><span class="mp-funnel-name">Habit</span><span class="mp-funnel-note">daily use</span></div>
+          <div class="mp-funnel-stage"><span class="mp-funnel-name">Expansion</span><span class="mp-funnel-note">loans · business banking</span></div>
+        </div>
+      </div>
+      <div class="mp-sys-panel reveal">
+        <div class="mp-sys-label">→ Channel system</div>
+        <div class="mp-sys-text"><strong>OOH chain placements</strong> sequenced along real Lagos commuter routes — each poster physically located where its scene happens, so the campaign maps onto the city itself.<br><br><strong>Meta and Google performance layers</strong> retarget by funnel stage: awareness film for cold audiences, merchant testimony for considerers, and an activation offer at the decision point — every asset speaking the role, not the spec sheet.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     FRAMING — what the work demonstrates
+════════════════════════════════════════════════════════════ -->
+<section class="mp-frame mp-section">
+  <div class="mp-wide">
+    <div class="mp-kicker reveal">06 — What this demonstrates</div>
+    <div class="mp-frame-grid">
+      <div class="mp-frame-cell reveal">
+        <div class="mp-frame-val">1</div>
+        <div class="mp-frame-key">Ownable position</div>
+        <div class="mp-frame-note">A claim only the market leader can make — turning Moniepoint's scale from a statistic into a story every Nigerian recognises from their own day.</div>
+      </div>
+      <div class="mp-frame-cell reveal">
+        <div class="mp-frame-val">5</div>
+        <div class="mp-frame-key">Posters, one system</div>
+        <div class="mp-frame-note">A chain mechanic that makes each execution incomplete without the next — built to be followed, shared, and finished by the audience.</div>
+      </div>
+      <div class="mp-frame-cell reveal">
+        <div class="mp-frame-val">Full stack</div>
+        <div class="mp-frame-key">Strategy to media</div>
+        <div class="mp-frame-note">Positioning, persona, creative system, OOH choreography, and the Meta/Google funnel — the complete Growthhive product marketing motion in one concept.</div>
+      </div>
+    </div>
+    <div class="mp-frame-disclaimer reveal">Speculative analysis and creative concept · Growthhive's own demonstration · Not a commissioned Moniepoint engagement</div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════
+     CLOSER
+════════════════════════════════════════════════════════════ -->
+<section class="mp-closer mp-section">
+  <p class="mp-closer-pre reveal">Moniepoint · A Growthhive Concept</p>
+  <h2 class="mp-closer-title reveal">What's in the middle<br>of <em>your</em> market?</h2>
+  <p class="mp-closer-sub reveal">Every product plays a role its features can't describe. We find it, position it, and build the campaign that makes it impossible to miss.</p>
+  <div class="mp-closer-btns reveal">
+    <a href="/contact.html" class="btn-fill">Start a project</a>
+    <a href="/assets/moniepoint_middle_point_concept.pptx" class="btn-out" download>Download the deck</a>
+  </div>
+</section>
+
+<footer class="mp-footer">
+  <div class="mp-footer-logo">Growthhive<em>.</em></div>
+  <div class="mp-footer-meta">Case Study — Moniepoint</div>
+  <div class="mp-footer-meta">Work. Play. Grow. 🐝 · @thegrowthhive</div>
+</footer>
+
+<script src="/scripts/moniepoint.js" defer></script>
+<script src="/scripts/shared.js" defer></script>
+
+</body>
+</html>
