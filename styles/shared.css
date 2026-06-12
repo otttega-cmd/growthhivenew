@@ -52,7 +52,7 @@ body::after {
 /* ── Navigation ────────────────────────────────────────────── */
 nav {
   position: fixed; top: 0; left: 0; right: 0;
-  z-index: 100;
+  z-index: 1002;
   display: flex; align-items: center; justify-content: space-between;
   padding: 2rem 3rem;
 }
@@ -168,4 +168,10 @@ section { position: relative; z-index: 1; }
 @media (max-width: 768px) {
   nav { padding: 1.5rem; }
   .nlinks, .ncta { display: none; }
+}
+
+/* ── Touch devices — disable custom cursor entirely ─────────── */
+@media (hover: none) and (pointer: coarse) {
+  body { cursor: auto; }
+  #cur, #curR { display: none !important; }
 }

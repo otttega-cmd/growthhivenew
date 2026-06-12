@@ -969,4 +969,31 @@ gsap.registerPlugin(ScrollTrigger);
     gsap.to('.f-hl .inner', { y: 0, duration: 1.1, ease: 'power4.out', stagger: 0.1 });
     gsap.to('.f-btns',      { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.2 });
   }});
-}
+};
+
+// ── Mobile hamburger menu ─────────────────────────────────────
+(function() {
+  var burger = document.getElementById('navBurger');
+  var menu   = document.getElementById('navMobile');
+  if (!burger || !menu) return;
+
+  // click fires reliably on mobile when touch-action: manipulation is set.
+  // Do NOT add touchend — it would double-fire with click on iOS,
+  // causing the menu to open and immediately close.
+  burger.addEventListener('click', function() {
+    var open = !menu.classList.contains('is-open');
+    burger.classList.toggle('is-open', open);
+    menu.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      burger.classList.remove('is-open');
+      menu.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+})();
