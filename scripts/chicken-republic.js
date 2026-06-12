@@ -536,21 +536,21 @@ window.onLoaderComplete = function() {
     const NAMES = ['Adaeze','Tunde','Blessing','Musa','Chidinma','Emeka','Funke','Ibrahim','Ngozi','Seyi','Kelechi','Aisha','Damilola','Obi','Yetunde','Chinedu','Halima','Tobi','Amaka','Bola','Uche','Zainab','Femi','Ada','Kunle'];
     const CITIES = ['Lagos','Abuja','PH','Kano','Ibadan','Lagos','Lagos','Abuja'];
     const ORDERS = [
-      'Mega Meal, grilled, extra coleslaw',
-      'Chicken suya wrap. Always the wrap.',
-      'Family Meal. Four pieces. No rice.',
-      'Refuel Meal + extra pepper sauce',
-      'Two-piece spicy, plantain, Fanta',
-      'Quarter chicken, jollof, no coleslaw',
-      'Spicy wrap, double pepper, Coke',
-      'Mega Meal, fried, extra plantain',
-      'Three-piece, mashed potato, Sprite',
-      'Chicken + chips. Always. Since uni.',
-      'Half chicken, extra spicy, two drinks',
-      'Refuel Meal, no veg, extra chicken',
-      'Wrap combo, light ice, lots of pepper',
-      'Family bucket, all spicy, coleslaw x2',
-      'Rice meal, grilled, pepper on the side',
+      'Wrapstar, large chips, extra pepper sauce',
+      'Quarter flame grilled, hot Rodo sauce, jollof rice',
+      'Spicy ChickWhizz + regular chips, Fanta',
+      'Half rotisserie chicken, spaghetti, coleslaw',
+      'Citizens Meal. Always the Citizens Meal.',
+      'Half flame grilled, garlic & herb, fried rice, Sprite',
+      'Double Spicy ChickWhizz, dodo cubes, Coke',
+      'Family Meal, 8 pieces spicy, jollof x4, moin moin',
+      'Quarter rotisserie, mild pepper sauce, rice & beans',
+      'Wrapstar, large chips. No coleslaw. Never coleslaw.',
+      'Chief Burger, large chips, Fanta. Every time.',
+      'Citizens Meal, jollof rice, extra pepper sauce',
+      'Half flame grilled, hot Rodo, moin moin, Sprite',
+      '10-piece bucket, all spicy, dodo cubes x4, six drinks',
+      'Quarter flame grilled, garlic & herb, spaghetti',
     ];
 
     let counter = 217400;
@@ -620,6 +620,108 @@ window.onLoaderComplete = function() {
     const brand = card.querySelector('.cr-share-brand');
     const orderLbl = card.querySelector('.cr-share-order-label');
     const still = card.querySelector('.cr-share-still');
+    const gh = card.querySelector('.cr-share-gh');
+
+    // Share buttons
+    const shareBtns   = document.getElementById('crShareBtns');
+    const shareNative = document.getElementById('crShareNative');
+    const shareWa     = document.getElementById('crShareWa');
+    const shareX      = document.getElementById('crShareX');
+    const shareDl     = document.getElementById('crShareDl');
+
+    function getShareText() {
+      const name  = (nameI.value || '').trim();
+      const order = (orderI.value || '').trim();
+      const city  = cityS.value;
+      return (name ? name + "'s order: " : 'My order: ') + (order || '—') + ' · ' + city + ' · #StillYours #ChickenRepublic';
+    }
+
+    // Render the card to a PNG blob via html2canvas
+    function renderCardToBlob(cb) {
+      if (typeof html2canvas === 'undefined') { cb(null); return; }
+      const btn = shareBtns.querySelectorAll('.cr-share-btn');
+      btn.forEach(b => b.classList.add('loading'));
+      html2canvas(card, {
+        backgroundColor: null,
+        scale: 2,
+        useCORS: true,
+        logging: false,
+      }).then(function(canvas) {
+        btn.forEach(b => b.classList.remove('loading'));
+        canvas.toBlob(function(blob) { cb(blob, canvas); }, 'image/png');
+      }).catch(function() {
+        btn.forEach(b => b.classList.remove('loading'));
+        cb(null);
+      });
+    }
+
+    // Native share (mobile share sheet — prefers image, falls back to text)
+    if (shareNative) {
+      shareNative.addEventListener('click', function() {
+        const text = getShareText();
+        // Try image share first
+        renderCardToBlob(function(blob) {
+          if (blob && navigator.canShare && navigator.canShare({ files: [new File([blob], 'my-order.png', { type: 'image/png' })] })) {
+            navigator.share({
+              files: [new File([blob], 'my-order.png', { type: 'image/png' })],
+              text: text,
+            }).catch(function() {});
+          } else if (navigator.share) {
+            // Text-only fallback
+            navigator.share({ text: text }).catch(function() {});
+          } else {
+            // No Web Share API — fall through to download
+            if (blob) {
+              var url = URL.createObjectURL(blob);
+              var a = document.createElement('a');
+              a.href = url; a.download = 'my-cr-order.png'; a.click();
+              setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
+            }
+          }
+        });
+      });
+    }
+
+    // WhatsApp share — image download + open WA with text
+    if (shareWa) {
+      shareWa.addEventListener('click', function() {
+        const text = encodeURIComponent(getShareText());
+        renderCardToBlob(function(blob, canvas) {
+          // Download the image first so they can attach it manually
+          if (blob) {
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url; a.download = 'my-cr-order.png'; a.click();
+            setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
+          }
+          // Then open WhatsApp with the text
+          setTimeout(function() {
+            window.open('https://wa.me/?text=' + text, '_blank');
+          }, 600);
+        });
+      });
+    }
+
+    // X / Twitter share — text only (X doesn't support image upload via web intent)
+    if (shareX) {
+      shareX.addEventListener('click', function() {
+        var text = encodeURIComponent(getShareText());
+        window.open('https://twitter.com/intent/tweet?text=' + text, '_blank');
+      });
+    }
+
+    // Download card as PNG
+    if (shareDl) {
+      shareDl.addEventListener('click', function() {
+        renderCardToBlob(function(blob) {
+          if (!blob) return;
+          var url = URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url; a.download = 'my-cr-order.png'; a.click();
+          setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
+        });
+      });
+    }
 
     function render(animate) {
       const name = (nameI.value || '').trim();
@@ -630,12 +732,14 @@ window.onLoaderComplete = function() {
       if (!hasContent) {
         card.classList.add('empty');
         ph.style.display = 'block';
-        [brand, shareSelfie, nameO, orderLbl, orderO, tagO, still].filter(Boolean).forEach(el => el.style.display = 'none');
+        [brand, shareSelfie, nameO, orderLbl, orderO, tagO, still, gh].filter(Boolean).forEach(el => el.style.display = 'none');
+        if (shareBtns) shareBtns.classList.remove('visible');
         return;
       }
       card.classList.remove('empty');
       ph.style.display = 'none';
       brand.style.display = 'block';
+      if (gh) gh.style.display = 'flex';
       if (shareSelfie) shareSelfie.style.display = selfieUrl ? 'block' : 'none';
       nameO.style.display = 'block';
       orderLbl.style.display = 'block';
@@ -648,6 +752,9 @@ window.onLoaderComplete = function() {
       brand.textContent  = 'Chicken Republic · ' + city;
       tagO.textContent   = '#StillYours';
       if (shareSelfie && selfieUrl) shareSelfie.style.backgroundImage = 'url("' + selfieUrl + '")';
+
+      // Show share buttons whenever the card has content
+      if (shareBtns) shareBtns.classList.add('visible');
 
       if (animate) {
         card.classList.remove('pop');
@@ -693,7 +800,6 @@ window.onLoaderComplete = function() {
     // Submit = celebratory pop
     submit.addEventListener('click', () => {
       if (!nameI.value && !orderI.value) {
-        // nudge: focus first field
         nameI.focus();
         return;
       }
@@ -702,28 +808,27 @@ window.onLoaderComplete = function() {
   })();
 
   // ════════════════════════════════════════════════════════
-  // HUNGER MAP — scatter order-density dots
+  // HUNGER MAP — Nigeria SVG map, static city markers
+  // Pulse rings are CSS-animated; JS just staggers city
+  // group visibility on scroll entry for a reveal effect.
   // ════════════════════════════════════════════════════════
   (function hungerMap() {
     const viz = document.getElementById('crMapViz');
     if (!viz) return;
-    const COUNT = 26;
-    for (let i = 0; i < COUNT; i++) {
-      const dot = document.createElement('div');
-      dot.className = 'cr-map-dot';
-      // cluster toward center-left (Lagos mainland density)
-      const cx = 25 + Math.random()*55;
-      const cy = 20 + Math.random()*60;
-      dot.style.left = cx + '%';
-      dot.style.top  = cy + '%';
-      const sz = 5 + Math.random()*7;
-      dot.style.width = sz + 'px';
-      dot.style.height = sz + 'px';
-      dot.style.animationDelay = (Math.random()*3) + 's';
-      // a few in scarlet for accent
-      if (Math.random() > 0.7) { dot.style.background = '#D81E2C'; }
-      viz.appendChild(dot);
-    }
+    const cities = viz.querySelectorAll('.cr-city-group');
+    // Start hidden
+    cities.forEach(function(c) {
+      c.style.opacity = '0';
+      c.style.transition = 'opacity 0.6s ease';
+    });
+    ScrollTrigger.create({
+      trigger: viz, start: 'top 75%', once: true,
+      onEnter: function() {
+        cities.forEach(function(c, i) {
+          setTimeout(function() { c.style.opacity = '1'; }, i * 120);
+        });
+      }
+    });
   })();
 
   // ════════════════════════════════════════════════════════

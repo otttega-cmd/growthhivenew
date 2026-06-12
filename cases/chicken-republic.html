@@ -15,6 +15,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
 </head>
 <body class="case-cr">
 
@@ -157,7 +159,7 @@
       </div>
       <div class="cr-field">
         <label class="cr-field-label" for="crOrder">Your order — in your own words</label>
-        <input class="cr-input" id="crOrder" type="text" placeholder="e.g. Mega Meal, grilled, extra coleslaw" maxlength="60" autocomplete="off">
+        <input class="cr-input" id="crOrder" type="text" placeholder="e.g. Mega Meal, spicy, extra coleslaw" maxlength="60" autocomplete="off">
       </div>
 
       <div class="cr-field cr-selfie-field">
@@ -187,20 +189,50 @@
     </div>
 
     <!-- Shareable output -->
+    <!-- Shareable output -->
     <div class="cr-mock-output">
-      <div class="cr-share-card empty" id="crShareCard">
-        <div class="cr-share-placeholder" id="crSharePlaceholder">
-          Your shareable card<br>appears here.<br><br>Fill in your order →
+      <div class="cr-mock-output-inner">
+        <div class="cr-share-card empty" id="crShareCard">
+          <div class="cr-share-placeholder" id="crSharePlaceholder">
+            Your shareable card<br>appears here.<br><br>Fill in your order →
+          </div>
+          <div class="cr-share-brand" style="display:none;">Chicken Republic</div>
+          <div class="cr-share-selfie" id="crShareSelfie" style="display:none;"></div>
+          <div class="cr-share-name" id="crShareName" style="display:none;"></div>
+          <div class="cr-share-order-label" style="display:none;">THE ORDER</div>
+          <div class="cr-share-order" id="crShareOrder" style="display:none;"></div>
+          <div class="cr-share-tag" id="crShareTag" style="display:none;">#StillYours</div>
+          <div class="cr-share-still" style="display:none;">Chicken Republic · Still Yours</div>
+          <div class="cr-share-gh" style="display:none;">
+            <img src="/assets/growthhive-logo.png" alt="Growthhive">
+            <span>@thegrowthhive</span>
+          </div>
         </div>
-        <div class="cr-share-brand" style="display:none;">Chicken Republic</div>
-        <div class="cr-share-selfie" id="crShareSelfie" style="display:none;"></div>
-        <div class="cr-share-name" id="crShareName" style="display:none;"></div>
-        <div class="cr-share-order-label" style="display:none;">THE ORDER</div>
-        <div class="cr-share-order" id="crShareOrder" style="display:none;"></div>
-        <div class="cr-share-tag" id="crShareTag" style="display:none;">#StillYours</div>
-        <div class="cr-share-still" style="display:none;">Chicken Republic · Still Yours</div>
+        <div class="cr-share-btns" id="crShareBtns">
+          <div class="cr-share-btns-label">Share your order</div>
+          <div class="cr-share-btns-row">
+            <button class="cr-share-btn cr-share-native" id="crShareNative" title="Share">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              <span>Share</span>
+            </button>
+            <button class="cr-share-btn cr-share-wa" id="crShareWa" title="Share on WhatsApp">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.985 0C5.379 0 0 5.374 0 11.979c0 2.113.554 4.097 1.523 5.82L.057 24l6.359-1.662c1.66.906 3.554 1.425 5.569 1.425C18.591 23.763 24 18.389 24 11.784 24 5.174 18.591 0 11.985 0zm.015 21.785c-1.793 0-3.462-.482-4.9-1.316l-.351-.208-3.642.953.975-3.54-.228-.364C2.617 15.69 2.19 13.9 2.19 11.979c0-5.399 4.397-9.79 9.81-9.79 5.413 0 9.81 4.391 9.81 9.79 0 5.4-4.397 9.806-9.81 9.806z"/></svg>
+              <span>WhatsApp</span>
+            </button>
+            <button class="cr-share-btn cr-share-x" id="crShareX" title="Share on X">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.265 5.638L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span>X / Twitter</span>
+            </button>
+            <button class="cr-share-btn cr-share-dl" id="crShareDl" title="Download card">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Save</span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
+    
+  </div>
   </div>
 </section>
 
@@ -212,7 +244,155 @@
   <h2 class="cr-map-title reveal">A portrait of a nation,<br>drawn in <span class="acc">chicken orders.</span></h2>
   <p class="cr-map-desc reveal">Every order mapped to the outlet it came from. What Lekki Phase 1 orders and what Ojuelegba orders are not the same. Different Lagos. Same brand. A story about the city Lagos has never seen told this way — and Chicken Republic is the only brand that could tell it.</p>
   <div class="cr-map-viz reveal" id="crMapViz">
-    <div class="cr-map-label">Lagos · Live order density</div>
+    <svg class="cr-nigeria-svg" viewBox="0 0 800 780" xmlns="http://www.w3.org/2000/svg" aria-label="Nigeria order map">
+
+      <!-- ── Nigeria outline ─────────────────────────────── -->
+      <path class="cr-ng-land" d="
+        M 192 108
+        L 218 95  L 248 88  L 278 82  L 312 78  L 348 74
+        L 382 72  L 415 74  L 445 78  L 474 85  L 500 94
+        L 524 106 L 544 120 L 558 136 L 568 154 L 572 172
+        L 574 192 L 572 212 L 566 232 L 558 250 L 548 266
+        L 562 278 L 576 294 L 586 312 L 590 332 L 588 352
+        L 582 370 L 572 386 L 560 400 L 566 418 L 568 438
+        L 564 458 L 556 476 L 544 490 L 530 502 L 514 512
+        L 498 520 L 480 526 L 462 530 L 444 532 L 426 534
+        L 408 538 L 392 546 L 378 558 L 366 572 L 356 588
+        L 346 604 L 334 618 L 320 630 L 306 638 L 292 642
+        L 278 644 L 265 642 L 254 636 L 246 626 L 240 614
+        L 234 600 L 226 586 L 216 572 L 204 560 L 192 550
+        L 180 542 L 168 536 L 156 532 L 144 530 L 134 524
+        L 126 514 L 122 502 L 120 488 L 120 472 L 122 456
+        L 126 440 L 130 424 L 132 408 L 130 392 L 126 376
+        L 120 362 L 114 348 L 110 334 L 108 318 L 108 302
+        L 110 286 L 114 270 L 120 256 L 128 242 L 138 230
+        L 148 218 L 158 206 L 166 194 L 172 180 L 176 166
+        L 178 152 L 180 136 L 184 122 Z
+      "/>
+
+      <!-- ── State boundary suggestion lines ──────────────── -->
+      <g class="cr-ng-borders" opacity="0.18">
+        <line x1="280" y1="160" x2="400" y2="200"/>
+        <line x1="340" y1="130" x2="360" y2="320"/>
+        <line x1="200" y1="280" x2="440" y2="300"/>
+        <line x1="230" y1="380" x2="520" y2="360"/>
+        <line x1="300" y1="440" x2="480" y2="420"/>
+        <line x1="420" y1="200" x2="520" y2="280"/>
+        <line x1="160" y1="200" x2="260" y2="350"/>
+        <line x1="350" y1="350" x2="560" y2="340"/>
+      </g>
+
+      <!-- ── Niger Delta water suggestion ──────────────────── -->
+      <ellipse cx="310" cy="560" rx="55" ry="22" class="cr-ng-water" opacity="0.25"/>
+      <ellipse cx="370" cy="575" rx="40" ry="16" class="cr-ng-water" opacity="0.18"/>
+
+      <!-- ── LAGOS ─────────────────────────────────────────── -->
+      <g class="cr-city-group" data-city="Lagos">
+        <circle class="cr-city-pulse" cx="192" cy="512" r="22"/>
+        <circle class="cr-city-dot cr-dot-primary" cx="192" cy="512" r="7"/>
+        <text class="cr-city-name" x="210" y="507">Lagos</text>
+        <g class="cr-callout cr-callout-right" transform="translate(210, 518)">
+          <rect class="cr-callout-bg" x="0" y="-14" width="168" height="38" rx="5"/>
+          <text class="cr-callout-order" x="9" y="0">Wrapstar, large chips,</text>
+          <text class="cr-callout-order" x="9" y="14">extra pepper sauce</text>
+        </g>
+      </g>
+
+      <!-- ── ABUJA ──────────────────────────────────────────── -->
+      <g class="cr-city-group" data-city="Abuja">
+        <circle class="cr-city-pulse cr-pulse-delay-1" cx="360" cy="328" r="18"/>
+        <circle class="cr-city-dot cr-dot-primary" cx="360" cy="328" r="7"/>
+        <text class="cr-city-name" x="378" y="323">Abuja</text>
+        <g class="cr-callout cr-callout-right" transform="translate(378, 334)">
+          <rect class="cr-callout-bg" x="0" y="-14" width="172" height="38" rx="5"/>
+          <text class="cr-callout-order" x="9" y="0">Quarter flame grilled,</text>
+          <text class="cr-callout-order" x="9" y="14">hot Rodo sauce, jollof</text>
+        </g>
+      </g>
+
+      <!-- ── KANO ───────────────────────────────────────────── -->
+      <g class="cr-city-group" data-city="Kano">
+        <circle class="cr-city-pulse cr-pulse-delay-2" cx="370" cy="140" r="16"/>
+        <circle class="cr-city-dot cr-dot-secondary" cx="370" cy="140" r="6"/>
+        <text class="cr-city-name" x="388" y="135">Kano</text>
+        <g class="cr-callout cr-callout-right" transform="translate(388, 146)">
+          <rect class="cr-callout-bg" x="0" y="-14" width="168" height="38" rx="5"/>
+          <text class="cr-callout-order" x="9" y="0">Citizens Meal, jollof,</text>
+          <text class="cr-callout-order" x="9" y="14">extra pepper sauce</text>
+        </g>
+      </g>
+
+      <!-- ── PORT HARCOURT ──────────────────────────────────── -->
+      <g class="cr-city-group" data-city="Port Harcourt">
+        <circle class="cr-city-pulse cr-pulse-delay-3" cx="318" cy="548" r="16"/>
+        <circle class="cr-city-dot cr-dot-primary" cx="318" cy="548" r="6"/>
+        <text class="cr-city-name cr-name-left" x="302" y="540">Port Harcourt</text>
+        <g class="cr-callout cr-callout-left" transform="translate(302, 556)">
+          <rect class="cr-callout-bg" x="-172" y="-14" width="168" height="38" rx="5"/>
+          <text class="cr-callout-order" x="-163" y="0">Half rotisserie chicken,</text>
+          <text class="cr-callout-order" x="-163" y="14">spaghetti, coleslaw</text>
+        </g>
+      </g>
+
+      <!-- ── IBADAN ──────────────────────────────────────────── -->
+      <g class="cr-city-group" data-city="Ibadan">
+        <circle class="cr-city-pulse cr-pulse-delay-1" cx="224" cy="450" r="15"/>
+        <circle class="cr-city-dot cr-dot-secondary" cx="224" cy="450" r="5"/>
+        <text class="cr-city-name cr-name-left" x="208" y="442">Ibadan</text>
+        <g class="cr-callout cr-callout-left" transform="translate(208, 458)">
+          <rect class="cr-callout-bg" x="-162" y="-14" width="158" height="38" rx="5"/>
+          <text class="cr-callout-order" x="-153" y="0">Spicy ChickWhizz,</text>
+          <text class="cr-callout-order" x="-153" y="14">regular chips, Fanta</text>
+        </g>
+      </g>
+
+      <!-- ── ENUGU ───────────────────────────────────────────── -->
+      <g class="cr-city-group" data-city="Enugu">
+        <circle class="cr-city-pulse cr-pulse-delay-2" cx="408" cy="468" r="14"/>
+        <circle class="cr-city-dot cr-dot-secondary" cx="408" cy="468" r="5"/>
+        <text class="cr-city-name" x="424" y="463">Enugu</text>
+        <g class="cr-callout cr-callout-right" transform="translate(424, 474)">
+          <rect class="cr-callout-bg" x="0" y="-14" width="170" height="38" rx="5"/>
+          <text class="cr-callout-order" x="9" y="0">Family Meal, 8 pieces,</text>
+          <text class="cr-callout-order" x="9" y="14">all spicy, jollof ×4</text>
+        </g>
+      </g>
+
+      <!-- ── KADUNA ──────────────────────────────────────────── -->
+      <g class="cr-city-group" data-city="Kaduna">
+        <circle class="cr-city-pulse cr-pulse-delay-3" cx="318" cy="222" r="14"/>
+        <circle class="cr-city-dot cr-dot-secondary" cx="318" cy="222" r="5"/>
+        <text class="cr-city-name cr-name-left" x="302" y="214">Kaduna</text>
+        <g class="cr-callout cr-callout-left" transform="translate(302, 230)">
+          <rect class="cr-callout-bg" x="-162" y="-14" width="158" height="38" rx="5"/>
+          <text class="cr-callout-order" x="-153" y="0">Chief Burger, large</text>
+          <text class="cr-callout-order" x="-153" y="14">chips, Fanta</text>
+        </g>
+      </g>
+
+      <!-- ── BENIN CITY ──────────────────────────────────────── -->
+      <g class="cr-city-group" data-city="Benin City">
+        <circle class="cr-city-pulse cr-pulse-delay-1" cx="270" cy="488" r="14"/>
+        <circle class="cr-city-dot cr-dot-secondary" cx="270" cy="488" r="5"/>
+        <text class="cr-city-name cr-name-left" x="254" y="480">Benin City</text>
+        <g class="cr-callout cr-callout-left" transform="translate(254, 496)">
+          <rect class="cr-callout-bg" x="-170" y="-14" width="166" height="38" rx="5"/>
+          <text class="cr-callout-order" x="-161" y="0">Half flame grilled,</text>
+          <text class="cr-callout-order" x="-161" y="14">garlic &amp; herb, fried rice</text>
+        </g>
+      </g>
+
+      <!-- ── Map legend ─────────────────────────────────────── -->
+      <g transform="translate(26, 680)">
+        <circle cx="6" cy="6" r="6" fill="#D81E2C" opacity="0.9"/>
+        <text class="cr-legend-text" x="18" y="10">Major city</text>
+        <circle cx="6" cy="26" r="5" fill="#E8A317" opacity="0.9"/>
+        <text class="cr-legend-text" x="18" y="30">Secondary city</text>
+      </g>
+      <text class="cr-map-data-label" x="400" y="748" text-anchor="middle">
+        Nigeria · Hunger Map · #StillYours Campaign Data
+      </text>
+    </svg>
   </div>
 </section>
 

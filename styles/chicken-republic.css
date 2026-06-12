@@ -344,6 +344,18 @@ body.case-cr { background: var(--cr-ink); }
   letter-spacing: .18em; text-transform: uppercase; color: rgba(26,12,10,.66);
   margin-bottom: auto; position: relative; z-index: 1;
 }
+.cr-share-gh {
+  display: flex; align-items: center; gap: .4rem;
+  margin-top: .5rem; z-index: 2; justify-content: flex-end;
+}
+.cr-share-gh img {
+  width: 13px; height: 13px; object-fit: contain; opacity: .55;
+}
+.cr-share-gh span {
+  font-family: 'Space Mono', monospace; font-size: .42rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(26,12,10,.45);
+}
 .cr-share-name {
   font-size: 1.5rem; font-weight: 400; color: var(--cr-ink-t);
   margin-bottom: .4rem; position: relative; z-index: 1; line-height: 1.1;
@@ -384,6 +396,44 @@ body.case-cr { background: var(--cr-ink); }
 .cr-share-card.pop { animation: cardpop .6s var(--ease); }
 @keyframes cardpop { 0% { transform: scale(.92); opacity: .5; } 60% { transform: scale(1.03); } 100% { transform: scale(1); opacity: 1; } }
 
+/* ── Share buttons ──────────────────────────────────────── */
+.cr-mock-output-inner {
+  display: flex; flex-direction: column; align-items: center; gap: 1.4rem;
+  position: relative; z-index: 1;
+}
+.cr-share-btns {
+  display: none; flex-direction: column; align-items: center; gap: .8rem;
+  width: 280px;
+}
+.cr-share-btns.visible { display: flex; }
+.cr-share-btns-label {
+  font-family: 'Space Mono', monospace; font-size: .52rem;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--cr-dim);
+}
+.cr-share-btns-row {
+  display: flex; gap: .6rem; width: 100%;
+}
+.cr-share-btn {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  gap: .3rem; padding: .65rem .4rem;
+  border: 1px solid var(--cr-rule); background: rgba(26,12,10,.35);
+  color: var(--cr-cream); cursor: pointer; border-radius: 8px;
+  font-family: 'Space Mono', monospace; font-size: .44rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  transition: background .25s, border-color .25s, transform .2s;
+}
+.cr-share-btn:hover { background: rgba(26,12,10,.6); transform: translateY(-2px); }
+.cr-share-btn:active { transform: scale(.96); }
+.cr-share-btn svg { width: 18px; height: 18px; }
+.cr-share-btn.loading { opacity: .5; pointer-events: none; }
+.cr-share-wa  { border-color: rgba(37,211,102,.4); color: #25d366; }
+.cr-share-wa:hover  { background: rgba(37,211,102,.08); border-color: #25d366; }
+.cr-share-x   { border-color: rgba(255,255,255,.25); }
+.cr-share-dl  { border-color: rgba(212,245,60,.3); color: #D4F53C; }
+.cr-share-dl:hover  { background: rgba(212,245,60,.08); border-color: #D4F53C; }
+.cr-share-native { border-color: var(--cr-gold); color: var(--cr-gold); }
+.cr-share-native:hover { background: rgba(232,163,23,.1); }
+
 /* ════════════════════════════════════════════════════════════
    HUNGER MAP moment
 ════════════════════════════════════════════════════════════ */
@@ -400,26 +450,117 @@ body.case-cr { background: var(--cr-ink); }
 .cr-map-title .acc { color: var(--cr-clay); font-style: italic; }
 .cr-map-desc { font-size: 1rem; line-height: 1.7; color: var(--cr-body-t); max-width: 620px; margin: 0 auto 4rem; }
 .cr-map-viz {
-  position: relative; max-width: 900px; margin: 0 auto;
-  aspect-ratio: 16/9; border: 1px solid var(--cr-faint); border-radius: 8px;
-  background: linear-gradient(135deg, var(--cr-clay-d) 0%, var(--cr-ink) 100%);
-  overflow: hidden;
+  position: relative; max-width: 860px; margin: 0 auto;
+  border-radius: 12px; overflow: hidden;
+  background: linear-gradient(160deg, #1a0a0c 0%, #120608 60%, #0e0405 100%);
+  border: 1px solid var(--cr-rule);
+  box-shadow: 0 40px 80px rgba(0,0,0,.45);
 }
-.cr-map-dot {
-  position: absolute; width: 8px; height: 8px; border-radius: 50%;
-  background: var(--cr-gold); transform: translate(-50%,-50%);
+.cr-nigeria-svg {
+  width: 100%; height: auto; display: block;
 }
-.cr-map-dot::after {
-  content: ''; position: absolute; inset: -4px; border-radius: 50%;
-  border: 1px solid rgba(232,163,23,.4);
-  animation: mapping 3s ease-out infinite;
+
+/* ── Land + borders ──────────────────────────────────────── */
+.cr-ng-land {
+  fill: #2a0f0f;
+  stroke: #5a1a1a;
+  stroke-width: 1.5;
 }
-@keyframes mapping { 0% { transform: scale(.5); opacity: 1; } 100% { transform: scale(2.5); opacity: 0; } }
-.cr-map-label {
-  position: absolute; bottom: 1.5rem; left: 1.5rem;
-  font-family: 'Space Mono', monospace; font-size: .58rem;
-  letter-spacing: .12em; text-transform: uppercase; color: var(--cr-bone);
-  text-align: left;
+.cr-ng-borders {
+  stroke: #8b3030;
+  stroke-width: 0.8;
+  fill: none;
+}
+.cr-ng-water {
+  fill: #1a3a4a;
+}
+
+/* ── City dots ───────────────────────────────────────────── */
+.cr-city-dot {
+  stroke-width: 2;
+}
+.cr-dot-primary {
+  fill: #D81E2C;
+  stroke: rgba(216,30,44,.4);
+  filter: drop-shadow(0 0 6px rgba(216,30,44,.7));
+}
+.cr-dot-secondary {
+  fill: #E8A317;
+  stroke: rgba(232,163,23,.4);
+  filter: drop-shadow(0 0 5px rgba(232,163,23,.6));
+}
+
+/* ── Pulse rings ─────────────────────────────────────────── */
+.cr-city-pulse {
+  fill: none;
+  stroke: #D81E2C;
+  stroke-width: 1;
+  opacity: 0;
+  animation: crPulse 3s ease-out infinite;
+}
+.cr-city-group[data-city="Kano"] .cr-city-pulse,
+.cr-city-group[data-city="Kaduna"] .cr-city-pulse,
+.cr-city-group[data-city="Ibadan"] .cr-city-pulse,
+.cr-city-group[data-city="Enugu"] .cr-city-pulse,
+.cr-city-group[data-city="Benin City"] .cr-city-pulse {
+  stroke: #E8A317;
+}
+.cr-pulse-delay-1 { animation-delay: 1s; }
+.cr-pulse-delay-2 { animation-delay: 2s; }
+.cr-pulse-delay-3 { animation-delay: 0.5s; }
+@keyframes crPulse {
+  0%   { opacity: .8; r: 8;  }
+  100% { opacity: 0;  r: 28; }
+}
+
+/* ── City names ──────────────────────────────────────────── */
+.cr-city-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  fill: rgba(242,230,220,.9);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  dominant-baseline: middle;
+}
+.cr-name-left {
+  text-anchor: end;
+}
+
+/* ── Callout bubbles ─────────────────────────────────────── */
+.cr-callout-bg {
+  fill: rgba(20,6,6,.82);
+  stroke: rgba(216,30,44,.3);
+  stroke-width: 1;
+}
+.cr-city-group[data-city="Kano"] .cr-callout-bg,
+.cr-city-group[data-city="Kaduna"] .cr-callout-bg,
+.cr-city-group[data-city="Ibadan"] .cr-callout-bg,
+.cr-city-group[data-city="Enugu"] .cr-callout-bg,
+.cr-city-group[data-city="Benin City"] .cr-callout-bg {
+  stroke: rgba(232,163,23,.3);
+}
+.cr-callout-order {
+  font-family: 'Space Mono', monospace;
+  font-size: 9.5px;
+  fill: rgba(242,220,200,.75);
+  letter-spacing: .02em;
+}
+
+/* ── Legend + data label ─────────────────────────────────── */
+.cr-legend-text {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  fill: rgba(242,220,200,.5);
+  letter-spacing: .05em;
+  dominant-baseline: middle;
+}
+.cr-map-data-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  fill: rgba(242,220,200,.3);
+  letter-spacing: .12em;
+  text-transform: uppercase;
 }
 
 /* ════════════════════════════════════════════════════════════
