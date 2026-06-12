@@ -549,3 +549,25 @@ window.onLoaderComplete = function() {
       onEnter:function(){ setScene(pair[1]); }, onEnterBack:function(){ setScene(pair[1]); } });
   });
 };
+
+// ── Mobile hamburger menu ─────────────────────────────────────
+(function() {
+  var burger = document.getElementById('navBurger');
+  var menu   = document.getElementById('navMobile');
+  if (!burger || !menu) return;
+  burger.addEventListener('click', function() {
+    var open = !menu.classList.contains('is-open');
+    burger.classList.toggle('is-open', open);
+    menu.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      burger.classList.remove('is-open');
+      menu.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+})();

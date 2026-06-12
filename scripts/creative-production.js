@@ -1,6 +1,6 @@
 /* ================================================================
-   Growthhive — Creative Production Discipline Page Script
-   creative-production.js
+   Growthhive — Creative Production CINEMATIC Page Script
+   creative-production-v2.js
    Depends on: shared.css, shared.js, three.js, gsap, ScrollTrigger
    Work. Play. Grow. 🐝
 ================================================================ */
@@ -208,14 +208,16 @@ function buildTrailPath(points) {
 
 // About page scene states — hex colour shifts per section
 const SECTION_ACCENTS = [
-  new THREE.Color(0xD4F53C),    // 0 hero — chartreuse
-  new THREE.Color(0xD4F53C),    // 1 belief
-  new THREE.Color(0x0B0B1F),    // 2 delivers
-  new THREE.Color(0xD4F53C),    // 3 process
-  new THREE.Color(0x0B0B1F),    // 4 routes
-  new THREE.Color(0xD4F53C),    // 5 studio
-  new THREE.Color(0x0B0B1F),    // 6 engage
-  new THREE.Color(0xD4F53C),    // 7 closer
+  new THREE.Color(0xD4F53C),    // hero
+  new THREE.Color(0x0B0B1F),    // manifesto
+  new THREE.Color(0xD4F53C),    // principles
+  new THREE.Color(0xC8A668),    // showcase
+  new THREE.Color(0xD4F53C),    // routes
+  new THREE.Color(0xE8841A),    // eyowo
+  new THREE.Color(0xD4F53C),    // deliver
+  new THREE.Color(0x0B0B1F),    // gallery
+  new THREE.Color(0xD4F53C),    // process
+  new THREE.Color(0xD4F53C),    // closer
 ];
 
 const STATES = [
@@ -493,72 +495,140 @@ window.addEventListener('resize',()=>{camera.aspect=window.innerWidth/window.inn
 // ═══════════════════════════════════════════════════════════════
 window.onLoaderComplete = function() {
   gsap.registerPlugin(ScrollTrigger);
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // ── Hero ─────────────────────────────────────────────────────
-  const tl = gsap.timeline();
-  tl.to('#cpEyebrow',    { opacity:1, y:0, duration:1.0, ease:'power3.out' }, .3)
-    .to('#cpPanelLabels',{ opacity:1, y:0, duration:1.2, ease:'power3.out' }, .5)
-    .to('#cpTitle',      { opacity:1, y:0, duration:1.8, ease:'power4.out' }, .6)
-    .to('#cpSub',        { opacity:1, y:0, duration:1.2, ease:'power3.out' }, 1.1)
-    .to('#cpMeta',       { opacity:1, duration:1.2, ease:'power3.out' }, 1.5);
+  // HERO mask-reveal
+  var heroLines = gsap.utils.toArray('.cpx-line');
+  gsap.set(heroLines, { yPercent: 115 });
+  var htl = gsap.timeline({ delay: .2 });
+  htl.to('#cpxEyebrow', { opacity:1, duration:1, ease:'power2.out' }, 0)
+     .to(heroLines, { yPercent:0, duration:1.5, ease:'power4.out', stagger:.12 }, .2)
+     .to('#cpxSub', { opacity:1, y:0, duration:1.2, ease:'power3.out' }, 1.1)
+     .to('#cpxScrollCue', { opacity:1, duration:1, ease:'power2.out' }, 1.4);
 
-  // ── Generic scroll reveals ────────────────────────────────────
-  gsap.utils.toArray('.reveal').forEach(el => {
+  var floats = gsap.utils.toArray('.cpx-float');
+  gsap.to(floats, { opacity:1, duration:1.6, ease:'power2.out', stagger:.14, delay:.5 });
+  if (!reduce) {
+    floats.forEach(function(el){
+      var depth = parseFloat(el.getAttribute('data-depth')) || 0.2;
+      gsap.to(el, { yPercent: -depth * 100, ease:'none',
+        scrollTrigger:{ trigger:'.cpx-hero', start:'top top', end:'bottom top', scrub:true } });
+    });
+  }
+
+  // MANIFESTO word highlight
+  var mEl = document.getElementById('cpxManifesto');
+  if (mEl) {
+    var text = mEl.textContent.trim();
+    var words = text.split(/\s+/);
+    mEl.innerHTML = words.map(function(w){ return '<span class="cpx-mword">' + w + '</span>'; }).join(' ');
+    var wordEls = mEl.querySelectorAll('.cpx-mword');
     ScrollTrigger.create({
-      trigger: el, start: 'top 87%', once: true,
-      onEnter: () => gsap.to(el, { opacity:1, y:0, duration:1.2, ease:'power3.out' })
+      trigger:'.cpx-manifesto', start:'top 75%', end:'bottom 55%', scrub:true,
+      onUpdate:function(self){
+        var lit = Math.floor(self.progress * wordEls.length);
+        wordEls.forEach(function(w,i){ if(i<lit){w.classList.add('lit');}else{w.classList.remove('lit');} });
+      }
+    });
+  }
+
+  // Generic reveals
+  gsap.utils.toArray('.rv').forEach(function(el){
+    ScrollTrigger.create({ trigger:el, start:'top 88%', once:true,
+      onEnter:function(){ gsap.to(el,{opacity:1,y:0,duration:1.2,ease:'power3.out'}); } });
+  });
+  gsap.utils.toArray('.rv-l').forEach(function(el){
+    ScrollTrigger.create({ trigger:el, start:'top 86%', once:true,
+      onEnter:function(){ gsap.to(el,{opacity:1,x:0,duration:1.4,ease:'power3.out'}); } });
+  });
+  gsap.utils.toArray('.rv-r').forEach(function(el){
+    ScrollTrigger.create({ trigger:el, start:'top 86%', once:true,
+      onEnter:function(){ gsap.to(el,{opacity:1,x:0,duration:1.4,ease:'power3.out'}); } });
+  });
+  gsap.utils.toArray('.rv-s').forEach(function(el){
+    ScrollTrigger.create({ trigger:el, start:'top 86%', once:true,
+      onEnter:function(){ gsap.to(el,{opacity:1,scale:1,duration:1.4,ease:'power3.out'}); } });
+  });
+
+  // SHOWCASE bottle parallax + float
+  var bottle = document.getElementById('cpxBottle');
+  if (bottle && !reduce) {
+    gsap.fromTo(bottle, { yPercent: 14 }, { yPercent: -14, ease:'none',
+      scrollTrigger:{ trigger:'.cpx-showcase', start:'top bottom', end:'bottom top', scrub:true } });
+    gsap.to(bottle, { y:'+=14', duration:4, ease:'sine.inOut', repeat:-1, yoyo:true });
+  }
+
+  // ROUTES accordion
+  var panels = gsap.utils.toArray('.cpx-route-panel');
+  panels.forEach(function(panel){
+    panel.addEventListener('click', function(){
+      var isOpen = panel.classList.contains('open');
+      panels.forEach(function(p){ p.classList.remove('open'); });
+      if (!isOpen) panel.classList.add('open');
+      ScrollTrigger.refresh();
     });
   });
-  gsap.utils.toArray('.reveal-l').forEach(el => {
-    ScrollTrigger.create({
-      trigger: el, start: 'top 85%', once: true,
-      onEnter: () => gsap.to(el, { opacity:1, x:0, duration:1.4, ease:'power3.out' })
-    });
-  });
-  gsap.utils.toArray('.reveal-r').forEach(el => {
-    ScrollTrigger.create({
-      trigger: el, start: 'top 85%', once: true,
-      onEnter: () => gsap.to(el, { opacity:1, x:0, duration:1.4, ease:'power3.out' })
-    });
-  });
-  gsap.utils.toArray('.reveal-s').forEach(el => {
-    ScrollTrigger.create({
-      trigger: el, start: 'top 85%', once: true,
-      onEnter: () => gsap.to(el, { opacity:1, scale:1, duration:1.4, ease:'power3.out' })
-    });
+
+  // EYOWO parallax bg
+  var eyowoBg = document.getElementById('cpxEyowoBg');
+  if (eyowoBg && !reduce) {
+    gsap.fromTo(eyowoBg, { yPercent: -8 }, { yPercent: 8, ease:'none',
+      scrollTrigger:{ trigger:'.cpx-eyowo', start:'top bottom', end:'bottom top', scrub:true } });
+  }
+
+  // GALLERY horizontal scroll
+  var track = document.getElementById('cpxTrack');
+  if (track && !reduce) {
+    var getDist = function(){ return track.scrollWidth - window.innerWidth + 80; };
+    gsap.to(track, { x:function(){ return -getDist(); }, ease:'none',
+      scrollTrigger:{ trigger:'.cpx-gallery-sec', start:'top top',
+        end:function(){ return '+=' + getDist(); },
+        pin:true, scrub:1, invalidateOnRefresh:true } });
+  }
+
+  // PROCESS timeline rail
+  var fill = document.getElementById('cpxTlFill');
+  if (fill) {
+    ScrollTrigger.create({ trigger:'#cpxTimeline', start:'top 60%', end:'bottom 70%', scrub:true,
+      onUpdate:function(self){ fill.style.height = (self.progress*100) + '%'; } });
+  }
+  gsap.utils.toArray('.cpx-tl-step').forEach(function(step){
+    ScrollTrigger.create({ trigger:step, start:'top 65%', end:'bottom 50%',
+      onToggle:function(self){ step.classList.toggle('active', self.isActive); } });
   });
 
-  // ── Gallery items — stagger on enter ─────────────────────────
-  ScrollTrigger.create({
-    trigger: '.cp-gallery',
-    start: 'top 80%',
-    once: true,
-    onEnter: () => {
-      gsap.to('.cp-gallery-item', {
-        opacity: 1, y: 0, duration: 1.2, ease: 'power3.out',
-        stagger: { amount: 0.6, from: 'start' }
-      });
-    }
-  });
-
-  // ── Triptych panels — stagger left to right ───────────────────
-  gsap.to(['#cpPanel1', '#cpPanel2', '#cpPanel3'], {
-    opacity: 1, duration: 1.4, ease: 'power2.inOut',
-    stagger: 0.2, delay: 0.2
-  });
-
-  // ── Scene accents per section ─────────────────────────────────
-  const sects = [
-    ['.cp-hero',0],['.cp-belief',1],['.cp-delivers',2],
-    ['.cp-process',3],['.cp-routes',4],
-    ['.cp-studio',5],['.cp-engage',6],['.cp-closer',7],
+  // Scene accents
+  var sects = [
+    ['.cpx-hero',0],['.cpx-manifesto',1],['.cpx-principles',2],
+    ['.cpx-showcase',3],['.cpx-routes',4],['.cpx-eyowo',5],
+    ['.cpx-deliver',6],['.cpx-gallery-sec',7],['.cpx-process',8],['.cpx-closer',9]
   ];
-  sects.forEach(([sel, si]) => {
-    const el = document.querySelector(sel);
+  sects.forEach(function(pair){
+    var el = document.querySelector(pair[0]);
     if (!el) return;
-    ScrollTrigger.create({
-      trigger: el, start: 'top 55%',
-      onEnter: () => setScene(si), onEnterBack: () => setScene(si)
-    });
+    ScrollTrigger.create({ trigger:el, start:'top 55%',
+      onEnter:function(){ setScene(pair[1]); }, onEnterBack:function(){ setScene(pair[1]); } });
   });
 };
+
+// ── Mobile hamburger menu ─────────────────────────────────────
+(function() {
+  var burger = document.getElementById('navBurger');
+  var menu   = document.getElementById('navMobile');
+  if (!burger || !menu) return;
+  burger.addEventListener('click', function() {
+    var open = !menu.classList.contains('is-open');
+    burger.classList.toggle('is-open', open);
+    menu.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  menu.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', function() {
+      burger.classList.remove('is-open');
+      menu.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+  });
+})();
