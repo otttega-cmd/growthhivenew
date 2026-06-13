@@ -74,7 +74,10 @@
 /* ── Services ──────────────────────────────────────────────── */
 .svc { padding: 10rem 3rem; background: var(--navy2); }
 .svc-grid { margin-top: 3.5rem; display: grid; grid-template-columns: repeat(3,1fr); }
-.svc-item { padding: 2.6rem; border: 1px solid var(--faint); border-right: none; border-bottom: none; position: relative; overflow: hidden; opacity: 0; transform: translateY(18px); }
+.svc-item { padding: 2.6rem; border: 1px solid var(--faint); border-right: none; border-bottom: none; position: relative; overflow: hidden; opacity: 0; transform: translateY(18px); text-decoration: none; color: inherit; display: block; }
+a.svc-item, a.svc-item:visited { color: inherit; text-decoration: none; }
+.svc-item .sv-name { color: var(--white); text-decoration: none; transition: color .35s var(--ease); }
+.svc-item:hover .sv-name { color: var(--ch); }
 .svc-item:nth-child(3n) { border-right: 1px solid var(--faint); }
 .svc-item:nth-child(4),.svc-item:nth-child(5),.svc-item:nth-child(6) { border-bottom: 1px solid var(--faint); }
 .svc-item::before { content: ''; position: absolute; inset: 0; background: rgba(212,245,60,.07); transform: translateY(101%); transition: transform .55s var(--ease); }
